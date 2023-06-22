@@ -1,23 +1,31 @@
-source "https://rubygems.org"
-ruby "3.2.2"
+# frozen_string_literal: true
 
-gem "rails", "~> 7.0.5"
+source 'https://rubygems.org'
+ruby '3.2.2'
 
-gem "pg" # database
-gem "puma" # webserver for development
-gem "bcrypt" # password hashing
+gem 'rails', '~> 7.0.5'
 
-gem "sprockets-rails" # asset pipeline
-gem "jsbundling-rails" # bundle and transpile JavaScript
-gem "sassc-rails" # use Sass to process CSS
+gem 'pg' # database
+gem 'puma' # webserver for development
+gem 'bcrypt' # password hashing
 
-gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
+gem 'sprockets-rails' # asset pipeline
+gem 'jsbundling-rails' # bundle and transpile JavaScript
+gem 'sassc-rails' # use Sass to process CSS
+
+gem 'bootsnap', require: false # Reduces boot times through caching; required in config/boot.rb
 
 group :development, :test do
   gem 'debug' # debugger
+
+  # code beautifier
+  gem 'rubocop'
+  gem 'rubocop-daemon'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :development do
-  gem "web-console" # Use console on exceptions pages
+  gem 'web-console' # Use console on exceptions pages
 end
-
