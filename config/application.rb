@@ -25,15 +25,29 @@ module FeusportLive
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    config.generators.orm :active_record, primary_key_type: :uuid
+    config.time_zone = 'Berlin'
+    config.i18n.default_locale = :de
 
-    # Don't generate system test files.
+    config.active_job.queue_adapter = :delayed_job
+
     config.generators.system_tests = nil
+    config.generators.helper = false
+    config.generators.assets = false
+    config.generators.test_framework :rspec,
+                                     controller_specs: false,
+                                     fixtures: false,
+                                     routing_specs: false,
+                                     view_specs: false
+
+    config.active_record.belongs_to_required_by_default = false
+    config.active_record.encryption.key_derivation_salt = Rails.application.secrets.encryption_key_derivation_salt
+    config.active_record.encryption.primary_key = Rails.application.secrets.encryption_primary_key
+
+    config.default_url_options = {}
+
+    config.action_mailer.default_options = {
+      from: 'Feuerwehrsport - Live <live@feusport.de>',
+    }
   end
 end

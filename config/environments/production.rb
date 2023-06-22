@@ -87,4 +87,23 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.default_url_options = {
+    host: 'live.feusport.de',
+    port: 443,
+    protocol: :https,
+  }
+
+  # Basic Mailer options
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'mail.lichtbit.com',
+    port: 587,
+    domain: nil,
+    user_name: Rails.application.secrets.smtp_user_name,
+    password: Rails.application.secrets.smtp_password,
+    tls: false,
+    authentication: :login,
+    enable_starttls_auto: true,
+  }
 end

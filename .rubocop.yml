@@ -7,6 +7,7 @@ AllCops:
   - vendor/**/*
   - public/**/*
   - private/**/*
+  - app/models/concerns/schema_validations.rb
   TargetRailsVersion: 7
   TargetRubyVersion: 3.2.2
 Bundler/OrderedGems:

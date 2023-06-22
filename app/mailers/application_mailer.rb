@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
   layout 'mailer'
+
+  protected
+
+  def default_url_options
+    Rails.application.config.default_url_options
+  end
 end
