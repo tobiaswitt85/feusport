@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20230622205414
+# generated from version 20230623081100
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -34,6 +34,26 @@ module SchemaValidations
       self.schema_validations_called = true
     end
 
+
+    def dbv_competitions_validations
+      belongs_to_presence_validations_for([:year])
+      belongs_to_uniqueness_validations_for([["year", "slug"]])
+      uniqueness_validations_for([["year", "slug"]])
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>50}}
+      validates_with_filter :date, {:presence=>{}}
+      validates_with_filter :locality, {:presence=>{}}
+      validates_with_filter :locality, {:length=>{:allow_nil=>true, :maximum=>50}}
+      validates_with_filter :slug, {:presence=>{}}
+      validates_with_filter :slug, {:length=>{:allow_nil=>true, :maximum=>50}}
+      validates_with_filter :year, {:presence=>{}}
+      validates_with_filter :year, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :visible, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
 
     def dbv_delayed_jobs_validations
       belongs_to_presence_validations_for([:priority, :attempts])

@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_22_205414) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_23_081100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "competitions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.string "date", null: false
+    t.string "locality", limit: 50, null: false
+    t.string "slug", limit: 50, null: false
+    t.integer "year", null: false
+    t.boolean "visible", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_competitions_on_date"
+    t.index ["year", "slug"], name: "index_competitions_on_year_and_slug", unique: true
+  end
 
   create_table "delayed_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "priority", default: 0, null: false
