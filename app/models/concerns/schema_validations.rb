@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20230623081100
+# generated from version 20230623144309
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -67,6 +67,32 @@ module SchemaValidations
       validates_with_filter :failed_at, {:date_time_in_db_range=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_users_validations
+      belongs_to_presence_validations_for([:sign_in_count, :failed_attempts])
+      belongs_to_uniqueness_validations_for([["confirmation_token"], ["email"], ["reset_password_token"], ["unlock_token"]])
+      uniqueness_validations_for([["confirmation_token"], ["email"], ["reset_password_token"], ["unlock_token"]])
+      validates_with_filter :email, {:presence=>{}}
+      validates_with_filter :encrypted_password, {:presence=>{}}
+      validates_with_filter :reset_password_sent_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :remember_created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :sign_in_count, {:presence=>{}}
+      validates_with_filter :sign_in_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :current_sign_in_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :last_sign_in_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :confirmed_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :confirmation_sent_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :failed_attempts, {:presence=>{}}
+      validates_with_filter :failed_attempts, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :locked_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :user_manager, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :competition_manager, {:inclusion=>{:in=>[true, false], :message=>:blank}}
     end
 
 

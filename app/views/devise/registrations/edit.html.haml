@@ -1,0 +1,24 @@
+= page_title 'Benutzerkontos bearbeiten'
+
+.row
+  .col-md-8
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      .card
+        .card-body
+          = f.error_notification
+
+          .form-inputs
+            = f.input :name, autofocus: true
+            = f.input :email
+            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+              %p Bestätigung erwartet: #{resource.unconfirmed_email}
+            = f.input :password, input_html: { autocomplete: "new-password" }, hint: "Freilassen, wenn keine Änderung gewünscht ist"
+            = f.input :password_confirmation, input_html: { autocomplete: "new-password" }
+            = f.input :current_password, input_html: { autocomplete: "current-password" }, hint: "Aktuelles Passwort, um Änderungen zu bestätigen"
+          .btn-toolbar.mt-3
+            = f.button :submit, class: 'btn btn-primary'
+  .col-md-4
+    .card
+      .card-body
+        %h3 Benutzerkonto entfernen
+        = link_to 'Jetzt löschen', registration_path(resource_name), data: { turbo_confirm: 'Benutzerkonto wirklich entfernen?', "turbo-method": :delete }, class: "btn btn-danger"

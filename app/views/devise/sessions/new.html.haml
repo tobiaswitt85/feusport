@@ -1,0 +1,17 @@
+= page_title 'Anmelden'
+
+.row
+  .col-md-8
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .card
+        .card-body
+          = f.error_notification
+
+          .form-inputs
+            = f.input :email, autofocus: true, required: false, input_html: { autocomplete: 'email' }
+            = f.input :password, required: false, input_html: { autocomplete: 'current-password' }
+            = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+          .btn-toolbar.mt-3
+            = f.button :submit, 'Anmelden', class: 'btn btn-primary'
+  .col-md-4
+    = render 'devise/shared/links'

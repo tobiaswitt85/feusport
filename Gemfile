@@ -14,6 +14,7 @@ gem 'jsbundling-rails' # bundle and transpile JavaScript
 gem 'cssbundling-rails' # bundle and process CSS
 gem 'sassc-rails' # use Sass to process CSS
 gem 'haml-rails' # haml as template engine
+gem 'turbo-rails' # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 
 gem 'bootsnap', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'generated_schema_validations' # validate models by schema
@@ -24,6 +25,10 @@ gem 'daemons'
 gem 'delayed_job_active_record'
 gem 'delayed_job_schedule'
 gem 'whenever'
+
+gem 'simple_form' # rails form helper
+gem 'devise' # user authentication
+gem 'active_link_to'
 
 group :production do
   gem 'unicorn' # compiled webserver

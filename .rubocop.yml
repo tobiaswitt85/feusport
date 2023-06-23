@@ -51,6 +51,7 @@ Layout/LineLength:
   - config/schedule.rb
   - db/migrate/*
   - Gemfile
+  - config/initializers/devise.rb
   Max: 120
 Layout/SpaceBeforeBrackets:
   Enabled: true
