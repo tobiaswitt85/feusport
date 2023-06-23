@@ -11,7 +11,9 @@ gem 'bcrypt' # password hashing
 
 gem 'sprockets-rails' # asset pipeline
 gem 'jsbundling-rails' # bundle and transpile JavaScript
+gem 'cssbundling-rails' # bundle and process CSS
 gem 'sassc-rails' # use Sass to process CSS
+gem 'haml-rails' # haml as template engine
 
 gem 'bootsnap', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'generated_schema_validations' # validate models by schema

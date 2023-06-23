@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title= "#{@page_title} ".strip + ' - Live - Feuerwehrsportwettkämpfe'
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+  %body
+    .alert-flash
+      - flash.each do |name, msg|
+        - msg = t("alerts.#{msg}", default: msg)
+        - if name == 'alert'
+          .alert.alert-danger= msg
+        - else
+          .alert.alert-info= msg
+    %nav.navbar.navbar-expand-lg.sticky-top.shadow-sm.bg-light
+      .container
+        %a.navbar-brand{ href: root_path, title: 'Startseite' }
+          = image_tag 'logo.png'
+
+    .mt-3.container= yield

@@ -107,6 +107,8 @@ GEM
     chronic (0.10.2)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
+    cssbundling-rails (1.2.0)
+      railties (>= 6.0.0)
     daemons (1.4.1)
     date (3.3.3)
     debug (1.8.0)
@@ -129,6 +131,15 @@ GEM
     generated_schema_validations (0.3.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    haml (6.1.1)
+      temple (>= 0.8.2)
+      thor
+      tilt
+    haml-rails (2.1.0)
+      actionpack (>= 5.1)
+      activesupport (>= 5.1)
+      haml (>= 4.0.6)
+      railties (>= 5.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -286,6 +297,7 @@ GEM
     sshkit (1.21.4)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    temple (0.10.2)
     thor (1.2.2)
     tilt (2.2.0)
     timeout (0.3.2)
@@ -314,11 +326,13 @@ DEPENDENCIES
   bcrypt
   bootsnap
   capistrano-rsync-plugin!
+  cssbundling-rails
   daemons
   debug
   delayed_job_active_record
   delayed_job_schedule
   generated_schema_validations
+  haml-rails
   jsbundling-rails
   m3_capistrano3!
   pg
