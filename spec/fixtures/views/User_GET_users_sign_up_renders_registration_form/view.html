@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<title>Erstellen eines neuen Benutzerkontos - Live - Feuerwehrsport</title>
+<meta content='width=device-width,initial-scale=1' name='viewport'>
+
+
+<link rel="stylesheet" href="/assets/application.css" data-turbo-track="reload" />
+<script src="/assets/application.js" data-turbo-track="reload" defer="defer"></script>
+</head>
+<body>
+<nav class='navbar navbar-expand-lg bg-light shadow-sm'>
+<div class='container'>
+<a class='navbar-brand' href='/' title='Startseite'>
+<img src="/assets/logo.png" />
+</a>
+<button aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Menü anzeigen' class='navbar-toggler' data-bs-target='#navbarSupportedContent' data-bs-toggle='collapse' type='button'>
+<span class='navbar-toggler-icon'></span>
+</button>
+<div class='collapse navbar-collapse' id='navbarSupportedContent'>
+<ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+<li class='nav-item'>
+<a class="nav-link" href="/users/sign_in">Anmelden</a>
+</li>
+</ul>
+</div>
+
+</div>
+</nav>
+<div class='container mt-3'>
+<div class='alert-flash'>
+</div>
+</div>
+<div class='mt-3 container'><h1>Erstellen eines neuen Benutzerkontos</h1>
+<div class='row'>
+<div class='col-md-8'>
+<form class="simple_form new_user" id="new_user" novalidate="novalidate" action="/users" accept-charset="UTF-8" method="post"><div class='card'>
+<div class='card-body'>
+
+<div class='form-inputs'>
+<div class="form-group my-2 string required user_name"><label class="control-label string required" for="user_name">Name <abbr title="required">*</abbr></label><input class="form-control string required" autocomplete="name" autofocus="autofocus" type="text" name="user[name]" id="user_name" /></div>
+<div class="form-group my-2 email required user_email"><label class="control-label email required" for="user_email">E-Mail-Adresse <abbr title="required">*</abbr></label><input class="form-control string email required" autocomplete="email" type="email" name="user[email]" id="user_email" /></div>
+<div class="form-group my-2 password required user_password"><label class="control-label password required" for="user_password">Passwort <abbr title="required">*</abbr></label><input class="form-control password required" autocomplete="new-password" required="required" aria-required="true" type="password" name="user[password]" id="user_password" /></div>
+<div class="form-group my-2 password required user_password_confirmation"><label class="control-label password required" for="user_password_confirmation">Passwortbestätigung <abbr title="required">*</abbr></label><input class="form-control password required" autocomplete="new-password" required="required" aria-required="true" type="password" name="user[password_confirmation]" id="user_password_confirmation" /></div>
+</div>
+<div class='btn-toolbar mt-3'>
+<input type="submit" name="commit" value="Benutzerkonto erstellen" class="btn btn btn-primary" data-disable-with="Benutzerkonto erstellen" />
+</div>
+</div>
+</div>
+</form></div>
+<div class='col-md-4'>
+<div class='card'>
+<div class='card-body'>
+<ul>
+<li><a href="/users/sign_in">Anmelden</a></li>
+<li><a href="/users/confirmation/new">Bestätigungs-E-Mail nicht erhalten?</a></li>
+<li><a href="/users/unlock/new">Entsperr-E-Mail nicht erhalten?</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</body>
+</html>

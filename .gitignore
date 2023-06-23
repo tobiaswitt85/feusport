@@ -35,3 +35,6 @@
 
 /node_modules
 /coverage/
+
+/spec/fixtures/views/*/challenger.*
+/spec/fixtures/views/*/last_run.txt

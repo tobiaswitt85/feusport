@@ -1,0 +1,4 @@
+User GET /users/sign_in  renders the login form
+
+request
+html

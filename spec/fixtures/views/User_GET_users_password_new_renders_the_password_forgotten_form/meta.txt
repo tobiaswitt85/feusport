@@ -1,0 +1,4 @@
+User GET /users/password/new  renders the password forgotten form
+
+request
+html

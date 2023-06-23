@@ -38,12 +38,18 @@ group :development, :test do
   gem 'debug' # debugger
 
   gem 'rspec-rails' # test framework
+  gem 'spec_views' # compare html output
+  gem 'factory_bot' # create db fixtures
+
   # code beautifier
   gem 'rubocop'
   gem 'rubocop-daemon'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+
+  gem 'guard', require: false # on demand tests
+  gem 'guard-rspec', require: false # on demand tests
 
   gem 'simplecov', require: false # test coverage
 end

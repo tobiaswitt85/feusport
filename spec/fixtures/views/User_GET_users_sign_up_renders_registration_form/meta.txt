@@ -1,0 +1,4 @@
+User GET /users/sign_up  renders registration form
+
+request
+html

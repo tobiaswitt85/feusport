@@ -1,0 +1,4 @@
+User GET /users/password/edit  renders the password reset form
+
+request
+html

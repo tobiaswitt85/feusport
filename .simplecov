@@ -14,7 +14,7 @@ SimpleCov.at_exit do
     covered_lines: SimpleCov.result.covered_lines,
     missed_lines: SimpleCov.result.missed_lines,
   }
-  File.write(Rails.root.join('doc/simplecov.json'), JSON.pretty_generate(output))
+  Rails.root.join('doc/simplecov.json').write(JSON.pretty_generate(output))
 
   SimpleCov.result.format!
 end

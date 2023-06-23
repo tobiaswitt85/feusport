@@ -1,0 +1,4 @@
+User GET /users/edit  renders user form
+
+request
+html

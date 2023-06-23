@@ -186,6 +186,8 @@ RSpec/ContainExactly:
   Enabled: true
 RSpec/DuplicatedMetadata:
   Enabled: true
+RSpec/EmptyExampleGroup:
+  Enabled: false
 RSpec/ExampleLength:
   Max: 120
 RSpec/ExcessiveDocstringSpacing:
@@ -280,6 +282,8 @@ Rails/FindById:
   Enabled: true
 Rails/FreezeTime:
   Enabled: true
+Rails/HelperInstanceVariable:
+  Enabled: false
 Rails/I18nLazyLookup:
   Enabled: true
 Rails/I18nLocaleAssignment:
