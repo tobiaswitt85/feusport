@@ -7,7 +7,7 @@
       .card-body.small
         - Competition.current.each do |competition|
           .stretched-links-row
-            .col-3= link_to(competition.date, competition, class: 'stretched-link')
+            .col-3= link_to(competition.date, competition_path(competition.date.year, competition.slug), class: 'stretched-link')
             .col-5= competition.name
             .col-4= competition.locality
   .col-lg-6.pb-4
@@ -16,7 +16,7 @@
       .card-body.small
         - Competition.upcoming.each do |competition|
           .stretched-links-row
-            .col-3= link_to(competition.date, competition, class: 'stretched-link')
+            .col-3= link_to(competition.date, competition_path(competition.date.year, competition.slug), class: 'stretched-link')
             .col-5= competition.name
             .col-4= competition.locality
 .row
@@ -26,7 +26,7 @@
       .card-body.small
         - Competition.previous.each do |competition|
           .stretched-links-row
-            .col-3= link_to(competition.date, competition, class: 'stretched-link')
+            .col-3= link_to(competition.date, competition_path(competition.date.year, competition.slug), class: 'stretched-link')
             .col-5= competition.name
             .col-4= competition.locality
 

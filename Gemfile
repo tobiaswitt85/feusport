@@ -29,6 +29,8 @@ gem 'whenever'
 gem 'simple_form' # rails form helper
 gem 'devise' # user authentication
 gem 'active_link_to'
+gem 'cancancan' # model authentication
+gem 'redcarpet' # markdown to html parser
 
 group :production do
   gem 'unicorn' # compiled webserver

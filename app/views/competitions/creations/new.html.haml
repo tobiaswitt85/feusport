@@ -1,0 +1,19 @@
+= page_title 'Neuen Wettkampf anlegen'
+
+.row
+  .col-md-8
+    = simple_form_for(@competition, url: competitions_creations_path) do |f|
+      .card
+        .card-body
+          = f.error_notification
+
+          .form-inputs
+            = f.input :name, autofocus: true
+            = f.input :date, html5: true
+            = f.input :locality, html5: true
+          .btn-toolbar.mt-3
+            = f.button :submit, 'Erstellen und weiter zum nächsten Schritt', class: 'btn btn-primary'
+  .col-md-4
+    %p Hier kannst du einen neuen (zukünftigen) Wettkampf anlegen. Er erscheint dann in der Terminliste und andere Feuerwehrsportler können ihn sehen. Du kannst später auch Dateien (z.B. die Ausschreibung) hochladen und eine Beschreibung ergänzen.
+    %p Es ist auch möglich, dass sich die Mannschaften gleich hier auf der Seite anmelden können. Dann hast du gleich eine Übersicht, wer alles dabei sein möchte.
+    %p Außerdem kannst du über die Webseite dann auch die Startlisten erstellen und automatisch die Ergebnisse veröffentlichen. Eine Veröffentlichung von Ergebnissen ist auch über das Hochladen von PDFs oder Excel-Listen möglich.

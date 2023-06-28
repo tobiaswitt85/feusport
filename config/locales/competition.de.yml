@@ -1,0 +1,17 @@
+de:
+  activerecord:
+    attributes:
+      competition:
+        name: Name
+        date: Datum
+        locality: Ort
+    models:
+      competition:
+        one: Wettkampf
+        other: Wettkämpfe
+  simple_form:
+    hints:
+      competition:
+        name: "Gib einen kurzen Namen an. Das Datum erscheint extra und braucht nicht im Namen auftauchen."
+        date: "Sollte sich der Wettkampf über mehrere Tage erstrecken, gib den Haupttag an. Weiteres musst du in der Beschreibung ergänzen."
+        locality: "Es sieht besser aus, wenn du hier nur den Namen des Ortes schreibst. Die vollständige Adresse solltest du in der Beschreibung angeben."

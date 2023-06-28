@@ -1,0 +1,18 @@
+= page_title @competition.name
+
+.row
+  .col-md-8
+    = simple_form_for(@competition, url: competition_path) do |f|
+      .card
+        .card-body
+          = f.error_notification
+
+          .form-inputs
+            = f.input :name, autofocus: true
+            = f.input :date, html5: true
+            = f.input :locality, html5: true
+            = f.input :description, html5: true, input_html: { class: 'easymde-required' }
+          .btn-toolbar.mt-3
+            = f.button :submit, 'Bearbeiten', class: 'btn btn-primary'
+
+

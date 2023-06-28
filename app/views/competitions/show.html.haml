@@ -1,0 +1,17 @@
+
+.row
+  .col-md-8
+    .card
+      .card-header
+        = page_title(@competition.name, class: 'display-3')
+        %p.lead= "#{l @competition.date} - #{@competition.locality}"
+      .card-body
+        != @competition.description_html
+  .col-md-4
+    .card
+      .card-body
+        .d-grid.gap-2.col-10.mx-auto
+          = link_to 'Bearbeiten', url_for(action: :edit), class: 'btn btn-light btn-sm'
+          = link_to 'Dokument hinzufügen', url_for(action: :edit), class: 'btn btn-light btn-sm'
+          = link_to 'Disziplinen verwalten', url_for(action: :edit), class: 'btn btn-light btn-sm'
+          = link_to 'Löschen', url_for(action: :edit), class: 'btn btn-danger btn-sm'

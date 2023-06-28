@@ -10,21 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_23_144309) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_27_192802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
+  create_table "bands", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id", null: false
+    t.integer "gender", null: false
+    t.string "name", null: false
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_bands_on_competition_id"
+  end
+
   create_table "competitions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", limit: 50, null: false
-    t.string "date", null: false
     t.string "locality", limit: 50, null: false
     t.string "slug", limit: 50, null: false
     t.integer "year", null: false
     t.boolean "visible", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["date"], name: "index_competitions_on_date"
+    t.date "date", null: false
+    t.uuid "user_id", null: false
+    t.text "description"
+    t.index ["user_id"], name: "index_competitions_on_user_id"
     t.index ["year", "slug"], name: "index_competitions_on_year_and_slug", unique: true
   end
 
@@ -72,4 +84,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_144309) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "bands", "competitions"
+  add_foreign_key "competitions", "users"
 end
