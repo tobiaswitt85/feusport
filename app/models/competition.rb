@@ -4,6 +4,7 @@ class Competition < ApplicationRecord
   schema_validations
 
   belongs_to :user
+  has_many :documents, dependent: :destroy
 
   scope :visible, -> { where(visible: true) }
   scope :current, -> { visible.where(date: (5.days.ago..5.days.from_now)) }
@@ -18,6 +19,11 @@ class Competition < ApplicationRecord
       i += 1
       self.slug = "#{name.to_s.parameterize}-#{i}"
     end
+
+    next if date.blank?
+
+    self.description = "Der Wettkampf *#{name}* findet am **#{I18n.l date}** in **#{locality}** statt.\n\n" \
+                       'Weitere Informationen folgen.'
   end
 
   def description_html

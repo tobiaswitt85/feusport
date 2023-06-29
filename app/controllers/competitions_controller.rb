@@ -10,7 +10,7 @@ class CompetitionsController < ApplicationController
   def update
     @competition.assign_attributes(competition_params)
     if @competition.save
-      redirect_to competition_path, notice: :saved
+      redirect_to competition_path(id: @competition.slug, year: @competition.year), notice: :saved
     else
       flash.now[:alert] = :check_errors
       render action: :edit, status: :unprocessable_entity

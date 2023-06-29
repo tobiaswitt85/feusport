@@ -1,0 +1,14 @@
+de:
+  activerecord:
+    attributes:
+      document:
+        file: Datei
+        title: Titel
+    models:
+      document:
+        one: Dokument
+        other: Dokumente
+  simple_form:
+    hints:
+      document:
+        title: 'Gib eine kurze Beschreibung der Datei an. Zum Beispiel: Ausschreibung'

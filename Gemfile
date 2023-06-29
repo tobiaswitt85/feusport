@@ -31,6 +31,8 @@ gem 'devise' # user authentication
 gem 'active_link_to'
 gem 'cancancan' # model authentication
 gem 'redcarpet' # markdown to html parser
+gem 'image_processing' # generate previews and thumbs
+gem 'activestorage-validator' # validate stored files
 
 group :production do
   gem 'unicorn' # compiled webserver

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resource :creations, only: %i[new create]
   end
   resources :competitions, only: %i[index]
-  resources :competitions, path: '/:year', constraints: { year: /(\d{4})/ }, only: %i[show edit update destroy],
-                           as: :competition
+  resources :competitions, path: '/:year', constraints: { year: /(\d{4})/ },
+                           only: %i[show edit update destroy], as: :competition do
+    resources :documents, only: %i[new create edit update destroy]
+  end
 end

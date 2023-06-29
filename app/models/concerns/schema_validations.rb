@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20230627192802
+# generated from version 20230629074606
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -34,6 +34,39 @@ module SchemaValidations
       self.schema_validations_called = true
     end
 
+
+    def dbv_active_storage_attachments_validations
+      belongs_to_presence_validations_for([:record_id, :blob_id])
+      belongs_to_uniqueness_validations_for([["record_type", "record_id", "name", "blob_id"]])
+      uniqueness_validations_for([["record_type", "record_id", "name", "blob_id"]])
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :record_type, {:presence=>{}}
+      validates_with_filter :record_id, {:presence=>{}}
+      validates_with_filter :blob_id, {:presence=>{}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_active_storage_blobs_validations
+      belongs_to_presence_validations_for([:byte_size])
+      belongs_to_uniqueness_validations_for([["key"]])
+      uniqueness_validations_for([["key"]])
+      validates_with_filter :key, {:presence=>{}}
+      validates_with_filter :filename, {:presence=>{}}
+      validates_with_filter :service_name, {:presence=>{}}
+      validates_with_filter :byte_size, {:presence=>{}}
+      validates_with_filter :byte_size, {:numericality=>{:allow_nil=>true}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_active_storage_variant_records_validations
+      belongs_to_presence_validations_for([:blob_id])
+      belongs_to_uniqueness_validations_for([["blob_id", "variation_digest"]])
+      uniqueness_validations_for([["blob_id", "variation_digest"]])
+      validates_with_filter :blob_id, {:presence=>{}}
+      validates_with_filter :variation_digest, {:presence=>{}}
+    end
 
     def dbv_bands_validations
       belongs_to_presence_validations_for([:competition_id, :gender])
@@ -81,6 +114,15 @@ module SchemaValidations
       validates_with_filter :locked_at, {:date_time_in_db_range=>{}}
       validates_with_filter :failed_at, {:date_time_in_db_range=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_documents_validations
+      validates_with_filter :title, {:presence=>{}}
+      validates_with_filter :title, {:length=>{:allow_nil=>true, :maximum=>200}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 

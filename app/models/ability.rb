@@ -7,5 +7,6 @@ class Ability
     return if user.nil?
 
     can(:manage, Competition)
+    can(:manage, Document)
   end
 end

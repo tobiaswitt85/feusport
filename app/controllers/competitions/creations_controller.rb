@@ -11,7 +11,7 @@ class Competitions::CreationsController < ApplicationController
     @competition = Competition.new(user: current_user)
     @competition.assign_attributes(competition_params)
     if @competition.save
-      redirect_to @competition, notice: :saved
+      redirect_to competition_path(id: @competition.slug, year: @competition.year), notice: :saved
     else
       flash.now[:alert] = :check_errors
       flash.now[:alert] = @competition.errors.inspect
