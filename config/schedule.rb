@@ -3,7 +3,7 @@
 # Use this file to easily define all of your cron jobs.
 
 def rails_command(command)
-  command "/usr/local/bin/feusport-live.rails #{command} | break_long_lines"
+  command "/usr/local/bin/feusport.rails #{command} | break_long_lines"
 end
 
 if environment == 'production'

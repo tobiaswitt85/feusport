@@ -57,7 +57,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "feusport_live_production"
+  # config.active_job.queue_name_prefix = "feusport_production"
 
   config.action_mailer.perform_caching = false
 
@@ -89,7 +89,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.default_url_options = {
-    host: 'live.feusport.de',
+    host: 'feusport.de',
     port: 443,
     protocol: :https,
   }

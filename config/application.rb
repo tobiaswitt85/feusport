@@ -20,7 +20,7 @@ require 'action_view/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module FeusportLive
+module Feusport
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
@@ -47,7 +47,7 @@ module FeusportLive
     config.default_url_options = {}
 
     config.action_mailer.default_options = {
-      from: 'Feuerwehrsport - Live <live@feusport.de>',
+      from: 'Feuerwehrsport <no-reply@feusport.de>',
     }
   end
 end

@@ -2,16 +2,16 @@ default: &default
   adapter: postgresql
   encoding: utf8
   host: localhost
-  database: feusport-live
-  username: feusport-live
-  password: feusport-live
+  database: feusport
+  username: feusport
+  password: feusport
 
 development:
   <<: *default
 
 test:
   <<: *default
-  database: feusport-live-test
+  database: feusport-test
   host: <%= ENV['POSTGRES_HOST'].presence || 'localhost' %>
 
 online_default: &online_default

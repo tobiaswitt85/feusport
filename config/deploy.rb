@@ -3,9 +3,9 @@
 # config valid for current version and patch releases of Capistrano
 lock '~> 3.17'
 
-set :application, 'feusport-live'
-set :repo_url, 'git@github.com:Feuerwehrsport/feusport-live.git'
-set :deploy_to, '/srv/feusport-live'
+set :application, 'feusport'
+set :repo_url, 'git@github.com:Feuerwehrsport/feusport.git'
+set :deploy_to, '/srv/feusport'
 
 set :branch, 'main'
 
