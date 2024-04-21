@@ -4,7 +4,7 @@ namespace :debug do
   desc 'notify about failed delayed jobs'
   task failed_delayed_jobs: :environment do
     # delete failed delayed jobs, when records not found
-    Delayed::Job.where.not(failed_at: nil).where("last_error LIKE 'ActiveRecord::RecordNotFound%'").each do |job|
+    Delayed::Job.where.not(failed_at: nil).where("last_error LIKE 'ActiveRecord::RecordNotFound%'").find_each do |job|
       job.payload_object
     rescue Delayed::DeserializationError
       job.delete

@@ -9,12 +9,20 @@ AllCops:
   - private/**/*
   - app/models/concerns/schema_validations.rb
   TargetRailsVersion: 7
-  TargetRubyVersion: 3.2.2
+  TargetRubyVersion: 3.2.3
 Bundler/OrderedGems:
   Enabled: false
+Capybara/ClickLinkOrButtonStyle:
+  Enabled: true
 Capybara/MatchStyle:
   Enabled: true
 Capybara/NegationMatcher:
+  Enabled: true
+Capybara/RSpec/HaveSelector:
+  Enabled: true
+Capybara/RSpec/PredicateMatcher:
+  Enabled: true
+Capybara/RedundantWithinFind:
   Enabled: true
 Capybara/SpecificActions:
   Enabled: true
@@ -26,9 +34,13 @@ FactoryBot/AssociationStyle:
   Enabled: true
 FactoryBot/ConsistentParenthesesStyle:
   Enabled: true
+FactoryBot/ExcessiveCreateList:
+  Enabled: true
 FactoryBot/FactoryAssociationWithStrategy:
   Enabled: true
 FactoryBot/FactoryNameStyle:
+  Enabled: true
+FactoryBot/IdSequence:
   Enabled: true
 FactoryBot/RedundantFactoryOption:
   Enabled: true
@@ -81,7 +93,13 @@ Lint/EmptyInPattern:
   Enabled: true
 Lint/IncompatibleIoSelectWithFiberScheduler:
   Enabled: true
+Lint/ItWithoutArgumentsInBlock:
+  Enabled: true
 Lint/LambdaWithoutLiteralBlock:
+  Enabled: true
+Lint/LiteralAssignmentInCondition:
+  Enabled: true
+Lint/MixedCaseRange:
   Enabled: true
 Lint/NoReturnInBeginEndBlocks:
   Enabled: true
@@ -92,6 +110,8 @@ Lint/NumberedParameterAssignment:
 Lint/OrAssignmentToConstant:
   Enabled: true
 Lint/RedundantDirGlobSort:
+  Enabled: true
+Lint/RedundantRegexpQuantifiers:
   Enabled: true
 Lint/RefinementImportMethods:
   Enabled: true
@@ -150,6 +170,8 @@ Performance/ConstantRegexp:
   Enabled: true
 Performance/MapCompact:
   Enabled: true
+Performance/MapMethodChain:
+  Enabled: true
 Performance/MethodObjectAsBlock:
   Enabled: true
 Performance/RedundantEqualityComparisonBlock:
@@ -188,6 +210,12 @@ RSpec/DuplicatedMetadata:
   Enabled: true
 RSpec/EmptyExampleGroup:
   Enabled: false
+RSpec/EmptyMetadata:
+  Enabled: true
+RSpec/EmptyOutput:
+  Enabled: true
+RSpec/Eq:
+  Enabled: true
 RSpec/ExampleLength:
   Max: 120
 RSpec/ExcessiveDocstringSpacing:
@@ -198,12 +226,16 @@ RSpec/IdenticalEqualityAssertion:
   Enabled: true
 RSpec/IndexedLet:
   Enabled: true
+RSpec/IsExpectedSpecify:
+  Enabled: true
 RSpec/LetSetup:
   Enabled: false
 RSpec/MatchArray:
   Enabled: true
 RSpec/MessageSpies:
   Enabled: false
+RSpec/MetadataStyle:
+  Enabled: true
 RSpec/MultipleExpectations:
   Enabled: false
 RSpec/MultipleMemoizedHelpers:
@@ -214,31 +246,47 @@ RSpec/NoExpectationExample:
   Enabled: true
 RSpec/PendingWithoutReason:
   Enabled: true
-RSpec/Rails/AvoidSetupHook:
+RSpecRails/AvoidSetupHook:
   Enabled: true
-RSpec/Rails/HaveHttpStatus:
+RSpecRails/HaveHttpStatus:
   Enabled: true
-RSpec/Rails/InferredSpecType:
+RSpecRails/InferredSpecType:
   Enabled: true
-RSpec/Rails/MinitestAssertions:
+RSpecRails/MinitestAssertions:
   Enabled: true
-RSpec/Rails/TravelAround:
+RSpecRails/TravelAround:
+  Enabled: true
+RSpec/ReceiveMessages:
   Enabled: true
 RSpec/RedundantAround:
   Enabled: true
+RSpec/RedundantPredicateMatcher:
+  Enabled: true
+RSpec/RemoveConst:
+  Enabled: true
 RSpec/RepeatedExample:
   Enabled: false
+RSpec/RepeatedSubjectCall:
+  Enabled: true
 RSpec/ScatteredSetup:
   Enabled: false
 RSpec/SkipBlockInsideExample:
   Enabled: true
 RSpec/SortMetadata:
   Enabled: true
+RSpec/SpecFilePathFormat:
+  Enabled: true
+RSpec/SpecFilePathSuffix:
+  Enabled: true
 RSpec/StubbedMock:
   Enabled: false
 RSpec/SubjectDeclaration:
   Enabled: true
+RSpec/UndescriptiveLiteralsDescription:
+  Enabled: true
 RSpec/VerifiedDoubleReference:
+  Enabled: true
+RSpecRails/NegationBeValid:
   Enabled: true
 Rails:
   Enabled: true
@@ -262,6 +310,8 @@ Rails/BulkChangeTable:
   Enabled: false
 Rails/CompactBlank:
   Enabled: true
+Rails/DangerousColumnNames:
+  Enabled: true
 Rails/DeprecatedActiveModelErrorsMethods:
   Enabled: true
 Rails/DotSeparatedKeys:
@@ -275,6 +325,8 @@ Rails/DurationArithmetic:
 Rails/DynamicFindBy:
   AutoCorrect: false
 Rails/EagerEvaluationLogMessage:
+  Enabled: true
+Rails/EnvLocal:
   Enabled: true
 Rails/ExpandedDateRange:
   Enabled: true
@@ -317,6 +369,8 @@ Rails/PluckInWhere:
   Enabled: true
 Rails/RakeEnvironment:
   Enabled: false
+Rails/RedundantActiveRecordAllMethod:
+  Enabled: true
 Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: true
 Rails/RedundantTravelBack:
@@ -334,6 +388,8 @@ Rails/RootJoinChain:
 Rails/RootPathnameMethods:
   Enabled: true
 Rails/RootPublicPath:
+  Enabled: true
+Rails/SelectMap:
   Enabled: true
 Rails/ShortI18n:
   Enabled: true
@@ -361,6 +417,8 @@ Rails/UnknownEnv:
   - production
   - test
 Rails/UnusedIgnoredColumns:
+  Enabled: true
+Rails/UnusedRenderContent:
   Enabled: true
 Rails/WhereEquals:
   Enabled: true
@@ -439,6 +497,8 @@ Style/MagicCommentFormat:
   Enabled: true
 Style/MapCompactWithConditionalBlock:
   Enabled: true
+Style/MapIntoArray:
+  Enabled: true
 Style/MapToHash:
   Enabled: true
 Style/MapToSet:
@@ -476,6 +536,8 @@ Style/RedundantArrayConstructor:
   Enabled: true
 Style/RedundantConstantBase:
   Enabled: true
+Style/RedundantCurrentDirectoryInPath:
+  Enabled: true
 Style/RedundantDoubleSplatHashBraces:
   Enabled: true
 Style/RedundantEach:
@@ -488,17 +550,25 @@ Style/RedundantInitialize:
   Enabled: true
 Style/RedundantLineContinuation:
   Enabled: true
+Style/RedundantRegexpArgument:
+  Enabled: true
 Style/RedundantRegexpConstructor:
   Enabled: true
 Style/RedundantSelfAssignmentBranch:
   Enabled: true
 Style/RedundantStringEscape:
   Enabled: true
+Style/ReturnNilInPredicateMethodDefinition:
+  Enabled: true
 Style/SafeNavigation:
   Enabled: false
 Style/SelectByRegexp:
   Enabled: true
+Style/SingleLineDoEndBlock:
+  Enabled: true
 Style/StringChars:
+  Enabled: true
+Style/SuperWithArgsParentheses:
   Enabled: true
 Style/SwapValues:
   Enabled: true
@@ -508,8 +578,12 @@ Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
+Style/YAMLFileRead:
+  Enabled: true
 require:
-- rubocop-rspec
-- rubocop-rails
-- rubocop-performance
 - rubocop-capybara
+- rubocop-factory_bot
+- rubocop-performance
+- rubocop-rails
+- rubocop-rspec
+- rubocop-rspec_rails

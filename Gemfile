@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '3.2.2'
+ruby '3.2.3'
 
 gem 'rails', '~> 7.0.5'
 
@@ -33,6 +33,13 @@ gem 'cancancan' # model authentication
 gem 'redcarpet' # markdown to html parser
 gem 'image_processing' # generate previews and thumbs
 gem 'activestorage-validator' # validate stored files
+
+# exports
+gem 'caxlsx'
+gem 'prawn'
+gem 'prawn-table'
+gem 'prawn-qrcode'
+gem 'matrix'
 
 group :production do
   gem 'unicorn' # compiled webserver
