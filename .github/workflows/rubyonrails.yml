@@ -11,34 +11,35 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
-  #   services:
-  #     postgres:
-  #       image: postgres:11-alpine
-  #       ports:
-  #         - "5432:5432"
-  #       env:
-  #         POSTGRES_DB: feusport-test
-  #         POSTGRES_USER: feusport
-  #         POSTGRES_PASSWORD: feusport
-  #   env:
-  #     RAILS_ENV: test
-  #     DATABASE_URL: "postgres://feusport:feusport@localhost:5432/feusport-test"
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-
-  #     - name: Install Ruby and gems
-  #       uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
-  #       with:
-  #         bundler-cache: true
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: feusport-test
+          POSTGRES_USER: feusport
+          POSTGRES_PASSWORD: feusport
+    env:
+      RAILS_ENV: test
+      BUNDLE_WITHOUT: production development
+      DATABASE_URL: "postgres://feusport:feusport@localhost:5432/feusport-test"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
       
-  #     - name: Set up database schema
-  #       run: bin/rails db:schema:load
+      - name: Set up database schema
+        run: bin/rails db:schema:load
 
-  #     - name: Run tests
-  #       run: rspec
+      - name: Run tests
+        run: bundle exec rspec
 
   lint:
     runs-on: ubuntu-latest
@@ -55,7 +56,7 @@ jobs:
       
       - name: Security audit dependencies
         run: bundle exec bundler-audit --update
-      # - name: Security audit application code
-      #   run: bin/brakeman -q -w2
+      - name: Security audit application code
+        run: bundle exec brakeman -q -w2
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
