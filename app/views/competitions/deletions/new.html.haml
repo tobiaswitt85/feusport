@@ -1,0 +1,21 @@
+= page_title @competition.name
+
+.row
+  .col-md-8.mb-2
+    .card
+      .card-header
+        = page_title(@competition.name, class: 'display-3')
+        %p.lead= "#{l @competition.date} - #{@competition.locality}"
+      .card-body.text-bg-warning
+        Du willst diesen Wettkampf löschen. Das heißt, dass zugeordneten Anmeldungen, Startlisten und Ergebnisse auch gelöscht werden. Bist du dir sicher?
+      .card-footer
+        = simple_form_for(@deletion, url: competition_deletion_path) do |f|
+          = f.error_notification
+
+          .form-inputs
+            = f.input :confirm, autofocus: true, as: :boolean, label: "Ich will alle gesammelten Daten zu diesem Wettkampf löschen."
+          .btn-toolbar.mt-3
+            = f.button :submit, 'Löschen', class: 'btn-danger'
+            = link_to "Abbrechen", competition_show_path, class: "btn btn-light"
+
+

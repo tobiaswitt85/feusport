@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class DocumentsController < ApplicationController
-  before_action :load_competition
-  authorize_resource :competition
+class Competitions::DocumentsController < CompetitionNestedController
   load_and_authorize_resource :document, through: :competition
 
   def new
@@ -15,7 +13,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(competition: @competition)
     @document.assign_attributes(document_params)
     if @document.save
-      redirect_to competition_path(id: @competition.slug), notice: :saved
+      redirect_to competition_show_path, notice: :saved
     else
       flash.now[:alert] = :check_errors
       render action: :new, status: :unprocessable_entity
@@ -25,7 +23,7 @@ class DocumentsController < ApplicationController
   def update
     @document.assign_attributes(document_params)
     if @document.save
-      redirect_to competition_path(id: @competition.slug), notice: :saved
+      redirect_to competition_show_path, notice: :saved
     else
       flash.now[:alert] = :check_errors
       render action: :edit, status: :unprocessable_entity
@@ -34,14 +32,10 @@ class DocumentsController < ApplicationController
 
   def destroy
     @document.destroy
-    redirect_to competition_path(id: @competition.slug), notice: :deleted
+    redirect_to competition_show_path, notice: :deleted
   end
 
   protected
-
-  def load_competition
-    @competition = Competition.find_by!(year: params[:year], slug: params[:competition_id])
-  end
 
   def document_params
     params.require(:document).permit(

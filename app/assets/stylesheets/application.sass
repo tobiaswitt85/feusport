@@ -9,11 +9,21 @@
   width: 2rem
 
 .stretched-links-row
-   @extend .row
-   @extend .position-relative
+  @extend .row
+  @extend .position-relative
 
-   &:hover
+  &:hover
     background-color: $light
 
 .sm
   font-size: 0.8rem
+
+.form-group.boolean
+  margin-bottom: 2rem
+  small
+    margin-left: -1.5rem
+    display: block
+
+.btn-toolbar
+  input[type=submit] + a
+    margin-left: 0.25rem

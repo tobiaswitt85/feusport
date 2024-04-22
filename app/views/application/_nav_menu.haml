@@ -3,21 +3,28 @@
 %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Menü anzeigen", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", type: "button"}
   %span.navbar-toggler-icon
 #navbarSupportedContent.collapse.navbar-collapse
-  %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-    %li.nav-item
-      = active_link_to('neuer Wettkampf', new_competitions_creations_path, class: 'nav-link')
-    - unless user_signed_in?
+  - if competition_nested?
+    %ul.navbar-nav.me-auto.mb-2.mb-lg-0
       %li.nav-item
-        = active_link_to('Anmelden', new_user_session_path, class: 'nav-link')
-    - else
-      %li.nav-item.dropdown
-        %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button"}
-          Benutzer
-        %ul.dropdown-menu
-          %li
-            = active_link_to('Bearbeiten', edit_user_registration_path, class: 'dropdown-item')
-          %li
-            %hr.dropdown-divider/
-          %li
-            = active_link_to('Abmelden', destroy_user_session_path, data: { "turbo-method": :delete }, class: 'dropdown-item')
+        = active_link_to(competition_show_path, class: 'nav-link') do
+          = @competition.name
+          .small #{l(@competition.date)} - #{@competition.locality}
+  - else
+    %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+      %li.nav-item
+        = active_link_to('neuer Wettkampf', new_competition_path, class: 'nav-link')
+      - unless user_signed_in?
+        %li.nav-item
+          = active_link_to('Anmelden', new_user_session_path, class: 'nav-link')
+      - else
+        %li.nav-item.dropdown
+          %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button"}
+            Benutzer
+          %ul.dropdown-menu
+            %li
+              = active_link_to('Bearbeiten', edit_user_registration_path, class: 'dropdown-item')
+            %li
+              %hr.dropdown-divider/
+            %li
+              = active_link_to('Abmelden', destroy_user_session_path, data: { "turbo-method": :delete }, class: 'dropdown-item')
 

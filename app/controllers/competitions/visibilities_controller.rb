@@ -1,21 +1,15 @@
 # frozen_string_literal: true
 
-class CompetitionsController < ApplicationController
-  load_and_authorize_resource :competition
+class Competitions::VisibilitiesController < CompetitionNestedController
+  def edit; end
 
-  def new
-    @competition = Competition.new(user: current_user)
-  end
-
-  def create
-    @competition = Competition.new(user: current_user)
+  def update
     @competition.assign_attributes(competition_params)
     if @competition.save
       redirect_to competition_show_path(slug: @competition.slug, year: @competition.year), notice: :saved
     else
       flash.now[:alert] = :check_errors
-      flash.now[:alert] = @competition.errors.inspect
-      render action: :new, status: :unprocessable_entity
+      render action: :edit, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +17,7 @@ class CompetitionsController < ApplicationController
 
   def competition_params
     params.require(:competition).permit(
-      :name, :date, :locality
+      :slug, :visible
     )
   end
 end

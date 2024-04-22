@@ -7,12 +7,12 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
   }
 
-  namespace :competitions do
-    resource :creations, only: %i[new create]
-  end
-  resources :competitions, only: %i[index]
-  resources :competitions, path: '/:year', constraints: { year: /(\d{4})/ },
-                           only: %i[show edit update destroy], as: :competition do
+  resources :competitions, only: %i[new create index]
+  scope '/:year/:slug', constraints: { year: /(\d{4})/ }, module: :competitions, as: :competition do
+    root 'showings#show', as: :show
+    resource :editing, only: %i[edit update]
+    resource :visibility, only: %i[edit update]
+    resource :deletion, only: %i[new create]
     resources :documents, only: %i[new create edit update destroy]
   end
 end

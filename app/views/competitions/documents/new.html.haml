@@ -1,15 +1,15 @@
-= page_title 'Dokument bearbeiten', competition: @competition
+= page_title 'Dokument hinzufügen'
 
 .row
   .col-md-8
-    = simple_form_for(@document, url: competition_document_path) do |f|
+    = simple_form_for(@document, url: competition_documents_path) do |f|
       .card
         .card-body
           = f.error_notification
 
           .form-inputs
             = f.input :title
-            = f.input :file, hint: 'Wenn du eine neue Datei angibst, wird die vorhandene Datei ersetzt.'
+            = f.input :file
           .btn-toolbar.mt-3
             = f.button :submit, 'Hochladen', class: 'btn btn-primary'
   .col-md-4

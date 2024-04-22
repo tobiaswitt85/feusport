@@ -1,0 +1,16 @@
+= page_title 'Sichtbarkeitseinstellungen'
+
+.row
+  .col-md-8
+    = simple_form_for(@competition, url: competition_visibility_path) do |f|
+      .card
+        .card-body
+          = f.error_notification
+
+          .form-inputs
+            = f.input :visible, autofocus: true
+            = f.input :slug
+          .btn-toolbar.mt-3
+            = f.button :submit, 'Bearbeiten', class: 'btn btn-primary'
+
+

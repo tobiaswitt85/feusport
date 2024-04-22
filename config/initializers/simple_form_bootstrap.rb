@@ -130,7 +130,7 @@ SimpleForm.setup do |config|
     b.optional :minlength
     b.optional :readonly
     b.use :label
-    b.use :input, class: 'form-control-file', error_class: 'is-invalid', valid_class: nil
+    b.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: nil
     b.use :full_error, wrap_with: { tag: 'div', class: 'invalid-feedback' }
     b.use :hint, wrap_with: { tag: 'small', class: 'form-text text-muted' }
   end
