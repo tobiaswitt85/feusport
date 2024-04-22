@@ -54,8 +54,8 @@ jobs:
           bundler-cache: true
       
       - name: Security audit dependencies
-        run: bundler-audit --update
+        run: bundle exec bundler-audit --update
       # - name: Security audit application code
       #   run: bin/brakeman -q -w2
       - name: Lint Ruby files
-        run: rubocop --parallel
+        run: bundle exec rubocop --parallel
