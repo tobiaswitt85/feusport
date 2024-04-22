@@ -1,0 +1,9 @@
+- if competitions.accessible_by(current_ability).exists?
+  .card.mb-4
+    .card-header= header
+    .card-body.small
+      - competitions.accessible_by(current_ability).each do |competition|
+        .stretched-links-row
+          .col-3= link_to(competition.date, competition_path(competition), class: 'stretched-link')
+          .col-5= competition.name
+          .col-4= competition.locality

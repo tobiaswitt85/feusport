@@ -1,31 +1,10 @@
-%h1 Feuerwehrsport - Wettkämpfe erleben
+- page_title('Überblick')
 
 .row
   .col-lg-6.pb-4
-    .card
-      .card-header Laufende Wettkämpfe
-      .card-body.small
-        - Competition.current.each do |competition|
-          .stretched-links-row
-            .col-3= link_to(competition.date, competition_path(competition), class: 'stretched-link')
-            .col-5= competition.name
-            .col-4= competition.locality
+    = render('competitions_card', header: 'Laufende Wettkämpfe', competitions: Competition.current)
+    = render('competitions_card', header: 'Kommende Wettkämpfe', competitions: Competition.upcoming)
+    = render('competitions_card', header: 'Vergangene Wettkämpfe', competitions: Competition.previous)
+
   .col-lg-6.pb-4
-    .card
-      .card-header Kommende Wettkämpfe
-      .card-body.small
-        - Competition.upcoming.each do |competition|
-          .stretched-links-row
-            .col-3= link_to(competition.date, competition_path(competition), class: 'stretched-link')
-            .col-5= competition.name
-            .col-4= competition.locality
-.row
-  .col-lg-6.pb-4
-    .card
-      .card-header Vergangene Wettkämpfe
-      .card-body.small
-        - Competition.previous.each do |competition|
-          .stretched-links-row
-            .col-3= link_to(competition.date, competition_path(competition), class: 'stretched-link')
-            .col-5= competition.name
-            .col-4= competition.locality
+    = render('info_card')
