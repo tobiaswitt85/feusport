@@ -64,7 +64,9 @@ group :development, :test do
 
   gem 'simplecov', require: false # test coverage
 
+  # audit tools
   gem 'bundler-audit'
+  gem 'brakeman'
 end
 
 group :development do

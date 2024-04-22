@@ -99,6 +99,8 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
+    brakeman (6.1.2)
+      racc
     builder (3.2.4)
     bundler-audit (0.9.1)
       bundler (>= 1.2.0, < 3)
@@ -454,6 +456,7 @@ DEPENDENCIES
   activestorage-validator
   bcrypt
   bootsnap
+  brakeman
   bundler-audit
   cancancan
   capistrano-rsync-plugin!
