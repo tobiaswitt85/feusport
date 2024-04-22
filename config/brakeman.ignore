@@ -1,0 +1,40 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "e88c7ca3ecd90e4e7e2aee81df05bd04bbf26eded928b0fea52178dd03ca45d5",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/competitions/showings/show.html.haml",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Competition.find_by!(:year => params[:year], :slug => params[:slug]).description_html",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Competitions::ShowingsController",
+          "method": "show",
+          "line": 5,
+          "file": "app/controllers/competitions/showings_controller.rb",
+          "rendered": {
+            "name": "competitions/showings/show",
+            "file": "app/views/competitions/showings/show.html.haml"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "competitions/showings/show"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "cwe_id": [
+        79
+      ],
+      "note": ""
+    }
+  ],
+  "updated": "2024-04-22 10:38:54 +0200",
+  "brakeman_version": "6.1.2"
+}
