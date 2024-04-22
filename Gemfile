@@ -63,6 +63,8 @@ group :development, :test do
   gem 'guard-rspec', require: false # on demand tests
 
   gem 'simplecov', require: false # test coverage
+
+  gem 'bundler-audit'
 end
 
 group :development do
