@@ -26,7 +26,7 @@
             = link_to 'Löschen', new_competition_deletion_path, class: 'btn btn-danger btn-sm'
           = social_share_button_tag
       .card-footer.text-center.p-0.pt-3
-        %code.small= link_to(competition_show_url, competition_show_url)
+        %pre.small= link_to(competition_show_url.gsub(/https?:\/\//, ""), competition_show_url)
         = image_tag qrcode(competition_show_url)
 
 - if @competition.documents.exists?
