@@ -2,9 +2,7 @@
 
 .row
   .col-lg-6.pb-4
-    = render('competitions_card', header: 'Laufende Wettkämpfe', competitions: Competition.current)
-    = render('competitions_card', header: 'Kommende Wettkämpfe', competitions: Competition.upcoming)
-    = render('competitions_card', header: 'Vergangene Wettkämpfe', competitions: Competition.previous)
+    = render('competitions_card', competitions: Competition.all.upcoming)
 
   .col-lg-6.pb-4
     = render('info_card')

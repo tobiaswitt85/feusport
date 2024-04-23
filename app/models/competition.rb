@@ -30,4 +30,12 @@ class Competition < ApplicationRecord
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     markdown.render(description)
   end
+
+  def year_and_month
+    @year_and_month ||= "#{date.year}-#{date.month}"
+  end
+
+  def disciplines
+    @disciplines ||= %w[hl hb la gs fs].shuffle.sample(5.times.to_a.sample)
+  end
 end

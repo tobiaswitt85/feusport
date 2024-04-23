@@ -1,9 +1,30 @@
 - if competitions.accessible_by(current_ability).exists?
-  .card.mb-4
-    .card-header= header
-    .card-body.small
-      - competitions.accessible_by(current_ability).each do |competition|
-        .stretched-links-row
-          .col-3= link_to(competition.date, competition_path(competition), class: 'stretched-link')
-          .col-5= competition.name
-          .col-4= competition.locality
+  .card.p-2
+    - competitions.accessible_by(current_ability).reorder(:date).group_by(&:year_and_month).each do |date, competitions|
+      - sample = competitions.first
+      %h2.text-center.mt-1.mb-3
+        .far.fa-calendar-alt
+        = "#{l(sample.date, format: "%B")} #{sample.date.year}"
+
+      .list-competitions.mb-3
+        - competitions.each do |competition|
+          .d-flex.justify-content-center
+            = link_to(competition_path(competition), class: 'list-group-item list-group-item-action') do
+              .d-flex.flex-row
+                - disciplines = competition.disciplines
+                - if disciplines.count == 0
+                  .disciplines
+                - elsif disciplines.count == 1
+                  .disciplines.one-discipline
+                    %img{ src: image_path("disciplines/#{disciplines[0]}.svg") }
+                - else
+                  .disciplines.four-discipline
+                    - (1..disciplines.count).each do |i|
+                      %img{ src: image_path("disciplines/#{disciplines[i-1]}.svg") }
+                .ml-2
+                  %h6.mb-0= competition.name
+                  .about
+                    %span= l(competition.date)
+                    %span= competition.locality
+          -# %ul.list-group.text-white
+          -#   %li.list-group-item.d-flex.justify-content-between.align-content-center

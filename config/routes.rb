@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   root 'home#home'
+  get 'info', to: 'home#info', as: :info
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',

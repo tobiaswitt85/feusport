@@ -4,6 +4,7 @@
 @import fontawesome/regular
 
 @import "easymde/dist/easymde.min"
+@import social_share_buttons
 
 .navbar-brand img
   width: 2rem
@@ -27,3 +28,33 @@
 .btn-toolbar
   input[type=submit] + a
     margin-left: 0.25rem
+
+
+
+.list-competitions
+  .disciplines
+    width: 3rem
+    margin: 0.2rem 1rem 0.2rem 0.2rem
+
+    &.one-discipline
+      img
+        width: 2.1rem
+    &.four-discipline
+      img
+        width: 1rem
+
+  .list-group-item
+    width: 90%
+    margin-bottom: 1rem
+    border-radius: 0.2rem
+    background: $light
+    cursor: pointer
+    transition: all 0.3s ease-in-out
+
+    &:hover
+      transform: scaleX(1.1)
+
+  .about span
+    font-size: 12px
+    margin-right: 10px
+
