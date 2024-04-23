@@ -8,8 +8,8 @@ class Ability
 
     return if user.nil?
 
-    can(:manage, Competition)
-    can(:manage, Document)
+    can(:manage, Competition, user:)
+    can(:manage, Document, competition: { user: })
   end
 
   def global_abilities
