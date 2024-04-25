@@ -3,10 +3,7 @@
 .row
   .col-md-8
     = card("Wertungen von #{@discipline.name}") do |card|
-      - unless @discipline.assessments.exists?
-        - card.body do
-          .alert.alert-info Keine Einträge gefunden
-      - else
+      - if @discipline.assessments.exists?
         - card.direct do
           %table.table
             - @discipline.assessments.each do |assessment|
@@ -14,13 +11,16 @@
                 %td= assessment
                 %td.text-right
                   = btn_link_to 'Ansehen', assessment
+      - else
+        - card.body do
+          .alert.alert-info Keine Einträge gefunden
   .col-md-4
     = card('Aktionen') do |card|
       - card.body do
         .d-grid.gap-2
           = btn_link_to 'Bearbeiten', { action: :edit }
           - if @discipline.destroy_possible?
-            = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: "delete", turbo_confirm: 'Disziplin wirklich löschen?' }
+            = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Disziplin wirklich löschen?' }
           - else
             .alert.alert-warning
               Diese Disziplin kann nicht gelöscht werden. Es sind Wertungen zugeordnet.

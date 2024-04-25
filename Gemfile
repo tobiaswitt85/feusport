@@ -58,6 +58,7 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'haml-lint', require: false
 
   gem 'guard', require: false # on demand tests
   gem 'guard-rspec', require: false # on demand tests

@@ -9,8 +9,8 @@
           = f.full_error :confirmation_token
 
           .form-inputs
-            = f.input :email, autofocus: true, required: true, input_html: { autocomplete: "email" }, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+            = f.input :email, autofocus: true, required: true, input_html: { autocomplete: 'email' }, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
           .btn-toolbar.mt-3
             = f.button :submit, 'Link zusenden', class: 'btn btn-primary'
   .col-md-4
-    = render "devise/shared/links"
+    = render 'devise/shared/links'

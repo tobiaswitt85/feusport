@@ -4,7 +4,7 @@
     .card
       .card-header
         = page_title(@competition.name, class: 'display-3')
-        %p.lead= "#{l @competition.date} - #{@competition.locality}"
+        %p.lead #{l @competition.date} - #{@competition.locality}
       .card-body
         != @competition.description_html
   .col-md-4.mb-2
@@ -29,7 +29,7 @@
             %hr
             = link_to 'Disziplinen', competition_disciplines_path, class: 'btn btn-light btn-sm'
       .card-footer.text-center.p-0.pt-3
-        %pre.small= link_to(competition_show_url.gsub(/https?:\/\//, ""), competition_show_url)
+        %pre.small= link_to(competition_show_url.gsub(%r{https?://}, ''), competition_show_url)
         = image_tag qrcode(competition_show_url)
 
 - if @competition.documents.exists?
@@ -43,11 +43,11 @@
               - if can?(:manage, document)
                 .float-end
                   .btn-group
-                    = link_to(edit_competition_document_path(id: document.id), class: "btn btn-light btn-sm") do
+                    = link_to(edit_competition_document_path(id: document.id), class: 'btn btn-light btn-sm') do
                       .far.fa-edit
-                    = link_to(competition_document_path(id: document.id), class: "btn btn-light btn-sm", data: { turbo_confirm: 'Dokument wirklich entfernen?', "turbo-method": :delete }) do
+                    = link_to(competition_document_path(id: document.id), class: 'btn btn-light btn-sm', data: { turbo_confirm: 'Dokument wirklich entfernen?', 'turbo-method': :delete }) do
                       .far.fa-trash
-              = link_to rails_blob_path(document.file, disposition: "attachment") do
+              = link_to rails_blob_path(document.file, disposition: 'attachment') do
                 .row
                   .col-3
                     - if document.file.representable?
@@ -57,5 +57,3 @@
                     .sm= number_to_human_size document.file.byte_size
                     .sm= document.file.filename
                     .sm Stand: #{l document.updated_at}
-
-

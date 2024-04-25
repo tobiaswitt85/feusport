@@ -8,11 +8,11 @@
           = f.error_notification
 
           .form-inputs
-            = f.input :name, autofocus: true, input_html: { autocomplete: "name" }
-            = f.input :email, input_html: { autocomplete: "email" }
-            = f.input :password, required: true, input_html: { autocomplete: "new-password" }
-            = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
+            = f.input :name, autofocus: true, input_html: { autocomplete: 'name' }
+            = f.input :email, input_html: { autocomplete: 'email' }
+            = f.input :password, required: true, input_html: { autocomplete: 'new-password' }
+            = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password' }
           .btn-toolbar.mt-3
             = f.button :submit, class: 'btn btn-primary'
   .col-md-4
-    = render "devise/shared/links"
+    = render 'devise/shared/links'

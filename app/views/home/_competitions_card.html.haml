@@ -1,10 +1,10 @@
 - if competitions.accessible_by(current_ability).exists?
   .card.p-2
-    - competitions.accessible_by(current_ability).reorder(:date).group_by(&:year_and_month).each do |date, competitions|
+    - competitions.accessible_by(current_ability).reorder(:date).group_by(&:year_and_month).each_value do |competitions|
       - sample = competitions.first
       %h2.text-center.mt-1.mb-3
         .far.fa-calendar-alt
-        = "#{l(sample.date, format: "%B")} #{sample.date.year}"
+        #{l(sample.date, format: '%B')} #{sample.date.year}
 
       .list-competitions.mb-3
         - competitions.each do |competition|
@@ -20,11 +20,9 @@
                 - else
                   .disciplines.four-discipline
                     - (1..disciplines.count).each do |i|
-                      %img{ src: image_path("disciplines/#{disciplines[i-1]}.svg") }
+                      %img{ src: image_path("disciplines/#{disciplines[i - 1]}.svg") }
                 .ml-2
                   %h6.mb-0= competition.name
                   .about
                     %span= l(competition.date)
                     %span= competition.locality
-          -# %ul.list-group.text-white
-          -#   %li.list-group-item.d-flex.justify-content-between.align-content-center

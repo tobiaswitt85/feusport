@@ -10,9 +10,9 @@
           = f.full_error :reset_password_token
 
           .form-inputs
-            = f.input :password, required: true, autofocus: true, input_html: { autocomplete: "new-password" }, label: "Neues Passwort"
-            = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
+            = f.input :password, required: true, autofocus: true, input_html: { autocomplete: 'new-password' }, label: 'Neues Passwort'
+            = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password' }
           .btn-toolbar.mt-3
             = f.button :submit, 'Passwort ändern', class: 'btn btn-primary'
   .col-md-4
-    = render "devise/shared/links"
+    = render 'devise/shared/links'

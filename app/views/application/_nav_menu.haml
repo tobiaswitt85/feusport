@@ -1,8 +1,8 @@
 %a.navbar-brand{ href: root_path, title: 'Startseite' }
   = image_tag 'logo.png'
-%button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Menü anzeigen", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", type: "button"}
+%button.navbar-toggler{ 'aria-controls' => 'navbar-supported-content', 'aria-expanded' => 'false', 'aria-label' => 'Menü anzeigen', 'data-bs-target' => '#navbar-supported-content', 'data-bs-toggle' => 'collapse', type: 'button' }
   %span.navbar-toggler-icon
-#navbarSupportedContent.collapse.navbar-collapse
+.collapse.navbar-collapse#navbar-supported-content
   - if competition_nested?
     %ul.navbar-nav.me-auto.mb-2.mb-lg-0
       %li.nav-item
@@ -12,28 +12,25 @@
     - if can?(:manage, @competition)
       %ul.navbar-nav.me-end.mb-2.mb-lg-0
         %li.nav-item.dropdown
-          %a#navbarDropdownMenuLink.nav-link.dropdown-toggle{ href: '#', role: 'button', "data-bs-toggle" => "dropdown", "aria-expanded" => "false" }
+          %a.nav-link.dropdown-toggle#navbar-dropdown-menu-link{ href: '#', role: 'button', 'data-bs-toggle' => 'dropdown', 'aria-expanded' => 'false' }
             .far.fa-wrench
 
-          %ul.dropdown-menu{ "aria-labelledby" => "navbarDropdownMenuLink" }
+          %ul.dropdown-menu{ 'aria-labelledby' => 'navbar-dropdown-menu-link' }
             %li
-              = active_link_to("Disziplinen", competition_disciplines_path, class: 'dropdown-item')
+              = active_link_to('Disziplinen', competition_disciplines_path, class: 'dropdown-item')
             %li
-              %a.dropdown-item{ href: "#" } Another
+              %a.dropdown-item{ href: '#' } Another
             %li
-              %a.dropdown-item{ href: "#" } Something
+              %a.dropdown-item{ href: '#' } Something
   - else
     %ul.navbar-nav.me-auto.mb-2.mb-lg-0
       %li.nav-item
         = active_link_to('Wettkampf anlegen', new_competition_path, class: 'nav-link')
       %li.nav-item
         = active_link_to('Über feusport.de', info_path, class: 'nav-link')
-      - unless user_signed_in?
-        %li.nav-item
-          = active_link_to('Anmelden', new_user_session_path, class: 'nav-link')
-      - else
+      - if user_signed_in?
         %li.nav-item.dropdown
-          %a.nav-link.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", href: "#", role: "button"}
+          %a.nav-link.dropdown-toggle{ 'aria-expanded' => 'false', 'data-bs-toggle' => 'dropdown', href: '#', role: 'button' }
             Benutzer
           %ul.dropdown-menu
             %li
@@ -41,6 +38,7 @@
             %li
               %hr.dropdown-divider/
             %li
-              = active_link_to('Abmelden', destroy_user_session_path, data: { "turbo-method": :delete }, class: 'dropdown-item')
-
-
+              = active_link_to('Abmelden', destroy_user_session_path, data: { 'turbo-method': :delete }, class: 'dropdown-item')
+      - else
+        %li.nav-item
+          = active_link_to('Anmelden', new_user_session_path, class: 'nav-link')
