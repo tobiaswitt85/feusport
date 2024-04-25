@@ -1,4 +1,4 @@
-.card
+.card{ class: card.options[:class] }
   - if card.title.present? || card.header.present?
     .card-header= card.title.presence
   - if card.direct.present?

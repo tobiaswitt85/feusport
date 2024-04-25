@@ -17,11 +17,9 @@
 
           %ul.dropdown-menu{ 'aria-labelledby' => 'navbar-dropdown-menu-link' }
             %li
-              = active_link_to('Disziplinen', competition_disciplines_path, class: 'dropdown-item')
+              = active_link_to(Discipline.model_name.human(count: :many), competition_disciplines_path, class: 'dropdown-item')
             %li
-              %a.dropdown-item{ href: '#' } Another
-            %li
-              %a.dropdown-item{ href: '#' } Something
+              = active_link_to(Band.model_name.human(count: :many), competition_bands_path, class: 'dropdown-item')
   - else
     %ul.navbar-nav.me-auto.mb-2.mb-lg-0
       %li.nav-item

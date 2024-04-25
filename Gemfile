@@ -28,7 +28,8 @@ gem 'whenever'
 
 gem 'simple_form' # rails form helper
 gem 'devise' # user authentication
-gem 'active_link_to'
+gem 'active_link_to' # add class to link
+gem 'acts_as_list' # position in lists
 gem 'cancancan' # model authentication
 gem 'redcarpet' # markdown to html parser
 gem 'image_processing' # generate previews and thumbs

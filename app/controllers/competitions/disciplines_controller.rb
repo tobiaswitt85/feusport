@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Competitions::DisciplinesController < CompetitionNestedController
-  load_and_authorize_resource :discipline, through: :competition
+  default_resource
   before_action :assign_new_discipline, only: %i[new create]
 
   def create

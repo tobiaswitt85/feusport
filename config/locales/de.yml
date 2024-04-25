@@ -1,5 +1,7 @@
 de:
   a:
+    actions: Aktionen
+    no_entries_found: Keine Einträge gefunden
     show: Ansehen
     add: 'Hinzufügen'
   social_share_button:
@@ -11,6 +13,12 @@ de:
     telegram: Telegram
     whatsapp_app: WhatsApp
     whatsapp_web: WhatsApp Web
+
+
+  gender:
+    female: weiblich
+    male: männlich
+    indifferent: ungeschlechtlich
 
   activerecord:
     errors:

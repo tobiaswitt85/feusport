@@ -1,0 +1,15 @@
+%table.table
+  %tr
+    %th= resource_class.human_attribute_name(:name)
+    %th= resource_class.human_attribute_name(:gender)
+    %th= resource_class.human_attribute_name(:assessments)
+    %th
+  - resource_collection.each do |band|
+    %tr
+      %td= band.name
+      %td= band.translated_gender
+      %td= band.assessments.count
+      %td.text-end
+        = btn_link_to '↥', { action: :edit, id: band, move: :up }, disabled: band.first?
+        = btn_link_to '↧', { action: :edit, id: band, move: :down }, disabled: band.last?
+        = btn_link_to(t('a.show'), competition_band_path(id: band.id))

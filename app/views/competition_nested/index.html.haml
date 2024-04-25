@@ -1,0 +1,16 @@
+- page_title(resource_class.model_name.human(count: :many))
+
+.row
+  .col-md-8
+    = card(resource_class.model_name.human(count: :many)) do |card|
+      - if resource_collection.exists?
+        - card.direct do
+          = render('index_table', resource_class:, resource_collection:)
+      - else
+        - card.body do
+          .alert.alert-info= t('a.no_entries_found')
+
+      - card.actions do
+        = btn_link_to(t('a.add'), action: :new)
+    = render('index_bottom', resource_class:, resource_collection:)
+  .col-md-4= render('index_right', resource_class:, resource_collection:)

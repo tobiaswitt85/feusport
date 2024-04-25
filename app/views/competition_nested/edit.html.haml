@@ -1,0 +1,7 @@
+- page_title "#{resource_class.model_name.human} aktualisieren"
+
+.row
+  .col-md-8
+    = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update)) do |f|
+      = card "#{resource_class.model_name.human} aktualisieren" do |card|
+        = render('form', f:, card:)

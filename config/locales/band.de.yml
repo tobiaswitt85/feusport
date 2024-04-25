@@ -1,0 +1,11 @@
+de:
+  activerecord:
+    attributes:
+      band:
+        assessments: Wertungen
+        gender: Geschlecht
+        name: Name
+    models:
+      band:
+        one: Wertungsgruppe
+        other: Wertungsgruppen

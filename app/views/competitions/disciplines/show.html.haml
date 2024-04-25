@@ -15,7 +15,7 @@
         - card.body do
           .alert.alert-info Keine Einträge gefunden
   .col-md-4
-    = card('Aktionen') do |card|
+    = card(t('a.actions')) do |card|
       - card.body do
         .d-grid.gap-2
           = btn_link_to 'Übersicht', { action: :index }
