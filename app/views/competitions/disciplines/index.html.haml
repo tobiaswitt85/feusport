@@ -2,15 +2,21 @@
 
 .row
   .col-md-8
-    = card Discipline.model_name.human(count: :many) do |card|
+    = card(Discipline.model_name.human(count: :many)) do |card|
       - card.direct do
         %table.table
           %tr
+            %th
             %th= Discipline.human_attribute_name(:name)
             %th= Assessment.model_name.human(count: :many)
             %th
           - @disciplines.each do |discipline|
             %tr
+              %td
+                - if discipline.single_discipline?
+                  .far.fa-person
+                - else
+                  .far.fa-people-group
               %td
                 = discipline_image(discipline.key)
                 = discipline.name
@@ -20,3 +26,14 @@
 
       - card.actions do
         = btn_link_to(t('a.add'), action: :new)
+
+  .col-md-4
+    = card('Vorlage hinzufügen') do |card|
+      - card.body do
+        .d-grid.gap-2
+          - Discipline::DISCIPLINES.each do |key|
+            - next if key == 'other'
+
+            = button_to({ action: :create }, params: { discipline: { key:, name: Discipline::DEFAULT_NAMES[key], short_name: key.upcase, single_discipline: Discipline::DEFAULT_SINGLE_DISCIPLINES[key], like_fire_relay: key == 'fs' } }, class: 'btn btn-light btn-sm') do
+              = discipline_image(key)
+              = Discipline::DEFAULT_NAMES[key]
