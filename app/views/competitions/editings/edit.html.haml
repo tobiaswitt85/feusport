@@ -13,7 +13,8 @@
             = f.input :locality
             = f.input :description, input_html: { class: 'easymde-required' }
           .btn-toolbar.mt-3
-            = f.button :submit, 'Bearbeiten', class: 'btn btn-primary'
-            = link_to 'Abbrechen', competition_show_path, class: 'btn btn-light'
+            .d-flex.justify-content-end
+              = f.button :submit, 'Bearbeiten', class: 'btn btn-primary'
+              = link_to 'Abbrechen', competition_show_path, class: 'btn btn-light'
 
 

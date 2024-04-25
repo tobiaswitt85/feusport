@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_29_074606) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_24_083045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_074606) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "assessments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id"
+    t.string "name", limit: 100, null: false
+    t.uuid "discipline_id", null: false
+    t.uuid "band_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["band_id"], name: "index_assessments_on_band_id"
+    t.index ["competition_id"], name: "index_assessments_on_competition_id"
+    t.index ["discipline_id"], name: "index_assessments_on_discipline_id"
   end
 
   create_table "bands", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -83,6 +95,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_074606) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "disciplines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id", null: false
+    t.string "name", limit: 100, null: false
+    t.string "short_name", limit: 20, null: false
+    t.string "key", limit: 10, null: false
+    t.boolean "single_discipline", default: false, null: false
+    t.boolean "like_fire_relay", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_disciplines_on_competition_id"
+  end
+
   create_table "documents", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "competition_id"
     t.string "title", limit: 200, null: false
@@ -122,7 +146,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_29_074606) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "assessments", "competitions"
   add_foreign_key "bands", "competitions"
   add_foreign_key "competitions", "users"
+  add_foreign_key "disciplines", "competitions"
   add_foreign_key "documents", "competitions"
 end

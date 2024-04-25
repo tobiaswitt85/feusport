@@ -1,0 +1,12 @@
+.card
+  - if card.title.present? || card.header.present?
+    .card-header= card.title.presence
+  - if card.direct.present?
+    = card.direct.try(:html_safe)
+  - if card.body.present?
+    .card-body
+      = card.body.try(:html_safe)
+  - if card.actions.present?
+    .card-footer.d-flex.justify-content-end= card.actions
+  - elsif card.footer.present?
+    .card-footer= card.footer

@@ -9,6 +9,19 @@
         = active_link_to(competition_show_path, class: 'nav-link') do
           = @competition.name
           .small #{l(@competition.date)} - #{@competition.locality}
+    - if can?(:manage, @competition)
+      %ul.navbar-nav.me-end.mb-2.mb-lg-0
+        %li.nav-item.dropdown
+          %a#navbarDropdownMenuLink.nav-link.dropdown-toggle{ href: '#', role: 'button', "data-bs-toggle" => "dropdown", "aria-expanded" => "false" }
+            .far.fa-wrench
+
+          %ul.dropdown-menu{ "aria-labelledby" => "navbarDropdownMenuLink" }
+            %li
+              = active_link_to("Disziplinen", competition_disciplines_path, class: 'dropdown-item')
+            %li
+              %a.dropdown-item{ href: "#" } Another
+            %li
+              %a.dropdown-item{ href: "#" } Something
   - else
     %ul.navbar-nav.me-auto.mb-2.mb-lg-0
       %li.nav-item
@@ -29,4 +42,5 @@
               %hr.dropdown-divider/
             %li
               = active_link_to('Abmelden', destroy_user_session_path, data: { "turbo-method": :delete }, class: 'dropdown-item')
+
 

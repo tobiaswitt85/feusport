@@ -5,6 +5,7 @@ class Competition < ApplicationRecord
 
   belongs_to :user
   has_many :documents, dependent: :destroy
+  has_many :disciplines, dependent: :destroy
 
   scope :visible, -> { where(visible: true) }
   scope :current, -> { visible.where(date: (5.days.ago..5.days.from_now)) }
@@ -35,7 +36,7 @@ class Competition < ApplicationRecord
     @year_and_month ||= "#{date.year}-#{date.month}"
   end
 
-  def disciplines
-    @disciplines ||= %w[hl hb la gs fs].shuffle.sample(5.times.to_a.sample)
-  end
+  # def disciplines
+  #   @disciplines ||= %w[hl hb la gs fs].shuffle.sample(5.times.to_a.sample)
+  # end
 end

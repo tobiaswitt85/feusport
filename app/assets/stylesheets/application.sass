@@ -25,11 +25,14 @@
     margin-left: -1.5rem
     display: block
 
-.btn-toolbar
-  input[type=submit] + a
+.btn-toolbar, .card-footer
+  input[type=submit] + a, button + a
     margin-left: 0.25rem
 
-
+.card > .table
+  tr:last-child
+    td
+      border-bottom-width: 0
 
 .list-competitions
   .disciplines
@@ -58,3 +61,18 @@
     font-size: 12px
     margin-right: 10px
 
+
+.form-group.discipline_key
+  .form-check
+    display: inline-block
+
+  [type=radio]
+    position: absolute
+    opacity: 0
+    width: 0
+    height: 0
+  [type=radio] + label
+    cursor: pointer
+
+  [type=radio]:checked + label
+    outline: 0.2rem solid $primary

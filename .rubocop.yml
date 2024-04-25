@@ -129,6 +129,8 @@ Lint/UnexpectedBlockArity:
   Enabled: true
 Lint/UnmodifiedReduceAccumulator:
   Enabled: true
+Lint/UselessAssignment:
+  AutoCorrect: false
 Lint/UselessRescue:
   Enabled: true
 Lint/UselessRuby2Keywords:
@@ -246,16 +248,6 @@ RSpec/NoExpectationExample:
   Enabled: true
 RSpec/PendingWithoutReason:
   Enabled: true
-RSpecRails/AvoidSetupHook:
-  Enabled: true
-RSpecRails/HaveHttpStatus:
-  Enabled: true
-RSpecRails/InferredSpecType:
-  Enabled: true
-RSpecRails/MinitestAssertions:
-  Enabled: true
-RSpecRails/TravelAround:
-  Enabled: true
 RSpec/ReceiveMessages:
   Enabled: true
 RSpec/RedundantAround:
@@ -286,7 +278,17 @@ RSpec/UndescriptiveLiteralsDescription:
   Enabled: true
 RSpec/VerifiedDoubleReference:
   Enabled: true
+RSpecRails/AvoidSetupHook:
+  Enabled: true
+RSpecRails/HaveHttpStatus:
+  Enabled: true
+RSpecRails/InferredSpecType:
+  Enabled: true
+RSpecRails/MinitestAssertions:
+  Enabled: true
 RSpecRails/NegationBeValid:
+  Enabled: true
+RSpecRails/TravelAround:
   Enabled: true
 Rails:
   Enabled: true

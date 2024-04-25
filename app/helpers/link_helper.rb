@@ -1,0 +1,20 @@
+# frozen_string_literal: true
+
+module LinkHelper
+  def btn_link_to(label, url, options = {})
+    options[:class] ||= ''
+    options[:class] += ' btn btn-light btn-sm'
+    link_to(label, url, options)
+  end
+
+  def cancel_link(url = nil, options = { class: 'btn btn-link' })
+    url = { action: action_name.to_sym.in?(%i[new create destroy]) ? :index : :show } if url.nil?
+    link_to('Abbrechen', url, options)
+  end
+
+  def block_link_to(label, url, options = {})
+    options[:class] ||= ''
+    options[:class] += ' btn-block'
+    btn_link_to(label, url, options)
+  end
+end

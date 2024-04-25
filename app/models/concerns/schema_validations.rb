@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20230629074606
+# generated from version 20240424083045
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -68,6 +68,18 @@ module SchemaValidations
       validates_with_filter :variation_digest, {:presence=>{}}
     end
 
+    def dbv_assessments_validations
+      belongs_to_presence_validations_for([:discipline_id, :band_id])
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :discipline_id, {:presence=>{}}
+      validates_with_filter :band_id, {:presence=>{}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
     def dbv_bands_validations
       belongs_to_presence_validations_for([:competition_id, :gender])
       validates_with_filter :competition_id, {:presence=>{}}
@@ -114,6 +126,23 @@ module SchemaValidations
       validates_with_filter :locked_at, {:date_time_in_db_range=>{}}
       validates_with_filter :failed_at, {:date_time_in_db_range=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_disciplines_validations
+      belongs_to_presence_validations_for([:competition_id])
+      validates_with_filter :competition_id, {:presence=>{}}
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :short_name, {:presence=>{}}
+      validates_with_filter :short_name, {:length=>{:allow_nil=>true, :maximum=>20}}
+      validates_with_filter :key, {:presence=>{}}
+      validates_with_filter :key, {:length=>{:allow_nil=>true, :maximum=>10}}
+      validates_with_filter :single_discipline, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :like_fire_relay, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 

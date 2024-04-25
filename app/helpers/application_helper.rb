@@ -25,4 +25,9 @@ module ApplicationHelper
     end
     tag.div(safe_join(links, ' '), class: 'social-share-button')
   end
+
+  def discipline_image(discipline, options = {})
+    options[:size] ||= '20x20'
+    image_tag "disciplines/#{discipline}.svg", options
+  end
 end

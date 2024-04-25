@@ -1,4 +1,7 @@
 de:
+  a:
+    show: Ansehen
+    add: 'Hinzufügen'
   social_share_button:
     share_to: Teilen via %{name}
     twitter: Twitter

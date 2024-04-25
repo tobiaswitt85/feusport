@@ -482,3 +482,34 @@ SimpleForm.setup do |config|
   #   time:          :custom_multi_select
   # }
 end
+
+module SimpleFormBootstrapPrimaryButton
+  def primary_button(type, *, &)
+    styled_button('btn btn-primary', type, *, &)
+  end
+
+  def success_button(type, *, &)
+    styled_button('btn btn-success', type, *, &)
+  end
+
+  def danger_button(type, *, &)
+    styled_button('btn btn-danger', type, *, &)
+  end
+
+  def cancel_button(url, *, &)
+    template.link_to('Abbrechen', url, class: 'btn btn-light')
+  end
+
+  private
+
+  def styled_button(button_class, type, *args, &)
+    options = args.extract_options!.dup
+    options[:type] = type
+    options[:class] = [button_class, options[:class]].compact.join(' ')
+    options[:data] = (options[:data] || {}).merge(disable_with: 'Bitte warten...')
+    args << options
+    send(:button_button, *args, &)
+  end
+end
+
+SimpleForm::FormBuilder.include SimpleFormBootstrapPrimaryButton

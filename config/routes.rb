@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     resource :visibility, only: %i[edit update]
     resource :deletion, only: %i[new create]
     resources :documents, only: %i[new create edit update destroy]
+    resources :disciplines
   end
 end

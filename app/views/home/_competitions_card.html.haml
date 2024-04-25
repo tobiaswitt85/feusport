@@ -11,7 +11,7 @@
           .d-flex.justify-content-center
             = link_to(competition_path(competition), class: 'list-group-item list-group-item-action') do
               .d-flex.flex-row
-                - disciplines = competition.disciplines
+                - disciplines = competition.disciplines.map(&:key)
                 - if disciplines.count == 0
                   .disciplines
                 - elsif disciplines.count == 1

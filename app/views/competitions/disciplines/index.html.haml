@@ -1,0 +1,22 @@
+- page_title Discipline.model_name.human(count: :many)
+
+.row
+  .col-md-8
+    = card Discipline.model_name.human(count: :many) do |card|
+      - card.direct do
+        %table.table
+          %tr
+            %th= Discipline.human_attribute_name(:name)
+            %th= Assessment.model_name.human(count: :many)
+            %th
+          - @disciplines.each do |discipline|
+            %tr
+              %td
+                = discipline_image(discipline.key)
+                = discipline.name
+              %td= discipline.assessments.join(', ')
+              %td.text-end
+                = btn_link_to(t('a.show'), competition_discipline_path(id: discipline.id))
+
+      - card.actions do
+        = btn_link_to(t('a.add'), action: :new)
