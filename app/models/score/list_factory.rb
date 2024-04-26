@@ -22,7 +22,8 @@ class Score::ListFactory < ApplicationRecord
   has_many :assessments, through: :list_factory_assessments
   has_many :result_list_factories, dependent: :destroy
   has_many :results, through: :result_list_factories
-  has_and_belongs_to_many :bands
+  has_many :list_factory_bands, dependent: :destroy
+  has_many :bands, through: :list_factory_bands
 
   default_scope { where.not(status: :create) }
 
@@ -139,13 +140,15 @@ class Score::ListFactory < ApplicationRecord
     transaction do
       loop do
         run += 1
+        row = nil
         tracks.each do |track|
           row = rows.shift
-          return nil if row.nil?
+          next if row.nil?
 
           create_list_entry(row, run, track)
         end
 
+        next if row.nil?
         raise 'Something went wrong' if run > 1000
       end
     end

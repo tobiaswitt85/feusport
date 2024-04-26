@@ -46,7 +46,7 @@ class Score::Result < ApplicationRecord
   end
 
   def group_result_rows
-    @group_result_rows ||= generate_rows(true).sort
+    @group_result_rows ||= generate_rows(group_result: true).sort
   end
 
   def person_tags
@@ -57,7 +57,7 @@ class Score::Result < ApplicationRecord
     @team_tags ||= tags.where(type: 'TeamTag')
   end
 
-  def generate_rows(group_result = false)
+  def generate_rows(group_result: false)
     out_of_competition_rows = {}
     rows = {}
     lists.each do |list|

@@ -10,6 +10,8 @@ class Score::CompetitionResult < ApplicationRecord
   has_many :results, -> { where(score_results: { group_assessment: true }) },
            through: :assessments, class_name: 'Score::Result'
 
+  schema_validations
+
   def rows
     @rows ||= result_type.present? ? send(result_type) : []
   end
