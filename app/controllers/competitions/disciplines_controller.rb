@@ -2,7 +2,6 @@
 
 class Competitions::DisciplinesController < CompetitionNestedController
   default_resource
-  before_action :assign_new_discipline, only: %i[new create]
 
   def create
     @discipline.assign_attributes(discipline_params)
@@ -35,9 +34,5 @@ class Competitions::DisciplinesController < CompetitionNestedController
     params.require(:discipline).permit(
       :key, :name, :short_name, :single_discipline, :like_fire_relay
     )
-  end
-
-  def assign_new_discipline
-    @discipline = Discipline.new(competition: @competition)
   end
 end

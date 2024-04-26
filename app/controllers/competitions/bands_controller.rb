@@ -2,7 +2,6 @@
 
 class Competitions::BandsController < CompetitionNestedController
   default_resource
-  before_action :assign_new_band, only: %i[new create]
 
   def edit
     if params[:move] == 'up'
@@ -45,9 +44,5 @@ class Competitions::BandsController < CompetitionNestedController
     params.require(:band).permit(
       :name, :gender
     )
-  end
-
-  def assign_new_band
-    @band = Band.new(competition: @competition)
   end
 end

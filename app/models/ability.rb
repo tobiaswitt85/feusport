@@ -13,6 +13,8 @@ class Ability
     can(:manage, Discipline, competition: { user: })
     can(:manage, Band, competition: { user: })
     can(:manage, Assessment, competition: { user: })
+    can(:manage, Team, competition: { user: })
+    can(:manage, Person, competition: { user: })
   end
 
   def global_abilities

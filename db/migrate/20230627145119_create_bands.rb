@@ -6,7 +6,7 @@ class CreateBands < ActiveRecord::Migration[7.0]
       t.references :competition, foreign_key: true, type: :uuid, null: false
 
       t.integer :gender, null: false
-      t.string :name, null: false
+      t.string :name, null: false, limit: 100
       t.integer :position
 
       t.timestamps

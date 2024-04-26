@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     resource :deletion, only: %i[new create]
     resources :documents, only: %i[new create edit update destroy]
 
+    # top menu
+    resources :teams
+    resources :people
+    resources :score_lists
+
     # wrench menu
     resources :disciplines
     resources :bands

@@ -9,6 +9,12 @@
         = active_link_to(competition_show_path, class: 'nav-link') do
           = @competition.name
           .small #{l(@competition.date)} - #{@competition.locality}
+      %li.nav-item
+        = active_link_to(Team.model_name.human(count: :many), competition_teams_path, class: 'nav-link')
+      %li.nav-item
+        = active_link_to(Person.model_name.human(count: :many), competition_people_path, class: 'nav-link')
+      %li.nav-item
+        = active_link_to(Score::List.model_name.human(count: :many), competition_score_lists_path, class: 'nav-link')
     - if can?(:manage, @competition)
       %ul.navbar-nav.me-end.mb-2.mb-lg-0
         %li.nav-item.dropdown
