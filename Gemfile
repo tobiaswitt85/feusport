@@ -52,6 +52,8 @@ group :development, :test do
   gem 'rspec-rails' # test framework
   gem 'spec_views' # compare html output
   gem 'factory_bot' # create db fixtures
+  gem 'vcr' # record http requests
+  gem 'webmock' # mock http requests
 
   # code beautifier
   gem 'rubocop'

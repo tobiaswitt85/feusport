@@ -1,0 +1,137 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://feuerwehrsport-statistik.de/api/people?extended=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '438'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdWNjZXNzIjp0cnVlLCJsb2dpbiI6ZmFsc2UsInBlb3BsZSI6W3siaWQiOjE4NCwibGFzdF9uYW1lIjoiR2VobGVydCIsImZpcnN0X25hbWUiOiJUb20iLCJnZW5kZXIiOiJtYWxlIiwibmF0aW9uX2lkIjoxLCJnZW5kZXJfdHJhbnNsYXRlZCI6Im3DpG5ubGljaCIsImJlc3Rfc2NvcmVzIjp7InBiIjp7ImhiIjpbMTY1NSwiMjAuMDcuMjAyMiAtIENlbGplLCBDVElGIl0sImhsIjpbMTM2NCwiMjUuMDkuMjAyMyAtIFZhcm5hLCBQb2thbGxhdWYgKE9kZXNzb3MgQ3VwKSJdLCJ6ayI6WzMwMjMsIjIwLjA3LjIwMjIgLSBDZWxqZSwgQ1RJRiJdfSwic2IiOnsiaGIiOm51bGwsImhsIjpbMTQxNSwiMDYuMDEuMjAyNCAtIExhbmdlbmdyYXNzYXUsIFBva2FsbGF1ZiAoTmV1amFocnNzdGVpZ2VuKSJdLCJ6ayI6bnVsbH19fV0sImNvbGxlY3Rpb25fbmFtZSI6InBlb3BsZSJ9
+  recorded_at: Fri, 26 Apr 2024 12:13:10 GMT
+- request:
+    method: get
+    uri: https://feuerwehrsport-statistik.de/api/teams
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1833'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdWNjZXNzIjp0cnVlLCJsb2dpbiI6ZmFsc2UsInRlYW1zIjpbeyJpZCI6MTcwMCwibmFtZSI6IkJGIENvdHRidXMiLCJzaG9ydGN1dCI6IkNvdHRidXMiLCJzdGF0dXMiOiJmaXJlX3N0YXRpb24iLCJsYXRpdHVkZSI6IjUxLjc1Njc0NDciLCJsb25naXR1ZGUiOiIxNC4zMzU3MzA3Iiwic3RhdGUiOiJCQiIsInRpbGVfcGF0aCI6bnVsbH0seyJpZCI6MTksIm5hbWUiOiJGRiBCdXJrZXJzZG9yZiIsInNob3J0Y3V0IjoiQnVya2Vyc2RvcmYiLCJzdGF0dXMiOiJmaXJlX3N0YXRpb24iLCJsYXRpdHVkZSI6IjUwLjk0NzYxMjc4NzgiLCJsb25naXR1ZGUiOiIxMi4zOTc3Mjc5NjYzIiwic3RhdGUiOiJUSCIsInRpbGVfcGF0aCI6bnVsbH0seyJpZCI6NjcsIm5hbWUiOiJGRiBDb3R0YnVzIiwic2hvcnRjdXQiOiJDb3R0YnVzIiwic3RhdHVzIjoiZmlyZV9zdGF0aW9uIiwibGF0aXR1ZGUiOiI1MS43NjA2Mzc4IiwibG9uZ2l0dWRlIjoiMTQuMzMzOTM2NSIsInN0YXRlIjoiQkIiLCJ0aWxlX3BhdGgiOm51bGx9LHsiaWQiOjM1OCwibmFtZSI6IkZpcmVzcG9ydCBHZXJtYW55Iiwic2hvcnRjdXQiOiJGaXJlc3BvcnQgR0VSIiwic3RhdHVzIjoidGVhbSIsImxhdGl0dWRlIjoiNTEuOTI4OTU4NTA4NyIsImxvbmdpdHVkZSI6IjEyLjU5MTcyNjc3OTkiLCJzdGF0ZSI6IlNUIiwidGlsZV9wYXRoIjpudWxsfSx7ImlkIjo1NDYsIm5hbWUiOiJLQSBBbHRlbmJ1cmdlciBMYW5kIiwic2hvcnRjdXQiOiJBbHRlbmJ1cmdlciBMYW5kIiwic3RhdHVzIjoidGVhbSIsImxhdGl0dWRlIjoiNTAuOTU3NDg1NTUiLCJsb25naXR1ZGUiOiIxMi4zMDg1MDU1Mzk4Iiwic3RhdGUiOiJUSCIsInRpbGVfcGF0aCI6bnVsbH0seyJpZCI6MjcsIm5hbWUiOiJLQSBIaWxkYnVyZ2hhdXNlbiIsInNob3J0Y3V0IjoiSGlsZGJ1cmdoYXVzZW4iLCJzdGF0dXMiOiJ0ZWFtIiwibGF0aXR1ZGUiOiI1MC40MjY2Nzg1IiwibG9uZ2l0dWRlIjoiMTAuNzI5Njk5MiIsInN0YXRlIjoiVEgiLCJ0aWxlX3BhdGgiOm51bGx9LHsiaWQiOjE4NjksIm5hbWUiOiJUZWFtIEJyYW5kZW5idXJnIiwic2hvcnRjdXQiOiJCcmFuZGVuYnVyZyIsInN0YXR1cyI6InRlYW0iLCJsYXRpdHVkZSI6IjUyLjMzNTMzOTA3MTkiLCJsb25naXR1ZGUiOiIxMy44NjQ3NDYwOTM4Iiwic3RhdGUiOiJCQiIsInRpbGVfcGF0aCI6bnVsbH0seyJpZCI6NjEsIm5hbWUiOiJUZWFtIERldXRzY2hsYW5kIiwic2hvcnRjdXQiOiJEZXV0c2NobGFuZCIsInN0YXR1cyI6InRlYW0iLCJsYXRpdHVkZSI6IjUxLjA4MzQxOTYiLCJsb25naXR1ZGUiOiIxMC40MjM0NDY5Iiwic3RhdGUiOiJERSIsInRpbGVfcGF0aCI6bnVsbH0seyJpZCI6MywibmFtZSI6IlRlYW0gTGF1c2l0eiIsInNob3J0Y3V0IjoiVGVhbSBMYXVzaXR6Iiwic3RhdHVzIjoidGVhbSIsImxhdGl0dWRlIjoiNTEuMzcxNzgwMzc1OSIsImxvbmdpdHVkZSI6IjE0LjMyNjE3MTg3NSIsInN0YXRlIjoiQkIiLCJ0aWxlX3BhdGgiOm51bGx9LHsiaWQiOjE1LCJuYW1lIjoiVGVhbSBaZXVsZW5yb2RhIiwic2hvcnRjdXQiOiJaZXVsZW5yb2RhIiwic3RhdHVzIjoidGVhbSIsImxhdGl0dWRlIjoiNTAuNjQ1NDMzMDc2NCIsImxvbmdpdHVkZSI6IjExLjk4NTIyNTY3NzUiLCJzdGF0ZSI6IlRIIiwidGlsZV9wYXRoIjpudWxsfSx7ImlkIjoxMSwibmFtZSI6IlRow7xyaW5nZW4tQXVzd2FobCIsInNob3J0Y3V0IjoiVGjDvHJpbmdlbiIsInN0YXR1cyI6InRlYW0iLCJsYXRpdHVkZSI6IjUwLjczMzMxNjMiLCJsb25naXR1ZGUiOiIxMS4wNzQ3OTA1Iiwic3RhdGUiOiJUSCIsInRpbGVfcGF0aCI6bnVsbH1dLCJjb2xsZWN0aW9uX25hbWUiOiJ0ZWFtcyJ9
+  recorded_at: Fri, 26 Apr 2024 12:13:10 GMT
+- request:
+    method: get
+    uri: https://feuerwehrsport-statistik.de/api/team_members
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '426'
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"login":false,"team_members":[{"person_id":184,"team_id":27},{"person_id":184,"team_id":67},{"person_id":184,"team_id":1700},{"person_id":184,"team_id":19},{"person_id":184,"team_id":546},{"person_id":184,"team_id":3},{"person_id":184,"team_id":1869},{"person_id":184,"team_id":61},{"person_id":184,"team_id":15},{"person_id":184,"team_id":358},{"person_id":184,"team_id":11}],"collection_name":"team_members"}'
+  recorded_at: Fri, 26 Apr 2024 12:13:10 GMT
+- request:
+    method: get
+    uri: https://feuerwehrsport-statistik.de/api/team_spellings
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '223'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdWNjZXNzIjp0cnVlLCJsb2dpbiI6ZmFsc2UsInRlYW1fc3BlbGxpbmdzIjpbeyJ0ZWFtX2lkIjozLCJuYW1lIjoiVGVhbSBMYXVzaXR6Iiwic2hvcnRjdXQiOiJMYXVzaXR6In0seyJ0ZWFtX2lkIjoxMSwibmFtZSI6IkZGIFRow7xyaW5nZW4gLSBBdXN3YWhsIiwic2hvcnRjdXQiOiJUaMO8cmluZ2VuIC0gQXVzd2FobCJ9XSwiY29sbGVjdGlvbl9uYW1lIjoidGVhbV9zcGVsbGluZ3MifQ==
+  recorded_at: Fri, 26 Apr 2024 12:13:10 GMT
+- request:
+    method: get
+    uri: https://feuerwehrsport-statistik.de/api/person_spellings
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '213'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdWNjZXNzIjp0cnVlLCJsb2dpbiI6ZmFsc2UsInBlcnNvbl9zcGVsbGluZ3MiOlt7InBlcnNvbl9pZCI6MTg0LCJmaXJzdF9uYW1lIjoiVG9tbSIsImxhc3RfbmFtZSI6IkdlaGxlcnQiLCJnZW5kZXIiOiJtYWxlIiwib2ZmaWNpYWwiOmZhbHNlLCJnZW5kZXJfdHJhbnNsYXRlZCI6Im3DpG5ubGljaCJ9XSwiY29sbGVjdGlvbl9uYW1lIjoicGVyc29uX3NwZWxsaW5ncyJ9
+  recorded_at: Fri, 26 Apr 2024 12:13:10 GMT
+recorded_with: VCR 6.2.0

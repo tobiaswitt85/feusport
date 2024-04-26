@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20240426063157
+# generated from version 20240426112355
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -214,6 +214,81 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
+    def dbv_fire_sport_statistics_people_validations
+      belongs_to_presence_validations_for([:gender])
+      validates_with_filter :last_name, {:presence=>{}}
+      validates_with_filter :last_name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :first_name, {:presence=>{}}
+      validates_with_filter :first_name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :gender, {:presence=>{}}
+      validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :dummy, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :personal_best_hb, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :personal_best_hl, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :personal_best_zk, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :saison_best_hb, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :saison_best_hl, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :saison_best_zk, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_fire_sport_statistics_person_spellings_validations
+      belongs_to_presence_validations_for([:gender, :person_id])
+      validates_with_filter :last_name, {:presence=>{}}
+      validates_with_filter :last_name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :first_name, {:presence=>{}}
+      validates_with_filter :first_name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :gender, {:presence=>{}}
+      validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :person_id, {:presence=>{}}
+      validates_with_filter :person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_fire_sport_statistics_team_associations_validations
+      belongs_to_presence_validations_for([:person_id, :team_id])
+      validates_with_filter :person_id, {:presence=>{}}
+      validates_with_filter :person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :team_id, {:presence=>{}}
+      validates_with_filter :team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_fire_sport_statistics_team_spellings_validations
+      belongs_to_presence_validations_for([:team_id])
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :short, {:presence=>{}}
+      validates_with_filter :short, {:length=>{:allow_nil=>true, :maximum=>50}}
+      validates_with_filter :team_id, {:presence=>{}}
+      validates_with_filter :team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_fire_sport_statistics_teams_validations
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :short, {:presence=>{}}
+      validates_with_filter :short, {:length=>{:allow_nil=>true, :maximum=>50}}
+      validates_with_filter :dummy, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
     def dbv_people_validations
       belongs_to_presence_validations_for([:band_id, :registration_order])
       validates_with_filter :band_id, {:presence=>{}}
@@ -225,6 +300,7 @@ module SchemaValidations
       validates_with_filter :bib_number, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :registration_order, {:presence=>{}}
       validates_with_filter :registration_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :fire_sport_statistics_person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
@@ -394,6 +470,7 @@ module SchemaValidations
       validates_with_filter :shortcut, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :lottery_number, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
       validates_with_filter :enrolled, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :fire_sport_statistics_team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -159,6 +159,63 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.index ["competition_id"], name: "index_documents_on_competition_id"
   end
 
+  create_table "fire_sport_statistics_people", force: :cascade do |t|
+    t.string "last_name", limit: 100, null: false
+    t.string "first_name", limit: 100, null: false
+    t.integer "gender", null: false
+    t.boolean "dummy", default: false, null: false
+    t.integer "personal_best_hb"
+    t.string "personal_best_hb_competition"
+    t.integer "personal_best_hl"
+    t.string "personal_best_hl_competition"
+    t.integer "personal_best_zk"
+    t.string "personal_best_zk_competition"
+    t.integer "saison_best_hb"
+    t.string "saison_best_hb_competition"
+    t.integer "saison_best_hl"
+    t.string "saison_best_hl_competition"
+    t.integer "saison_best_zk"
+    t.string "saison_best_zk_competition"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fire_sport_statistics_person_spellings", force: :cascade do |t|
+    t.string "last_name", limit: 100, null: false
+    t.string "first_name", limit: 100, null: false
+    t.integer "gender", null: false
+    t.integer "person_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_fire_sport_statistics_person_spellings_on_person_id"
+  end
+
+  create_table "fire_sport_statistics_team_associations", force: :cascade do |t|
+    t.integer "person_id", null: false
+    t.integer "team_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_fire_sport_statistics_team_associations_on_person_id"
+    t.index ["team_id"], name: "index_fire_sport_statistics_team_associations_on_team_id"
+  end
+
+  create_table "fire_sport_statistics_team_spellings", force: :cascade do |t|
+    t.string "name", limit: 100, null: false
+    t.string "short", limit: 50, null: false
+    t.integer "team_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_fire_sport_statistics_team_spellings_on_team_id"
+  end
+
+  create_table "fire_sport_statistics_teams", force: :cascade do |t|
+    t.string "name", limit: 100, null: false
+    t.string "short", limit: 50, null: false
+    t.boolean "dummy", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "people", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "competition_id"
     t.uuid "band_id", null: false
@@ -168,10 +225,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.string "bib_number", limit: 50, default: "", null: false
     t.integer "registration_order", default: 0, null: false
     t.string "tags", default: [], array: true
+    t.integer "fire_sport_statistics_person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["band_id"], name: "index_people_on_band_id"
     t.index ["competition_id"], name: "index_people_on_competition_id"
+    t.index ["fire_sport_statistics_person_id"], name: "index_people_on_fire_sport_statistics_person_id"
     t.index ["team_id"], name: "index_people_on_team_id"
   end
 
@@ -320,10 +379,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.integer "lottery_number"
     t.boolean "enrolled", default: false, null: false
     t.string "tags", default: [], array: true
+    t.integer "fire_sport_statistics_team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["band_id"], name: "index_teams_on_band_id"
     t.index ["competition_id"], name: "index_teams_on_competition_id"
+    t.index ["fire_sport_statistics_team_id"], name: "index_teams_on_fire_sport_statistics_team_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -11,7 +11,8 @@ class CreateTeams < ActiveRecord::Migration[7.0]
       t.integer :lottery_number
       t.boolean :enrolled, default: false, null: false
       t.string :tags, array: true, default: []
-
+      t.integer :fire_sport_statistics_team_id
+      t.index [:fire_sport_statistics_team_id]
       t.timestamps
     end
   end
