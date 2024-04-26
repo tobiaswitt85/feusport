@@ -374,7 +374,7 @@ Rails/RakeEnvironment:
 Rails/RedundantActiveRecordAllMethod:
   Enabled: true
 Rails/RedundantPresenceValidationOnBelongsTo:
-  Enabled: true
+  Enabled: false
 Rails/RedundantTravelBack:
   Enabled: true
 Rails/RenderInline:
