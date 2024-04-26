@@ -6,7 +6,13 @@ de:
         assessments: Wertungen
         gender: Geschlecht
         name: Name
+        tag_names: Mögliche Markierungen für Mannschaften und Wettkämpfer
     models:
       band:
         one: Wertungsgruppe
         other: Wertungsgruppen
+
+  simple_form:
+    hints:
+      band:
+        tag_names: 'Werte mit Komma trennen. Z.B.: »U20« oder »Ü40«'

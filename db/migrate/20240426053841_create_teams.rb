@@ -10,6 +10,7 @@ class CreateTeams < ActiveRecord::Migration[7.0]
       t.string :shortcut, default: '', null: false, limit: 50
       t.integer :lottery_number
       t.boolean :enrolled, default: false, null: false
+      t.string :tags, array: true, default: []
 
       t.timestamps
     end

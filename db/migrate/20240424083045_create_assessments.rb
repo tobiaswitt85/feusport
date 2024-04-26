@@ -7,6 +7,7 @@ class CreateAssessments < ActiveRecord::Migration[7.0]
       t.string :name, null: false, limit: 100
       t.references :discipline, null: false, type: :uuid
       t.references :band, null: false, type: :uuid
+      t.string :tags, array: true, default: []
 
       t.timestamps
     end

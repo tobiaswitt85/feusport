@@ -11,6 +11,15 @@
           %tr
             %th= Band.human_attribute_name(:name)
             %td= @band.name
+          %tr
+            %th= Band.human_attribute_name(:tag_names)
+            %td
+              - if @band.tags.present?
+                %ul
+                  - @band.tags.each do |tag|
+                    %li= tag
+              - else
+                &dash;
 
     = card(Assessment.model_name.human(count: :many)) do |card|
       - if @band.assessments.exists?

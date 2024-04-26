@@ -10,6 +10,7 @@ class CreatePeople < ActiveRecord::Migration[7.0]
       t.references :team, foreign_key: true, type: :uuid
       t.string :bib_number, default: '', null: false, limit: 50
       t.integer :registration_order, default: 0, null: false
+      t.string :tags, array: true, default: []
 
       t.timestamps
     end

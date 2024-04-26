@@ -24,6 +24,14 @@ class Band < ApplicationRecord
   # TODO:   TagReference.all.where(taggable_type: 'Team', taggable_id: teams).where.not(id: tags).delete_all
   # TODO: end
 
+  def tag_names=(names)
+    self.tags = names.to_s.split(',').map(&:strip).compact_blank
+  end
+
+  def tag_names
+    (tags || []).sort.join(', ')
+  end
+
   def translated_gender
     gender.present? ? I18n.t("gender.#{gender}") : ''
   end

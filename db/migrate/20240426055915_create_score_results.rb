@@ -13,6 +13,7 @@ class CreateScoreResults < ActiveRecord::Migration[7.0]
       t.integer :group_run_count
       t.date :date
       t.integer :calculation_method, default: 0, null: false
+      t.string :tags, array: true, default: []
 
       t.timestamps
     end

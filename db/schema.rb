@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.string "name", limit: 100, null: false
     t.uuid "discipline_id", null: false
     t.uuid "band_id", null: false
+    t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["band_id"], name: "index_assessments_on_band_id"
@@ -76,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.integer "gender", null: false
     t.string "name", limit: 100, null: false
     t.integer "position"
+    t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["competition_id"], name: "index_bands_on_competition_id"
@@ -165,6 +167,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.uuid "team_id"
     t.string "bib_number", limit: 50, default: "", null: false
     t.integer "registration_order", default: 0, null: false
+    t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["band_id"], name: "index_people_on_band_id"
@@ -265,6 +268,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.boolean "hidden", default: false, null: false
     t.boolean "separate_target_times", default: false, null: false
     t.boolean "show_best_of_run", default: false, null: false
+    t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["competition_id"], name: "index_score_lists_on_competition_id"
@@ -299,6 +303,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.integer "group_run_count"
     t.date "date"
     t.integer "calculation_method", default: 0, null: false
+    t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assessment_id"], name: "index_score_results_on_assessment_id"
@@ -314,6 +319,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.string "shortcut", limit: 50, default: "", null: false
     t.integer "lottery_number"
     t.boolean "enrolled", default: false, null: false
+    t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["band_id"], name: "index_teams_on_band_id"

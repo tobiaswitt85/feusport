@@ -9,6 +9,8 @@ class CreateBands < ActiveRecord::Migration[7.0]
       t.string :name, null: false, limit: 100
       t.integer :position
 
+      t.string :tags, array: true, default: []
+
       t.timestamps
     end
   end
