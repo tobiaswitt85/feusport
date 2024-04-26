@@ -1,12 +1,13 @@
+---
 de:
   activerecord:
     attributes:
       competition:
-        name: Name
         date: Datum
         locality: Ort
-        visible: Sichtbar
+        name: Name
         slug: URL-Bestandteil
+        visible: Sichtbar
     models:
       competition:
         one: Wettkampf
@@ -14,8 +15,8 @@ de:
   simple_form:
     hints:
       competition:
-        visible: Sobald du deinen Wettkampf sichtbar schaltest, wird er allen Besuchern in der Terminliste angezeigt.
-        name: "Gib einen kurzen Namen an. Das Datum erscheint extra und braucht nicht im Namen auftauchen."
-        date: "Sollte sich der Wettkampf über mehrere Tage erstrecken, gib den Haupttag an. Weiteres musst du in der Beschreibung ergänzen."
-        locality: "Es sieht besser aus, wenn du hier nur den Namen des Ortes schreibst. Die vollständige Adresse solltest du in der Beschreibung angeben."
+        date: Sollte sich der Wettkampf über mehrere Tage erstrecken, gib den Haupttag an. Weiteres musst du in der Beschreibung ergänzen.
+        locality: Es sieht besser aus, wenn du hier nur den Namen des Ortes schreibst. Die vollständige Adresse solltest du in der Beschreibung angeben.
+        name: Gib einen kurzen Namen an. Das Datum erscheint extra und braucht nicht im Namen auftauchen.
         slug: Der »Slug« ist der Bestandteil der URL, der in der Adresse deines Browsers angezeigt wird. Änderst du diesen, werden alle von dir bisher verteilten QR-Codes ungültig.
+        visible: Sobald du deinen Wettkampf sichtbar schaltest, wird er allen Besuchern in der Terminliste angezeigt.

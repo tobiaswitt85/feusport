@@ -1,3 +1,4 @@
+---
 de:
   activerecord:
     attributes:
@@ -19,4 +20,4 @@ de:
         like_fire_relay: Dies sollte bei 4x100m-Feuerwehrstafette ausgewählt werden
         name: 'z.B.: Löschangriff nass'
         short_name: 'z.B.: LA'
-        single_discipline: 'Dies sollte bei 100m-Hindernisbahn, Hakenleitersteigen und Zweikampf ausgewählt werden'
+        single_discipline: Dies sollte bei 100m-Hindernisbahn, Hakenleitersteigen und Zweikampf ausgewählt werden

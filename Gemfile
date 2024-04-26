@@ -60,6 +60,7 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'haml-lint', require: false
+  gem 'i18n-tasks'
 
   gem 'guard', require: false # on demand tests
   gem 'guard-rspec', require: false # on demand tests
