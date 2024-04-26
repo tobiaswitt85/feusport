@@ -1,0 +1,16 @@
+---
+de:
+  activerecord:
+    attributes:
+      team:
+        band: Wertungsgruppe
+        federal_state: Bundesland
+        lottery_number: Losnummer
+        name: Name
+        number: Nummer
+        people: Wettkämpfer
+        shortcut: Abkürzung
+    models:
+      team:
+        one: Mannschaft
+        other: Mannschaften

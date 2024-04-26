@@ -1,0 +1,88 @@
+---
+de:
+  activerecord:
+    attributes:
+      score/competition_result:
+        assessments: Wertungen
+        gender: Geschlecht
+        name: Name
+        result_type: Punkteberechnung
+      score/list:
+        assessments: Wertungen
+        date: Datum
+        hidden: Verstecken
+        name: Name
+        results: Ergebnislisten
+        shortcut: Abkürzung
+        show_best_of_run: Beste des Laufs anzeigen
+        show_multiple_assessments: Zeige Wertungen unter Mannschaft an
+      score/list_entry:
+        assessment: Wertung
+        assessment_type: Wertung
+        edit_second_time: Zeit in Sekunden
+        edit_second_time_left_target: Linke Zeit in Sekunden
+        edit_second_time_right_target: Rechte Zeit in Sekunden
+        entity: Teilnehmer
+        run: Lauf
+        second_time: Zeit in Sekunden
+        second_time_left_target: Zeit in Sekunden
+        second_time_right_target: Rechte Zeit in Sekunden
+        track: Bahn
+      score/list_factories/best:
+        description: Man wählt man eine Ergebnisliste aus, von der die X Besten auf der neuen Liste erscheinen.
+      score/list_factories/fire_relay:
+        description: Für Staffelläufe mit mehreren Staffeln pro Mannschaft.
+      score/list_factories/group_order:
+        description: Für Einzeldisziplinen, wobei die Startreihenfolge innerhalb der Mannschaft beachtet wird.
+      score/list_factories/lottery_number:
+        description: Alle Mannschaften werden nach Losreihenfolge angeordnet.
+      score/list_factories/simple:
+        description: Alle Einzelstarter werden zufällig angeordnet.
+      score/list_factories/track_bandable:
+        description: Eine Bahn kann abhängig von Wertungsgruppen definiert werden.
+      score/list_factories/track_change:
+        description: Die Bahn wird gegenüber einer vorherigen Liste getauscht.
+      score/list_factories/track_same:
+        description: Die Bahn wird gegenüber einer vorherigen Liste behalten.
+      score/list_factory:
+        assessments: Wertungen
+        bands: Wertungsgruppen
+        before_list: Vorherige Liste
+        before_result: Ergebnisliste
+        best_count: Anzahl der Finalisten auf der neuen Liste (X)
+        hidden: Startliste verstecken
+        name: Name
+        results: Ergebnislisten
+        separate_target_times: Zeiten für jedes Ziel separat aufnehmen
+        shortcut: Abkürzung
+        show_best_of_run: Beste des Laufs anzeigen
+        single_competitors_first: Reihenfolge der Einzelstarter
+        track: Wettkampfbahn
+        track_count: Wettkampfbahnen
+        type: Listenerstellung
+      score/result:
+        assessment: Wertung
+        calculation_method: Berechnungsmethode
+        date: Datum
+        group_assessment: Mannschaftswertung
+        lists: Startlisten
+        name: Name
+        results: Ergebnislisten
+        series_assessments: Wertungen
+    models:
+      score/competition_result:
+        one: Gesamtwertung
+        other: Gesamtwertungen
+      score/list:
+        one: Startliste
+        other: Startlisten
+      score/list_factories/best: die x Besten (Finale)
+      score/list_factories/fire_relay: Staffellauf mit A, B
+      score/list_factories/group_order: Mannschaftsreihenfolge beachten
+      score/list_factories/lottery_number: Losnummernreihenfolge beachten
+      score/list_factories/simple: Zufällig anordnen
+      score/list_factories/track_bandable: Bahn abhängig von Wertungsgruppen
+      score/list_factories/track_change: Bahnwechsel
+      score/list_factories/track_same: Bahn behalten
+      score/result: Ergebnisse
+      score/run: Lauf

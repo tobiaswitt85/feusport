@@ -1,0 +1,13 @@
+---
+de:
+  activerecord:
+    attributes:
+      person:
+        band: Wertungsgruppe
+        bib_number: Startnummer
+        create_team_name: Neue Mannschaft
+        first_name: Vorname
+        last_name: Nachname
+        team: Mannschaft
+    models:
+      person: Wettkämpfer
