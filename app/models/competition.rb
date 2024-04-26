@@ -7,6 +7,7 @@ class Competition < ApplicationRecord
   has_many :documents, dependent: :destroy
   has_many :disciplines, dependent: :destroy
   has_many :bands, dependent: :destroy
+  has_many :assessments, dependent: :destroy
 
   scope :visible, -> { where(visible: true) }
   scope :current, -> { visible.where(date: (5.days.ago..5.days.from_now)) }

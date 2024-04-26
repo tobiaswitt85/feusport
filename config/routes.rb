@@ -19,5 +19,6 @@ Rails.application.routes.draw do
     # wrench menu
     resources :disciplines
     resources :bands
+    resources :assessments
   end
 end

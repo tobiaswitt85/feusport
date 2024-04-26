@@ -1,0 +1,15 @@
+%table.table
+  %tr
+    %th= resource_class.human_attribute_name(:name)
+    %th= resource_class.human_attribute_name(:discipline)
+    %th= resource_class.human_attribute_name(:band)
+    %th
+  - resource_collection.each do |assessment|
+    %tr
+      %td= assessment.decorated_name
+      %td
+        = discipline_image(assessment.discipline.key)
+        = assessment.discipline.name
+      %td= assessment.band.name
+      %td.text-end
+        = btn_link_to(t('a.show'), competition_assessment_path(id: assessment.id))

@@ -20,6 +20,8 @@
               = active_link_to(Discipline.model_name.human(count: :many), competition_disciplines_path, class: 'dropdown-item')
             %li
               = active_link_to(Band.model_name.human(count: :many), competition_bands_path, class: 'dropdown-item')
+            %li
+              = active_link_to(Assessment.model_name.human(count: :many), competition_assessments_path, class: 'dropdown-item')
   - else
     %ul.navbar-nav.me-auto.mb-2.mb-lg-0
       %li.nav-item

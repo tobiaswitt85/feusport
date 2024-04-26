@@ -1,0 +1,12 @@
+---
+de:
+  activerecord:
+    attributes:
+      assessment:
+        band: Wertungsgruppe
+        discipline: Disziplin
+        name: Name
+    models:
+      assessment:
+        one: Wertung
+        other: Wertungen

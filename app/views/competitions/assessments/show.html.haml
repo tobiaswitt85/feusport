@@ -1,0 +1,29 @@
+= page_title "#{Assessment.model_name.human}: #{@assessment.name}"
+
+.row
+  .col-md-8
+    = card(@assessment.name, class: 'mb-3') do |card|
+      - card.direct do
+        %table.table
+          %tr
+            %th= Assessment.human_attribute_name(:name)
+            %td= @assessment.name
+          %tr
+            %th= Assessment.human_attribute_name(:discipline)
+            %td= @assessment.discipline.name
+          %tr
+            %th= Assessment.human_attribute_name(:band)
+            %td= link_to(@assessment.band.name, competition_band_path(id: @assessment.band.id))
+
+  .col-md-4
+    = card(t('a.actions')) do |card|
+      - card.body do
+        .d-grid.gap-2
+          = btn_link_to 'Übersicht', { action: :index }
+          %hr
+          = btn_link_to 'Bearbeiten', { action: :edit }
+          - if @assessment.destroy_possible?
+            = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Wertungsgruppe wirklich löschen?' }
+          - else
+            .alert.alert-warning
+              Diese Wertung kann nicht gelöscht werden. Es sind Ergebnisse zugeordnet.

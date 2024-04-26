@@ -1,0 +1,7 @@
+- card.body do
+  = f.association :discipline
+  = f.association :band
+  = f.input :name
+- card.actions do
+  = f.primary_button :submit
+  = f.cancel_button(competition_bands_path)
