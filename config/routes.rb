@@ -25,5 +25,20 @@ Rails.application.routes.draw do
     resources :disciplines
     resources :bands
     resources :assessments
+
+    namespace :certificates do
+      resources :templates do
+        member do
+          get :edit_text_fields
+          get :duplicate
+          get :remove_file
+        end
+      end
+      resources :lists, only: %i[new create] do
+        collection do
+          post :export
+        end
+      end
+    end
   end
 end

@@ -4,14 +4,14 @@ class CompetitionNestedController < ApplicationController
   before_action :load_competition
   authorize_resource :competition
 
-  def self.default_resource
+  def self.default_resource(resource_class: nil, name: nil, through_association: nil)
     namespace = controller_path.split('/')[0..-2]
-    name = controller_path.split('/').last.singularize
-    load_and_authorize_resource(name.to_sym, through: :competition)
+    name ||= controller_path.split('/').last.singularize
+    load_and_authorize_resource(name.to_sym, through: :competition, class: resource_class, through_association:)
     namespaced_name = [namespace, name].join('/').singularize.camelize.safe_constantize || name
 
     define_method(:resource_class) do
-      @resource_class ||= namespaced_name.to_s.camelize.constantize
+      @resource_class ||= resource_class || namespaced_name.to_s.camelize.constantize
     end
     helper_method :resource_class
 
@@ -25,7 +25,7 @@ class CompetitionNestedController < ApplicationController
     end
 
     define_method(:resource_collection) do
-      instance_variable_get(:"@#{name.pluralize}")
+      instance_variable_get(:"@#{name.to_s.pluralize}")
     end
     helper_method :resource_collection
 

@@ -2,7 +2,9 @@
 de:
   a:
     actions: Aktionen
+    delete: Löschen
     add: Hinzufügen
+    edit: Bearbeiten
     no_entries_found: Keine Einträge gefunden
     show: Ansehen
   activerecord:

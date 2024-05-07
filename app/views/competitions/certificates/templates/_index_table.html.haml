@@ -1,0 +1,11 @@
+
+%table.table
+  %tr
+    %th= Certificates::Template.human_attribute_name(:name)
+    %th
+  - resource_collection.each do |template|
+    %tr
+      %td= template.name
+      %td.text-end
+        = btn_link_to(t('a.show'), { action: :show, id: template })
+        = btn_link_to(t('a.edit'), { action: :edit, id: template })
