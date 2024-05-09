@@ -29,8 +29,8 @@ class Competition < ApplicationRecord
 
     next if date.blank?
 
-    self.description = "Der Wettkampf *#{name}* findet am **#{I18n.l date}** in **#{locality}** statt.\n\n" \
-                       'Weitere Informationen folgen.'
+    self.description ||= "Der Wettkampf *#{name}* findet am **#{I18n.l date}** in **#{locality}** statt.\n\n" \
+                         'Weitere Informationen folgen.'
   end
 
   def description_html
