@@ -2,8 +2,8 @@
 de:
   a:
     actions: Aktionen
-    delete: Löschen
     add: Hinzufügen
+    delete: Löschen
     edit: Bearbeiten
     no_entries_found: Keine Einträge gefunden
     show: Ansehen
