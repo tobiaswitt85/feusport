@@ -52,7 +52,7 @@ class Certificates::TextField < ApplicationRecord
       description: 'Platz mit Platz',
       example: '42. Platz',
     },
-    rank_with_rank_2: {
+    rank_with_rank2: {
       description: 'Platz mit Platz',
       example: 'den 42. Platz',
     },

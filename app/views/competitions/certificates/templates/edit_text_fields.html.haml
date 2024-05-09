@@ -3,7 +3,6 @@
 - if @template.font2.attached?
   = render 'font_style', type: :bold, font: @template.font2
 
-
 = simple_form_for(@template, url: url_for(controller: controller_path, action: :update)) do |f|
   = card("Urkundenvorlage: #{@template.name}", title: true) do |card|
     - card.direct do
@@ -14,7 +13,6 @@
         .col-md-2#position-buttons
           .btn.btn-default.btn-sm#add-new-field Feld hinzufügen
           #field-tables
-
 
       - @template.text_fields.each do |text_field|
         = f.simple_fields_for(:text_fields, text_field) do |tf|
@@ -45,11 +43,23 @@
         = f.primary_button :submit
         = f.cancel_button(competition_certificates_templates_path)
 
+.modal{ tabindex: '-1' }
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5.modal-title Modal title
+        %button.btn-close{ 'aria-label' => 'Close', 'data-bs-dismiss' => 'modal', type: 'button' }
+      .modal-body
+        %p Modal body text goes here.
+      .modal-footer
+        %button.btn.btn-secondary{ 'data-bs-dismiss' => 'modal', type: 'button' } Close
+        %button.btn.btn-primary{ type: 'button' } Save changes
 
-%table#information-table-template.information-table
+
+%table.information-table#information-table-template
   %tbody
     %tr
-      %th.key.text-center{colspan: "4"}
+      %th.key.text-center{ colspan: '4' }
     %tr.size-value
       %td.text-center
         .btn.btn-light.less-less --
@@ -98,23 +108,23 @@
     %tr
       %td
       %th Text
-      %td.text-center{colspan: "2"}
+      %td.text-center{ colspan: '2' }
         .btn.btn-light.fa-regular.fa-align-left
         .btn.btn-light.fa-regular.fa-align-center
         .btn.btn-light.fa-regular.fa-align-right
     %tr
       %td
       %th Schrift
-      %td.text-center{colspan: "2"}
+      %td.text-center{ colspan: '2' }
         .btn.btn-light.fa-regular.fa-font.font-regular
         .btn.btn-light.fa-regular.fa-font.font-bold
     %tr
       %td
       %th Farbe
-      %td.text-center{colspan: "2"}
-        %input{type: "color", value: "#000000"}/
+      %td.text-center{ colspan: '2' }
+        %input{ type: 'color', value: '#000000' }
     %tr
-      %td.text-center{colspan: "4"}
+      %td.text-center{ colspan: '4' }
         .btn.btn-light.centering
           .fa-regular.fa-left-right
           Element zentrieren

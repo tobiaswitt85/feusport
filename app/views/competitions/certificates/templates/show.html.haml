@@ -25,7 +25,7 @@
             %th= Certificates::Template.human_attribute_name :font
             - if @template.font.attached?
               %td{ style: "font-family: certificates_template_#{@template.id}_regular" } Beispieltext
-              %td.text-end= btn_link_to(t('a.delete'), action: :remove_file, type: :font )
+              %td.text-end= btn_link_to(t('a.delete'), action: :remove_file, type: :font)
             - else
               %td Nicht angegeben
               %td

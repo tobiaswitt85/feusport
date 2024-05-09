@@ -117,7 +117,7 @@ template.text_fields.create!(
   width: '350.0',
   height: '70.0',
   size: 36,
-  key: 'rank_with_rank_2',
+  key: 'rank_with_rank2',
   align: 'center',
   text: '',
   color: '000000',
