@@ -357,11 +357,10 @@ class TextElement {
   }
 
   adjustCenter() {
-    var position;
-    position = this.element.position();
-    position.left = 595 / 2 - parseInt(this.formElement.get('width'), 10) / 2;
-    this.element.css(position);
-    this.movedTo(this.element.offset().left, this.element.offset().top);
+    const position = this.draggable.get();
+    position.x = 595 / 2 - parseInt(this.formElement.get('width'), 10) / 2;
+    this.draggable.set(position.x, position.y);
+    this.movedTo(position.x, position.y);
   }
 
   resizeTo(width, height) {
