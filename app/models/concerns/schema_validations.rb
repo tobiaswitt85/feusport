@@ -27,7 +27,7 @@ module SchemaValidations
     def schema_validations(exclude: [], schema_table_name: table_name)
       self.schema_validations_called = true
       self.schema_validations_excluded_columns += exclude.map(&:to_sym)
-      send("dbv_#{schema_table_name}_validations")
+      send("dbv_#{schema_table_name}_validations", enums: defined_enums.keys.map(&:to_sym))
     end
 
     def skip_schema_validations
@@ -35,7 +35,7 @@ module SchemaValidations
     end
 
 
-    def dbv_active_storage_attachments_validations
+    def dbv_active_storage_attachments_validations(enums: [])
       belongs_to_presence_validations_for([:record_id, :blob_id])
       belongs_to_uniqueness_validations_for([["record_type", "record_id", "name", "blob_id"]])
       uniqueness_validations_for([["record_type", "record_id", "name", "blob_id"]])
@@ -47,7 +47,7 @@ module SchemaValidations
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_active_storage_blobs_validations
+    def dbv_active_storage_blobs_validations(enums: [])
       belongs_to_presence_validations_for([:byte_size])
       belongs_to_uniqueness_validations_for([["key"]])
       uniqueness_validations_for([["key"]])
@@ -55,12 +55,12 @@ module SchemaValidations
       validates_with_filter :filename, {:presence=>{}}
       validates_with_filter :service_name, {:presence=>{}}
       validates_with_filter :byte_size, {:presence=>{}}
-      validates_with_filter :byte_size, {:numericality=>{:allow_nil=>true}}
+      validates_with_filter :byte_size, {:numericality=>{:allow_nil=>true}} unless enums.include?(:byte_size)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_active_storage_variant_records_validations
+    def dbv_active_storage_variant_records_validations(enums: [])
       belongs_to_presence_validations_for([:blob_id])
       belongs_to_uniqueness_validations_for([["blob_id", "variation_digest"]])
       uniqueness_validations_for([["blob_id", "variation_digest"]])
@@ -68,31 +68,31 @@ module SchemaValidations
       validates_with_filter :variation_digest, {:presence=>{}}
     end
 
-    def dbv_assessment_requests_validations
+    def dbv_assessment_requests_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :assessment_id, :entity_id, :assessment_type, :group_competitor_order, :relay_count, :single_competitor_order, :competitor_order])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :assessment_id, {:presence=>{}}
       validates_with_filter :entity_type, {:presence=>{}}
       validates_with_filter :entity_type, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :entity_id, {:presence=>{}}
-      validates_with_filter :entity_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :entity_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:entity_id)
       validates_with_filter :assessment_type, {:presence=>{}}
-      validates_with_filter :assessment_type, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :assessment_type, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:assessment_type)
       validates_with_filter :group_competitor_order, {:presence=>{}}
-      validates_with_filter :group_competitor_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :group_competitor_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:group_competitor_order)
       validates_with_filter :relay_count, {:presence=>{}}
-      validates_with_filter :relay_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :relay_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:relay_count)
       validates_with_filter :single_competitor_order, {:presence=>{}}
-      validates_with_filter :single_competitor_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :single_competitor_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:single_competitor_order)
       validates_with_filter :competitor_order, {:presence=>{}}
-      validates_with_filter :competitor_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :competitor_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:competitor_order)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_assessments_validations
+    def dbv_assessments_validations(enums: [])
       belongs_to_presence_validations_for([:discipline_id, :band_id])
       validates_with_filter :forced_name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :discipline_id, {:presence=>{}}
@@ -103,21 +103,21 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_bands_validations
+    def dbv_bands_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :gender])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :gender, {:presence=>{}}
-      validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:gender)
       validates_with_filter :name, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
-      validates_with_filter :position, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :position, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:position)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_certificates_templates_validations
+    def dbv_certificates_templates_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>200}}
@@ -127,7 +127,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_certificates_text_fields_validations
+    def dbv_certificates_text_fields_validations(enums: [])
       belongs_to_presence_validations_for([:template_id, :size])
       validates_with_filter :template_id, {:presence=>{}}
       validates_with_filter :left, {:presence=>{}}
@@ -135,7 +135,7 @@ module SchemaValidations
       validates_with_filter :width, {:presence=>{}}
       validates_with_filter :height, {:presence=>{}}
       validates_with_filter :size, {:presence=>{}}
-      validates_with_filter :size, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :size, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:size)
       validates_with_filter :key, {:presence=>{}}
       validates_with_filter :key, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :align, {:presence=>{}}
@@ -151,7 +151,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_competitions_validations
+    def dbv_competitions_validations(enums: [])
       belongs_to_presence_validations_for([:user_id, :year])
       belongs_to_uniqueness_validations_for([["year", "slug"]])
       uniqueness_validations_for([["year", "slug"]])
@@ -165,7 +165,7 @@ module SchemaValidations
       validates_with_filter :slug, {:presence=>{}}
       validates_with_filter :slug, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :year, {:presence=>{}}
-      validates_with_filter :year, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :year, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:year)
       validates_with_filter :visible, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
@@ -173,12 +173,12 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_delayed_jobs_validations
+    def dbv_delayed_jobs_validations(enums: [])
       belongs_to_presence_validations_for([:priority, :attempts])
       validates_with_filter :priority, {:presence=>{}}
-      validates_with_filter :priority, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :priority, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:priority)
       validates_with_filter :attempts, {:presence=>{}}
-      validates_with_filter :attempts, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :attempts, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:attempts)
       validates_with_filter :handler, {:presence=>{}}
       validates_with_filter :run_at, {:date_time_in_db_range=>{}}
       validates_with_filter :locked_at, {:date_time_in_db_range=>{}}
@@ -187,7 +187,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_disciplines_validations
+    def dbv_disciplines_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
@@ -204,7 +204,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_documents_validations
+    def dbv_documents_validations(enums: [])
       validates_with_filter :title, {:presence=>{}}
       validates_with_filter :title, {:length=>{:allow_nil=>true, :maximum=>200}}
       validates_with_filter :created_at, {:presence=>{}}
@@ -213,70 +213,70 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_fire_sport_statistics_people_validations
+    def dbv_fire_sport_statistics_people_validations(enums: [])
       belongs_to_presence_validations_for([:gender])
       validates_with_filter :last_name, {:presence=>{}}
       validates_with_filter :last_name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :first_name, {:presence=>{}}
       validates_with_filter :first_name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :gender, {:presence=>{}}
-      validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:gender)
       validates_with_filter :dummy, {:inclusion=>{:in=>[true, false], :message=>:blank}}
-      validates_with_filter :personal_best_hb, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :personal_best_hl, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :personal_best_zk, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :saison_best_hb, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :saison_best_hl, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :saison_best_zk, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :personal_best_hb, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:personal_best_hb)
+      validates_with_filter :personal_best_hl, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:personal_best_hl)
+      validates_with_filter :personal_best_zk, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:personal_best_zk)
+      validates_with_filter :saison_best_hb, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:saison_best_hb)
+      validates_with_filter :saison_best_hl, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:saison_best_hl)
+      validates_with_filter :saison_best_zk, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:saison_best_zk)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_fire_sport_statistics_person_spellings_validations
+    def dbv_fire_sport_statistics_person_spellings_validations(enums: [])
       belongs_to_presence_validations_for([:gender, :person_id])
       validates_with_filter :last_name, {:presence=>{}}
       validates_with_filter :last_name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :first_name, {:presence=>{}}
       validates_with_filter :first_name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :gender, {:presence=>{}}
-      validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:gender)
       validates_with_filter :person_id, {:presence=>{}}
-      validates_with_filter :person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:person_id)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_fire_sport_statistics_team_associations_validations
+    def dbv_fire_sport_statistics_team_associations_validations(enums: [])
       belongs_to_presence_validations_for([:person_id, :team_id])
       validates_with_filter :person_id, {:presence=>{}}
-      validates_with_filter :person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:person_id)
       validates_with_filter :team_id, {:presence=>{}}
-      validates_with_filter :team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:team_id)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_fire_sport_statistics_team_spellings_validations
+    def dbv_fire_sport_statistics_team_spellings_validations(enums: [])
       belongs_to_presence_validations_for([:team_id])
       validates_with_filter :name, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :short, {:presence=>{}}
       validates_with_filter :short, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :team_id, {:presence=>{}}
-      validates_with_filter :team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:team_id)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_fire_sport_statistics_teams_validations
+    def dbv_fire_sport_statistics_teams_validations(enums: [])
       validates_with_filter :name, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :short, {:presence=>{}}
@@ -288,7 +288,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_people_validations
+    def dbv_people_validations(enums: [])
       belongs_to_presence_validations_for([:band_id, :registration_order])
       validates_with_filter :band_id, {:presence=>{}}
       validates_with_filter :last_name, {:presence=>{}}
@@ -298,15 +298,15 @@ module SchemaValidations
       validates_with_filter :bib_number, {:presence=>{}}
       validates_with_filter :bib_number, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :registration_order, {:presence=>{}}
-      validates_with_filter :registration_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :fire_sport_statistics_person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :registration_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:registration_order)
+      validates_with_filter :fire_sport_statistics_person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:fire_sport_statistics_person_id)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_competition_results_validations
+    def dbv_score_competition_results_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :band_id])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :band_id, {:presence=>{}}
@@ -318,7 +318,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_list_assessments_validations
+    def dbv_score_list_assessments_validations(enums: [])
       belongs_to_presence_validations_for([:assessment_id, :list_id])
       validates_with_filter :assessment_id, {:presence=>{}}
       validates_with_filter :list_id, {:presence=>{}}
@@ -328,33 +328,33 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_list_entries_validations
+    def dbv_score_list_entries_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :list_id, :entity_id, :track, :run, :assessment_type, :assessment_id])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :list_id, {:presence=>{}}
       validates_with_filter :entity_type, {:presence=>{}}
       validates_with_filter :entity_type, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :entity_id, {:presence=>{}}
-      validates_with_filter :entity_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :entity_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:entity_id)
       validates_with_filter :track, {:presence=>{}}
-      validates_with_filter :track, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :track, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:track)
       validates_with_filter :run, {:presence=>{}}
-      validates_with_filter :run, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :run, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:run)
       validates_with_filter :result_type, {:presence=>{}}
       validates_with_filter :result_type, {:length=>{:allow_nil=>true, :maximum=>20}}
       validates_with_filter :assessment_type, {:presence=>{}}
-      validates_with_filter :assessment_type, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :assessment_type, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:assessment_type)
       validates_with_filter :assessment_id, {:presence=>{}}
-      validates_with_filter :time, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :time_left_target, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :time_right_target, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :time, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:time)
+      validates_with_filter :time_left_target, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:time_left_target)
+      validates_with_filter :time_right_target, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:time_right_target)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_list_factories_validations
+    def dbv_score_list_factories_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :discipline_id])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :session_id, {:presence=>{}}
@@ -362,11 +362,11 @@ module SchemaValidations
       validates_with_filter :discipline_id, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :shortcut, {:length=>{:allow_nil=>true, :maximum=>50}}
-      validates_with_filter :track_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :track_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:track_count)
       validates_with_filter :type, {:presence=>{}}
-      validates_with_filter :best_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :best_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:best_count)
       validates_with_filter :status, {:length=>{:allow_nil=>true, :maximum=>50}}
-      validates_with_filter :track, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :track, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:track)
       validates_with_filter :hidden, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :separate_target_times, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :single_competitors_first, {:inclusion=>{:in=>[true, false], :message=>:blank}}
@@ -377,7 +377,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_list_factory_assessments_validations
+    def dbv_score_list_factory_assessments_validations(enums: [])
       belongs_to_presence_validations_for([:list_factory_id, :assessment_id])
       validates_with_filter :list_factory_id, {:presence=>{}}
       validates_with_filter :assessment_id, {:presence=>{}}
@@ -387,7 +387,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_list_factory_bands_validations
+    def dbv_score_list_factory_bands_validations(enums: [])
       belongs_to_presence_validations_for([:list_factory_id, :band_id])
       validates_with_filter :list_factory_id, {:presence=>{}}
       validates_with_filter :band_id, {:presence=>{}}
@@ -397,7 +397,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_lists_validations
+    def dbv_score_lists_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :track_count])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
@@ -405,7 +405,7 @@ module SchemaValidations
       validates_with_filter :shortcut, {:presence=>{}}
       validates_with_filter :shortcut, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :track_count, {:presence=>{}}
-      validates_with_filter :track_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :track_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:track_count)
       validates_with_filter :date, {:date_in_db_range=>{}}
       validates_with_filter :show_multiple_assessments, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :hidden, {:inclusion=>{:in=>[true, false], :message=>:blank}}
@@ -417,7 +417,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_result_list_factories_validations
+    def dbv_score_result_list_factories_validations(enums: [])
       belongs_to_presence_validations_for([:list_factory_id, :result_id])
       validates_with_filter :list_factory_id, {:presence=>{}}
       validates_with_filter :result_id, {:presence=>{}}
@@ -427,7 +427,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_result_lists_validations
+    def dbv_score_result_lists_validations(enums: [])
       belongs_to_presence_validations_for([:list_id, :result_id])
       validates_with_filter :list_id, {:presence=>{}}
       validates_with_filter :result_id, {:presence=>{}}
@@ -437,7 +437,7 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_score_results_validations
+    def dbv_score_results_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :assessment_id, :calculation_method])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
@@ -446,37 +446,37 @@ module SchemaValidations
       validates_with_filter :assessment_id, {:presence=>{}}
       validates_with_filter :type, {:presence=>{}}
       validates_with_filter :type, {:length=>{:allow_nil=>true, :maximum=>50}}
-      validates_with_filter :group_score_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
-      validates_with_filter :group_run_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :group_score_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:group_score_count)
+      validates_with_filter :group_run_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:group_run_count)
       validates_with_filter :date, {:date_in_db_range=>{}}
       validates_with_filter :calculation_method, {:presence=>{}}
-      validates_with_filter :calculation_method, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :calculation_method, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:calculation_method)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_teams_validations
+    def dbv_teams_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :band_id, :number])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :band_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :number, {:presence=>{}}
-      validates_with_filter :number, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :number, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:number)
       validates_with_filter :shortcut, {:presence=>{}}
       validates_with_filter :shortcut, {:length=>{:allow_nil=>true, :maximum=>50}}
-      validates_with_filter :lottery_number, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :lottery_number, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:lottery_number)
       validates_with_filter :enrolled, {:inclusion=>{:in=>[true, false], :message=>:blank}}
-      validates_with_filter :fire_sport_statistics_team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :fire_sport_statistics_team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:fire_sport_statistics_team_id)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
-    def dbv_users_validations
+    def dbv_users_validations(enums: [])
       belongs_to_presence_validations_for([:sign_in_count, :failed_attempts])
       belongs_to_uniqueness_validations_for([["confirmation_token"], ["email"], ["reset_password_token"], ["unlock_token"]])
       uniqueness_validations_for([["confirmation_token"], ["email"], ["reset_password_token"], ["unlock_token"]])
@@ -488,7 +488,7 @@ module SchemaValidations
       validates_with_filter :reset_password_sent_at, {:date_time_in_db_range=>{}}
       validates_with_filter :remember_created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :sign_in_count, {:presence=>{}}
-      validates_with_filter :sign_in_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :sign_in_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:sign_in_count)
       validates_with_filter :current_sign_in_at, {:date_time_in_db_range=>{}}
       validates_with_filter :last_sign_in_at, {:date_time_in_db_range=>{}}
       validates_with_filter :current_sign_in_ip, {:length=>{:allow_nil=>true, :maximum=>100}}
@@ -498,7 +498,7 @@ module SchemaValidations
       validates_with_filter :confirmation_sent_at, {:date_time_in_db_range=>{}}
       validates_with_filter :unconfirmed_email, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :failed_attempts, {:presence=>{}}
-      validates_with_filter :failed_attempts, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}}
+      validates_with_filter :failed_attempts, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:failed_attempts)
       validates_with_filter :unlock_token, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :locked_at, {:date_time_in_db_range=>{}}
       validates_with_filter :created_at, {:presence=>{}}

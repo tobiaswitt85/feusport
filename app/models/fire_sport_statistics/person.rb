@@ -11,7 +11,7 @@ class FireSportStatistics::Person < ApplicationRecord
                    foreign_key: :fire_sport_statistics_person_id, dependent: :nullify
   has_many :spellings, class_name: 'FireSportStatistics::PersonSpelling', dependent: :destroy, inverse_of: :person
 
-  schema_validations exclude: [:gender]
+  schema_validations
 
   scope :where_name_like, ->(name) do
     query = "%#{name.chars.join('%')}%"

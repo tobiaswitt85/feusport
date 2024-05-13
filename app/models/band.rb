@@ -17,7 +17,7 @@ class Band < ApplicationRecord
 
   acts_as_list
 
-  schema_validations exclude: [:gender]
+  schema_validations
 
   # TODO: after_update do
   # TODO:   TagReference.all.where(taggable_type: 'Person', taggable_id: people).where.not(id: tags).delete_all

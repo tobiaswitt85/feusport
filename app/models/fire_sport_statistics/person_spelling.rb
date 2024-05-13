@@ -5,5 +5,5 @@ class FireSportStatistics::PersonSpelling < ApplicationRecord
 
   belongs_to :person, class_name: 'FireSportStatistics::Person', inverse_of: :spellings
 
-  schema_validations exclude: [:gender]
+  schema_validations
 end
