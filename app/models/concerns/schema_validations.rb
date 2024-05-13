@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20240426112355
+# generated from version 20240512200346
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -94,7 +94,6 @@ module SchemaValidations
 
     def dbv_assessments_validations
       belongs_to_presence_validations_for([:discipline_id, :band_id])
-      validates_with_filter :name, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :discipline_id, {:presence=>{}}
       validates_with_filter :band_id, {:presence=>{}}

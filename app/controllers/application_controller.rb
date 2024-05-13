@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include AccessDeniedSupport
+  include ExportsSupport
 
   protected
 

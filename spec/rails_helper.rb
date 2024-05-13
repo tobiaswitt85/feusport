@@ -34,6 +34,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   config.use_transactional_fixtures = false
 
+  config.before(type: :request) do
+    view_sanitizer.gsub(/[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}/, 'UUID')
+  end
+
   config.before(:suite) do
     FactoryBot.find_definitions
   end

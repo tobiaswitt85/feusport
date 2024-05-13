@@ -4,7 +4,7 @@
     %th= resource_class.human_attribute_name(:discipline)
     %th= resource_class.human_attribute_name(:band)
     %th
-  - resource_collection.each do |assessment|
+  - resource_collection.sort.each do |assessment|
     %tr
       %td= assessment.decorated_name
       %td

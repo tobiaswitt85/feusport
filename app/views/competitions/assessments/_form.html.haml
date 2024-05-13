@@ -1,6 +1,6 @@
 - card.body do
-  = f.association :discipline
-  = f.association :band
+  = f.association :discipline, collection: @competition.disciplines
+  = f.association :band, collection: @competition.bands
   = f.input :name
 - card.actions do
   = f.primary_button :submit

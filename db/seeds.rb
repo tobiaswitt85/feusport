@@ -35,8 +35,13 @@ c = Competition.create_with(date: 4.months.from_now).find_or_create_by!(
   name: 'Wettkampf mit Urkunden', user:, locality: 'Rostock', visible: true,
 )
 
-c.disciplines.find_or_create_by(key: :la, name: Discipline::DEFAULT_NAMES[:la], short_name: 'LA',
-                                single_discipline: false)
+la = c.disciplines.find_or_create_by(key: :la, name: Discipline::DEFAULT_NAMES[:la], short_name: 'LA',
+                                     single_discipline: false)
+female = c.bands.find_or_create_by!(gender: :female, name: 'Frauen')
+male = c.bands.find_or_create_by!(gender: :male, name: 'Männer')
+c.assessments.find_or_create_by!(discipline: la, band: female)
+c.assessments.find_or_create_by!(discipline: la, band: male)
+
 template = c.certificates_templates.find_or_create_by(name: 'Beispielvorlage')
 template.text_fields.destroy_all
 template.text_fields.create!(

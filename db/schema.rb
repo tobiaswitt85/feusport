@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_12_200346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
 
   create_table "assessments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "competition_id"
-    t.string "name", limit: 100, null: false
+    t.string "name", limit: 100
     t.uuid "discipline_id", null: false
     t.uuid "band_id", null: false
     t.string "tags", default: [], array: true

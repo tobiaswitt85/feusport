@@ -4,6 +4,11 @@ class Competitions::AssessmentsController < CompetitionNestedController
   default_resource
   before_action :assign_new_assessment, only: %i[new create]
 
+  def index
+    # send_pdf(Exports::PDF::Assessments) { [@competition] }
+    send_xlsx(Exports::Xlsx::Assessments, args: [@competition])
+  end
+
   def create
     @assessment.assign_attributes(assessment_params)
     if @assessment.save
