@@ -10,7 +10,7 @@ Exports::JSON::People = Struct.new(:people) do
                {
                  name: band.name,
                  gender: band.gender,
-                 people: index_export_data(band, people.where(band: band).decorate),
+                 people: index_export_data(band, people.where(band:).decorate),
                }
              end,
     }

@@ -1,0 +1,4 @@
+Band bands managements uses CRUD-index-as-pdf
+
+request
+pdf

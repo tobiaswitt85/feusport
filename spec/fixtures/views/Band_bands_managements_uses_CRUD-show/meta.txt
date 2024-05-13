@@ -1,0 +1,4 @@
+Band bands managements uses CRUD-show
+
+request
+html

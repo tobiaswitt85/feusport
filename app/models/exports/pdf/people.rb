@@ -6,8 +6,8 @@ Exports::PDF::People = Struct.new(:people) do
 
   def perform
     first = true
-    Band.all.find_each do |band|
-      collection = people.where(band: band)
+    Band.find_each do |band|
+      collection = people.where(band:)
       next unless collection.exists?
 
       pdf.start_new_page unless first

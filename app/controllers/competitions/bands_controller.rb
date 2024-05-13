@@ -3,6 +3,11 @@
 class Competitions::BandsController < CompetitionNestedController
   default_resource
 
+  def index
+    send_pdf(Exports::Pdf::Bands, args: [@competition])
+    send_xlsx(Exports::Xlsx::Bands, args: [@competition])
+  end
+
   def edit
     if params[:move] == 'up'
       @band.move_higher

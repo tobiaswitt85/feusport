@@ -3,9 +3,9 @@
 module Exports::ScoreLists
   def show_export_data(list, more_columns: false, double_run: false, pdf: false, hint_size: 6,
                        show_bib_numbers: Competition.one.show_bib_numbers?, separate_target_times_as_columns: false)
-    data = [show_export_header(list, more_columns: more_columns, double_run: double_run,
-                                     show_bib_numbers: show_bib_numbers,
-                                     separate_target_times_as_columns: separate_target_times_as_columns)]
+    data = [show_export_header(list, more_columns:, double_run:,
+                                     show_bib_numbers:,
+                                     separate_target_times_as_columns:)]
 
     score_list_entries(list) do |entry, run, track, _best_of_run|
       line = []
@@ -13,13 +13,13 @@ module Exports::ScoreLists
       if list.single_discipline?
         line.push(entry.try(:entity).try(:bib_number).to_s) if show_bib_numbers
 
-        line.push(entry.try(:entity).try(:export_last_name, list, pdf: pdf, hint_size: hint_size) || '')
+        line.push(entry.try(:entity).try(:export_last_name, list, pdf:, hint_size:) || '')
         line.push(entry.try(:entity).try(:short_first_name).to_s)
         team_name = entry.try(:entity).try(:team_shortcut_name, entry.try(:assessment_type))
-        team_name = append_assessment(list, entry, team_name, pdf: pdf, hint_size: hint_size)
+        team_name = append_assessment(list, entry, team_name, pdf:, hint_size:)
       else
         team_name = entry.try(:entity).to_s
-        team_name = append_assessment(list, entry, team_name, pdf: pdf, hint_size: hint_size)
+        team_name = append_assessment(list, entry, team_name, pdf:, hint_size:)
 
         tags = (entry.try(:entity).try(:tag_names) || []) & list.tag_names
         team_name += "<font size='6'> #{tags.join(',')}</font>" if tags.present?
@@ -41,7 +41,7 @@ module Exports::ScoreLists
         if separate_target_times_as_columns
           line.push(entry&.second_time_left_target, entry&.second_time_right_target)
         else
-          line.push(entry&.target_times_as_data(pdf: pdf, hint_size: hint_size))
+          line.push(entry&.target_times_as_data(pdf:, hint_size:))
         end
       end
       line.push(entry.try(:human_time))
@@ -109,12 +109,12 @@ module Exports::ScoreLists
   end
 
   def calculate_best_of_runs(entries)
-    entries.select(&:result_valid?).group_by(&:run).map do |run, runners|
+    entries.select(&:result_valid?).group_by(&:run).to_h do |run, runners|
       best_per_assessments = runners.group_by(&:assessment_id).map do |_, ass_runners|
         ass_runners.group_by(&:time).min.second
       end
-      [run, best_per_assessments.inject(:+)]
-    end.to_h
+      [run, best_per_assessments.sum]
+    end
   end
 
   def append_assessment(list, entry, team_name, pdf:, hint_size: 6)

@@ -2,7 +2,7 @@
 
 module Exports::ScoreResults
   def build_data_rows(result, discipline, shortcut, export_headers: false, pdf: false)
-    data = [build_data_headline(result, discipline, export_headers: export_headers, pdf: pdf)]
+    data = [build_data_headline(result, discipline, export_headers:, pdf:)]
     result.rows.each do |row|
       line = []
       line.push "#{result.place_for_row(row)}."
@@ -17,7 +17,7 @@ module Exports::ScoreResults
       else
         result.lists.each do |list|
           entry = row.result_entry_from(list)
-          line.push(entry&.target_times_as_data(pdf: pdf)) if pdf && list.separate_target_times?
+          line.push(entry&.target_times_as_data(pdf:)) if pdf && list.separate_target_times?
           line.push(entry.to_s)
         end
         line.push(row.best_result_entry.to_s) unless result.lists.count == 1

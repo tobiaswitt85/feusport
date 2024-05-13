@@ -8,9 +8,7 @@ Exports::PDF::Certificates::Export = Struct.new(:template, :title, :rows, :backg
     pdf.font_families.update('certificates_template_bold' => { normal: font2_path })
 
     rows.each_with_index do |row, i|
-      if template.image.attached? && background_image
-        pdf.image(template.image_path, at: [0, height], width: width, height: height)
-      end
+      pdf.image(template.image_path, at: [0, height], width:, height:) if template.image.attached? && background_image
       template.text_fields.each { |position| render_position(position, row) }
 
       pdf.start_new_page if i != rows.count - 1
@@ -18,7 +16,7 @@ Exports::PDF::Certificates::Export = Struct.new(:template, :title, :rows, :backg
   end
 
   def filename
-    title.parameterize + '.pdf'
+    "#{title.parameterize}.pdf"
   end
 
   protected

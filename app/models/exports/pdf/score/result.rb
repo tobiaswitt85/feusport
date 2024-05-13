@@ -21,7 +21,7 @@ Exports::PDF::Score::Result = Struct.new(:result, :only) do
   end
 
   def single_table
-    pdf_header(result.to_s, discipline: discipline, date: result.date)
+    pdf_header(result.to_s, discipline:, date: result.date)
 
     pdf.table(build_data_rows(result, discipline, true, pdf: true),
               header: true,
@@ -35,7 +35,7 @@ Exports::PDF::Score::Result = Struct.new(:result, :only) do
 
   def group_table
     pdf.start_new_page if only.nil?
-    pdf_header("#{result} - Mannschaftswertung", discipline: discipline, date: result.date)
+    pdf_header("#{result} - Mannschaftswertung", discipline:, date: result.date)
 
     pdf.table(build_group_data_rows(result),
               header: true,

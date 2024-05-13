@@ -21,7 +21,7 @@ Exports::PDF::Score::MultiList = Struct.new(:print_elements) do
     LINE_HEIGHT = 11
 
     def fit?(list)
-      pdf.cursor - HEADER_SIZE - LINE_HEIGHT - LINE_HEIGHT * list.track_count > 0
+      pdf.cursor - HEADER_SIZE - LINE_HEIGHT - (LINE_HEIGHT * list.track_count) > 0
     end
 
     def consume(list, from_run:, headline:, lines:)
@@ -35,7 +35,7 @@ Exports::PDF::Score::MultiList = Struct.new(:print_elements) do
       current_lines = lines[from_run * list.track_count, runs_to_consume * list.track_count]
 
       pdf.table([headline] + current_lines,
-                position: position,
+                position:,
                 header: true,
                 row_colors: base.pdf_row_colors(list),
                 # width: pdf.bounds.width / 2 - 5, 256.64
@@ -52,7 +52,7 @@ Exports::PDF::Score::MultiList = Struct.new(:print_elements) do
         end
       end
 
-      pdf.move_down 10 if runs_to_consume * list.track_count + from_run * list.track_count >= lines.count
+      pdf.move_down 10 if (runs_to_consume * list.track_count) + (from_run * list.track_count) >= lines.count
 
       from_run + runs_to_consume
     end
@@ -76,12 +76,13 @@ Exports::PDF::Score::MultiList = Struct.new(:print_elements) do
     pdf.move_down 10
     @column = PageColumn.new(self, pdf, :left)
     print_elements.each do |element|
-      if element == 'column'
+      case element
+      when 'column'
         next_column
-      elsif element == 'page'
+      when 'page'
         pdf.start_new_page
         @column = PageColumn.new(self, pdf, :left)
-      elsif element.is_a?(Score::ListDecorator)
+      when Score::ListDecorator
         lines = show_export_data(element, pdf: true, show_bib_numbers: false, hint_size: 4,
                                           separate_target_times_as_columns: true)
         headline = lines.shift
@@ -90,7 +91,7 @@ Exports::PDF::Score::MultiList = Struct.new(:print_elements) do
         while next_run < max_run
           next_column unless @column.fit?(element)
 
-          next_run = @column.consume(element, from_run: next_run, headline: headline, lines: lines)
+          next_run = @column.consume(element, from_run: next_run, headline:, lines:)
         end
       end
     end

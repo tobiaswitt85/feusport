@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+<title>Wertungsgruppe hinzufügen - MV-Cup - 29.02.2024 - Feuerwehrsport</title>
+<meta content='width=device-width,initial-scale=1' name='viewport'>
+
+
+<link rel="stylesheet" href="/assets/application.css" data-turbo-track="reload" />
+<script src="/assets/application.js" data-turbo-track="reload" defer="defer"></script>
+</head>
+<body class='bg-light'>
+<nav class='navbar navbar-expand-lg bg-secondary-subtle shadow-sm'>
+<div class='container'>
+<a class='navbar-brand' href='/' title='Startseite'>
+<img src="/assets/logo.png" />
+</a>
+<button aria-controls='navbar-supported-content' aria-expanded='false' aria-label='Menü anzeigen' class='navbar-toggler' data-bs-target='#navbar-supported-content' data-bs-toggle='collapse' type='button'>
+<span class='navbar-toggler-icon'></span>
+</button>
+<div class='collapse navbar-collapse' id='navbar-supported-content'>
+<ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+<li class='nav-item'>
+<a class="nav-link active" aria-current="page" href="/2024/mv-cup">MV-Cup
+<div class='small'>29.02.2024 - Rostock</div>
+</a></li>
+<li class='nav-item'>
+<a class="nav-link" href="/2024/mv-cup/teams">Mannschaften</a>
+</li>
+<li class='nav-item'>
+<a class="nav-link" href="/2024/mv-cup/people">Wettkämpfer</a>
+</li>
+<li class='nav-item'>
+<a class="nav-link" href="/2024/mv-cup/score_lists">Startlisten</a>
+</li>
+</ul>
+<ul class='navbar-nav me-end mb-2 mb-lg-0'>
+<li class='nav-item dropdown'>
+<a aria-expanded='false' class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' id='navbar-dropdown-menu-link' role='button'>
+<div class='far fa-wrench'></div>
+</a>
+<ul aria-labelledby='navbar-dropdown-menu-link' class='dropdown-menu'>
+<li>
+<a class="dropdown-item" href="/2024/mv-cup/disciplines">Disziplinen</a>
+</li>
+<li>
+<a class="dropdown-item active" aria-current="page" href="/2024/mv-cup/bands">Wertungsgruppen</a>
+</li>
+<li>
+<a class="dropdown-item" href="/2024/mv-cup/assessments">Wertungen</a>
+</li>
+<li>
+<a class="dropdown-item" href="/2024/mv-cup/certificates/templates">Urkundenvorlagen</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+</div>
+</nav>
+<div class='container mt-3'>
+<div class='alert-flash'>
+</div>
+</div>
+<div class='mt-3 container'><h3>Aus Vorlage</h3>
+<div class='row mb-3'>
+<div class='col-md-6'>
+<div class='card'>
+<div class='card-header'>Erwachsene</div>
+<div class='card-body'>
+<div class='row'>
+<div class='col-md-4 text-center'>
+<form class="simple_form new_band" id="new_band" novalidate="novalidate" action="/2024/mv-cup/bands" accept-charset="UTF-8" method="post"><div class="form-group my-2 hidden band_name"><input class="form-control hidden" value="Frauen" autocomplete="off" type="hidden" name="band[name]" id="band_name" /></div>
+<div class="form-group my-2 hidden band_gender"><input class="form-control hidden" value="female" autocomplete="off" type="hidden" name="band[gender]" id="band_gender" /></div>
+<div class='d-grid'>
+<input type="submit" name="commit" value="Frauen" class="btn btn-light" data-disable-with="Frauen" />
+</div>
+</form></div>
+<div class='col-md-4 text-center'>
+<form class="simple_form new_band" id="new_band" novalidate="novalidate" action="/2024/mv-cup/bands" accept-charset="UTF-8" method="post"><div class="form-group my-2 hidden band_name"><input class="form-control hidden" value="Männer" autocomplete="off" type="hidden" name="band[name]" id="band_name" /></div>
+<div class="form-group my-2 hidden band_gender"><input class="form-control hidden" value="male" autocomplete="off" type="hidden" name="band[gender]" id="band_gender" /></div>
+<div class='d-grid'>
+<input type="submit" name="commit" value="Männer" class="btn btn-light" data-disable-with="Männer" />
+</div>
+</form></div>
+<div class='col-md-4 text-center'>
+<form class="simple_form new_band" id="new_band" novalidate="novalidate" action="/2024/mv-cup/bands" accept-charset="UTF-8" method="post"><div class="form-group my-2 hidden band_name"><input class="form-control hidden" value="Erwachsene" autocomplete="off" type="hidden" name="band[name]" id="band_name" /></div>
+<div class="form-group my-2 hidden band_gender"><input class="form-control hidden" value="indifferent" autocomplete="off" type="hidden" name="band[gender]" id="band_gender" /></div>
+<div class='d-grid'>
+<input type="submit" name="commit" value="Erwachsene" class="btn btn-light" data-disable-with="Erwachsene" />
+</div>
+</form><em class='small'>Geschlechtsunabhängig</em>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div class='col-md-6'>
+<div class='card'>
+<div class='card-header'>Jugend</div>
+<div class='card-body'>
+<div class='row'>
+<div class='col-md-4 text-center'>
+<form class="simple_form new_band" id="new_band" novalidate="novalidate" action="/2024/mv-cup/bands" accept-charset="UTF-8" method="post"><div class="form-group my-2 hidden band_name"><input class="form-control hidden" value="Mädchen" autocomplete="off" type="hidden" name="band[name]" id="band_name" /></div>
+<div class="form-group my-2 hidden band_gender"><input class="form-control hidden" value="female" autocomplete="off" type="hidden" name="band[gender]" id="band_gender" /></div>
+<div class='d-grid'>
+<input type="submit" name="commit" value="Mädchen" class="btn btn-light" data-disable-with="Mädchen" />
+</div>
+</form></div>
+<div class='col-md-4 text-center'>
+<form class="simple_form new_band" id="new_band" novalidate="novalidate" action="/2024/mv-cup/bands" accept-charset="UTF-8" method="post"><div class="form-group my-2 hidden band_name"><input class="form-control hidden" value="Jungen" autocomplete="off" type="hidden" name="band[name]" id="band_name" /></div>
+<div class="form-group my-2 hidden band_gender"><input class="form-control hidden" value="male" autocomplete="off" type="hidden" name="band[gender]" id="band_gender" /></div>
+<div class='d-grid'>
+<input type="submit" name="commit" value="Jungen" class="btn btn-light" data-disable-with="Jungen" />
+</div>
+</form></div>
+<div class='col-md-4 text-center'>
+<form class="simple_form new_band" id="new_band" novalidate="novalidate" action="/2024/mv-cup/bands" accept-charset="UTF-8" method="post"><div class="form-group my-2 hidden band_name"><input class="form-control hidden" value="Jugend" autocomplete="off" type="hidden" name="band[name]" id="band_name" /></div>
+<div class="form-group my-2 hidden band_gender"><input class="form-control hidden" value="indifferent" autocomplete="off" type="hidden" name="band[gender]" id="band_gender" /></div>
+<div class='d-grid'>
+<input type="submit" name="commit" value="Jugend" class="btn btn-light" data-disable-with="Jugend" />
+</div>
+</form><em class='small'>Geschlechtsunabhängig</em>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<div class='row'>
+<div class='col-md-8'>
+<form class="simple_form new_band" id="new_band" novalidate="novalidate" action="/2024/mv-cup/bands" accept-charset="UTF-8" method="post"><div class='card'>
+<div class='card-header'>Wertungsgruppe hinzufügen</div>
+<div class='card-body'>
+<fieldset class="form-group radio_buttons required band_gender"><div class="col-form-label pt-0">Geschlecht <abbr title="required">*</abbr></div><input type="hidden" name="band[gender]" value="" autocomplete="off" /><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="female" name="band[gender]" id="band_gender_female" /><label class="form-check-label collection_radio_buttons" for="band_gender_female">weiblich</label></div><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="male" name="band[gender]" id="band_gender_male" /><label class="form-check-label collection_radio_buttons" for="band_gender_male">männlich</label></div><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="indifferent" name="band[gender]" id="band_gender_indifferent" /><label class="form-check-label collection_radio_buttons" for="band_gender_indifferent">ungeschlechtlich</label></div></fieldset>
+<div class="form-group my-2 string required band_name"><label class="control-label string required" for="band_name">Name <abbr title="required">*</abbr></label><input class="form-control string required" type="text" name="band[name]" id="band_name" /></div>
+<div class="form-group my-2 string optional band_tag_names"><label class="control-label string optional" for="band_tag_names">Mögliche Markierungen für Mannschaften und Wettkämpfer</label><input class="form-control string optional" type="text" value="" name="band[tag_names]" id="band_tag_names" /><small class="form-text text-muted">Werte mit Komma trennen. Z.B.: »U20« oder »Ü40«</small></div>
+
+</div>
+<div class='card-footer d-flex justify-content-end'><button name="button" type="submit" class="btn btn-primary" data-disable-with="Bitte warten...">Wertungsgruppe erstellen</button>
+<a class="btn btn-light" href="/2024/mv-cup/bands">Abbrechen</a>
+</div>
+</div>
+</form></div>
+</div>
+</div>
+</body>
+</html>

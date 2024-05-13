@@ -2,10 +2,9 @@
 
 class Competitions::AssessmentsController < CompetitionNestedController
   default_resource
-  before_action :assign_new_assessment, only: %i[new create]
 
   def index
-    send_pdf(Exports::Pdf::Assessments) { [@competition] }
+    send_pdf(Exports::Pdf::Assessments, args: [@competition])
     send_xlsx(Exports::Xlsx::Assessments, args: [@competition])
   end
 
@@ -40,9 +39,5 @@ class Competitions::AssessmentsController < CompetitionNestedController
     params.require(:assessment).permit(
       :forced_name, :discipline_id, :band_id
     )
-  end
-
-  def assign_new_assessment
-    @band = Band.new(competition: @competition)
   end
 end

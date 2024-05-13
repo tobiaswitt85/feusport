@@ -2,6 +2,8 @@
 
 class Band < ApplicationRecord
   include Taggable
+  include SortableByName
+
   GENDERS = { female: 0, male: 1, indifferent: 2 }.freeze
   GENDER_KEYS = GENDERS.keys.freeze
 
@@ -23,6 +25,13 @@ class Band < ApplicationRecord
   # TODO:   TagReference.all.where(taggable_type: 'Person', taggable_id: people).where.not(id: tags).delete_all
   # TODO:   TagReference.all.where(taggable_type: 'Team', taggable_id: teams).where.not(id: tags).delete_all
   # TODO: end
+
+  def <=>(other)
+    sort_by_position = position <=> other.position
+    return sort_by_position unless sort_by_position == 0
+
+    super
+  end
 
   def translated_gender
     gender.present? ? I18n.t("gender.#{gender}") : ''

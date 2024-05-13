@@ -7,7 +7,7 @@ class Exports::PDF::Flyer
     pdf.text(competition.flyer_headline, align: :center, size: 20)
     Discipline.types.first(5).each_with_index do |discipline, index|
       pdf.image(Rails.root.join('app', 'assets', 'images', 'disciplines', discipline.new.decorate.image),
-                width: 50, at: [10, 700 - index * 60])
+                width: 50, at: [10, 700 - (index * 60)])
     end
     pdf.move_down(12)
 

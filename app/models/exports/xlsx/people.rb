@@ -5,8 +5,8 @@ Exports::XLSX::People = Struct.new(:people) do
   include Exports::People
 
   def perform
-    Band.all.find_each do |band|
-      people_table(band, people.where(band: band).decorate)
+    Band.find_each do |band|
+      people_table(band, people.where(band:).decorate)
     end
   end
 
