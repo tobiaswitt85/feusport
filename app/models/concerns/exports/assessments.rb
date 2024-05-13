@@ -11,12 +11,16 @@ module Exports::Assessments
 
     collection.each do |assessment|
       line = [
-        assessment.decorated_name,
+        assessment.name,
         assessment.discipline.name,
         assessment.band.name,
       ]
       data.push(line)
     end
     data
+  end
+
+  def export_title
+    @export_title ||= Assessment.model_name.human(count: :many)
   end
 end

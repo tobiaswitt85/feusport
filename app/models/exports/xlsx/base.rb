@@ -18,6 +18,10 @@ module Exports::Xlsx::Base
     @bytestream ||= package.to_stream.read
   end
 
+  def filename
+    "#{filename_base}.xlsx"
+  end
+
   protected
 
   def package

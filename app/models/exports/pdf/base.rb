@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Exports::PDF::Base
+module Exports::Pdf::Base
   include Exports::Base
   extend ActiveSupport::Concern
 
@@ -35,16 +35,20 @@ module Exports::PDF::Base
     @pdf ||= Prawn::Document.new(default_prawn_options)
   end
 
+  def filename
+    "#{filename_base}.pdf"
+  end
+
   def default_prawn_options
     {
       page_size: 'A4',
-      info: { Title: title },
+      info: { Title: export_title },
     }
   end
 
   def pdf_discipline_image(discipline, width:, at:)
     pdf.image(Rails.root.join('app', 'assets', 'images', 'disciplines', discipline.decorate.image),
-              width: width, at: at)
+              width:, at:)
   end
 
   protected

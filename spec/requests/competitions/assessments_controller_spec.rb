@@ -43,6 +43,23 @@ RSpec.describe Assessment do
       expect(assessment.band).to eq female
       expect(assessment.name).to eq 'Löschangriff nass - Frauen'
 
+      # GET index XLSX
+      get "/#{competition.year}/#{competition.slug}/assessments.xlsx"
+      expect(response.content_type).to eq(Mime[:xlsx])
+      expect(response.header['Content-Disposition']).to eq(
+        "attachment; filename=\"wertungen.xlsx\"; filename*=UTF-8''wertungen.xlsx",
+      )
+      expect(response).to have_http_status(:success)
+
+      # GET index PDF
+      get "/#{competition.year}/#{competition.slug}/assessments.pdf"
+      expect(response).to match_pdf_fixture.with_affix('index-as-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        "inline; filename=\"wertungen.pdf\"; filename*=UTF-8''wertungen.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
       # GET show
       get "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}"
       expect(response).to match_html_fixture.with_affix('show')

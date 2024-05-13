@@ -5,7 +5,7 @@ class Competitions::AssessmentsController < CompetitionNestedController
   before_action :assign_new_assessment, only: %i[new create]
 
   def index
-    # send_pdf(Exports::PDF::Assessments) { [@competition] }
+    send_pdf(Exports::Pdf::Assessments) { [@competition] }
     send_xlsx(Exports::Xlsx::Assessments, args: [@competition])
   end
 
