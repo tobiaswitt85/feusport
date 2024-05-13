@@ -6,7 +6,7 @@
     %th
   - resource_collection.sort.each do |assessment|
     %tr
-      %td= assessment.decorated_name
+      %td= assessment.name
       %td
         = discipline_image(assessment.discipline.key)
         = assessment.discipline.name

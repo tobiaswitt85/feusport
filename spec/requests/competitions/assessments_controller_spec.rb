@@ -26,7 +26,7 @@ RSpec.describe Assessment do
       expect(response).to match_html_fixture.with_affix('new')
 
       # POST create with failure
-      post "/#{competition.year}/#{competition.slug}/assessments", params: { assessment: { name: 'Foo' } }
+      post "/#{competition.year}/#{competition.slug}/assessments", params: { assessment: { forced_name: 'Foo' } }
       expect(response).to match_html_fixture.with_affix('new-error').for_status(422)
 
       # POST create an own assessment
@@ -41,7 +41,7 @@ RSpec.describe Assessment do
 
       assessment = described_class.find_by(discipline: la)
       expect(assessment.band).to eq female
-      expect(assessment.decorated_name).to eq 'Löschangriff nass - Frauen'
+      expect(assessment.name).to eq 'Löschangriff nass - Frauen'
 
       # GET show
       get "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}"
@@ -53,16 +53,16 @@ RSpec.describe Assessment do
 
       # PUT update with failure
       put "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}",
-          params: { assessment: { discipline_id: 'other' } }
+          params: { assessment: { discipline_id: 'not-exists' } }
       expect(response).to match_html_fixture.with_affix('edit-error').for_status(422)
 
       # PUT update
       put "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}",
-          params: { assessment: { name: 'other' } }
+          params: { assessment: { forced_name: 'other' } }
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/assessments")
 
       assessment = described_class.find_by(discipline: la)
-      expect(assessment.decorated_name).to eq 'other'
+      expect(assessment.name).to eq 'other'
 
       expect do
         # DELETE destroy

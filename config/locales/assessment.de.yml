@@ -5,6 +5,7 @@ de:
       assessment:
         band: Wertungsgruppe
         discipline: Disziplin
+        forced_name: Name
         name: Name
     models:
       assessment:
