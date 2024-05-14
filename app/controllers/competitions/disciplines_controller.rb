@@ -3,6 +3,11 @@
 class Competitions::DisciplinesController < CompetitionNestedController
   default_resource
 
+  def index
+    send_pdf(Exports::Pdf::Disciplines, args: [@competition])
+    send_xlsx(Exports::Xlsx::Disciplines, args: [@competition])
+  end
+
   def create
     @discipline.assign_attributes(discipline_params)
     if @discipline.save

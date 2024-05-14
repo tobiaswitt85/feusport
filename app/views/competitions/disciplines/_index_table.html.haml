@@ -4,7 +4,7 @@
     %th= resource_class.human_attribute_name(:name)
     %th= Assessment.model_name.human(count: :many)
     %th
-  - resource_collection.each do |discipline|
+  - resource_collection.sort.each do |discipline|
     %tr
       %td
         - if discipline.single_discipline?
@@ -14,6 +14,6 @@
       %td
         = discipline_image(discipline.key)
         = discipline.name
-      %td= discipline.assessments.join(', ')
+      %td= discipline.assessments.map(&:name).join(', ')
       %td.text-end
         = btn_link_to(t('a.show'), competition_discipline_path(id: discipline.id))

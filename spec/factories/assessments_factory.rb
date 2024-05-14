@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :assessment do
-    band
+    band { association :band, competition: }
     discipline
   end
 end

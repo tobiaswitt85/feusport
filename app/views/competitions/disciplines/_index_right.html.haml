@@ -7,3 +7,9 @@
         = button_to({ action: :create }, params: { discipline: { key:, name: Discipline::DEFAULT_NAMES[key], short_name: key.upcase, single_discipline: Discipline::DEFAULT_SINGLE_DISCIPLINES[key], like_fire_relay: key == 'fs' } }, class: 'btn btn-light btn-sm') do
           = discipline_image(key)
           = Discipline::DEFAULT_NAMES[key]
+
+= card('Aktionen', class: 'mt-3') do |card|
+  - card.body do
+    .d-grid.gap-2
+      = btn_link_to 'Export als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
+      = btn_link_to 'Export als XLSX', { format: :xlsx }, target: '_blank', rel: 'noopener'

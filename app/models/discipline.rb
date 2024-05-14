@@ -21,11 +21,13 @@ class Discipline < ApplicationRecord
     other: false,
   }.with_indifferent_access.freeze
 
+  include SortableByName
+
   belongs_to :competition
   has_many :assessments, dependent: :restrict_with_error
 
   schema_validations
-  validates :key, inclusion: { in: DISCIPLINES }
+  validates :key, inclusion: { in: DISCIPLINES }, allow_blank: true
 
   def destroy_possible?
     assessments.empty?

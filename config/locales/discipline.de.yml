@@ -9,7 +9,6 @@ de:
         name: Name
         short_name: Kurzname
         single_discipline: Einzeldisziplin
-        type: Disziplin
     models:
       discipline:
         one: Disziplin

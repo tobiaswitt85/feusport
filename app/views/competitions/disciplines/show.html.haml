@@ -8,9 +8,9 @@
           %table.table
             - @discipline.assessments.each do |assessment|
               %tr
-                %td= assessment
+                %td= assessment.name
                 %td.text-right
-                  = btn_link_to 'Ansehen', assessment
+                  = btn_link_to 'Ansehen', competition_assessment_path(id: assessment.id)
       - else
         - card.body do
           .alert.alert-info Keine Einträge gefunden

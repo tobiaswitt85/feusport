@@ -4,7 +4,7 @@
     %th= resource_class.human_attribute_name(:gender)
     %th= resource_class.human_attribute_name(:assessments)
     %th
-  - resource_collection.each do |band|
+  - resource_collection.sort.each do |band|
     %tr
       %td= band.name
       %td= band.translated_gender

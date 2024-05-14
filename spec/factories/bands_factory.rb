@@ -2,9 +2,10 @@
 
 FactoryBot.define do
   factory :band do
+    gender { 'female' }
+    name { 'Frauen' }
+
     trait :female do
-      gender { 'female' }
-      name { 'Frauen' }
     end
 
     trait :male do
