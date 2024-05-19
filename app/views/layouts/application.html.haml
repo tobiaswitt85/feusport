@@ -9,9 +9,13 @@
     = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
     = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
   %body.bg-light
-    %nav.navbar.navbar-expand-lg.bg-secondary-subtle.shadow-sm
+    %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
       .container
         = render 'nav_menu'
+    - if content_for?(:page_header)
+      %header.page-header
+        .container
+          = yield(:page_header)
     .container.mt-3
       .alert-flash
         - flash.each do |name, msg|

@@ -1,5 +1,8 @@
 - page_title('Überblick')
 
+- content_for :page_header do
+  %h1 Willkommen auf feusport.de
+
 .row
   .col-lg-6.pb-4
     = render('competitions_card', competitions: Competition.all.upcoming)

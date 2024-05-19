@@ -304,8 +304,8 @@ $success:       #5ab076 !default;
 $info:          #2880b7!default;
 $warning:       #d7a03e !default;
 $danger:        #f44336 !default;
-$light:         #FAF7F7 !default;
-$dark:          #7F9CC0 !default;
+$light:         #e0e7ea !default;
+$dark:          #40485e !default;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -1189,8 +1189,8 @@ $navbar-nav-link-padding-x:         .5rem !default;
 $navbar-brand-font-size:            $font-size-lg !default;
 // Compute the navbar-brand padding-y so the navbar-brand will have the same height as navbar-text and nav-link
 $nav-link-height:                   $font-size-base * $line-height-base + $nav-link-padding-y * 2 !default;
-$navbar-brand-height:               $navbar-brand-font-size * $line-height-base !default;
-$navbar-brand-padding-y:            ($nav-link-height - $navbar-brand-height) * .5 !default;
+$navbar-brand-height:               $navbar-brand-font-size * $line-height-base * 1.2 !default;
+$navbar-brand-padding-y:            0 !default;
 $navbar-brand-margin-end:           1rem !default;
 
 $navbar-toggler-padding-y:          .25rem !default;
@@ -1212,8 +1212,8 @@ $navbar-light-brand-hover-color:    $navbar-light-active-color !default;
 // scss-docs-end navbar-variables
 
 // scss-docs-start navbar-dark-variables
-$navbar-dark-color:                 rgba($white, .55) !default;
-$navbar-dark-hover-color:           rgba($white, .75) !default;
+$navbar-dark-color:                 rgba($white, .80) !default;
+$navbar-dark-hover-color:           rgba($white, .90) !default;
 $navbar-dark-active-color:          $white !default;
 $navbar-dark-disabled-color:        rgba($white, .25) !default;
 $navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>") !default;
