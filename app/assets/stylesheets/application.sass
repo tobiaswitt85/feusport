@@ -45,6 +45,7 @@
 
 .card
   background-color: $white
+  overflow: hidden
 
   > .card-header:first-child, .card-img-top
     border-radius: var(--bs-card-border-radius) var(--bs-card-border-radius) 0 0
@@ -71,17 +72,24 @@
     td, th
       border-bottom-width: 0
 
-.list-competitions
-  .disciplines
-    width: 3rem
-    margin: 0.2rem 1rem 0.2rem 0.2rem
+.discipline-icons
+  width: 2.25rem
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  gap: 0.25rem
 
-    &.one-discipline
-      img
-        width: 2.1rem
-    &.four-discipline
-      img
-        width: 1rem
+  > img
+    display: block
+    height: 1rem
+    width: 1rem
+
+  &.one-discipline
+    > img
+      height: 2.1rem
+      width: 2.1rem
+
+.list-competitions
 
   .list-group-item
     width: 90%

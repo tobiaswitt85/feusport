@@ -1,28 +1,28 @@
 - if competitions.accessible_by(current_ability).exists?
-  .card.p-2
-    - competitions.accessible_by(current_ability).reorder(:date).group_by(&:year_and_month).each_value do |competitions|
+  - grouped_competitions = competitions.accessible_by(current_ability).reorder(:date).group_by(&:year_and_month)
+  .card
+    - grouped_competitions.each_value do |competitions|
       - sample = competitions.first
-      %h2.text-center.mt-1.mb-3
-        .far.fa-calendar-alt
-        #{l(sample.date, format: '%B')} #{sample.date.year}
+      .card-header{ class: competitions == grouped_competitions.values.first ? 'mt-0' : 'mt-4' }
+        %h2.mb-0
+          #{l(sample.date, format: '%B')} #{sample.date.year}
 
-      .list-competitions.mb-3
+      .list-group.list-group-flush
         - competitions.each do |competition|
-          .d-flex.justify-content-center
-            = link_to(competition_path(competition), class: 'list-group-item list-group-item-action') do
-              .d-flex.flex-row
-                - disciplines = competition.disciplines.map(&:key)
-                - if disciplines.count == 0
-                  .disciplines
-                - elsif disciplines.count == 1
-                  .disciplines.one-discipline
-                    %img{ src: image_path("disciplines/#{disciplines[0]}.svg") }
-                - else
-                  .disciplines.four-discipline
-                    - (1..disciplines.count).each do |i|
-                      %img{ src: image_path("disciplines/#{disciplines[i - 1]}.svg") }
-                .ml-2
-                  %h6.mb-0= competition.name
-                  .about
-                    %span= l(competition.date)
-                    %span= competition.locality
+          = link_to(competition_path(competition), class: 'list-group-item list-group-item-action') do
+            .d-flex.flex-row
+              - disciplines = competition.disciplines.map(&:key)
+              - if disciplines.count == 0
+                .discipline-icons
+              - elsif disciplines.count == 1
+                .discipline-icons.one-discipline
+                  %img{ src: image_path("disciplines/#{disciplines[0]}.svg") }
+              - else
+                .discipline-icons.four-discipline
+                  - (1..disciplines.count).each do |i|
+                    %img{ src: image_path("disciplines/#{disciplines[i - 1]}.svg") }
+              .ms-3
+                %h6.mb-0= competition.name
+                .mt-0
+                  %small= l(competition.date)
+                  %small= competition.locality
