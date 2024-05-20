@@ -15,7 +15,10 @@
 
 .page-header
   @extend .text-bg-dark
-  padding-block: 2rem 3rem
+  padding-block: .5rem 1rem
+
+  @include media-breakpoint-up(xl)
+    padding-block: 2rem 3rem
 
 .stretched-links-row
   @extend .row
@@ -39,6 +42,27 @@
 .btn-toolbar, .card-footer
   input[type=submit] + a, button + a
     margin-left: 0.25rem
+
+.card
+  background-color: $white
+
+  > .card-header:first-child, .card-img-top
+    border-radius: var(--bs-card-border-radius) var(--bs-card-border-radius) 0 0
+
+  > .card-header
+    > h1, h2, h3
+      @extend .display-6
+
+  > .table
+    > thead, tbody
+      > tr 
+        > th:first-child, > td:first-child
+          padding-left: var(--bs-card-spacer-x)
+        > th:last-child, > td:last-child
+          padding-right: var(--bs-card-spacer-x)
+
+.text-bg-light
+  --bs-card-cap-bg: #{darken($light, 3%)}
 
 .card > .table
   margin-top: 1rem

@@ -8,7 +8,7 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
     = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
-  %body.bg-light
+  %body
     %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
       .container
         = render 'nav_menu'
@@ -16,7 +16,7 @@
       %header.page-header
         .container
           = yield(:page_header)
-    .container.mt-3
+    .container.mt-4
       .alert-flash
         - flash.each do |name, msg|
           - msg = t("alerts.#{msg}", default: msg)
@@ -24,4 +24,4 @@
             .alert.alert-danger= msg
           - else
             .alert.alert-info= msg
-    .mt-3.container= yield
+    .pb-4.mt-4.container= yield
