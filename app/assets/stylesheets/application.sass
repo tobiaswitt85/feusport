@@ -15,10 +15,19 @@
 
 .page-header
   @extend .text-bg-dark
+  margin-top: -1px
   padding-block: .5rem 1rem
 
   @include media-breakpoint-up(xl)
-    padding-block: 2rem 3rem
+    padding-block: 1.5rem 3rem
+
+.page-tabs
+  @extend .text-bg-dark
+  padding-block: 1rem
+  margin-top: -1px
+
+  @include media-breakpoint-up(xl)
+    margin-top: -2.5rem
 
 .stretched-links-row
   @extend .row
@@ -63,7 +72,12 @@
           padding-right: var(--bs-card-spacer-x)
 
 .text-bg-light
-  --bs-card-cap-bg: #{darken($light, 3%)}
+  --bs-card-cap-bg: #{darken($light, 6%)}
+
+.text-bg-dark
+  .nav
+    --bs-nav-link-color: #{$light}
+    --bs-nav-link-hover-color: #{darken($light, 20%)}
 
 .card > .table
   margin-top: 1rem
@@ -71,6 +85,19 @@
   tr:last-child
     td, th
       border-bottom-width: 0
+
+.disciplines-icon-bar
+  display: flex
+  align-items: center
+  gap: 0.5rem
+
+  > img
+    display: block
+    height: 3rem
+    width: 3rem
+    background-color: $accent3
+    padding: 3px
+    border-radius: 3px
 
 .discipline-icons
   width: 2.25rem

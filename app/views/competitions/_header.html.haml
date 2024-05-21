@@ -1,0 +1,35 @@
+- content_for :page_header do
+  .d-lg-flex.justify-content-between.align-items-start
+    %div
+      = page_title(competition.name)
+      %p.lead.mb-0 #{l competition.date} - #{competition.locality}
+    .mt-3= render 'disciplines/icon_bar', disciplines: competition.disciplines
+
+- content_for :page_tabs do
+  %ul.nav.nav-pills
+    %li.nav-item
+      = active_link_to(competition_show_path, class: 'nav-link') do
+        .d-md-none
+          %i.far.fa-info-circle{ title: 'Informationen' }
+        .d-none.d-md-block
+          Informationen
+    %li.nav-item
+      = active_link_to(Team.model_name.human(count: :many), competition_teams_path, class: 'nav-link')
+    %li.nav-item
+      = active_link_to(Person.model_name.human(count: :many), competition_people_path, class: 'nav-link')
+    %li.nav-item
+      = active_link_to(Score::List.model_name.human(count: :many), competition_score_lists_path, class: 'nav-link')
+    - if !can?(:manage, competition)
+      %li.nav-item.dropdown
+        %a.nav-link.dropdown-toggle#navbar-dropdown-menu-link{ href: '#', role: 'button', 'data-bs-toggle' => 'dropdown', 'aria-expanded' => 'false' }
+          .far.fa-wrench
+
+        %ul.dropdown-menu{ 'aria-labelledby' => 'navbar-dropdown-menu-link' }
+          %li
+            = active_link_to(Discipline.model_name.human(count: :many), competition_disciplines_path, class: 'dropdown-item')
+          %li
+            = active_link_to(Band.model_name.human(count: :many), competition_bands_path, class: 'dropdown-item')
+          %li
+            = active_link_to(Assessment.model_name.human(count: :many), competition_assessments_path, class: 'dropdown-item')
+          %li
+            = active_link_to(Certificates::Template.model_name.human(count: :many), competition_certificates_templates_path, class: 'dropdown-item')

@@ -16,6 +16,10 @@
       %header.page-header
         .container
           = yield(:page_header)
+    - if content_for?(:page_tabs)
+      %header.page-tabs
+        .container
+          = yield(:page_tabs)
     .container.mt-4
       .alert-flash
         - flash.each do |name, msg|
