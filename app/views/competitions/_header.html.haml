@@ -6,8 +6,9 @@
     = tabs.link_to Team, competition_teams_path, active: resource_class == Team
     = tabs.link_to Person, competition_people_path, active: resource_class == Person
     = tabs.link_to Score::List, competition_score_lists_path, active: resource_class == Score::List
-    = tabs.dropdown 'Erweitert' do |dropdown|
-      = dropdown.link_to Discipline, competition_disciplines_path, active: resource_class == Discipline
-      = dropdown.link_to Band, competition_bands_path, active: resource_class == Band
-      = dropdown.link_to Assessment, competition_assessments_path, active: resource_class == Assessment
-      = dropdown.link_to Certificates::Template, competition_certificates_templates_path, active: resource_class == Certificates::Template
+    - if can?(:manage, @competition)
+      = tabs.dropdown 'Erweitert' do |dropdown|
+        = dropdown.link_to Discipline, competition_disciplines_path, active: resource_class == Discipline
+        = dropdown.link_to Band, competition_bands_path, active: resource_class == Band
+        = dropdown.link_to Assessment, competition_assessments_path, active: resource_class == Assessment
+        = dropdown.link_to Certificates::Template, competition_certificates_templates_path, active: resource_class == Certificates::Template
