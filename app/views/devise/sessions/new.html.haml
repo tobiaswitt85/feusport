@@ -1,4 +1,4 @@
-= page_title 'Anmelden'
+= render 'devise/header'
 
 .row
   .col-md-8
@@ -13,5 +13,3 @@
             = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
           .btn-toolbar.mt-3
             = f.button :submit, 'Anmelden', class: 'btn btn-primary'
-  .col-md-4
-    = render 'devise/shared/links'

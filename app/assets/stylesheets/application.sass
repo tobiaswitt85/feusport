@@ -29,6 +29,23 @@
   @include media-breakpoint-up(xl)
     margin-top: -2.5rem
 
+.nav-tabs-responsive
+ overflow-x: auto
+ white-space: nowrap
+ flex-wrap: nowrap
+ scroll-snap-type: x mandatory
+ scroll-behavior: smooth
+
+ > .nav-item
+  scroll-snap-align: end
+
+  // > .active
+  //  // TODO show by default
+  //  // scroll-snap-align: end
+
+  &.dropdown
+    position: static
+
 .stretched-links-row
   @extend .row
   @extend .position-relative
@@ -78,6 +95,10 @@
   .nav
     --bs-nav-link-color: #{$light}
     --bs-nav-link-hover-color: #{darken($light, 20%)}
+
+    .dropdown-menu
+      --bs-nav-link-color: #{$dark}
+      --bs-nav-link-hover-color: #{darken($dark, 20%)}
 
 .card > .table
   margin-top: 1rem

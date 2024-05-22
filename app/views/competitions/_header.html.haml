@@ -1,35 +1,13 @@
-- content_for :page_header do
-  .d-lg-flex.justify-content-between.align-items-start
-    %div
-      = page_title(competition.name)
-      %p.lead.mb-0 #{l competition.date} - #{competition.locality}
-    .mt-3= render 'disciplines/icon_bar', disciplines: competition.disciplines
-
-- content_for :page_tabs do
-  %ul.nav.nav-pills
-    %li.nav-item
-      = active_link_to(competition_show_path, class: 'nav-link') do
-        .d-md-none
-          %i.far.fa-info-circle{ title: 'Informationen' }
-        .d-none.d-md-block
-          Informationen
-    %li.nav-item
-      = active_link_to(Team.model_name.human(count: :many), competition_teams_path, class: 'nav-link')
-    %li.nav-item
-      = active_link_to(Person.model_name.human(count: :many), competition_people_path, class: 'nav-link')
-    %li.nav-item
-      = active_link_to(Score::List.model_name.human(count: :many), competition_score_lists_path, class: 'nav-link')
-    - if !can?(:manage, competition)
-      %li.nav-item.dropdown
-        %a.nav-link.dropdown-toggle#navbar-dropdown-menu-link{ href: '#', role: 'button', 'data-bs-toggle' => 'dropdown', 'aria-expanded' => 'false' }
-          .far.fa-wrench
-
-        %ul.dropdown-menu{ 'aria-labelledby' => 'navbar-dropdown-menu-link' }
-          %li
-            = active_link_to(Discipline.model_name.human(count: :many), competition_disciplines_path, class: 'dropdown-item')
-          %li
-            = active_link_to(Band.model_name.human(count: :many), competition_bands_path, class: 'dropdown-item')
-          %li
-            = active_link_to(Assessment.model_name.human(count: :many), competition_assessments_path, class: 'dropdown-item')
-          %li
-            = active_link_to(Certificates::Template.model_name.human(count: :many), competition_certificates_templates_path, class: 'dropdown-item')
+= page do |page|
+  = page.title @competition.name
+  = page.sub_title "#{l competition.date} - #{competition.locality}"
+  = page.tabs do |tabs|
+    = tabs.link_to 'Informationen', competition_show_path, active: resource_class.nil?
+    = tabs.link_to Team, competition_teams_path, active: resource_class == Team
+    = tabs.link_to Person, competition_people_path, active: resource_class == Person
+    = tabs.link_to Score::List, competition_score_lists_path, active: resource_class == Score::List
+    = tabs.dropdown 'Erweitert' do |dropdown|
+      = dropdown.link_to Discipline, competition_disciplines_path, active: resource_class == Discipline
+      = dropdown.link_to Band, competition_bands_path, active: resource_class == Band
+      = dropdown.link_to Assessment, competition_assessments_path, active: resource_class == Assessment
+      = dropdown.link_to Certificates::Template, competition_certificates_templates_path, active: resource_class == Certificates::Template
