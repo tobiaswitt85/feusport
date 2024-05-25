@@ -1,5 +1,5 @@
 %a.navbar-brand{ href: root_path, title: 'Startseite' }
-  = image_tag 'logo-2-sm.png'
+  = render inline: File.read(Rails.root.join('app/assets/images/logo-2.svg'))
 %button.navbar-toggler{ 'aria-controls' => 'navbar-supported-content', 'aria-expanded' => 'false', 'aria-label' => 'Menü anzeigen', 'data-bs-target' => '#navbar-supported-content', 'data-bs-toggle' => 'collapse', type: 'button' }
   %span.navbar-toggler-icon
 .collapse.navbar-collapse#navbar-supported-content
