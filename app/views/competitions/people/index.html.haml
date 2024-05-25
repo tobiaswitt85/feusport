@@ -1,24 +1,22 @@
 = render 'competitions/header', competition: @competition
 
-.row
-  .col-md-8
-    = card(resource_class.model_name.human(count: :many)) do |card|
-      - card.body do
-        - Band.find_each do |band|
+.row.g-4
+  - Band.find_each do |band|
+    .col-md-8.col-xl-6
+      = card do |card|
+        = card.title band.name
+
+        - card.body do
           - if can?(:create, Band.new(competition: @competition)) || @people.exists?(band:)
-            .row
-              .col-md-3
-                %h4= band.name
-              - if can?(:create, Band.new(competition: @competition))
-                .col-md-3= btn_link_to('Wettkämpfer hinzufügen', { action: :new, band_id: band.id })
             - if resource_collection.exists?
               = render('index_table', resource_class:, band:, resource_collection: @people.where(band:))
             - else
               .alert.alert-info= t('a.no_entries_found')
 
-      - card.actions do
-        = btn_link_to 'als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
-        = btn_link_to 'als XLS', format: :xlsx
+        - if can?(:create, Band.new(competition: @competition))
+          = card.primary_actions do |actions|
+            = actions.link_to 'Hinzufügen', { action: :new, band_id: band.id }, end_icon: :square_plus
 
-    = render('index_bottom', resource_class:, resource_collection:)
-  .col-md-4= render('index_right', resource_class:, resource_collection:)
+        = card.actions do |actions|
+          = actions.link_to 'als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
+          = actions.link_to 'als XLS', format: :xlsx

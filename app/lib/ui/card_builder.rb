@@ -8,6 +8,11 @@ Ui::CardBuilder = Struct.new(:title, :options, :view, :block) do
     view.capture_haml(self, &block)
   end
 
+  def title(title = nil)
+    @title = title if title
+    @title
+  end
+
   def body(&block)
     if block.present?
       @body = view.capture_haml(&block)
@@ -32,19 +37,13 @@ Ui::CardBuilder = Struct.new(:title, :options, :view, :block) do
     end
   end
 
-  def actions(&block)
-    if block.present?
-      @actions = view.capture_haml(&block)
-    else
-      @actions
-    end
+  def primary_actions(options = {}, &block)
+    @primary_actions = Ui::NavBuilder.new(options, view, block) if block_given?
+    @primary_actions
   end
 
-  def header(&block)
-    if block.present?
-      @header = view.capture_haml(&block)
-    else
-      @header
-    end
+  def actions(options = {}, &block)
+    @actions = Ui::NavBuilder.new(options, view, block) if block_given?
+    @actions
   end
 end

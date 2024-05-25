@@ -36,6 +36,14 @@ Ui::NavBuilderItem = Struct.new(:label, :url, :options) do
     options[:active]
   end
 
+  def start_icon_class
+    "far fa-#{options[:start_icon].to_s.dasherize}" if options[:start_icon].present?
+  end
+
+  def end_icon_class
+    "far fa-#{options[:end_icon].to_s.dasherize}" if options[:end_icon].present?
+  end
+
   def dropdown?
     options[:type] == :dropdown
   end
