@@ -12,10 +12,10 @@
 
   svg
     width: 2rem
-    fill: $accent3
+    fill: $primary
 
 .page-header
-  @extend .text-bg-dark
+  @extend .text-bg-accent1
   margin-top: -1px
   padding-block: .5rem 1rem
 
@@ -23,29 +23,41 @@
     padding-block: 1.5rem 3rem
 
 .page-tabs
-  @extend .text-bg-dark
-  padding-block: 1rem
+  @extend .text-bg-accent1
+  padding-block: 1rem 0
   margin-top: -1px
 
   @include media-breakpoint-up(xl)
     margin-top: -2.5rem
 
+  .nav
+    gap: 5px
+    --bs-nav-tabs-border-width: 0
+    --bs-nav-link-color: #{$white}
+    --bs-nav-link-hover-color: #{tint-color($primary, 50%)}
+
+    .nav-link
+      background-color: lighten($accent1, 5%)
+
+      &.active
+        background-color: $primary
+
 .nav-tabs-responsive
- overflow-x: auto
- white-space: nowrap
- flex-wrap: nowrap
- scroll-snap-type: x mandatory
- scroll-behavior: smooth
+  overflow-x: auto
+  white-space: nowrap
+  flex-wrap: nowrap
+  scroll-snap-type: x mandatory
+  scroll-behavior: smooth
 
- > .nav-item
-  scroll-snap-align: end
+  > .nav-item
+    scroll-snap-align: end
 
-  // > .active
-  //  // TODO show by default
-  //  // scroll-snap-align: end
+    // > .active
+    //  // TODO show by default
+    //  // scroll-snap-align: end
 
-  &.dropdown
-    position: static
+    &.dropdown
+      position: static
 
 .stretched-links-row
   @extend .row
@@ -90,7 +102,7 @@
           padding-right: var(--bs-card-spacer-x)
 
 .text-bg-light
-  --bs-card-cap-bg: #{darken($light, 6%)}
+  --bs-card-cap-bg: #{darken($light, 3%)}
 
 .text-bg-dark
   .nav
@@ -125,7 +137,7 @@
     display: block
     height: 3rem
     width: 3rem
-    background-color: $accent3
+    background-color: $accent1
     padding: 3px
     border-radius: 3px
 

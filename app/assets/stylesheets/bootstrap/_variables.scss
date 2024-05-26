@@ -3,6 +3,11 @@
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
 
+$fs-red: #79031D;
+$fs-yellow: #EDB518;
+$fs-gray: #dcd4d7;
+$fs-black: #000407;
+
 // Color system
 
 // scss-docs-start gray-color-variables
@@ -298,17 +303,16 @@ $cyans: (
 // fusv-enable
 
 // scss-docs-start theme-color-variables
-$primary:       #8e2f3f !default;
+$primary:       $fs-yellow !default;
 $secondary:     #6e6967 !default;
 $success:       #1b974c !default;
 $info:          #6d919b !default;
 $warning:       #e5c51e !default;
 $danger:        #993441 !default;
-$light:         #d7dee0 !default;
+$light:         lighten($fs-gray, 5%) !default;
 $dark:          #40485e !default;
-$accent1:       #233844;
-$accent2:       #545354;
-$accent3:       #9da798;
+$accent1:       $fs-red;
+$accent2:       #6b0f23;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -322,8 +326,7 @@ $theme-colors: (
   "light":      $light,
   "dark":       $dark,
   "accent1":    $accent1,
-  "accent2":    $accent2,
-  "accent3":    $accent3
+  "accent2":    $accent2
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -442,7 +445,7 @@ $position-values: (
 
 $body-text-align:           null !default;
 $body-color:                $gray-900 !default;
-$body-bg:                   #dfe7ea !default;
+$body-bg:                   $fs-gray !default;
 
 $body-secondary-color:      rgba($body-color, .75) !default;
 $body-secondary-bg:         $gray-200 !default;
@@ -1350,7 +1353,7 @@ $card-box-shadow:                   null !default;
 $card-inner-border-radius:          subtract($card-border-radius, $card-border-width) !default;
 $card-cap-padding-y:                $card-spacer-y * .5 !default;
 $card-cap-padding-x:                $card-spacer-x !default;
-$card-cap-bg:                       rgba($light, .3) !default;
+$card-cap-bg:                       lighten($light, 5%) !default;
 $card-cap-color:                    null !default;
 $card-height:                       null !default;
 $card-color:                        null !default;
