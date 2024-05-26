@@ -10,10 +10,14 @@
   - if card.body.present?
     .card-body
       = card.body.try(:html_safe)
-  - if card.actions.present?
-    .card-footer.d-flex.justify-content-end
-      .btn-group
-        - card.actions.each do |action|
-          = render 'nav_link', link: action, a_class: 'btn btn-secondary btn-sm'
+  - if card.actions.present? || card.footer.present?
+    .card-footer
+      .d-flex.justify-content-between.align-items-start
+        %div=card.footer
+        - if card.actions.present?
+          %div
+            .btn-group
+              - card.actions.each do |action|
+                = render 'nav_link', link: action, a_class: 'btn btn-outline-secondary btn-sm'
   - elsif card.footer.present?
     .card-footer= card.footer

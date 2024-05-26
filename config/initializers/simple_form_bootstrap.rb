@@ -497,7 +497,7 @@ module SimpleFormBootstrapPrimaryButton
   end
 
   def cancel_button(url, *, &)
-    template.link_to('Abbrechen', url, class: 'btn btn-light')
+    template.link_to('Abbrechen', url, class: 'btn btn-secondary')
   end
 
   private

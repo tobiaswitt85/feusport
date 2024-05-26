@@ -2,6 +2,6 @@
   = f.input :gender, collection: Band::GENDER_KEYS, as: :radio_buttons, label_method: ->(b) { t("gender.#{b}") }
   = f.input :name
   = f.input :tag_names
-- card.actions do
+- card.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_bands_path)

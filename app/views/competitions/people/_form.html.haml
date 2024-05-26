@@ -1,0 +1,12 @@
+- card.body do
+  .row
+    .col-lg-3= f.input :bib_number
+  .row
+    .col-lg-6= f.input :first_name
+    .col-lg-6= f.input :last_name
+  = f.input :band_id, input_html: { value: params[:band_id] }, as: :hidden
+  = f.association :competition, collection: Competition.accessible_by(current_ability)
+
+- card.footer do
+  = f.primary_button :submit
+  = f.cancel_button(competition_people_path)

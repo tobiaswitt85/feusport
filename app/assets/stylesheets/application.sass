@@ -9,38 +9,54 @@
 
 .navbar-brand
   padding-block: 0
+  opacity: 0.75
+  transition: opacity 0.3s ease-in-out
+
+  &:hover
+    opacity: 1
 
   svg
+    margin-top: -2px
     width: 2rem
-    fill: $primary
+    fill: $white
 
 .page-header
-  @extend .text-bg-accent1
+  @extend .text-bg-light, .bg-white
   margin-top: -1px
-  padding-block: .5rem 1rem
+  padding-block: 1rem
+  box-shadow: $box-shadow-sm
 
   @include media-breakpoint-up(xl)
     padding-block: 1.5rem 3rem
 
+  p.lead
+    background-color: $fs-yellow
+    padding: 0.1rem 0.75rem
+    display: inline-block
+    transform: skew(-10deg, 0deg)
+
 .page-tabs
-  @extend .text-bg-accent1
-  padding-block: 1rem 0
+  @extend .text-bg-light, .bg-white
+  padding-block: 0.5rem
   margin-top: -1px
+  box-shadow: $box-shadow-sm
+  border: 0 solid darken($fs-gray, 5%)
+  border-top-width: 1px
 
   @include media-breakpoint-up(xl)
-    margin-top: -2.5rem
+    margin-top: -2rem
 
-  .nav
-    gap: 5px
-    --bs-nav-tabs-border-width: 0
-    --bs-nav-link-color: #{$white}
-    --bs-nav-link-hover-color: #{tint-color($primary, 50%)}
+  // .nav
+  //   gap: 5px
+  //   --bs-nav-tabs-border-width: 0
+  //   --bs-nav-link-color: #{$white}
+  //   --bs-nav-link-hover-color: #{tint-color($primary, 50%)}
 
-    .nav-link
-      background-color: lighten($accent1, 5%)
+  //   .nav-link
+  //     background-color: lighten($accent1, 5%)
 
-      &.active
-        background-color: $primary
+  //     &.active
+  //       background-color: $primary
 
 .nav-tabs-responsive
   overflow-x: auto
@@ -90,8 +106,17 @@
     border-radius: var(--bs-card-border-radius) var(--bs-card-border-radius) 0 0
 
   > .card-header
+    border: 1px solid hsl(30 17% 88% / 1)
+    border-width: 1px 0
+
+    &:first-child
+      border-top-width: 0
+
     > h1, h2, h3
       @extend .display-6
+
+  > .card-footer
+    background-color: transparent
 
   > .table
     > thead, tbody
@@ -101,8 +126,8 @@
         > th:last-child, > td:last-child
           padding-right: var(--bs-card-spacer-x)
 
-.text-bg-light
-  --bs-card-cap-bg: #{darken($light, 3%)}
+.text-bg-accent2
+  --bs-card-cap-bg: #{darken($accent2, 5%)}
 
 .text-bg-dark
   .nav
@@ -113,12 +138,22 @@
       --bs-nav-link-color: #{$dark}
       --bs-nav-link-hover-color: #{darken($dark, 20%)}
 
+.card
+  box-shadow: $box-shadow-sm
+
 .card > .table
   margin-top: 1rem
   
   tr:last-child
     td, th
       border-bottom-width: 0
+
+.btn-primary, .card-primary-action
+  --bs-btn-color: #{$white}
+  --bs-btn-active-color: #{$white}
+  --bs-btn-active-bg: #{darken($primary, 15%)}
+  --bs-btn-hover-color: #{$white}
+  --bs-btn-hover-bg: #{darken($primary, 7.5%)}
 
 .card-primary-action
   @extend .btn, .btn-primary

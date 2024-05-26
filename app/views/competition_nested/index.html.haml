@@ -10,7 +10,7 @@
         - card.body do
           .alert.alert-info= t('a.no_entries_found')
 
-      - card.actions do
+      - card.footer do
         = btn_link_to(t('a.add'), action: :new)
     = render('index_bottom', resource_class:, resource_collection:)
   .col-md-4= render('index_right', resource_class:, resource_collection:)

@@ -1,7 +1,8 @@
-- page_title "#{resource_class.model_name.human} hinzufügen"
+= render 'competitions/header', competition: @competition
 
 .row
   .col-md-8
     = simple_form_for([:competition, resource_instance]) do |f|
-      = card "#{resource_class.model_name.human} hinzufügen" do |card|
+      = card do |card|
+        - card.title "#{resource_class.model_name.human} hinzufügen"
         = render('form', f:, card:)

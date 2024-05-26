@@ -32,7 +32,7 @@ class Competitions::PeopleController < CompetitionNestedController
 
   def person_params
     params.require(:person).permit(
-      :name, :gender
+      :bib_number, :first_name, :last_name, :band_id
     )
   end
 end

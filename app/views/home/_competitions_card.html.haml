@@ -4,7 +4,7 @@
     - grouped_competitions.each_value do |competitions|
       - sample = competitions.first
       .card-header{ class: competitions == grouped_competitions.values.first ? 'mt-0' : 'mt-4' }
-        %h2.mb-0
+        %h4.mb-0
           #{l(sample.date, format: '%B')} #{sample.date.year}
 
       .list-group.list-group-flush

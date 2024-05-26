@@ -2,6 +2,6 @@
   = f.association :discipline, collection: @competition.disciplines
   = f.association :band, collection: @competition.bands
   = f.input :forced_name
-- card.actions do
+- card.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_bands_path)

@@ -5,6 +5,7 @@ de:
       person:
         band: Wertungsgruppe
         bib_number: Startnummer
+        competition: Wettkampf
         create_team_name: Neue Mannschaft
         first_name: Vorname
         last_name: Nachname

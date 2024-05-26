@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Ui::CardBuilder = Struct.new(:title, :options, :view, :block) do
-  attr_reader :body
+  attr_reader :body, :save_button_label, :cancel_button_url
 
   def initialize(*args)
     super
@@ -39,11 +39,11 @@ Ui::CardBuilder = Struct.new(:title, :options, :view, :block) do
 
   def primary_actions(options = {}, &block)
     @primary_actions = Ui::NavBuilder.new(options, view, block) if block_given?
-    @primary_actions
+    @primary_actions || []
   end
 
   def actions(options = {}, &block)
     @actions = Ui::NavBuilder.new(options, view, block) if block_given?
-    @actions
+    @actions || []
   end
 end
