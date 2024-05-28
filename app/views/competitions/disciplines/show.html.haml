@@ -1,8 +1,9 @@
-= page_title "Disziplin: #{@discipline.name}"
+= render 'competitions/header', competition: @competition, sub: "Disziplin: #{@discipline.name}"
 
 .row
   .col-md-8
-    = card("Wertungen von #{@discipline.name}") do |card|
+    = card do |card|
+      - card.title 'Wertungen'
       - if @discipline.assessments.exists?
         - card.direct do
           %table.table
@@ -15,11 +16,12 @@
         - card.body do
           .alert.alert-info Keine Einträge gefunden
   .col-md-4
-    = card(t('a.actions')) do |card|
+    = card do |card|
+      - card.title t('a.actions')
+      = card.primary_actions do |actions|
+        = actions.link_to 'Übersicht', { action: :index }, end_icon: :list
       - card.body do
         .d-grid.gap-2
-          = btn_link_to 'Übersicht', { action: :index }
-          %hr
           = btn_link_to 'Bearbeiten', { action: :edit }
           - if @discipline.destroy_possible?
             = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Disziplin wirklich löschen?' }

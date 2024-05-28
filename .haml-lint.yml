@@ -10,6 +10,7 @@ linters:
     enabled: false
   RuboCop:
     ignored_cops:
+    - Rails/RenderInline
     - Style/IfUnlessModifier
   ViewLength:
     enabled: false

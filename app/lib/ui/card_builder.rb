@@ -38,12 +38,12 @@ Ui::CardBuilder = Struct.new(:title, :options, :view, :block) do
   end
 
   def primary_actions(options = {}, &block)
-    @primary_actions = Ui::NavBuilder.new(options, view, block) if block_given?
+    @primary_actions = Ui::NavBuilder.new(options, view, block) if block
     @primary_actions || []
   end
 
   def actions(options = {}, &block)
-    @actions = Ui::NavBuilder.new(options, view, block) if block_given?
+    @actions = Ui::NavBuilder.new(options, view, block) if block
     @actions || []
   end
 end

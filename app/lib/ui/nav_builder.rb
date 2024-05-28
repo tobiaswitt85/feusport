@@ -2,6 +2,7 @@
 
 Ui::NavBuilder = Struct.new(:options, :view, :block) do
   attr_reader :items
+
   delegate :each, :map, :filter, :detect, to: :items
 
   def initialize(*args)
@@ -11,22 +12,22 @@ Ui::NavBuilder = Struct.new(:options, :view, :block) do
   end
 
   def link_to(label, url, options = {})
+    options[:active] = view.try(:resource_class) == label unless options.key?(:active)
     @items << Ui::NavBuilderItem.new(to_string(label), url, options)
   end
 
   def dropdown(label, options = {}, &block)
-    if block_given?
-      dropdown = Ui::NavBuilder.new(options, view, block)
-      @items << Ui::NavBuilderItem.new(to_string(label), nil, { type: :dropdown, dropdown: dropdown })
-    end
+    return unless block
+
+    dropdown = Ui::NavBuilder.new(options, view, block)
+    @items << Ui::NavBuilderItem.new(to_string(label), nil, { type: :dropdown, dropdown: })
   end
 
   private
 
   def to_string(something)
-    if something.is_a?(Class) && something.respond_to?(:model_name)
-      return something.model_name.human(count: :many)
-    end
+    return something.model_name.human(count: :many) if something.is_a?(Class) && something.respond_to?(:model_name)
+
     something
   end
 end

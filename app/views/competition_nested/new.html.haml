@@ -1,4 +1,4 @@
-= render 'competitions/header', competition: @competition
+= render 'competitions/header', competition: @competition, sub: "#{resource_class.model_name.human} hinzufügen"
 
 .row
   .col-md-8
@@ -6,3 +6,5 @@
       = card do |card|
         - card.title "#{resource_class.model_name.human} hinzufügen"
         = render('form', f:, card:)
+  .col-md-4
+    = render('new_right')

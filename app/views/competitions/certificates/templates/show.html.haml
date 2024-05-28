@@ -3,6 +3,8 @@
 - if @template.font2.attached?
   = render 'font_style', type: :bold, font: @template.font2
 
+= render 'competitions/header', competition: @competition
+
 .row
   .col-md-8
     = card("Urkundenvorlage: #{@template.name}", title: true) do |card|

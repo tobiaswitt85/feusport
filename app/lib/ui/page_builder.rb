@@ -18,8 +18,13 @@ Ui::PageBuilder = Struct.new(:options, :view, :block) do
     @sub_title
   end
 
+  def sub_title2(sub_title2 = nil)
+    @sub_title2 = sub_title2 if sub_title2
+    @sub_title2
+  end
+
   def tabs(options = {}, &block)
-    @tabs = Ui::NavBuilder.new(options, view, block) if block_given?
+    @tabs = Ui::NavBuilder.new(options, view, block) if block
     @tabs
   end
 
@@ -27,15 +32,14 @@ Ui::PageBuilder = Struct.new(:options, :view, :block) do
     parts = []
     parts << tabs.detect(&:active)&.label
     parts << title
-    parts.join(' - ')
+    parts.compact_blank.join(' - ')
   end
 
   private
 
   def to_string(something)
-    if something.is_a?(Class) && something.respond_to?(:model_name)
-      return something.model_name.human(count: :many)
-    end
+    return something.model_name.human(count: :many) if something.is_a?(Class) && something.respond_to?(:model_name)
+
     something
   end
 end

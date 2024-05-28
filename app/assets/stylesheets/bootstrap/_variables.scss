@@ -309,7 +309,7 @@ $success:       #1b974c !default;
 $info:          #c5d3e6 !default;
 $warning:       #e5c51e !default;
 $danger:        #993441 !default;
-$light:         lighten($fs-gray, 5%) !default;
+$light:         $fs-gray !default;
 $dark:          #40485e !default;
 $accent1:       darken($fs-red, 7.5%);
 $accent2:       hsl(10 20% 89% / 1);
