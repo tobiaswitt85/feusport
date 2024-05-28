@@ -8,11 +8,6 @@ Ui::CardBuilder = Struct.new(:title, :options, :view, :block) do
     view.capture_haml(self, &block)
   end
 
-  def title(title = nil)
-    @title = title if title
-    @title
-  end
-
   def body(&block)
     if block.present?
       @body = view.capture_haml(&block)

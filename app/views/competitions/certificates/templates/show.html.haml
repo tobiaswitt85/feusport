@@ -3,11 +3,11 @@
 - if @template.font2.attached?
   = render 'font_style', type: :bold, font: @template.font2
 
-= render 'competitions/header', competition: @competition
+= render 'competitions/header', competition: @competition, sub: "Urkundenvorlage: #{@template.name}"
 
 .row
   .col-md-8
-    = card("Urkundenvorlage: #{@template.name}", title: true) do |card|
+    = card("Urkundenvorlage: #{@template.name}") do |card|
       - card.direct do
         %table.table
           - if @template.name.present?
@@ -41,10 +41,10 @@
               %td
   .col-md-4
     = card(t('a.actions')) do |card|
+      - card.primary_actions do |actions|
+        - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
       - card.body do
         .d-grid.gap-2
-          = btn_link_to 'Übersicht', { action: :index }
-          %hr
           = btn_link_to 'Textpositionen', action: :edit_text_fields
           = btn_link_to 'Bearbeiten', action: :edit
           = btn_link_to 'Vorschau als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'

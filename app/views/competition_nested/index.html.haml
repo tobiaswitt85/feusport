@@ -2,9 +2,7 @@
 
 .row.g-4
   .col-md-8
-    = card do |card|
-      = card.title resource_class.model_name.human(count: :many)
-
+    = card(resource_class.model_name.human(count: :many)) do |card|
       - card.body do
         - if resource_collection.exists?
           = render('index_table', resource_class:, resource_collection:)

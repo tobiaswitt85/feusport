@@ -2,8 +2,7 @@
 
 .row
   .col-md-8
-    = card(class: 'mb-3') do |card|
-      - card.title @band.name
+    = card(@band.name, class: 'mb-3') do |card|
       - card.direct do
         %table.table
           %tr
@@ -22,8 +21,7 @@
               - else
                 &dash;
 
-    = card do |card|
-      - card.title Assessment.model_name.human(count: :many)
+    = card(Assessment.model_name.human(count: :many)) do |card|
       - if @band.assessments.exists?
         - card.direct do
           %table.table
@@ -41,8 +39,7 @@
           .alert.alert-info= t('a.no_entries_found')
 
   .col-md-4
-    = card do |card|
-      - card.title t('a.actions')
+    = card(t('a.actions')) do |card|
       = card.primary_actions do |actions|
         = actions.link_to 'Übersicht', { action: :index }, end_icon: :list
       - card.body do

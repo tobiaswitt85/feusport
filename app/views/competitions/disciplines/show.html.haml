@@ -2,8 +2,7 @@
 
 .row
   .col-md-8
-    = card do |card|
-      - card.title 'Wertungen'
+    = card('Wertungen') do |card|
       - if @discipline.assessments.exists?
         - card.direct do
           %table.table
@@ -16,8 +15,7 @@
         - card.body do
           .alert.alert-info Keine Einträge gefunden
   .col-md-4
-    = card do |card|
-      - card.title t('a.actions')
+    = card(t('a.actions')) do |card|
       = card.primary_actions do |actions|
         = actions.link_to 'Übersicht', { action: :index }, end_icon: :list
       - card.body do

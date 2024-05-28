@@ -3,9 +3,7 @@
 .row.g-4
   - Band.find_each do |band|
     .col-md-8.col-xl-6
-      = card do |card|
-        = card.title band.name
-
+      = card(band.name) do |card|
         - card.body do
           - if can?(:create, Band.new(competition: @competition)) || @people.exists?(band:)
             - if resource_collection.exists?
