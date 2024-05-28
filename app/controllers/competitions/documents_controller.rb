@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
 class Competitions::DocumentsController < CompetitionNestedController
-  load_and_authorize_resource :document, through: :competition
-
-  def new
-    @document = Document.new(competition: @competition)
-  end
-
-  def edit; end
+  default_resource
 
   def create
-    @document = Document.new(competition: @competition)
     @document.assign_attributes(document_params)
     if @document.save
       redirect_to competition_show_path, notice: :saved

@@ -15,7 +15,9 @@ de:
           has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.
           has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz existiert.
         year_not_valid: hat ein ungültiges Jahr
-  check_errors: 'Bitte überprüfen Sie folgende Fehler:'
+  alerts:
+    saved: Die Änderungen wurden gespeichert.
+    check_errors: 'Bitte überprüfen Sie folgende Fehler:'
   date:
     abbr_day_names:
     - So

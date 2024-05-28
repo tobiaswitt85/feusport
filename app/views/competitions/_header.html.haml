@@ -6,8 +6,10 @@
   = page.sub_title2 sub if sub.present?
   = page.tabs do |tabs|
     = tabs.link_to 'Informationen', competition_show_path, active: resource_class.nil?
-    = tabs.link_to Team, competition_teams_path
-    = tabs.link_to Person, competition_people_path
+    - if @competition.disciplines.exists?
+      = tabs.link_to Team, competition_teams_path
+    - if @competition.disciplines.single_disciplines.exists?
+      = tabs.link_to Person, competition_people_path
     = tabs.link_to Score::List, competition_score_lists_path
     - if can?(:manage, @competition)
       = tabs.dropdown 'Erweitert' do |dropdown|

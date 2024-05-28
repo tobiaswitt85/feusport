@@ -1,4 +1,4 @@
-= page_title "#{Assessment.model_name.human}: #{@assessment.name}"
+= render 'competitions/header', competition: @competition, sub: "#{Assessment.model_name.human}: #{@assessment.name}"
 
 .row
   .col-md-8
@@ -17,10 +17,10 @@
 
   .col-md-4
     = card(t('a.actions')) do |card|
+      - card.primary_actions do |actions|
+        - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
       - card.body do
         .d-grid.gap-2
-          = btn_link_to 'Übersicht', { action: :index }
-          %hr
           = btn_link_to 'Bearbeiten', { action: :edit }
           - if @assessment.destroy_possible?
             = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Wertungsgruppe wirklich löschen?' }

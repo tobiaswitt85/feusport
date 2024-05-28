@@ -1,18 +1,14 @@
-= page_title 'Wettkampf bearbeiten'
+= render 'competitions/header', competition: @competition, resource_class: nil, sub: "Wettkampf aktualisieren"
 
 .row
   .col-md-8
-    = simple_form_for(@competition, url: competition_editing_path) do |f|
-      .card
-        .card-body
-          = f.error_notification
-
-          .form-inputs
-            = f.input :name, autofocus: true
-            = f.input :date, html5: true
-            = f.input :locality
-            = f.input :description, input_html: { class: 'easymde-required' }
-          .btn-toolbar.mt-3
-            .d-flex.justify-content-end
-              = f.button :submit, 'Bearbeiten', class: 'btn btn-primary'
-              = link_to 'Abbrechen', competition_show_path, class: 'btn btn-light'
+    = simple_form_for(@competition, url: competition_visibility_path) do |f|
+      = card "Wettkampf aktualisieren" do |card|
+        - card.body do
+          = f.input :name, autofocus: true
+          = f.input :date, html5: true
+          = f.input :locality
+          = f.input :description, input_html: { class: 'easymde-required' }
+        - card.footer do
+          = f.primary_button :submit
+          = f.cancel_button(competition_show_path)

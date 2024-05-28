@@ -26,6 +26,8 @@ class Discipline < ApplicationRecord
   belongs_to :competition
   has_many :assessments, dependent: :restrict_with_error
 
+  scope :single_disciplines, -> { where(single_discipline: true) }
+
   schema_validations
   validates :key, inclusion: { in: DISCIPLINES }, allow_blank: true
 
