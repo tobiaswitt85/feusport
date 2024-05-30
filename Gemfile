@@ -15,6 +15,7 @@ gem 'cssbundling-rails' # bundle and process CSS
 gem 'sassc-rails' # use Sass to process CSS
 gem 'haml-rails' # haml as template engine
 gem 'turbo-rails' # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem 'auto_strip_attributes' # remove whitespaces and change to nil
 
 gem 'bootsnap', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'generated_schema_validations' # validate models by schema
