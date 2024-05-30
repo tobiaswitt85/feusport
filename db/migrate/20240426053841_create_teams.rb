@@ -15,5 +15,7 @@ class CreateTeams < ActiveRecord::Migration[7.0]
       t.index [:fire_sport_statistics_team_id]
       t.timestamps
     end
+    add_index :teams, %i[competition_id band_id name number], unique: true
+    add_index :teams, %i[competition_id band_id shortcut number], unique: true, name: :index_teams_on_competition_band_shortcut_number
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_13_092838) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -44,10 +44,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_092838) do
   end
 
   create_table "assessment_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "competition_id", null: false
     t.uuid "assessment_id", null: false
     t.string "entity_type", limit: 100, null: false
-    t.integer "entity_id", null: false
+    t.uuid "entity_id", null: false
     t.integer "assessment_type", default: 0, null: false
     t.integer "group_competitor_order", default: 0, null: false
     t.integer "relay_count", default: 1, null: false
@@ -56,7 +55,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_092838) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assessment_id"], name: "index_assessment_requests_on_assessment_id"
-    t.index ["competition_id"], name: "index_assessment_requests_on_competition_id"
   end
 
   create_table "assessments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -77,7 +75,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_092838) do
     t.integer "gender", null: false
     t.string "name", limit: 100, null: false
     t.integer "position"
-    t.string "tags", default: [], array: true
+    t.string "person_tags", default: [], array: true
+    t.string "team_tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["competition_id"], name: "index_bands_on_competition_id"
@@ -383,6 +382,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_092838) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["band_id"], name: "index_teams_on_band_id"
+    t.index ["competition_id", "band_id", "name", "number"], name: "index_teams_on_competition_id_and_band_id_and_name_and_number", unique: true
+    t.index ["competition_id", "band_id", "shortcut", "number"], name: "index_teams_on_competition_band_shortcut_number", unique: true
     t.index ["competition_id"], name: "index_teams_on_competition_id"
     t.index ["fire_sport_statistics_team_id"], name: "index_teams_on_fire_sport_statistics_team_id"
   end
@@ -419,7 +420,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_13_092838) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assessment_requests", "assessments"
-  add_foreign_key "assessment_requests", "competitions"
   add_foreign_key "assessments", "competitions"
   add_foreign_key "bands", "competitions"
   add_foreign_key "certificates_templates", "competitions"

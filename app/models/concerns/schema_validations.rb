@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20240513092838
+# generated from version 20240426112355
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -69,13 +69,11 @@ module SchemaValidations
     end
 
     def dbv_assessment_requests_validations(enums: [])
-      belongs_to_presence_validations_for([:competition_id, :assessment_id, :entity_id, :assessment_type, :group_competitor_order, :relay_count, :single_competitor_order, :competitor_order])
-      validates_with_filter :competition_id, {:presence=>{}}
+      belongs_to_presence_validations_for([:assessment_id, :entity_id, :assessment_type, :group_competitor_order, :relay_count, :single_competitor_order, :competitor_order])
       validates_with_filter :assessment_id, {:presence=>{}}
       validates_with_filter :entity_type, {:presence=>{}}
       validates_with_filter :entity_type, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :entity_id, {:presence=>{}}
-      validates_with_filter :entity_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:entity_id)
       validates_with_filter :assessment_type, {:presence=>{}}
       validates_with_filter :assessment_type, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:assessment_type)
       validates_with_filter :group_competitor_order, {:presence=>{}}
@@ -459,6 +457,8 @@ module SchemaValidations
 
     def dbv_teams_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :band_id, :number])
+      belongs_to_uniqueness_validations_for([["competition_id", "band_id", "name", "number"], ["competition_id", "band_id", "shortcut", "number"]])
+      uniqueness_validations_for([["competition_id", "band_id", "name", "number"], ["competition_id", "band_id", "shortcut", "number"]])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :band_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
