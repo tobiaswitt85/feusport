@@ -1,0 +1,21 @@
+= render 'competitions/header', competition: @competition, sub: "#{resource_class.model_name.human} aktualisieren"
+
+.row
+  .col-md-8
+    = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update, form: :edit_assessment_requests)) do |f|
+      = card "#{resource_class.model_name.human} aktualisieren" do |card|
+        - card.body do
+          - Assessment.requestable_for_team(@team.band).each do |assessment|
+            .assessment-request
+              = f.simple_fields_for :requests, @team.requests.find_or_initialize_by(assessment: assessment) do |g|
+                = g.input :_destroy, as: :boolean, label: 'Teilnahme', input_html: { checked: g.object.persisted? }, checked_value: '0', unchecked_value: '1'
+                = g.input :assessment_id, as: :hidden
+                .edit-assesment-type
+                  = g.input :assessment_type, as: :select, collection: AssessmentRequest.group_assessment_type_keys, label: assessment.name, label_method: ->(type) { t("assessment_types.#{type}") }
+                  - if assessment.like_fire_relay?
+                    = g.input :relay_count
+        - card.footer do
+          = f.primary_button :submit
+          = f.cancel_button(competition_teams_path)
+  .col-md-4
+    = render('edit_right')

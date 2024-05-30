@@ -6,7 +6,7 @@ class Competitions::TeamsController < CompetitionNestedController
   def create
     @team.assign_attributes(team_params)
     if @team.save
-      redirect_to competition_teams_path, notice: :saved
+      redirect_to competition_team_path(id: @team.id), notice: :saved
     else
       flash.now[:alert] = :check_errors
       render action: :new, status: :unprocessable_entity
@@ -16,10 +16,15 @@ class Competitions::TeamsController < CompetitionNestedController
   def update
     @team.assign_attributes(team_params)
     if @team.save
-      redirect_to competition_teams_path, notice: :saved
+      redirect_to competition_team_path(id: @team.id), notice: :saved
     else
       flash.now[:alert] = :check_errors
-      render action: :edit, status: :unprocessable_entity
+      if params[:form] == 'edit_assessment_requests'
+        flash[:info] = @team.errors.messages.inspect
+        render action: :edit_assessment_requests, status: :unprocessable_entity
+      else
+        render action: :edit, status: :unprocessable_entity
+      end
     end
   end
 
@@ -32,7 +37,13 @@ class Competitions::TeamsController < CompetitionNestedController
 
   def team_params
     params.require(:team).permit(
-      :name, :gender
+      :name, :shortcut, :number, :band_id,
+      tags: [],
+      requests_attributes: %i[assessment_type relay_count _destroy assessment_id id]
     )
+  end
+
+  def assign_new_resource
+    self.resource_instance = resource_class.new(competition: @competition, band: Band.find(params[:band_id]))
   end
 end

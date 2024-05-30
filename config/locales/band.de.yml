@@ -6,7 +6,10 @@ de:
         assessments: Wertungen
         gender: Geschlecht
         name: Name
-        tag_names: Mögliche Markierungen für Mannschaften und Wettkämpfer
+        person_tag_names: Mögliche Markierungen für Wettkämpfer
+        person_tags: Personen-Markierungen
+        team_tag_names: Mögliche Markierungen für Mannschaften
+        team_tags: Mannschaft-Markierungen
     models:
       band:
         one: Wertungsgruppe

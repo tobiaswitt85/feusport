@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     resources :documents, only: %i[new create edit update destroy]
 
     # top menu
-    resources :teams
+    resources :teams do
+      member do
+        get :edit_assessment_requests
+      end
+    end
     resources :people
     resources :score_lists
 

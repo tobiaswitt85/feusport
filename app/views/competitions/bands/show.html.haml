@@ -12,11 +12,20 @@
             %th= Band.human_attribute_name(:name)
             %td= @band.name
           %tr
-            %th= Band.human_attribute_name(:tag_names)
+            %th= Band.human_attribute_name(:person_tag_names)
             %td
-              - if @band.tags.present?
+              - if @band.person_tags.present?
                 %ul
-                  - @band.tags.each do |tag|
+                  - @band.person_tags.each do |tag|
+                    %li= tag
+              - else
+                &dash;
+          %tr
+            %th= Band.human_attribute_name(:team_tag_names)
+            %td
+              - if @band.team_tags.present?
+                %ul
+                  - @band.team_tags.each do |tag|
                     %li= tag
               - else
                 &dash;

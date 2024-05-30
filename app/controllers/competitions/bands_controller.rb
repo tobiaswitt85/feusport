@@ -47,7 +47,7 @@ class Competitions::BandsController < CompetitionNestedController
 
   def band_params
     params.require(:band).permit(
-      :name, :gender, :tag_names
+      :name, :gender, :person_tag_names, :team_tag_names
     )
   end
 end

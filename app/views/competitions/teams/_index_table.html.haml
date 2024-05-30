@@ -1,0 +1,23 @@
+%table.table.table-bordered
+  %tr
+    %th= Team.human_attribute_name(:name)
+    - band.team_tags.each do |tag|
+      %th.small{ style: 'width: 80px' }= tag
+    - assessments.each do |assessment|
+      %th.small{ style: 'width: 60px' }= discipline_image assessment.discipline.key, title: assessment.name
+    %th{ style: 'width: 200px' }
+  - resource_collection.each do |team|
+    %tr
+      %td= team.name
+      - band.team_tags.each do |tag|
+        %td= team.tags.include?(tag) ? "X" : ""
+      - assessments.each do |assessment|
+        %td
+          - if team.request_for(assessment).present?
+            - if assessment.like_fire_relay?
+              #{team.request_for(assessment).relay_count} x
+            = t("assessment_types.#{team.request_for(assessment).assessment_type}_short")
+
+      %td.text-end
+        = btn_link_to(t('a.show'), { action: :show, id: team })
+        = btn_link_to(t('a.edit'), { action: :edit, id: team })

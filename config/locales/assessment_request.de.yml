@@ -1,0 +1,13 @@
+---
+de:
+  activerecord:
+    attributes:
+      assessment_request:
+        competitor_order: Nummer
+        group_competitor_order: Reihenfolge
+        relay_count: Staffelanzahl
+        single_competitor_order: Reihenfolge
+    models:
+      assessment_request:
+        one: Gewünschte Wertung
+        other: Gewünschte Wertungen

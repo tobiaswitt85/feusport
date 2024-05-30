@@ -1,0 +1,13 @@
+= render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
+
+- @competition.bands.sort.each do |band|
+  = card(band.name, class: 'mb-3') do |card|
+    - card.body do
+      - if resource_collection.where(band:).exists?
+        = render('index_table', resource_class:, resource_collection: resource_collection.where(band:), band:, assessments: Assessment.requestable_for_team(band))
+      - else
+        .alert.alert-info= t('a.no_entries_found')
+
+    - if can?(:create, resource_class.new(competition: @competition, band:))
+      = card.primary_actions do |actions|
+        = actions.link_to t('a.add'), { action: :new, band_id: band.id }, end_icon: :square_plus

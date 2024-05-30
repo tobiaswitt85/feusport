@@ -1,0 +1,90 @@
+= render 'competitions/header', competition: @competition, sub: "Mannschaft: #{@team.numbered_name}"
+
+.row
+  .col-md-8
+    = card("Mannschaft: #{@team.numbered_name}", class: "mb-3") do |card|
+      - card.direct do
+        %table.table.table-condensed
+          %tr
+            %th= Team.human_attribute_name(:name)
+            %td= @team.name
+          %tr
+            %th= @team.class.human_attribute_name(:shortcut)
+            %td= @team.shortcut
+          %tr
+            %th= @team.class.human_attribute_name(:number)
+            %td= @team.number
+          %tr
+            %th= @team.class.human_attribute_name(:band)
+            %td= @team.band.name
+          -# - if admin_logged_in? || @team.object.people.exists?
+          -#   %tr{ admin_logged_in? && !@team.assessment_request_group_competitor_valid? ? { class: 'danger' } : {} }
+          -#     %th= @team.class.human_attribute_name :people
+          -#     %td= @team.people.count
+          - @team.band.team_tags.each do |tag|
+            %tr
+              %th= tag
+              %td= @team.tags.include?(tag) ? 'Ja' : 'Nein'
+          -# - if admin_logged_in?
+          -#   - @team.people_assessments.each do |assessment|
+          -#     %tr{ @team.list_entries_group_competitor(assessment) > Competition.one.group_run_count ? { class: 'danger' } : {} }
+          -#       %th= assessment.decorate
+          -#       %td #{@team.list_entries_group_competitor(assessment)} von #{Competition.one.group_run_count}
+
+
+    = card("Gewünschte #{Assessment.model_name.human(count: :many)}") do |card|
+      - if can?(:edit, @team)
+        - card.primary_actions do |actions|
+          = actions.link_to 'Wertungen bearbeiten', { action: :edit_assessment_requests }, end_icon: :edit
+      - card.direct do
+        %table.table.table-condensed
+          - Assessment.requestable_for_team(@team.band).each do |assessment|
+            %tr
+              %th
+                = discipline_image(assessment.discipline.key)
+                = assessment.name
+              %td
+                - if @team.request_for(assessment).present?
+                  - if assessment.like_fire_relay?
+                    #{@team.request_for(assessment).relay_count} x
+                  %i.far.fa-check
+                  = t("assessment_types.#{@team.request_for(assessment).assessment_type}")
+                - else
+                  %i.far.fa-xmark
+
+  .col-md-4
+    = card(t('a.actions')) do |card|
+      - card.primary_actions do |actions|
+        - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
+      - card.body do
+        .d-grid.gap-2
+          = btn_link_to 'Wettkämpfer hinzufügen', new_competition_person_path(team: @team)
+          = btn_link_to 'Name bearbeiten', {action: :edit}
+          = btn_link_to 'Löschen', { action: :destroy }, method: :delete, data: { confirm: 'Mannschaft wirklich löschen? Alle Zeiten usw. werden auch gelöscht!' }
+
+  -# - if admin_logged_in? || @team.object.people.exists?
+  -#   .col-md-12
+  -#     = box(@team.class.human_attribute_name(:people)) do |box|
+  -#       - if admin_logged_in?
+  -#         - box.header do
+  -#           .pull-right
+  -#             = btn_link_to 'Wettkämpfer hinzufügen', new_person_path(team: @team), remote: true
+  -#           .clearfix
+  -#       = render 'people_table', collection: @team.object.people.registration_order.map(&:decorate)
+  -#       - if admin_logged_in?
+  -#         - box.footer do
+  -#           Die Reihenfolge der Personen kann einfach verschoben werden. Dadurch soll ein besseres Abgleichen mit der Eingabe möglich sein.
+
+  -# - if @team.list_entries.exists?
+  -#   .col-md-12
+  -#     = box('Startlisten') do
+  -#       %table.table.table-bordered
+  -#         %tr
+  -#           %th Startliste
+  -#           %th Lauf
+  -#           %th Bahn
+  -#         - @team.list_entries.sort_by { |entry| entry.list.decorate.to_s }.each do |entry|
+  -#           %tr
+  -#             %td= link_to(entry.list.decorate, score_list_path(entry.list, anchor: "jump-run-#{entry.run}"))
+  -#             %td= entry.run
+  -#             %td= entry.track

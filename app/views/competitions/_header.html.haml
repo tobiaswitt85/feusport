@@ -6,7 +6,7 @@
   = page.sub_title2 sub if sub.present?
   = page.tabs do |tabs|
     = tabs.link_to 'Informationen', competition_show_path, active: resource_class.nil?
-    - if @competition.disciplines.exists?
+    - if @competition.bands.exists? && @competition.disciplines.exists?
       = tabs.link_to Team, competition_teams_path
     - if @competition.disciplines.single_disciplines.exists?
       = tabs.link_to Person, competition_people_path

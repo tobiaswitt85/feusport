@@ -3,12 +3,15 @@
     %th= resource_class.human_attribute_name(:name)
     %th= resource_class.human_attribute_name(:gender)
     %th= resource_class.human_attribute_name(:assessments)
+    %th{ colspan: 2 } Markierungen
     %th
   - resource_collection.sort.each do |band|
     %tr
       %td= band.name
       %td= band.translated_gender
       %td= band.assessments.count
+      %td= band.person_tag_names
+      %td= band.team_tag_names
       %td.text-end
         = btn_link_to '↥', { action: :edit, id: band, move: :up }, disabled: band.first?
         = btn_link_to '↧', { action: :edit, id: band, move: :down }, disabled: band.last?
