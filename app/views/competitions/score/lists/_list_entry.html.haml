@@ -1,3 +1,5 @@
+- move ||= false
+
 %tr{ list_entry_options(list, track, entry, best_of_run) }
   %td.run
     - if track == 1
@@ -24,6 +26,12 @@
         %br
         .tiny= entry&.assessment.name
   = yield (track == 1)
+  - if move
+    %td.text-end
+      .btn.btn-sm.btn-light.move-up{ title: "Ganz nach oben" }
+        %i.far.fa-up
+      .btn.btn-sm.btn-light.move-down{ title: "Ganz nach unten" }
+        %i.far.fa-down
 
 - if entry&.errors&.include?(:changed_while_editing)
   %tr.danger

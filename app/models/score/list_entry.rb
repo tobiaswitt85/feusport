@@ -30,6 +30,7 @@ class Score::ListEntry < ApplicationRecord
   scope :result_valid, -> { where(result_type: :valid) }
   scope :not_waiting, -> { where.not(result_type: :waiting) }
   scope :waiting, -> { where(result_type: :waiting) }
+  default_scope { order(:run, :track) }
 
   BEFORE_CHECK_METHODS.each do |method_name|
     define_method(:"#{method_name}_before") do
@@ -48,6 +49,13 @@ class Score::ListEntry < ApplicationRecord
         l.update!(time_with_valid_calculation: rand(1900..2300))
       end
     end
+  end
+
+  def <=>(other)
+    compare = run <=> other.run
+    return compare if compare != 0
+
+    track <=> other.track
   end
 
   private

@@ -38,7 +38,7 @@ module ApplicationHelper
 
   def short_destroy_link(path, options = {})
     options[:title] ||= 'Löschen'
-    icon_link_btn('far fa-delete', path, options)
+    icon_link_btn('far fa-trash', path, options)
   end
 
   def icon_link_btn(icon_classes, path, options = {})

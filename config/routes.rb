@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       resources :lists, only: %i[show edit update index destroy] do
         member do
           get :move
+          post :move
           get :select_entity
           get 'destroy_entity/:entry_id', action: :destroy_entity, as: :destroy_entity
           get :edit_times

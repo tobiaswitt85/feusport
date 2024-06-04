@@ -237,3 +237,36 @@
 
 .next-run
   border-bottom: 2px solid black
+
+.sorted-table tbody tr
+  cursor: move
+
+.sortable-chosen
+  td, th
+    background-color: $light
+.sortable-ghost
+  td, th
+    background-color: $light
+.sortable-drag
+  td, th
+    background-color: $info
+
+
+
+.animate-fade-out
+  animation: animate-fade-out 0.5s both
+
+@keyframes animate-fade-out
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
+.animate-fade-in
+  animation: animate-fade-in 0.5s both
+
+@keyframes animate-fade-in
+  0%
+    opacity: 0
+  100%
+    opacity: 1

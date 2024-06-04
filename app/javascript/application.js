@@ -5,6 +5,7 @@ import EasyMDE from 'easymde';
 
 import './_certificates';
 import './_edit_assessment_requests';
+import './_move_score_list_entries';
 
 document.addEventListener('turbo:load', () => {
   document.querySelectorAll('textarea.easymde-required').forEach((textarea) => {
