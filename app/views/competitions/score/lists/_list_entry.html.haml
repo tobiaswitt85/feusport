@@ -1,0 +1,35 @@
+%tr{ list_entry_options(list, track, entry, best_of_run) }
+  %td.run
+    - if track == 1
+      %a{ name: "jump-run-#{run + 1}" }
+      = run
+  %th.track= track
+  - if list.single_discipline?
+    - if @competition.show_bib_numbers?
+      %td= entry&.entity&.bib_number
+    %td= entry&.entity&.last_name.to_s.truncate(20)
+    %td= entry&.entity&.first_name.to_s.truncate(20)
+    %td
+      = entry&.entity&.team_shortcut_name(entry.try(:assessment_type)).to_s.truncate(20)
+      - if list.show_multiple_assessments? && list.multiple_assessments?
+        %br
+        .tiny= entry.try(:assessment).try(:decorate)
+  - else
+    %td
+      - if !list.show_multiple_assessments? && list.multiple_assessments?
+        = entry&.entity&.numbered_name_with_band
+      - else
+        = entry&.entity&.numbered_name
+      - if list.show_multiple_assessments? && list.multiple_assessments?
+        %br
+        .tiny= entry&.assessment.name
+  = yield (track == 1)
+
+- if entry&.errors&.include?(:changed_while_editing)
+  %tr.danger
+    %td{ colspan: list.column_count }
+      %p
+        %strong Der Eintrag wurde in der Zwischenzeit von einem anderen Benutzer geändert. Durch ein erneutes Drücken auf »Speichern« überschreiben Sie den geänderten Eintrag.
+      %p
+        In der Datenbank steht zur Zeit folgender Wert:
+        %strong= Score::ListEntry.find(entry.id).decorate.overview

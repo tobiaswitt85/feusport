@@ -165,6 +165,7 @@ module SchemaValidations
       validates_with_filter :year, {:presence=>{}}
       validates_with_filter :year, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:year)
       validates_with_filter :visible, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :lottery_numbers, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
@@ -333,7 +334,6 @@ module SchemaValidations
       validates_with_filter :entity_type, {:presence=>{}}
       validates_with_filter :entity_type, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :entity_id, {:presence=>{}}
-      validates_with_filter :entity_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:entity_id)
       validates_with_filter :track, {:presence=>{}}
       validates_with_filter :track, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:track)
       validates_with_filter :run, {:presence=>{}}
@@ -438,8 +438,7 @@ module SchemaValidations
     def dbv_score_results_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :assessment_id, :calculation_method])
       validates_with_filter :competition_id, {:presence=>{}}
-      validates_with_filter :name, {:presence=>{}}
-      validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :forced_name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :group_assessment, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :assessment_id, {:presence=>{}}
       validates_with_filter :type, {:presence=>{}}

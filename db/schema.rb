@@ -116,6 +116,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
     t.integer "year", null: false
     t.boolean "visible", default: false, null: false
     t.text "description"
+    t.boolean "lottery_numbers", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_competitions_on_date"
@@ -257,7 +258,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
     t.uuid "competition_id", null: false
     t.uuid "list_id", null: false
     t.string "entity_type", limit: 50, null: false
-    t.integer "entity_id", null: false
+    t.uuid "entity_id", null: false
     t.integer "track", null: false
     t.integer "run", null: false
     t.string "result_type", limit: 20, default: "waiting", null: false
@@ -352,7 +353,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
 
   create_table "score_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "competition_id", null: false
-    t.string "name", limit: 100, default: "", null: false
+    t.string "forced_name", limit: 100
     t.boolean "group_assessment", default: false, null: false
     t.uuid "assessment_id", null: false
     t.uuid "double_event_result_id"

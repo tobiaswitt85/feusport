@@ -14,7 +14,7 @@ class AssessmentRequest < ApplicationRecord
 
   scope :assessment_type, ->(type) { where(assessment_type: AssessmentRequest.assessment_types[type]) }
   scope :for_assessment, ->(assessment) do
-                           where(entity_type: assessment.discipline.group_discipline? ? 'Team' : 'Person')
+                           where(entity_type: assessment.discipline.single_discipline? ? 'Person' : 'Team')
                          end
 
   def self.group_assessment_type_keys

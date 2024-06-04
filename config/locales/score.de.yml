@@ -16,7 +16,10 @@ de:
         shortcut: Abkürzung
         show_best_of_run: Beste des Laufs anzeigen
         show_multiple_assessments: Zeige Wertungen unter Mannschaft an
+        competition: Wettkampf
       score/list_entry:
+        competition: Wettkampf
+        list: Startliste
         assessment: Wertung
         assessment_type: Wertung
         edit_second_time: Zeit in Sekunden
@@ -61,11 +64,13 @@ de:
         track_count: Wettkampfbahnen
         type: Listenerstellung
       score/result:
+        assessment_id: Wertung
         assessment: Wertung
         calculation_method: Berechnungsmethode
         date: Datum
         group_assessment: Mannschaftswertung
         lists: Startlisten
+        forced_name: Name
         name: Name
         results: Ergebnislisten
         series_assessments: Wertungen
@@ -86,3 +91,6 @@ de:
       score/list_factories/track_same: Bahn behalten
       score/result: Ergebnisse
       score/run: Lauf
+  score_calculation_methods:
+    default: Standard (Bester Lauf in der Wertung)
+    sum_of_two: Summe der besten zwei Läufe

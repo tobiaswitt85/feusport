@@ -6,7 +6,7 @@ class CreateScoreListEntries < ActiveRecord::Migration[7.0]
       t.references :competition, null: false, foreign_key: true, type: :uuid
       t.references :list, null: false, type: :uuid
       t.string :entity_type, null: false, limit: 50
-      t.integer :entity_id, null: false
+      t.uuid :entity_id, null: false
       t.integer :track, null: false
       t.integer :run, null: false
       t.string :result_type, default: 'waiting', null: false, limit: 20

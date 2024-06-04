@@ -1,0 +1,18 @@
+= f.input :next_step, as: :hidden, input_html: { value: :create }
+
+%h2 Voraussichtliche Liste
+%table.table
+  %tr
+    %th Anzahl der Starter
+    %td= @list_factory.preview_entries_count
+  %tr
+    %th Anzahl der Läufe
+    %td= @list_factory.preview_run_count
+
+= f.input :hidden, hint: 'Manchmal ist es besser, die Startliste zuerst zu verstecken. Es kann dann zum Beispiel kontrolliert werden, ob die Reihenfolge stimmt.'
+
+- if @list_factory.discipline.key == :la
+  = f.input :separate_target_times, hint: 'Die Zeiten für das linke und rechte Ziel werden einzelnd erfasst. Die langsamere Zeit wird zur Wertungszeit.'
+= f.input :show_best_of_run, hint: 'Zeige den Laufbesten hervorgehoben an, um z.B. schneller über das Schläuchemessen zu entscheiden.'
+
+= f.primary_button :submit, 'Startliste erstellen', class: 'mt-3'

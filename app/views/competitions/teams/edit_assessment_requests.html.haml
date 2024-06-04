@@ -7,7 +7,7 @@
         - card.body do
           - Assessment.requestable_for_team(@team.band).each do |assessment|
             .assessment-request
-              = f.simple_fields_for :requests, @team.requests.find_or_initialize_by(assessment: assessment) do |g|
+              = f.simple_fields_for :requests, @team.requests.find_or_initialize_by(assessment:) do |g|
                 = g.input :_destroy, as: :boolean, label: 'Teilnahme', input_html: { checked: g.object.persisted? }, checked_value: '0', unchecked_value: '1'
                 = g.input :assessment_id, as: :hidden
                 .edit-assesment-type

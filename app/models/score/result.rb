@@ -1,11 +1,19 @@
 # frozen_string_literal: true
 
 class Score::Result < ApplicationRecord
-  schema_validations
-  include Taggable
-  include Score::Resultable
+  belongs_to :competition
   CALCULATION_METHODS = { default: 0, sum_of_two: 1 }.freeze
   enum calculation_method: CALCULATION_METHODS
+
+  schema_validations
+
+  def name
+    @name ||= forced_name.presence || assessment.name
+  end
+  alias to_label name
+
+  # include Taggable
+  include Score::Resultable
 
   belongs_to :assessment, inverse_of: :results
   has_many :series_assessment_results, class_name: 'Series::AssessmentResult', dependent: :destroy,
@@ -17,16 +25,10 @@ class Score::Result < ApplicationRecord
   has_many :lists, through: :result_lists
   delegate :discipline, to: :assessment
 
-  validates :assessment, presence: true
-
   # default_scope { includes(:assessment).order('assessments.discipline_id', 'assessments.gender') }
   scope :gender, ->(gender) { joins(:assessment).merge(Assessment.gender(gender)) }
   scope :group_assessment_for, ->(gender) { gender(gender).where(group_assessment: true) }
   scope :discipline, ->(discipline) { where(assessment: Assessment.discipline(discipline)) }
-
-  def to_label
-    decorate.to_s
-  end
 
   def possible_series_assessments
     Series::Assessment.gender(assessment.band.gender).where(discipline: assessment.discipline.key)

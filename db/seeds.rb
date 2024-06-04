@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+ImportSuggestionsJob.perform_now if FireSportStatistics::Person.count < 100
 
 user = User.create_with(password: 'Admin123', confirmed_at: Time.current)
            .find_or_create_by!(email: 'georf@georf.de', name: 'Georg Limbach')
@@ -39,8 +33,16 @@ la = c.disciplines.find_or_create_by(key: :la, name: Discipline::DEFAULT_NAMES[:
                                      single_discipline: false)
 female = c.bands.find_or_create_by!(gender: :female, name: 'Frauen')
 male = c.bands.find_or_create_by!(gender: :male, name: 'Männer')
-c.assessments.find_or_create_by!(discipline: la, band: female)
-c.assessments.find_or_create_by!(discipline: la, band: male)
+female_assessment = c.assessments.find_or_create_by!(discipline: la, band: female)
+male_assessment = c.assessments.find_or_create_by!(discipline: la, band: male)
+c.score_results.find_or_create_by!(assessment: female_assessment)
+c.score_results.find_or_create_by!(assessment: male_assessment)
+
+c.teams.find_or_create_by!(band: male, name: 'FF Männlich', shortcut: 'Männlich')
+c.teams.find_or_create_by!(band: male, name: 'FF Männlich', shortcut: 'Männlich', number: 2)
+c.teams.find_or_create_by!(band: male, name: 'FF Anders', shortcut: 'Anders')
+c.teams.find_or_create_by!(band: male, name: 'FF Berlin', shortcut: 'Berlin')
+c.teams.find_or_create_by!(band: female, name: 'FF Weiblich', shortcut: 'Weiblich')
 
 template = c.certificates_templates.find_or_create_by(name: 'Beispielvorlage')
 template.text_fields.destroy_all
@@ -140,5 +142,3 @@ template.text_fields.create!(
   color: '000000',
   font: 'regular',
 )
-
-ImportSuggestionsJob.perform_now if FireSportStatistics::Person.count < 100

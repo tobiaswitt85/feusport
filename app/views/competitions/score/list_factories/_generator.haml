@@ -1,0 +1,9 @@
+= f.input :next_step, as: :hidden, input_html: { value: :generator_params }
+= f.input :type, as: :radio_buttons, collection: @list_factory.possible_type_with_names, checked: @list_factory.default_type
+
+= f.primary_button :submit, 'Weiter', class: 'mt-3 mb-3'
+
+.clearfix
+%table.table.table-condensed.small
+  - Score::ListFactory.generators.sort_by { |c| c.in?(@list_factory.possible_types) ? 0 : 1 }.each do |generator_class|
+    = render('generator_description', generator_class:)

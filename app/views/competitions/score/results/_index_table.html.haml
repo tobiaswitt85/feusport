@@ -1,0 +1,12 @@
+%table.table
+  %tr
+    %th= Score::Result.human_attribute_name(:assessment)
+    %th
+  - resource_collection.each do |result|
+    %tr
+      %td
+        = discipline_image(result.assessment.discipline.key)
+        = result.name
+
+      %td.text-end
+        = btn_link_to(t('a.show'), { action: :show, id: result.id })

@@ -1,0 +1,17 @@
+%thead
+  %tr.small
+    %th
+      %span.thead-run Lauf
+    %th
+      %span.thead-track Bahn
+    - if list.single_discipline?
+      - if @competition.show_bib_numbers?
+        %th Nr.
+      %th Nachname
+      %th Vorname
+    %th Mannschaft
+    - if times
+      - if list.separate_target_times?
+        %th Ziele
+      %th Zeit
+

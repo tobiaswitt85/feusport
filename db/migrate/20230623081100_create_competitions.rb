@@ -11,6 +11,7 @@ class CreateCompetitions < ActiveRecord::Migration[7.0]
       t.integer :year, null: false
       t.boolean :visible, null: false, default: false
       t.text :description
+      t.boolean :lottery_numbers, default: false, null: false
 
       t.timestamps
     end

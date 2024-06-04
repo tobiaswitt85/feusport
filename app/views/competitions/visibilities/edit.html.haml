@@ -1,9 +1,9 @@
-= render 'competitions/header', competition: @competition, resource_class: nil, sub: "Wettkampf aktualisieren"
+= render 'competitions/header', competition: @competition, resource_class: nil, sub: 'Wettkampf aktualisieren'
 
 .row
   .col-md-8
     = simple_form_for(@competition, url: competition_visibility_path) do |f|
-      = card "Wettkampf aktualisieren" do |card|
+      = card 'Wettkampf aktualisieren' do |card|
         - card.body do
           = f.input :visible, autofocus: true
           = f.input :slug

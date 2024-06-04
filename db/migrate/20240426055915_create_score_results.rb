@@ -4,7 +4,7 @@ class CreateScoreResults < ActiveRecord::Migration[7.0]
   def change
     create_table :score_results, id: :uuid do |t|
       t.references :competition, null: false, foreign_key: true, type: :uuid
-      t.string :name, default: '', null: false, limit: 100
+      t.string :forced_name, limit: 100
       t.boolean :group_assessment, default: false, null: false
       t.references :assessment, null: false, foreign_key: true, type: :uuid
       t.references :double_event_result, foreign_key: false, type: :uuid

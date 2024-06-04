@@ -23,7 +23,21 @@ Rails.application.routes.draw do
       end
     end
     resources :people
-    resources :score_lists
+    namespace :score do
+      resource :list_factories, only: %i[new create edit update destroy] do
+        collection { get 'copy_list/:list_id', action: :copy_list, as: :copy_list }
+      end
+      resources :lists, only: %i[show edit update index destroy] do
+        member do
+          get :move
+          get :select_entity
+          get 'destroy_entity/:entry_id', action: :destroy_entity, as: :destroy_entity
+          get :edit_times
+        end
+        resources :runs, only: %i[edit update], param: :run
+      end
+      resources :results
+    end
 
     # wrench menu
     resources :disciplines

@@ -92,7 +92,7 @@ module Exports::ScoreLists
       extra_run = false if entry.blank? && track.zero? && extra_run
       track += 1
       if entry && entry.track == track && entry.run == run
-        yield entry.decorate, run, track, entry.in?(best_of_runs[run] || [])
+        yield entry, run, track, entry.in?(best_of_runs[run] || [])
         entry = entries.shift
       else
         yield nil, run, track, false

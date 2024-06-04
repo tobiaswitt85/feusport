@@ -15,6 +15,7 @@ class Score::ListFactory < ApplicationRecord
     'Score::ListFactories::TrackBandable',
   ].freeze
 
+  belongs_to :competition
   belongs_to :discipline
   belongs_to :before_list, class_name: 'Score::List'
   belongs_to :before_result, class_name: 'Score::Result'
@@ -72,6 +73,12 @@ class Score::ListFactory < ApplicationRecord
     !discipline.like_fire_relay?
   end
 
+  def possible_type_with_names
+    possible_types.map do |type|
+      [type.model_name.human, type.to_s]
+    end
+  end
+
   def preview_entries_count
     assessment_requests.count
   end
@@ -110,7 +117,7 @@ class Score::ListFactory < ApplicationRecord
 
   def default_name
     name.presence || begin
-      main_name = assessments.count == 1 ? assessments.first.decorate.to_s : discipline.decorate.to_s
+      main_name = assessments.count == 1 ? assessments.first.name : discipline.name
       unless discipline.like_fire_relay?
         run = 1
         loop do
@@ -125,7 +132,7 @@ class Score::ListFactory < ApplicationRecord
   end
 
   def list
-    @list ||= Score::List.create!(name:, shortcut:, assessments:, results:,
+    @list ||= Score::List.create!(competition:, name:, shortcut:, assessments:, results:,
                                   track_count:, hidden:,
                                   separate_target_times: separate_target_times.nil? ? false : separate_target_times,
                                   show_best_of_run: show_best_of_run.nil? ? false : show_best_of_run)
@@ -148,7 +155,7 @@ class Score::ListFactory < ApplicationRecord
           create_list_entry(row, run, track)
         end
 
-        next if row.nil?
+        break if row.nil?
         raise 'Something went wrong' if run > 1000
       end
     end
@@ -165,11 +172,12 @@ class Score::ListFactory < ApplicationRecord
   end
 
   def team_shuffle?
-    !Competition.one.lottery_numbers?
+    competition.lottery_numbers?
   end
 
   def create_list_entry(request, run, track)
     list.entries.create!(
+      competition:,
       entity: request.entity,
       run:,
       track:,

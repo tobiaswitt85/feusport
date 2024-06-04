@@ -1,0 +1,17 @@
+%table.table
+  - resource_collection.sort.each do |list|
+    %tr
+      - if can?(:edit, list)
+        %td{ style: "width: 3rem" }
+          - if list.hidden?
+            %i.far.fa-eye-slash{ title: "Nicht öffentlich" }
+          - else
+            %i.far.fa-eye{ title: "Öffentlich" }
+      %td
+        = discipline_image(list.discipline.key)
+        = list.name
+      %td.text-end
+        - if can?(:edit, list) || !list.hidden?
+          = btn_link_to(t('a.show'), competition_score_list_path(id: list.id))
+        - else
+          Noch nicht öffentlich

@@ -30,4 +30,18 @@ module ApplicationHelper
     options[:size] ||= '20x20'
     image_tag "disciplines/#{discipline}.svg", options
   end
+
+  def short_edit_link(path, options = {})
+    options[:title] ||= 'Bearbeiten'
+    icon_link_btn('far fa-edit', path, options)
+  end
+
+  def short_destroy_link(path, options = {})
+    options[:title] ||= 'Löschen'
+    icon_link_btn('far fa-delete', path, options)
+  end
+
+  def icon_link_btn(icon_classes, path, options = {})
+    btn_link_to(tag.i('', class: icon_classes), path, options)
+  end
 end

@@ -27,6 +27,10 @@ class Score::List < ApplicationRecord
     [run, track]
   end
 
+  def discipline
+    assessments.first.discipline
+  end
+
   def single_discipline?
     @single_discipline ||= assessments.first.discipline.single_discipline?
   end

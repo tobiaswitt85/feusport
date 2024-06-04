@@ -1,0 +1,54 @@
+= card result.name do |card|
+  - card.direct do
+    %table.table.much-data
+      %tr
+        %th= Score::Result.human_attribute_name :name
+        %td= result.name
+      %tr
+        %th= Score::Result.human_attribute_name :assessment
+        %td= result.assessment.name
+      -# - result.tags.each do |tag|
+      -#   %tr
+      -#     %th #{tag.object.model_name.human} - #{tag.name}
+      -#     %td Ja
+
+      - if result.is_a? Score::DoubleEventResult
+        %tr
+          %th= Score::Result.human_attribute_name :results
+          %td
+            %table.table.table-condensed
+              - result.results.each do |result|
+                %tr
+                  %td= link_to result, score_result_path(result)
+      - else
+        %tr
+          %th= Score::Result.human_attribute_name :group_assessment
+          %td= result.group_assessment? ? 'Ja' : 'Nein'
+      %tr
+        %th= Score::Result.human_attribute_name :lists
+        %td
+          %table.table.table-condensed
+            - result.lists.each do |list|
+              %tr
+                %td= link_to( list.name, score_list_path(list))
+
+      - unless result.calculation_method == 'default'
+        %tr
+          %th= Score::Result.human_attribute_name :calculation_method
+          %td= t("score_calculation_methods.#{result.calculation_method}")
+
+      - if false && result.series_assessments.exists?
+        %tr
+          %th Cup-Serie
+          %td
+            %ul
+              - result.series_assessments.each do |assessment|
+                %li
+                  - if assessment.is_a?(Series::TeamAssessment)
+                    = link_to("Mannschaftswertung: #{assessment.to_label}", series_round_path(assessment.round))
+                  - else
+                    = link_to(assessment.to_label, series_assessment_path(assessment))
+
+  - card.actions do |actions|
+    = actions.link_to 'als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
+    = actions.link_to 'als XLS', format: :xlsx

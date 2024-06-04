@@ -1,0 +1,61 @@
+= render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
+
+.row
+  .col-md-8
+    = render 'overview_card', result: @result
+
+  - if can?(:edit, @result)
+    .col-md-4
+      = card(t('a.actions')) do |card|
+        - card.primary_actions do |actions|
+          - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
+        - card.body do
+          .d-grid.gap-2
+            = btn_link_to 'Bearbeiten', action: :edit
+            = btn_link_to 'Cup-Serie-Zugehörigkeit', action: :edit, series: 1
+            = btn_link_to 'Löschen', { action: :destroy }, method: :delete, data: { confirm: 'Ergebnisliste wirklich löschen? Die zugehörigen Startlisten werden verändert!' }
+        -# - if can?(:edit, @result)
+        -#   - if Certificates::Template.exists?
+        -#     = btn_link_to 'Urkunden', new_certificates_list_path(score_result_id: @result.id)
+
+  -# - if @rows.count > 0
+  -#   .col-md-12.much-data
+  -#     = card @result do |card|
+  -#       = render 'result_table', rows: @rows, places: true
+  -#       - card.footer do
+  -#         - if can?(:edit, @result)
+  -#           - if Certificates::Template.count > 0
+  -#             = btn_link_to 'Urkunden', new_certificates_list_path(score_result_id: @result.id)
+  -#         - if @result.group_assessment? && @discipline.single_discipline?
+  -#           = btn_link_to 'Mannschaftswertung als PDF', { format: :pdf, only: :group_assessment }, target: '_blank', rel: 'noopener'
+  -#           = btn_link_to 'Einzelwertung als PDF', { format: :pdf, only: :single_competitors }, target: '_blank', rel: 'noopener'
+  -#         = btn_link_to 'Komplett als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
+  -#         = btn_link_to 'als XLS', format: :xlsx
+
+  -#   - if @result.group_assessment? && @discipline.single_discipline?
+  -#     .col-md-12
+  -#       = card 'Mannschaftswertung' do
+  -#         %table.table.table-bordered
+  -#           %tr
+  -#             %th
+  -#             %th Mannschaft
+  -#             %th Zeit
+  -#           - @group_result.rows.each do |row|
+  -#             %tr{ class: row_invalid_class(row) }
+  -#               %td #{@group_result.place_for_row(row)}.
+  -#               %th= row.team
+  -#               %th= row.result_entry
+  -#             %tr{ class: row_invalid_class(row) }
+  -#               %td
+  -#               %td{ colspan: 2 }
+  -#                 %em= row.rows_in.join(', ')
+  -#                 %small= row.rows_out.join(', ')
+  -# - else
+  -#   .col-md-8
+  -#     .alert.alert-info Keine Einträge gefunden
+
+
+  -# - if @out_of_competition_rows.count > 0
+  -#   .col-md-12.much-data
+  -#     = box 'Außer der Wertung' do
+  -#       = render 'result_table', rows: @out_of_competition_rows, places: false
