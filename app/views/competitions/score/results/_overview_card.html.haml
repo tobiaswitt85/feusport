@@ -19,7 +19,7 @@
             %table.table.table-condensed
               - result.results.each do |result|
                 %tr
-                  %td= link_to result, score_result_path(result)
+                  %td= link_to result, competition_score_result_path(result)
       - else
         %tr
           %th= Score::Result.human_attribute_name :group_assessment
@@ -30,7 +30,7 @@
           %table.table.table-condensed
             - result.lists.each do |list|
               %tr
-                %td= link_to( list.name, score_list_path(list))
+                %td= link_to( list.name, competition_score_list_path(id: list.id))
 
       - unless result.calculation_method == 'default'
         %tr

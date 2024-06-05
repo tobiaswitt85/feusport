@@ -3,6 +3,15 @@
 class Competitions::Score::ResultsController < CompetitionNestedController
   default_resource resource_class: Score::Result, through_association: :score_results
 
+  def show
+    @rows = @result.rows
+    @out_of_competition_rows = @result.out_of_competition_rows
+    @discipline = @result.discipline
+    return unless @result.group_assessment? && @discipline.single_discipline?
+
+    @group_result = Score::GroupResult.new(@result).decorate
+  end
+
   def create
     @result.assign_attributes(result_params)
     if @result.save

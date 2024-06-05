@@ -60,4 +60,11 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  namespace :fire_sport_statistics do
+    namespace :suggestions do
+      post :people
+      post :teams
+    end
+  end
 end

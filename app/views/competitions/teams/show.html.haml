@@ -30,7 +30,9 @@
           -#     %tr{ @team.list_entries_group_competitor(assessment) > Competition.one.group_run_count ? { class: 'danger' } : {} }
           -#       %th= assessment.decorate
           -#       %td #{@team.list_entries_group_competitor(assessment)} von #{Competition.one.group_run_count}
-
+          %tr
+            %td{ colspan: 2}
+              = render('connected', team: @team, remove: false)
 
     = card("Gewünschte #{Assessment.model_name.human(count: :many)}") do |card|
       - if can?(:edit, @team)

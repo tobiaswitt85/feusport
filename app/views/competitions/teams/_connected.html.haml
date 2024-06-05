@@ -1,0 +1,13 @@
+.alert.alert-success.mb-0#fire-sport-connected{ class: team.fire_sport_statistics_team.present? ? nil : "d-none" }
+  - if remove
+    .float-end
+      .btn.btn-sm.btn-light#fire-sport-remove{ title: "Verknüpfung entfernen" }
+        %i.far.fa-trash
+
+  %i.far.fa-check.me-2
+  Verknüpft mit <strong>#{team.fire_sport_statistics_team&.name}</strong>
+  = link_to "https://feuerwehrsport-statistik.de/teams/#{team.fire_sport_statistics_team_id}", target: '_blank', rel: 'noopener', title: 'Informationen über diese Mannschaft auf Feuerwehrsport-Statistik.de aufrufen', class: 'btn btn-sm btn-light ms-2' do
+    %i.far.fa-arrow-up-right-from-square
+.alert.alert-warning.mb-0#fire-sport-not-connected{ class: team.fire_sport_statistics_team.present? ? "d-none" : nil }
+  %i.far.fa-warning.me-2
+  Keine Verknüpfung mit einer vorhandenen Mannschaft

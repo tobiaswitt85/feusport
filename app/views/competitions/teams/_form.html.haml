@@ -6,10 +6,14 @@
   .suggestions-entries
     %table.table.table-hover.table-condensed
   = f.input :shortcut, input_html: { maxlength: 12 }, hint: 'Keine Nummern im Namen angeben!'
-  = f.input :number
+  = f.input :number, hint: "Die Nummer wird erst angezeigt, wenn es mehrere Mannschaften mit gleichen Namen gibt."
   - if @team.band.team_tags.present?
     = f.input :tags, as: :check_boxes, collection: @team.band.team_tags
-  = f.hidden_field :fire_sport_statistics_team_id
+  = f.hidden_field :fire_sport_statistics_team_id, data: { name: @team.fire_sport_statistics_team&.name}
+
+  .mb-0.mt-3 Verknüpfung
+  = render('connected', team: @team, remove: true)
+  %small.form-text.text-muted Eine Verknüpfung ist bei Wettkampfserien wichtig, um vorhanden Ergebnisse zu nutzen.
 - card.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_teams_path)

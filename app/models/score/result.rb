@@ -16,10 +16,10 @@ class Score::Result < ApplicationRecord
   include Score::Resultable
 
   belongs_to :assessment, inverse_of: :results
-  has_many :series_assessment_results, class_name: 'Series::AssessmentResult', dependent: :destroy,
-                                       foreign_key: :score_result_id, inverse_of: :score_result
-  has_many :series_assessments, through: :series_assessment_results, source: :assessment,
-                                class_name: 'Series::Assessment'
+  # has_many :series_assessment_results, class_name: 'Series::AssessmentResult', dependent: :destroy,
+  #                                      foreign_key: :score_result_id, inverse_of: :score_result
+  # has_many :series_assessments, through: :series_assessment_results, source: :assessment,
+  #                               class_name: 'Series::Assessment'
   belongs_to :double_event_result, dependent: :destroy, class_name: 'Score::DoubleEventResult', inverse_of: :results
   has_many :result_lists, dependent: :destroy, inverse_of: :result
   has_many :lists, through: :result_lists

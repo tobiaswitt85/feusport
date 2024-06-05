@@ -80,4 +80,6 @@ group :development do
 
   gem 'capistrano-rsync-plugin', git: 'https://github.com/Lichtbit/capistrano-rsync-plugin' # speed up deploying
   gem 'm3_capistrano3', git: 'git@gitlab.lichtbit.com:lichtbit/m3_capistrano3.git' # deploying tool
+
+  gem 'sqlite3' # to import old wettkampf-manager databases
 end

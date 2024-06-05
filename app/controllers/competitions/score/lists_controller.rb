@@ -43,9 +43,9 @@ class Competitions::Score::ListsController < CompetitionNestedController
   #   send_xlsx(Exports::XLSX::Score::List) { [@score_list.decorate] }
   # end
 
-  # def edit_times
-  #   authorize!(:edit_times, resource_instance)
-  # end
+  def edit_times
+    authorize!(:edit_times, resource_instance)
+  end
 
   def update
     @list.assign_attributes(list_params)

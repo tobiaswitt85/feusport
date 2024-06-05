@@ -454,6 +454,17 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
+    def dbv_team_relays_validations(enums: [])
+      belongs_to_presence_validations_for([:team_id, :number])
+      validates_with_filter :team_id, {:presence=>{}}
+      validates_with_filter :number, {:presence=>{}}
+      validates_with_filter :number, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:number)
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
     def dbv_teams_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :band_id, :number])
       belongs_to_uniqueness_validations_for([["competition_id", "band_id", "name", "number"], ["competition_id", "band_id", "shortcut", "number"]])

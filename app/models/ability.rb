@@ -17,6 +17,8 @@ class Ability
     can(:manage, Person, competition: { user: })
     can(:manage, Certificates::Template, competition: { user: })
     can(:manage, Score::List, competition: { user: })
+    can(:manage, Score::ListEntry, competition: { user: })
+    can(:manage, Score::Run, competition: { user: })
     can(:manage, Score::Result, competition: { user: })
     can(:manage, Score::ListFactory, competition: { user: })
   end

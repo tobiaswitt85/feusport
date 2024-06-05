@@ -14,23 +14,24 @@
             = btn_link_to 'Bearbeiten', action: :edit
             = btn_link_to 'Cup-Serie-Zugehörigkeit', action: :edit, series: 1
             = btn_link_to 'Löschen', { action: :destroy }, method: :delete, data: { confirm: 'Ergebnisliste wirklich löschen? Die zugehörigen Startlisten werden verändert!' }
-        -# - if can?(:edit, @result)
-        -#   - if Certificates::Template.exists?
-        -#     = btn_link_to 'Urkunden', new_certificates_list_path(score_result_id: @result.id)
+        - if can?(:edit, @result)
+          - if Certificates::Template.exists?
+            = btn_link_to 'Urkunden', new_competition_certificates_list_path(score_result_id: @result.id)
 
-  -# - if @rows.count > 0
-  -#   .col-md-12.much-data
-  -#     = card @result do |card|
-  -#       = render 'result_table', rows: @rows, places: true
-  -#       - card.footer do
-  -#         - if can?(:edit, @result)
-  -#           - if Certificates::Template.count > 0
-  -#             = btn_link_to 'Urkunden', new_certificates_list_path(score_result_id: @result.id)
-  -#         - if @result.group_assessment? && @discipline.single_discipline?
-  -#           = btn_link_to 'Mannschaftswertung als PDF', { format: :pdf, only: :group_assessment }, target: '_blank', rel: 'noopener'
-  -#           = btn_link_to 'Einzelwertung als PDF', { format: :pdf, only: :single_competitors }, target: '_blank', rel: 'noopener'
-  -#         = btn_link_to 'Komplett als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
-  -#         = btn_link_to 'als XLS', format: :xlsx
+  - if @rows.count > 0
+    .col-md-12.much-data
+      = card @result.name do |card|
+        - card.direct do
+          = render 'result_table', rows: @rows, places: true
+        - card.footer do
+          - if can?(:edit, @result)
+            - if Certificates::Template.count > 0
+              = btn_link_to 'Urkunden', new_competition_certificates_list_path(score_result_id: @result.id)
+          - if @result.group_assessment? && @discipline.single_discipline?
+            = btn_link_to 'Mannschaftswertung als PDF', { format: :pdf, only: :group_assessment }, target: '_blank', rel: 'noopener'
+            = btn_link_to 'Einzelwertung als PDF', { format: :pdf, only: :single_competitors }, target: '_blank', rel: 'noopener'
+          = btn_link_to 'Komplett als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
+          = btn_link_to 'als XLS', format: :xlsx
 
   -#   - if @result.group_assessment? && @discipline.single_discipline?
   -#     .col-md-12

@@ -37,7 +37,7 @@ class Competitions::TeamsController < CompetitionNestedController
 
   def team_params
     params.require(:team).permit(
-      :name, :shortcut, :number, :band_id,
+      :name, :shortcut, :number, :band_id, :fire_sport_statistics_team_id,
       tags: [],
       requests_attributes: %i[assessment_type relay_count _destroy assessment_id id]
     )

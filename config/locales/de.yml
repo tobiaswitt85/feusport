@@ -7,6 +7,14 @@ de:
     edit: Bearbeiten
     no_entries_found: Keine Einträge gefunden
     show: Ansehen
+
+  result_types:
+    waiting: Ausstehend
+    valid: Gültig
+    invalid: Ungültig
+    no_run: Nicht angetreten
+
+
   activerecord:
     errors:
       messages:

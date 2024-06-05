@@ -370,6 +370,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
     t.index ["double_event_result_id"], name: "index_score_results_on_double_event_result_id"
   end
 
+  create_table "team_relays", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "team_id", null: false
+    t.integer "number", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_relays_on_team_id"
+  end
+
   create_table "teams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "competition_id", null: false
     t.uuid "band_id", null: false
@@ -451,6 +459,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
   add_foreign_key "score_results", "assessments"
   add_foreign_key "score_results", "competitions"
   add_foreign_key "score_results", "score_results", column: "double_event_result_id"
+  add_foreign_key "team_relays", "teams"
   add_foreign_key "teams", "bands"
   add_foreign_key "teams", "competitions"
 end

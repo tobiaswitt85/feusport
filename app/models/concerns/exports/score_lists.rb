@@ -82,7 +82,7 @@ module Exports::ScoreLists
               else
                 list.entries.includes(:entity).to_a
               end
-    entries.sort!
+    entries.sort_by!(&:run_and_track_sortable)
     best_of_runs = list.show_best_of_run? ? calculate_best_of_runs(entries) : {}
     track = 0
     run = 1
