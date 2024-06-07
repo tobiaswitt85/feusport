@@ -117,6 +117,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
     t.boolean "visible", default: false, null: false
     t.text "description"
     t.boolean "lottery_numbers", default: false, null: false
+    t.boolean "show_bib_numbers", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_competitions_on_date"
@@ -222,7 +223,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
     t.string "last_name", limit: 100, null: false
     t.string "first_name", limit: 100, null: false
     t.uuid "team_id"
-    t.string "bib_number", limit: 50, default: "", null: false
+    t.string "bib_number", limit: 50
     t.integer "registration_order", default: 0, null: false
     t.string "tags", default: [], array: true
     t.integer "fire_sport_statistics_person_id"

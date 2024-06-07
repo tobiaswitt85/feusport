@@ -2,6 +2,7 @@
 
 class Score::ListEntry < ApplicationRecord
   include Score::ResultEntrySupport
+
   BEFORE_CHECK_METHODS =
     %i[result_type edit_second_time edit_second_time_left_target edit_second_time_right_target].freeze
   edit_time(:time_left_target)
@@ -53,48 +54,6 @@ class Score::ListEntry < ApplicationRecord
 
   def run_and_track_sortable
     "#{run.to_s.rjust(3, '0')}-#{track.to_s.rjust(3, '0')}"
-  end
-
-  def human_time
-    if result_valid?
-      second_time.to_s
-    elsif result_invalid?
-      'D'
-    elsif result_no_run?
-      'N'
-    else
-      ''
-    end
-  end
-
-  def human_time_left_target
-    value = second_time_left_target.to_s
-    value.presence ? "L: #{value}" : ''
-  end
-
-  def target_times_as_data(pdf: false, hint_size: 6)
-    target_times = [human_time_left_target, human_time_right_target].compact_blank
-    if pdf
-      {
-        content: "<font size='#{hint_size}'>#{target_times.join('<br/>')}</font>",
-        inline_format: true, padding: [0, 0, 3, 0], valign: :center
-      }
-    else
-      target_times.join(', ')
-    end
-  end
-
-  def human_time_right_target
-    value = second_time_right_target.to_s
-    value.presence ? "R: #{value}" : ''
-  end
-
-  def long_human_time(seconds: 's', invalid: 'Ungültig')
-    if result_valid?
-      "#{second_time} #{seconds}"
-    else
-      invalid
-    end
   end
 
   private

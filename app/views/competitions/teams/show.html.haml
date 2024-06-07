@@ -9,17 +9,17 @@
             %th= Team.human_attribute_name(:name)
             %td= @team.name
           %tr
-            %th= @team.class.human_attribute_name(:shortcut)
+            %th= Team.human_attribute_name(:shortcut)
             %td= @team.shortcut
           %tr
-            %th= @team.class.human_attribute_name(:number)
+            %th= Team.human_attribute_name(:number)
             %td= @team.number
           %tr
-            %th= @team.class.human_attribute_name(:band)
+            %th= Team.human_attribute_name(:band)
             %td= @team.band.name
           -# - if admin_logged_in? || @team.object.people.exists?
           -#   %tr{ admin_logged_in? && !@team.assessment_request_group_competitor_valid? ? { class: 'danger' } : {} }
-          -#     %th= @team.class.human_attribute_name :people
+          -#     %th= Team.human_attribute_name :people
           -#     %td= @team.people.count
           - @team.band.team_tags.each do |tag|
             %tr
@@ -31,7 +31,7 @@
           -#       %th= assessment.decorate
           -#       %td #{@team.list_entries_group_competitor(assessment)} von #{Competition.one.group_run_count}
           %tr
-            %td{ colspan: 2}
+            %td{ colspan: 2 }
               = render('connected', team: @team, remove: false)
 
     = card("Gewünschte #{Assessment.model_name.human(count: :many)}") do |card|
@@ -66,7 +66,7 @@
 
   -# - if admin_logged_in? || @team.object.people.exists?
   -#   .col-md-12
-  -#     = box(@team.class.human_attribute_name(:people)) do |box|
+  -#     = box(Team.human_attribute_name(:people)) do |box|
   -#       - if admin_logged_in?
   -#         - box.header do
   -#           .pull-right

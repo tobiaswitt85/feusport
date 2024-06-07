@@ -86,7 +86,7 @@ const bindSortedTable = function () {
   });
 };
 
-document.addEventListener('turbo:load', function () {
+onVisit(function () {
   bindSortedTable();
 
   const saveLink = document.querySelector('#save-link');

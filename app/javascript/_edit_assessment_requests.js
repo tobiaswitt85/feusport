@@ -30,4 +30,4 @@ const resetHandler = function () {
   });
 };
 
-document.addEventListener('turbo:load', resetHandler);
+onVisit(resetHandler);

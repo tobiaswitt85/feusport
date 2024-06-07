@@ -24,13 +24,13 @@
         = entry&.entity&.numbered_name
       - if list.show_multiple_assessments? && list.multiple_assessments?
         %br
-        .tiny= entry&.assessment.name
+        .tiny= entry&.assessment&.name
   = yield (track == 1)
   - if move
     %td.text-end
-      .btn.btn-sm.btn-light.move-up{ title: "Ganz nach oben" }
+      .btn.btn-sm.btn-light.move-up{ title: 'Ganz nach oben' }
         %i.far.fa-up
-      .btn.btn-sm.btn-light.move-down{ title: "Ganz nach unten" }
+      .btn.btn-sm.btn-light.move-down{ title: 'Ganz nach unten' }
         %i.far.fa-down
 
 - if entry&.errors&.include?(:changed_while_editing)

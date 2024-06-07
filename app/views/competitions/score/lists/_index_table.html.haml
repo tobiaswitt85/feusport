@@ -2,11 +2,11 @@
   - resource_collection.sort.each do |list|
     %tr
       - if can?(:edit, list)
-        %td{ style: "width: 3rem" }
+        %td{ style: 'width: 3rem' }
           - if list.hidden?
-            %i.far.fa-eye-slash{ title: "Nicht öffentlich" }
+            %i.far.fa-eye-slash{ title: 'Nicht öffentlich' }
           - else
-            %i.far.fa-eye{ title: "Öffentlich" }
+            %i.far.fa-eye{ title: 'Öffentlich' }
       %td
         = discipline_image(list.discipline.key)
         = list.name

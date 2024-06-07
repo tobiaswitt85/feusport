@@ -29,7 +29,7 @@ module Firesport
       minus = time.to_i.negative? ? '-' : ''
       deci = time.to_i.abs % 100
       seconds = (time.to_i.abs - deci) / 100
-      "#{minus}#{seconds},#{format('%<deci>02d', deci: deci)}"
+      "#{minus}#{seconds},#{format('%<deci>02d', deci:)}"
     end
   end
 end

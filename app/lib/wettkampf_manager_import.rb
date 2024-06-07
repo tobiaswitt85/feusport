@@ -107,8 +107,8 @@ class WettkampfManagerImport
 
   def load_teams
     @teams_translations = {}
-    @db.execute('SELECT id,name,number,shortcut,lottery_number,band_id FROM teams')
-       .each do |id, name, number, shortcut, lottery_number, band_id|
+    @db.execute('SELECT id,name,number,shortcut,lottery_number,band_id,fire_sport_statistics_team_id FROM teams')
+       .each do |id, name, number, shortcut, lottery_number, band_id, fss_id|
       team = competition.teams.create!(
         disable_autocreate_assessment_requests: true,
         name: name.strip,
@@ -116,7 +116,9 @@ class WettkampfManagerImport
         number:,
         band_id: @bands_translations[band_id],
         lottery_number:,
+        fire_sport_statistics_team_id: fss_id,
       )
+
       @teams_translations[id] = team.id
     end
   end

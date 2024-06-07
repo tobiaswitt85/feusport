@@ -1,20 +1,13 @@
-= render 'competitions/header', competition: @competition
+= render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
 
-.row.g-4
-  - Band.find_each do |band|
-    .col-md-8.col-xl-6
-      = card(band.name) do |card|
-        - card.body do
-          - if can?(:create, Band.new(competition: @competition)) || @people.exists?(band:)
-            - if resource_collection.exists?
-              = render('index_table', resource_class:, band:, resource_collection: @people.where(band:))
-            - else
-              .alert.alert-info= t('a.no_entries_found')
+- @competition.bands.sort.each do |band|
+  = card(band.name, class: 'mb-3') do |card|
+    - card.body do
+      - if resource_collection.exists?(band:)
+        = render('index_table', resource_class:, resource_collection: resource_collection.where(band:), band:)
+      - else
+        .alert.alert-info= t('a.no_entries_found')
 
-        - if can?(:create, Band.new(competition: @competition))
-          = card.primary_actions do |actions|
-            = actions.link_to 'Hinzufügen', { action: :new, band_id: band.id }, end_icon: :square_plus
-
-        = card.actions do |actions|
-          = actions.link_to 'als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
-          = actions.link_to 'als XLS', format: :xlsx
+    - if can?(:create, resource_class.new(competition: @competition, band:))
+      = card.primary_actions do |actions|
+        = actions.link_to t('a.add'), { action: :new, band_id: band.id }, end_icon: :square_plus

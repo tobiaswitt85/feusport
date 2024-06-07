@@ -79,8 +79,8 @@ const connectionInfo = function (fireSportId) {
   changed();
 };
 
-document.addEventListener('turbo:load', function () {
-  const div = document.querySelector('.suggestions-entries');
+onVisit(function () {
+  const div = document.querySelector('.suggestions-entries.for-teams');
   if (div) suggestions(div);
 
   const fireSportId = document.querySelector('#team_fire_sport_statistics_team_id');

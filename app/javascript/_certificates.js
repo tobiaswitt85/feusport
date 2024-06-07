@@ -2,7 +2,7 @@ import Draggable from 'draggable';
 
 let config;
 
-document.addEventListener('turbo:load', function () {
+onVisit(function () {
   window.currentDraggableForPrintDocument = null;
 
   const boundary = document.getElementById('certificates-template-position');

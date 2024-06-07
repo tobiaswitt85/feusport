@@ -5,7 +5,7 @@
     = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update, form: :edit_assessment_requests)) do |f|
       = card "#{resource_class.model_name.human} aktualisieren" do |card|
         - card.body do
-          - Assessment.requestable_for_team(@team.band).each do |assessment|
+          - @competition.assessments.requestable_for_team(@team.band).each do |assessment|
             .assessment-request
               = f.simple_fields_for :requests, @team.requests.find_or_initialize_by(assessment:) do |g|
                 = g.input :_destroy, as: :boolean, label: 'Teilnahme', input_html: { checked: g.object.persisted? }, checked_value: '0', unchecked_value: '1'

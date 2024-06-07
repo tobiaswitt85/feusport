@@ -12,6 +12,7 @@ class CreateCompetitions < ActiveRecord::Migration[7.0]
       t.boolean :visible, null: false, default: false
       t.text :description
       t.boolean :lottery_numbers, default: false, null: false
+      t.boolean :show_bib_numbers, default: false, null: false
 
       t.timestamps
     end

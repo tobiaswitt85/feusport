@@ -166,6 +166,7 @@ module SchemaValidations
       validates_with_filter :year, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:year)
       validates_with_filter :visible, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :lottery_numbers, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :show_bib_numbers, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
@@ -294,7 +295,6 @@ module SchemaValidations
       validates_with_filter :last_name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :first_name, {:presence=>{}}
       validates_with_filter :first_name, {:length=>{:allow_nil=>true, :maximum=>100}}
-      validates_with_filter :bib_number, {:presence=>{}}
       validates_with_filter :bib_number, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :registration_order, {:presence=>{}}
       validates_with_filter :registration_order, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:registration_order)

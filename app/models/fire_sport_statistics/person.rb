@@ -2,6 +2,8 @@
 
 class FireSportStatistics::Person < ApplicationRecord
   include Genderable
+  BEST_TABLE_HEAD = { personal_best: ['PB', 'Persönliche Bestleistung'],
+                      saison_best: %w[SB Saison-Bestleistung] }.freeze
 
   has_many :team_associations, class_name: 'FireSportStatistics::TeamAssociation', dependent: :destroy,
                                inverse_of: :person
@@ -15,9 +17,9 @@ class FireSportStatistics::Person < ApplicationRecord
 
   scope :where_name_like, ->(name) do
     query = "%#{name.chars.join('%')}%"
-    spelling_query = FireSportStatistics::PersonSpelling.where("(first_name || ' ' || last_name) LIKE ?", query)
+    spelling_query = FireSportStatistics::PersonSpelling.where("(first_name || ' ' || last_name) ILIKE ?", query)
                                                         .select(:person_id)
-    where("(first_name || ' ' || last_name) LIKE ? OR id IN (#{spelling_query.to_sql})", query)
+    where("(first_name || ' ' || last_name) ILIKE ? OR id IN (#{spelling_query.to_sql})", query)
   end
   scope :order_by_teams, ->(teams) do
     order_condition = teams.joins(:team_associations)
@@ -38,5 +40,43 @@ class FireSportStatistics::Person < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def team_list
+    teams.map(&:short).join(', ')
+  end
+
+  def personal_best_table
+    @personal_best_table ||= begin
+      table = {}
+      %i[hb hl zk].each do |discipline|
+        BEST_TABLE_HEAD.each do |method, short|
+          next if public_send(:"#{method}_#{discipline}").blank?
+
+          table[discipline] ||= {}
+          table[discipline][short] = [
+            second_time(public_send(:"#{method}_#{discipline}")),
+            public_send(:"#{method}_#{discipline}_competition"),
+          ]
+        end
+      end
+      table
+    end
+  end
+
+  def new_personal_best?(current_result)
+    return false if current_result.blank?
+
+    discipline = current_result.try(:list)&.discipline&.key || :zk
+    best_time = public_send(:"personal_best_#{discipline}") || Firesport::INVALID_TIME
+    best_time > current_result.compare_time
+  end
+
+  private
+
+  def second_time(time)
+    return '' if time.blank? || time.zero?
+
+    Firesport::Time.second_time(time)
   end
 end

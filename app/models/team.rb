@@ -27,7 +27,11 @@ class Team < ApplicationRecord
   end
 
   def numbered_name_with_band
-    "#{numbered_name} #{band}"
+    "#{numbered_name} #{band.name}"
+  end
+
+  def shortcut_name
+    multi_team? ? "#{shortcut} #{number}" : shortcut
   end
 
   def request_for(assessment)

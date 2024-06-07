@@ -2,10 +2,10 @@
   - if @series_form
     = f.association :series_assessments, as: :check_boxes, collection: @score_result.possible_series_assessments, label_method: ->(assessment) { assessment.decorate.score_result_label }
   - else
-    = f.association :assessment, hint: "Es kann mehrere Ergebnisse für eine Wertung geben: Zum Beispiel Finalläufe."
-    = f.input :group_assessment, as: :boolean, hint: "Eine Mannschaftswertung kann für eine Gesamtwertung wichtig sein."
-    = f.input :forced_name, hint: "Der Name wird automatisch aus den Wertungen und Kennzeichnungen generiert. Hier kann man ihn überschreiben."
-    = f.input :date, html5: true, hint: "Mit Angabe dieses Datums kann man das allgemeine Datum des Wettkampfes auf dem PDF überschreiben. Dies ist nützlich, wenn der Wettkampf über mehrer Tage geht."
+    = f.association :assessment, hint: 'Es kann mehrere Ergebnisse für eine Wertung geben: Zum Beispiel Finalläufe.'
+    = f.input :group_assessment, as: :boolean, hint: 'Eine Mannschaftswertung kann für eine Gesamtwertung wichtig sein.'
+    = f.input :forced_name, hint: 'Der Name wird automatisch aus den Wertungen und Kennzeichnungen generiert. Hier kann man ihn überschreiben.'
+    = f.input :date, html5: true, hint: 'Mit Angabe dieses Datums kann man das allgemeine Datum des Wettkampfes auf dem PDF überschreiben. Dies ist nützlich, wenn der Wettkampf über mehrer Tage geht.'
     %h3 Berechnung der Ergebnisse
     = f.input :calculation_method, as: :radio_buttons, collection: Score::Result::CALCULATION_METHODS.map { |k, _v| [t("score_calculation_methods.#{k}"), k] }
 - card.footer do

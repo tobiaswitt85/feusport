@@ -22,7 +22,11 @@ Rails.application.routes.draw do
         get :edit_assessment_requests
       end
     end
-    resources :people
+    resources :people do
+      member do
+        get :edit_assessment_requests
+      end
+    end
     namespace :score do
       resource :list_factories, only: %i[new create edit update destroy] do
         collection { get 'copy_list/:list_id', action: :copy_list, as: :copy_list }

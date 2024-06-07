@@ -30,7 +30,7 @@
           %table.table.table-condensed
             - result.lists.each do |list|
               %tr
-                %td= link_to( list.name, competition_score_list_path(id: list.id))
+                %td= link_to(list.name, competition_score_list_path(id: list.id))
 
       - unless result.calculation_method == 'default'
         %tr
@@ -50,5 +50,12 @@
                     = link_to(assessment.to_label, series_assessment_path(assessment))
 
   - card.actions do |actions|
-    = actions.link_to 'als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
+    - if result.group_assessment? && result.discipline.single_discipline?
+      = actions.link_to 'Mannschaftswertung als PDF', { format: :pdf, only: :group_assessment }, target: '_blank', rel: 'noopener'
+      = actions.link_to 'Einzelwertung als PDF', { format: :pdf, only: :single_competitors }, target: '_blank', rel: 'noopener'
+      = actions.link_to 'Komplett als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
+    - else
+      = actions.link_to 'als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
     = actions.link_to 'als XLS', format: :xlsx
+    - if @competition.certificates_templates.exists?
+      = actions.link_to 'als Urkunden', new_competition_certificates_list_path(score_result_id: @result.id)

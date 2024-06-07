@@ -9,7 +9,7 @@ class Competitions::Score::ResultsController < CompetitionNestedController
     @discipline = @result.discipline
     return unless @result.group_assessment? && @discipline.single_discipline?
 
-    @group_result = Score::GroupResult.new(@result).decorate
+    @group_result = Score::GroupResult.new(@result)
   end
 
   def create
@@ -25,7 +25,7 @@ class Competitions::Score::ResultsController < CompetitionNestedController
   def update
     @result.assign_attributes(result_params)
     if @result.save
-      redirect_to competition_results_path, notice: :saved
+      redirect_to competition_result_path, notice: :saved
     else
       flash.now[:alert] = :check_errors
       render action: :edit, status: :unprocessable_entity

@@ -1,0 +1,38 @@
+%table.table.table-bordered.table-hover
+  %thead
+    %tr
+      - if @competition.show_bib_numbers?
+        %th{ style: 'width: 40px' } Nr.
+      %th Name
+      %th Mannschaft
+      - band.person_tags.each do |tag|
+        %th.small{ style: 'width: 60px' }= tag
+
+      - assessments = Assessment.no_zweikampf.where(band:)
+      - assessments.each do |assessment|
+        %th.small{ style: 'width: 60px', title: assessment }= discipline_image assessment.discipline.key
+      %th{ style: 'width: 60px' }
+      %th{ style: 'width: 100px' }
+  %tbody
+    - resource_collection.each do |person|
+      %tr
+        - if @competition.show_bib_numbers?
+          %td= person.bib_number
+        %td
+          = person.full_name
+          = personal_best_badge(person.fire_sport_statistics_person)
+        %td
+          - if person.team.present?
+            = person.team.name
+        - band.person_tags.each do |tag|
+          %td= person.tags.include?(tag) ? 'X' : ''
+        - assessments.each do |assessment|
+          - request = person.request_for(assessment)
+          - if request.present?
+            %td{ title: "#{assessment}: #{request.type}" }= request.short_type
+          - else
+            %td
+        %td.text-end
+          = short_edit_link edit_assessment_requests_competition_person_path(id: person.id), remote: true, class: 'btn-xs', title: 'Wertungen bearbeiten'
+        %td.text-end
+          = btn_link_to(t('a.show'), { action: :show, id: person })

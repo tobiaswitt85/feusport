@@ -1,0 +1,37 @@
+%table.table.table-bordered
+  %tr
+    - if places
+      %th
+    - if @competition.show_bib_numbers?
+      %th.hidden-xs Nr.
+    %th Name
+    %th Mannschaft
+    - if @result.is_a? Score::DoubleEventResult
+      %th Summe
+      - @result.results.each do |result|
+        %th= discipline_image(result.assessment.discipline.key)
+    - else
+      %th Bestzeit
+      - @result.lists.each do |list|
+        %th= list.shortcut
+
+  - rows.each do |row|
+    %tr
+      - if places
+        %td.less-important #{@result.place_for_row(row)}.
+      - if @competition.show_bib_numbers?
+        %td.hidden-xs= row.entity&.bib_number
+      %td
+        = row.entity.full_name
+        = personal_best_badge(row.entity&.fire_sport_statistics_person, row.best_result_entry)
+      %td.less-important= row.entity&.team&.shortcut_name
+      - if row.is_a?(Score::DoubleEventResultRow)
+        %td
+          %strong= row.sum_result_entry
+        - @result.results.each do |result|
+          %td= row.result_entry_from(result)
+      - else
+        %td
+          %strong= row.best_result_entry.human_time
+        - @result.lists.each do |list|
+          %td.less-important= row.result_entry_from(list)&.human_time

@@ -30,9 +30,23 @@ class Competitions::PeopleController < CompetitionNestedController
 
   protected
 
+  def team_from_param
+    @team_from_param ||= @competition.teams.find_by(id: params[:team])
+  end
+
   def person_params
     params.require(:person).permit(
-      :bib_number, :first_name, :last_name, :band_id
+      :first_name, :last_name, :team_id, :band_id, :fire_sport_statistics_person_id,
+      :registration_order, :bib_number, :create_team_name,
+      requests_attributes: %i[assessment_type _destroy assessment_id id
+                              group_competitor_order single_competitor_order
+                              competitor_order]
     )
+  end
+
+  def assign_new_resource
+    self.resource_instance = resource_class.new(competition: @competition)
+    resource_instance.assign_attributes(team: team_from_param, band: team_from_param.band) if team_from_param.present?
+    resource_instance.band ||= @competition.bands.find(params[:band_id])
   end
 end

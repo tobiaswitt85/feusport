@@ -44,4 +44,12 @@ module ApplicationHelper
   def icon_link_btn(icon_classes, path, options = {})
     btn_link_to(tag.i('', class: icon_classes), path, options)
   end
+
+  def personal_best_badge(person, current_result = nil)
+    return if person.nil?
+
+    classes = %w[balloon best-badge]
+    classes.push('personal-best') if person.new_personal_best?(current_result)
+    tag.span('i', class: classes, data: { balloon_content: render('competitions/people/best_badge', person:) })
+  end
 end

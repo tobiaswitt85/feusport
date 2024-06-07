@@ -1,0 +1,14 @@
+= card("Gewünschte #{Assessment.model_name.human count: :many}") do |card|
+  - card.direct do
+    %table.table
+      - @competition.assessments.requestable_for_person(@person.band).each do |assessment|
+        %tr
+          %th
+            = discipline_image assessment.discipline.key
+            = assessment.name
+          %td
+            - if @person.request_for(assessment).present?
+              = t("assessment_types.#{@person.request_for(assessment).assessment_type}")
+  - if editable && can?(:edit, @person)
+    - card.footer do
+      = btn_link_to 'Wertungen bearbeiten', { action: :edit_assessment_requests }

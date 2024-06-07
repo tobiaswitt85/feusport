@@ -3,10 +3,13 @@ import * as bootstrap from 'bootstrap';
 import '@hotwired/turbo-rails';
 import EasyMDE from 'easymde';
 
+import './_global';
 import './_certificates';
 import './_edit_assessment_requests';
 import './_move_score_list_entries';
 import './_team_suggestions';
+import './_person_suggestions';
+import './_tooltip';
 
 document.addEventListener('turbo:load', () => {
   document.querySelectorAll('textarea.easymde-required').forEach((textarea) => {

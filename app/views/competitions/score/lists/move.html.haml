@@ -1,4 +1,4 @@
-= render 'competitions/header', competition: @competition, sub: "Reihenfolge bearbeiten"
+= render 'competitions/header', competition: @competition, sub: 'Reihenfolge bearbeiten'
 
 .row.g-4
   .col-md-8
@@ -8,7 +8,7 @@
           = render 'list_headline', list: @list, times: false
           %tbody
             - score_list_entries(@list, true) do |entry, run, track, _best_of_run|
-              = render 'list_entry', entry: entry, run: run, track: track, list: @list, best_of_run: false, move: true
+              = render 'list_entry', entry:, run:, track:, list: @list, best_of_run: false, move: true
 
   .col-md-4
     = card('Hinweise') do |card|
@@ -21,4 +21,3 @@
             = block_link_to 'Abbrechen', { action: :show }
         .d-grid.gap-2#back-link
           = block_link_to 'Zurück', { action: :show }
-
