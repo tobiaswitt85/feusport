@@ -3,6 +3,7 @@ de:
   activerecord:
     attributes:
       team:
+        tags: Kennzeichnungen
         band: Wertungsgruppe
         federal_state: Bundesland
         lottery_number: Losnummer

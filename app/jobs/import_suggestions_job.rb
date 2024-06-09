@@ -12,6 +12,11 @@ class ImportSuggestionsJob < ApplicationJob
       import_team_members
       import_team_spellings
       import_person_spellings
+
+      import_series_rounds
+      import_series_cups
+      import_series_assessments
+      import_series_participations
     end
   end
 
@@ -80,6 +85,63 @@ class ImportSuggestionsJob < ApplicationJob
     end
   end
 
+  def import_series_rounds
+    fetch('series/rounds') do |round|
+      Series::Round.create!(
+        id: round[:id],
+        name: round[:name],
+        year: round[:year],
+        aggregate_type: round[:aggregate_type],
+        full_cup_count: round[:full_cup_count],
+      )
+    end
+  end
+
+  def import_series_cups
+    fetch('series/cups') do |cup|
+      Series::Cup.create!(
+        id: cup[:id],
+        round_id: cup[:round_id].to_i,
+        competition_place: cup[:place],
+        competition_date: cup[:date],
+      )
+    end
+  end
+
+  def import_series_assessments
+    fetch('series/assessments') do |assessment|
+      discipline = assessment[:discipline].to_sym
+      discipline = :hb if discipline == :hw
+      discipline = :zk if discipline == :zw
+
+      Series::Assessment.create!(
+        id: assessment[:id],
+        name: assessment[:name],
+        discipline:,
+        round_id: assessment[:round_id].to_i,
+        gender: assessment[:gender],
+        type: assessment[:type],
+      )
+    end
+  end
+
+  def import_series_participations
+    fetch('series/participations') do |participation|
+      Series::Participation.create!(
+        id: participation[:id],
+        points: participation[:points],
+        rank: participation[:rank],
+        time: participation[:time],
+        cup_id: participation[:cup_id].to_i,
+        assessment_id: participation[:assessment_id].to_i,
+        type: participation[:type],
+        team_id: participation[:team_id],
+        team_number: participation[:team_number],
+        person_id: participation[:person_id],
+      )
+    end
+  end
+
   def people
     @people ||= []
   end
@@ -89,6 +151,11 @@ class ImportSuggestionsJob < ApplicationJob
   end
 
   def destroy_old_imports
+    Series::Participation.delete_all
+    Series::Assessment.delete_all
+    Series::Cup.delete_all
+    Series::Round.delete_all
+
     FireSportStatistics::TeamAssociation.delete_all
     FireSportStatistics::TeamSpelling.delete_all
     FireSportStatistics::PersonSpelling.delete_all

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Score::List < ApplicationRecord
+  include SortableByName
+
   belongs_to :competition
   has_many :list_assessments, dependent: :destroy
   has_many :assessments, through: :list_assessments

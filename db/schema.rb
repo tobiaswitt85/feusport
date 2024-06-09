@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -328,7 +328,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
     t.boolean "hidden", default: false, null: false
     t.boolean "separate_target_times", default: false, null: false
     t.boolean "show_best_of_run", default: false, null: false
-    t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["competition_id"], name: "index_score_lists_on_competition_id"
@@ -352,6 +351,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
     t.index ["result_id"], name: "index_score_result_lists_on_result_id"
   end
 
+  create_table "score_result_series_assessments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "result_id", null: false
+    t.bigint "assessment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assessment_id"], name: "index_score_result_series_assessments_on_assessment_id"
+    t.index ["result_id"], name: "index_score_result_series_assessments_on_result_id"
+  end
+
   create_table "score_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "competition_id", null: false
     t.string "forced_name", limit: 100
@@ -359,16 +367,60 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
     t.uuid "assessment_id", null: false
     t.uuid "double_event_result_id"
     t.string "type", limit: 50, default: "Score::Result", null: false
-    t.integer "group_score_count"
-    t.integer "group_run_count"
+    t.integer "group_score_count", default: 6, null: false
+    t.integer "group_run_count", default: 8, null: false
     t.date "date"
     t.integer "calculation_method", default: 0, null: false
-    t.string "tags", default: [], array: true
+    t.string "team_tags_included", default: [], array: true
+    t.string "team_tags_excluded", default: [], array: true
+    t.string "person_tags_included", default: [], array: true
+    t.string "person_tags_excluded", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assessment_id"], name: "index_score_results_on_assessment_id"
     t.index ["competition_id"], name: "index_score_results_on_competition_id"
     t.index ["double_event_result_id"], name: "index_score_results_on_double_event_result_id"
+  end
+
+  create_table "series_assessments", force: :cascade do |t|
+    t.integer "round_id", null: false
+    t.string "discipline", limit: 2, null: false
+    t.string "name", default: "", null: false
+    t.string "type", limit: 100, null: false
+    t.integer "gender", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "series_cups", force: :cascade do |t|
+    t.integer "round_id", null: false
+    t.string "competition_place", limit: 100, null: false
+    t.date "competition_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "series_participations", force: :cascade do |t|
+    t.integer "assessment_id", null: false
+    t.integer "cup_id", null: false
+    t.string "type", limit: 100, null: false
+    t.integer "team_id"
+    t.integer "team_number"
+    t.integer "person_id"
+    t.integer "time", null: false
+    t.integer "points", default: 0, null: false
+    t.integer "rank", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "series_rounds", force: :cascade do |t|
+    t.string "name", limit: 100, null: false
+    t.integer "year", null: false
+    t.string "aggregate_type", limit: 100, null: false
+    t.integer "full_cup_count", default: 4, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "team_relays", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -457,6 +509,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_112355) do
   add_foreign_key "score_result_list_factories", "score_results", column: "result_id"
   add_foreign_key "score_result_lists", "score_lists", column: "list_id"
   add_foreign_key "score_result_lists", "score_results", column: "result_id"
+  add_foreign_key "score_result_series_assessments", "score_results", column: "result_id"
   add_foreign_key "score_results", "assessments"
   add_foreign_key "score_results", "competitions"
   add_foreign_key "score_results", "score_results", column: "double_event_result_id"

@@ -10,6 +10,7 @@ import './_move_score_list_entries';
 import './_team_suggestions';
 import './_person_suggestions';
 import './_tooltip';
+import './_edit_times';
 
 document.addEventListener('turbo:load', () => {
   document.querySelectorAll('textarea.easymde-required').forEach((textarea) => {

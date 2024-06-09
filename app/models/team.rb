@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Team < ApplicationRecord
+  include Taggable
+
   belongs_to :competition
   belongs_to :band
   belongs_to :fire_sport_statistics_team, class_name: 'FireSportStatistics::Team'

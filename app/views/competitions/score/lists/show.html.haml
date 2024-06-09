@@ -6,7 +6,7 @@
       - if can?(:edit, @list) || !@list.hidden?
         - card.direct do
           %table.table.much-data
-            = render 'list_headline', times: true, list: @list
+            = render 'list_headline', times: true, list: @list, edit: false
             %tbody
               - score_list_entries(@list) do |entry, run, track, best_of_run|
                 = render layout: 'list_entry', locals: { entry:, run:, track:, list: @list, best_of_run: } do

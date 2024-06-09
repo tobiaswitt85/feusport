@@ -1,34 +1,47 @@
 # frozen_string_literal: true
 
 class Score::Result < ApplicationRecord
-  belongs_to :competition
+  include Score::Resultable
+  include SortableByName
+
   CALCULATION_METHODS = { default: 0, sum_of_two: 1 }.freeze
+
   enum calculation_method: CALCULATION_METHODS
 
-  schema_validations
-
-  def name
-    @name ||= forced_name.presence || assessment.name
-  end
-  alias to_label name
-
-  # include Taggable
-  include Score::Resultable
-
+  belongs_to :competition
   belongs_to :assessment, inverse_of: :results
+  belongs_to :double_event_result, dependent: :destroy, class_name: 'Score::DoubleEventResult', inverse_of: :results
+  has_many :result_lists, dependent: :destroy, inverse_of: :result
+  has_many :lists, through: :result_lists
   # has_many :series_assessment_results, class_name: 'Series::AssessmentResult', dependent: :destroy,
   #                                      foreign_key: :score_result_id, inverse_of: :score_result
   # has_many :series_assessments, through: :series_assessment_results, source: :assessment,
   #                               class_name: 'Series::Assessment'
-  belongs_to :double_event_result, dependent: :destroy, class_name: 'Score::DoubleEventResult', inverse_of: :results
-  has_many :result_lists, dependent: :destroy, inverse_of: :result
-  has_many :lists, through: :result_lists
-  delegate :discipline, to: :assessment
 
-  # default_scope { includes(:assessment).order('assessments.discipline_id', 'assessments.gender') }
+  delegate :discipline, to: :assessment
+  delegate :band, to: :assessment, allow_nil: true
+
   scope :gender, ->(gender) { joins(:assessment).merge(Assessment.gender(gender)) }
   scope :group_assessment_for, ->(gender) { gender(gender).where(group_assessment: true) }
   scope :discipline, ->(discipline) { where(assessment: Assessment.discipline(discipline)) }
+
+  schema_validations
+  before_validation :clean_tags
+  validate :useless_team_tags
+  validate :useless_person_tags
+  validates :group_run_count, :group_score_count, numericality: { greater_than: 0 }
+
+  def name
+    @name ||= forced_name.presence || generated_name
+  end
+  alias to_label name
+
+  def generated_name
+    tags_included = (team_tags_included + person_tags_included).join(', ').presence
+    tags_excluded = (team_tags_excluded + person_tags_excluded).join(', ').presence
+    tags_excluded = "ohne #{tags_excluded}" if tags_excluded.present?
+    [assessment.name, tags_included, tags_excluded].compact_blank.join(' - ')
+  end
 
   def possible_series_assessments
     Series::Assessment.gender(assessment.band.gender).where(discipline: assessment.discipline.key)
@@ -68,7 +81,7 @@ class Score::Result < ApplicationRecord
 
         entity = list_entry.entity
         entity = entity.team if group_result && entity.is_a?(TeamRelay)
-        next if tags.present? && skip?(entity)
+        next unless use?(entity)
 
         if list_entry.out_of_competition?
           if out_of_competition_rows[entity.id].nil?
@@ -91,20 +104,39 @@ class Score::Result < ApplicationRecord
 
   protected
 
-  def skip?(entity)
+  def use?(entity)
     case entity
     when TeamRelay
-      !entity.team.include_tags?(team_tags)
+      entity.team.include_tags?(team_tags_included) && entity.team.exclude_tags?(team_tags_excluded)
     when Team
-      !entity.include_tags?(team_tags)
+      entity.include_tags?(team_tags_included) && entity.exclude_tags?(team_tags_excluded)
     when Person
-      return true unless entity.include_tags?(person_tags)
-      return false if team_tags.blank?
-      return false if entity.team.blank?
-
-      !entity.team.include_tags?(team_tags)
+      entity.include_tags?(person_tags_included) && entity.exclude_tags?(person_tags_excluded) &&
+        (team_tags_included.blank? || entity.team&.include_tags?(team_tags_included)) &&
+        (team_tags_excluded.blank? || entity.team&.exclude_tags?(team_tags_excluded))
     else
-      true
+      false
     end
+  end
+
+  def clean_tags
+    self.team_tags_included = (team_tags_included || []).select { |tag| tag.in?(band.team_tags) }
+    self.team_tags_excluded = (team_tags_excluded || []).select { |tag| tag.in?(band.team_tags) }
+    self.person_tags_included = (person_tags_included || []).select { |tag| tag.in?(band.person_tags) }
+    self.person_tags_excluded = (person_tags_excluded || []).select { |tag| tag.in?(band.person_tags) }
+  end
+
+  def useless_team_tags
+    return unless team_tags_included.any? { |tag| tag.in?(team_tags_excluded) }
+
+    errors.add(:team_tags_included, :invalid)
+    errors.add(:team_tags_excluded, :invalid)
+  end
+
+  def useless_person_tags
+    return unless person_tags_included.any? { |tag| tag.in?(person_tags_excluded) }
+
+    errors.add(:person_tags_included, :invalid)
+    errors.add(:person_tags_excluded, :invalid)
   end
 end

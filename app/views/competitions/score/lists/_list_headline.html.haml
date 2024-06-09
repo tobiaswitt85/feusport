@@ -13,4 +13,7 @@
     - if times
       - if list.separate_target_times?
         %th Ziele
-      %th Zeit
+        - unless edit
+          %th Zeit
+      - else
+        %th Zeit

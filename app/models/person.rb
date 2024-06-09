@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Person < ApplicationRecord
+  include Taggable
+
   belongs_to :competition
   belongs_to :band
   belongs_to :team

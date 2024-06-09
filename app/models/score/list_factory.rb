@@ -48,7 +48,7 @@ class Score::ListFactory < ApplicationRecord
                   else
                     next_step || STEPS[1]
                   end
-    self.separate_target_times = discipline.key == :la if separate_target_times.nil?
+    self.separate_target_times = discipline.key == 'la' if separate_target_times.nil?
   end
   after_save do
     if saved_change_to_status? && status == :create

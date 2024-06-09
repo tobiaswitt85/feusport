@@ -64,6 +64,8 @@ de:
         track_count: Wettkampfbahnen
         type: Listenerstellung
       score/result:
+        group_run_count: Wettkämpfer pro Disziplin
+        group_score_count: Wettkämpfer in Wertung
         assessment_id: Wertung
         assessment: Wertung
         calculation_method: Berechnungsmethode
@@ -74,6 +76,10 @@ de:
         name: Name
         results: Ergebnislisten
         series_assessments: Wertungen
+        team_tags_included: Mannschafts-Kennzeichnungen (einschließend)
+        team_tags_excluded: Mannschafts-Kennzeichnungen (ausschließend)
+        person_tags_included: Wettkämpfer-Kennzeichnungen (einschließend)
+        person_tags_excluded: Wettkämpfer-Kennzeichnungen (ausschließend)
     models:
       score/competition_result:
         one: Gesamtwertung

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Discipline < ApplicationRecord
+  include SortableByName
+
   DISCIPLINES = %w[la hl hb zk gs fs other].freeze
   DEFAULT_NAMES = {
     la: 'Löschangriff nass',
@@ -20,8 +22,6 @@ class Discipline < ApplicationRecord
     fs: false,
     other: false,
   }.with_indifferent_access.freeze
-
-  include SortableByName
 
   belongs_to :competition
   has_many :assessments, dependent: :restrict_with_error

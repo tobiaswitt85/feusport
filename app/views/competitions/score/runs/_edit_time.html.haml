@@ -7,13 +7,13 @@
           .col-md-4
             .time-entries
               - if entry.list.separate_target_times?
-                = n.input :edit_second_time_left_target_before, as: :hidden
                 = n.input :edit_second_time_left_target, as: :second_time
-                = n.input :edit_second_time_right_target_before, as: :hidden
                 = n.input :edit_second_time_right_target, as: :second_time
+                = n.input :edit_second_time_left_target_before, as: :hidden
+                = n.input :edit_second_time_right_target_before, as: :hidden
               - else
-                = n.input :edit_second_time_before, as: :hidden
                 = n.input :edit_second_time, as: :second_time
+                = n.input :edit_second_time_before, as: :hidden
         - if can?(:edit_result_types, Score::ListEntry)
           .col-md-8
             .time-types

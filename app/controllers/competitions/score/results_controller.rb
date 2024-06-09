@@ -25,7 +25,7 @@ class Competitions::Score::ResultsController < CompetitionNestedController
   def update
     @result.assign_attributes(result_params)
     if @result.save
-      redirect_to competition_result_path, notice: :saved
+      redirect_to competition_score_result_path, notice: :saved
     else
       flash.now[:alert] = :check_errors
       render action: :edit, status: :unprocessable_entity
@@ -40,8 +40,14 @@ class Competitions::Score::ResultsController < CompetitionNestedController
   protected
 
   def result_params
-    params.require(:score_result).permit(:forced_name, :assessment_id, :group_assessment, :date, :calculation_method,
-                                         series_assessment_ids: [],
-                                         tag_references_attributes: %i[id tag_id _destroy])
+    params.require(:score_result).permit(
+      :forced_name, :assessment_id, :group_assessment, :date, :calculation_method,
+      :group_score_count, :group_run_count,
+      team_tags_included: [],
+      team_tags_excluded: [],
+      person_tags_included: [],
+      person_tags_excluded: [],
+      series_assessment_ids: []
+    )
   end
 end

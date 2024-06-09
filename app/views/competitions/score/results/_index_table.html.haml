@@ -2,7 +2,7 @@
   %tr
     %th= Score::Result.human_attribute_name(:assessment)
     %th
-  - resource_collection.each do |result|
+  - resource_collection.sort.each do |result|
     %tr
       %td
         = discipline_image(result.assessment.discipline.key)

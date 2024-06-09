@@ -38,6 +38,7 @@ class Competitions::PeopleController < CompetitionNestedController
     params.require(:person).permit(
       :first_name, :last_name, :team_id, :band_id, :fire_sport_statistics_person_id,
       :registration_order, :bib_number, :create_team_name,
+      tags: [],
       requests_attributes: %i[assessment_type _destroy assessment_id id
                               group_competitor_order single_competitor_order
                               competitor_order]

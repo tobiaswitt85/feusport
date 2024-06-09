@@ -11,12 +11,8 @@ Score::GroupResult = Struct.new(:result) do
 
   def calculated_rows
     team_scores = {}
-    competition = result.competition
-    run_count = 8 # competition.group_run_count
-    score_count = 6 # competition.group_score_count
-
-    run_count = result.group_run_count if result.group_run_count.present?
-    score_count = result.group_score_count if result.group_score_count.present?
+    run_count = result.group_run_count
+    score_count = result.group_score_count
 
     result.rows.each do |result_row|
       next unless result_row.list_entries.first.group_competitor?

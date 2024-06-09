@@ -7,10 +7,22 @@
       %tr
         %th= Score::Result.human_attribute_name :assessment
         %td= result.assessment.name
-      -# - result.tags.each do |tag|
-      -#   %tr
-      -#     %th #{tag.object.model_name.human} - #{tag.name}
-      -#     %td Ja
+      - if result.team_tags_included.present?
+        %tr
+          %th= Score::Result.human_attribute_name :team_tags_included
+          %td= result.team_tags_included.join(", ")
+      - if result.team_tags_excluded.present?
+        %tr
+          %th= Score::Result.human_attribute_name :team_tags_excluded
+          %td= result.team_tags_excluded.join(", ")
+      - if result.person_tags_included.present?
+        %tr
+          %th= Score::Result.human_attribute_name :person_tags_included
+          %td= result.person_tags_included.join(", ")
+      - if result.person_tags_excluded.present?
+        %tr
+          %th= Score::Result.human_attribute_name :person_tags_excluded
+          %td= result.person_tags_excluded.join(", ")
 
       - if result.is_a? Score::DoubleEventResult
         %tr
@@ -23,7 +35,13 @@
       - else
         %tr
           %th= Score::Result.human_attribute_name :group_assessment
-          %td= result.group_assessment? ? 'Ja' : 'Nein'
+          %td
+            - if result.group_assessment?
+              Ja
+              - if result.discipline.single_discipline?
+                (#{result.group_score_count} von #{result.group_run_count})
+            - else
+              Nein
       %tr
         %th= Score::Result.human_attribute_name :lists
         %td

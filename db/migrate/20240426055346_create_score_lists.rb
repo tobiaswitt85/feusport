@@ -12,7 +12,6 @@ class CreateScoreLists < ActiveRecord::Migration[7.0]
       t.boolean :hidden, default: false, null: false
       t.boolean :separate_target_times, default: false, null: false
       t.boolean :show_best_of_run, default: false, null: false
-      t.string :tags, array: true, default: []
 
       t.timestamps
     end

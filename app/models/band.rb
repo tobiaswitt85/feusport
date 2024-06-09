@@ -4,21 +4,23 @@ class Band < ApplicationRecord
   include SortableByName
 
   GENDERS = { female: 0, male: 1, indifferent: 2 }.freeze
-  GENDER_KEYS = GENDERS.keys.freeze
 
   enum gender: GENDERS
-  scope :gender, ->(gender) { where(gender: GENDERS[gender.to_sym]) }
   default_scope { order(:position) }
 
   belongs_to :competition
   has_many :assessments, class_name: 'Assessment', dependent: :restrict_with_error
   has_many :teams, dependent: :restrict_with_error
   has_many :people, dependent: :restrict_with_error
-  # TODO: has_and_belongs_to_many :score_list_factories, class_name: 'Score::ListFactory'
+  has_many :score_list_factory_bands, class_name: 'Score::ListFactoryBand', dependent: :destroy
+  has_many :score_list_factories, class_name: 'Score::ListFactory', through: :score_list_factory_bands,
+                                  source: :list_factory
 
   acts_as_list
 
   schema_validations
+
+  after_save :clean_tags
 
   def <=>(other)
     sort_by_position = position <=> other.position
@@ -49,5 +51,16 @@ class Band < ApplicationRecord
 
   def team_tag_names
     (team_tags || []).sort.join(', ')
+  end
+
+  private
+
+  def clean_tags
+    people.each(&:save!) if saved_change_to_attribute?(:person_tags)
+    teams.each(&:save!) if saved_change_to_attribute?(:team_tags)
+
+    return unless saved_change_to_attribute?(:team_tags) || saved_change_to_attribute?(:person_tags)
+
+    assessments.each { |assessment| assessment.results.each(&:save!) }
   end
 end

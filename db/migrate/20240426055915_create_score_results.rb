@@ -9,11 +9,14 @@ class CreateScoreResults < ActiveRecord::Migration[7.0]
       t.references :assessment, null: false, foreign_key: true, type: :uuid
       t.references :double_event_result, foreign_key: false, type: :uuid
       t.string :type, default: 'Score::Result', null: false, limit: 50
-      t.integer :group_score_count
-      t.integer :group_run_count
+      t.integer :group_score_count, default: 6, null: false
+      t.integer :group_run_count, default: 8, null: false
       t.date :date
       t.integer :calculation_method, default: 0, null: false
-      t.string :tags, array: true, default: []
+      t.string :team_tags_included, array: true, default: []
+      t.string :team_tags_excluded, array: true, default: []
+      t.string :person_tags_included, array: true, default: []
+      t.string :person_tags_excluded, array: true, default: []
 
       t.timestamps
     end

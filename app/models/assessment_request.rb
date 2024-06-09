@@ -88,11 +88,11 @@ class AssessmentRequest < ApplicationRecord
       I18n.t('assessment_types.out_of_competition_order')
     elsif competitor?
       case assessment.discipline.key
-      when :fs
+      when 'fs'
         self.class.fs_names[competitor_order]
-      when :la
+      when 'la'
         self.class.la_names[competitor_order]
-      when :gs
+      when 'gs'
         self.class.gs_names[competitor_order]
       end
     else
@@ -109,11 +109,11 @@ class AssessmentRequest < ApplicationRecord
       I18n.t('assessment_types.out_of_competition_short')
     elsif competitor?
       case assessment.discipline.key
-      when :fs
+      when 'fs'
         self.class.fs_names[competitor_order]
-      when :la
+      when 'la'
         h.safe_join(self.class.la_names_short[competitor_order] || [])
-      when :gs
+      when 'gs'
         h.safe_join(self.class.gs_names_short[competitor_order] || [])
       end
     else
