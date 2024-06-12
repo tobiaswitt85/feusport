@@ -1,0 +1,21 @@
+= render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
+
+.row
+  .col-md-8
+    - @competition.score_competition_results.sort.each do |result|
+      = card(result.name, class: 'mb-3') do |card|
+        - card.body do
+
+          = render('index_table', resource_class:, competition_result: result)
+        - if can?(:create, resource_class.new(competition: @competition))
+          = card.primary_actions do |actions|
+            - actions.link_to t('a.edit'), { action: :edit, id: result.id }, end_icon: :edit
+
+          = card.actions do |actions|
+            - actions.link_to "Urkunden", { action: :edit, id: result.id }, end_icon: :file_certificate
+  .col-md-4
+    = card(t('a.actions'), class: 'mb-3') do |card|
+      - card.primary_actions do |actions|
+        - actions.link_to t('a.add'), { action: :new }, end_icon: :square_plus
+      - card.body do
+        %p Gesamtwertungen sind toll.

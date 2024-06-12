@@ -1,0 +1,9 @@
+---
+de:
+  activerecord:
+    attributes:
+      series/team_assessment:
+        
+    models:
+      series/team_assessment: Mannschaftswertung
+      series/person_assessment: Einzelwertung

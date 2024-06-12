@@ -7,8 +7,9 @@ class Series::Assessment < ApplicationRecord
   belongs_to :round, class_name: 'Series::Round', inverse_of: :assessments
   has_many :cups, through: :round, class_name: 'Series::Cup'
   has_many :participations, class_name: 'Series::Participation', dependent: :destroy, inverse_of: :assessment
-  has_many :assessment_results, class_name: 'Series::AssessmentResult', dependent: :destroy, inverse_of: :assessment
-  has_many :score_results, through: :assessment_results
+  has_many :assessment_score_results, class_name: 'Score::ResultSeriesAssessment', dependent: :destroy,
+                                      inverse_of: :assessment
+  has_many :score_results, through: :assessment_score_results, source: :result
 
   scope :round, ->(round_id) { where(round_id:) }
   scope :year, ->(year) { joins(:round).where(series_rounds: { year: }) }
@@ -31,6 +32,10 @@ class Series::Assessment < ApplicationRecord
 
   def discipline_model
     Discipline.types_with_key[discipline.to_sym].new
+  end
+
+  def score_result_label
+    "#{self.class.model_name.human}: #{to_label}"
   end
 
   protected

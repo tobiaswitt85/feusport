@@ -1,6 +1,25 @@
 - card.body do
-  - if @series_form
-    = f.association :series_assessments, as: :check_boxes, collection: @score_result.possible_series_assessments, label_method: ->(assessment) { assessment.decorate.score_result_label }
+  - if params[:form] == "series_assessments"
+    = hidden_field_tag :form, "series_assessments"
+    = f.association :series_assessments, as: :check_boxes, collection: @result.possible_series_assessments, label_method: ->(assessment) { assessment.score_result_label }
+  - elsif params[:form] == "tags"
+    = hidden_field_tag :form, "tags"
+    %fieldset.group
+      %legend Kennzeichnungen
+    
+      - if @result.band.team_tags.present?
+        .row
+          .col-md-6
+            = f.input :team_tags_included, as: :check_boxes, collection: @result.band.team_tags
+          .col-md-6
+            = f.input :team_tags_excluded, as: :check_boxes, collection: @result.band.team_tags
+      - if @result.band.person_tags.present?
+        .row
+          .col-md-6
+            = f.input :person_tags_included, as: :check_boxes, collection: @result.band.person_tags
+          .col-md-6
+            = f.input :person_tags_excluded, as: :check_boxes, collection: @result.band.person_tags
+      %small.text-muted Wenn Kennzeichnungen ausgewählt wurden, können die Ergebnisse entsprechend eingegrenzt werden.
   - else
     = f.association :assessment, hint: 'Es kann mehrere Ergebnisse für eine Wertung geben: Zum Beispiel Finalläufe.'
     = f.input :forced_name, hint: 'Der Name wird automatisch aus den Wertungen und Kennzeichnungen generiert. Hier kann man ihn überschreiben.'
@@ -13,23 +32,6 @@
         = f.input :group_score_count
         %small.text-muted Diese Werte sind nur bei Mannschaftswertungen der Einzeldisziplinen relevant.
 
-    - if @result.persisted? && ( @result.band.team_tags.present? || @result.band.person_tags.present?)
-      %fieldset.group
-        %legend Kennzeichnungen
-      
-        - if @result.band.team_tags.present?
-          .row
-            .col-md-6
-              = f.input :team_tags_included, as: :check_boxes, collection: @result.band.team_tags
-            .col-md-6
-              = f.input :team_tags_excluded, as: :check_boxes, collection: @result.band.team_tags
-        - if @result.band.person_tags.present?
-          .row
-            .col-md-6
-              = f.input :person_tags_included, as: :check_boxes, collection: @result.band.person_tags
-            .col-md-6
-              = f.input :person_tags_excluded, as: :check_boxes, collection: @result.band.person_tags
-        %small.text-muted Wenn Kennzeichnungen ausgewählt wurden, können die Ergebnisse entsprechend eingegrenzt werden.
     %fieldset.group
       %legend Berechnung der Ergebnisse
       = f.input :calculation_method, as: :radio_buttons, collection: Score::Result::CALCULATION_METHODS.map { |k, _v| [t("score_calculation_methods.#{k}"), k] }

@@ -1,0 +1,7 @@
+- card.body do
+  = f.input :name
+  = f.input :result_type, collection: Score::CompetitionResult.result_types.invert
+  = f.association :results, as: :check_boxes, collection: @competition.score_results
+- card.footer do
+  = f.primary_button :submit
+  = f.cancel_button(competition_score_competition_results_path)

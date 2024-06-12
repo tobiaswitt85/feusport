@@ -1,0 +1,27 @@
+%table.table.table-bordered.table-hover.table-condensed.people-index-table.sorted_table
+  %thead
+    %tr
+      %th Name
+      - @team.band.person_tags.each do |tag|
+        %th{ style: 'width: 5%' }= tag
+
+      - assessments = Assessment.requestable_for_person(resource_collection.first.band)
+      - assessments.each do |assessment|
+        %th{ title: assessment }= discipline_image assessment.discipline.key
+      - if can?(:edit, @competition)
+        %th
+  %tbody
+    - resource_collection.each do |person|
+      %tr
+        %td= link_to person.full_name, competition_person_path(id: person)
+        - @team.band.person_tags.each do |tag|
+          %td= person.tags.include?(tag) ? 'X' : ''
+        - assessments.each do |assessment|
+          - request = person.request_for(assessment)
+          - if request.present?
+            %td{ title: "#{assessment}: #{request.type}" }= request.short_type
+          - else
+            %td
+        - if can?(:edit, @competition)
+          %td
+            = short_edit_link edit_assessment_requests_competition_person_path(id: person.id), remote: true, class: 'btn-xs', title: 'Wertungen bearbeiten'

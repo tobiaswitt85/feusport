@@ -1,23 +1,22 @@
 # frozen_string_literal: true
 
 class Score::CompetitionResult < ApplicationRecord
+  AssessmentResult = Struct.new(:points, :result, :result_entry, :team, :row) do
+    delegate :assessment, to: :result
+    delegate :discipline, to: :assessment
+  end
+
   include Score::Resultable
+  include SortableByName
 
   belongs_to :competition
-  belongs_to :band, class_name: 'Band'
-  has_many :assessments, foreign_key: :score_competition_result_id, dependent: :nullify,
-                         inverse_of: :score_competition_result
-  has_many :results, -> { where(score_results: { group_assessment: true }) },
-           through: :assessments, class_name: 'Score::Result'
+  has_many :result_references, class_name: 'Score::CompetitionResultReference', dependent: :destroy
+  has_many :results, through: :result_references, class_name: 'Score::Result'
 
   schema_validations
 
   def rows
     @rows ||= result_type.present? ? send(result_type) : []
-  end
-
-  def result_type
-    super.presence || Competition.result_type
   end
 
   def self.result_types
@@ -62,7 +61,7 @@ class Score::CompetitionResult < ApplicationRecord
         points = [(11 - ranks[row] - double_rank_count), 0].max
         points = 0 unless row.competition_result_valid?
 
-        assessment_result = Score::AssessmentResult.new(points, result.assessment, row.result_entry, row.entity, row)
+        assessment_result = AssessmentResult.new(points, result, row.result_entry, row.entity, row)
         teams[row.entity.id] ||= Score::CompetitionResultRow.new(self, row.entity)
         teams[row.entity.id].add_assessment_result(assessment_result)
       end
@@ -75,7 +74,7 @@ class Score::CompetitionResult < ApplicationRecord
     for_results do |result, result_rows, ranks|
       result_rows.each do |row|
         points = ranks[row]
-        assessment_result = Score::AssessmentResult.new(points, result.assessment, row.result_entry, row.entity, row)
+        assessment_result = AssessmentResult.new(points, result, row.result_entry, row.entity, row)
         teams[row.entity.id] ||= Score::CompetitionResultRow.new(self, row.entity)
         teams[row.entity.id].add_assessment_result(assessment_result)
       end
@@ -85,10 +84,10 @@ class Score::CompetitionResult < ApplicationRecord
 
       points = teams.count
       teams.each_key do |team_id|
-        next if teams[team_id].assessment_result_from(result.assessment).present?
+        next if teams[team_id].assessment_result_from(result).present?
 
-        assessment_result = Score::AssessmentResult.new(points, result.assessment, Score::ResultEntry.invalid,
-                                                        Team.find(team_id), nil)
+        assessment_result = AssessmentResult.new(points, result, Score::ResultEntry.invalid,
+                                                 Team.find(team_id), nil)
         teams[team_id].add_assessment_result(assessment_result)
       end
     end

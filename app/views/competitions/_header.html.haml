@@ -11,11 +11,19 @@
     - if @competition.disciplines.single_disciplines.exists?
       = tabs.link_to Person, competition_people_path
     = tabs.link_to Score::List, competition_score_lists_path, active: resource_class.in?([Score::List, Score::ListFactory, Score::Run])
+    
     - if @competition.bands.exists? && @competition.disciplines.exists?
       = tabs.link_to Score::Result, competition_score_results_path
+
+    -# - if Competition.result_type.present? && (can?(:manage, Competition) || !Competition.one.hide_competition_results?)
+    - if @competition.score_competition_results.where(hidden: false).exists?
+      = tabs.link_to Score::CompetitionResult, competition_score_competition_results_path
+    - if true ||  Series::Round.with_local_results.present?
+      = tabs.link_to Series::Round, competition_series_rounds_path
     - if can?(:manage, @competition)
       = tabs.dropdown 'Erweitert' do |dropdown|
         = dropdown.link_to Discipline, competition_disciplines_path
         = dropdown.link_to Band, competition_bands_path
         = dropdown.link_to Assessment, competition_assessments_path
+        = dropdown.link_to Score::CompetitionResult, competition_score_competition_results_path
         = dropdown.link_to Certificates::Template, competition_certificates_templates_path

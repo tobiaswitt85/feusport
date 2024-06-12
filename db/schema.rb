@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_12_111215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -235,14 +235,22 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
     t.index ["team_id"], name: "index_people_on_team_id"
   end
 
-  create_table "score_competition_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "competition_id", null: false
-    t.uuid "band_id", null: false
-    t.string "name", limit: 100
-    t.string "result_type", limit: 50
+  create_table "score_competition_result_references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "result_id", null: false
+    t.uuid "competition_result_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["band_id"], name: "index_score_competition_results_on_band_id"
+    t.index ["competition_result_id"], name: "index_score_competition_result_references_on_competition_result"
+    t.index ["result_id"], name: "index_score_competition_result_references_on_result_id"
+  end
+
+  create_table "score_competition_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id", null: false
+    t.string "name", limit: 100, null: false
+    t.string "result_type", limit: 50, null: false
+    t.boolean "hidden", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["competition_id"], name: "index_score_competition_results_on_competition_id"
   end
 
@@ -492,7 +500,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_26_063157) do
   add_foreign_key "people", "bands"
   add_foreign_key "people", "competitions"
   add_foreign_key "people", "teams"
-  add_foreign_key "score_competition_results", "bands"
+  add_foreign_key "score_competition_result_references", "score_competition_results", column: "competition_result_id"
+  add_foreign_key "score_competition_result_references", "score_results", column: "result_id"
   add_foreign_key "score_competition_results", "competitions"
   add_foreign_key "score_list_assessments", "assessments"
   add_foreign_key "score_list_assessments", "score_lists", column: "list_id"

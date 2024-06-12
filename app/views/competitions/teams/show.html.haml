@@ -1,6 +1,6 @@
 = render 'competitions/header', competition: @competition, sub: "Mannschaft: #{@team.numbered_name}"
 
-.row
+.row.g-4
   .col-md-8
     = card("Mannschaft: #{@team.numbered_name}", class: 'mb-3') do |card|
       - card.direct do
@@ -64,29 +64,29 @@
           = btn_link_to 'Name bearbeiten', { action: :edit }
           = btn_link_to 'Löschen', { action: :destroy }, method: :delete, data: { confirm: 'Mannschaft wirklich löschen? Alle Zeiten usw. werden auch gelöscht!' }
 
-  -# - if admin_logged_in? || @team.object.people.exists?
-  -#   .col-md-12
-  -#     = box(Team.human_attribute_name(:people)) do |box|
-  -#       - if admin_logged_in?
-  -#         - box.header do
-  -#           .pull-right
-  -#             = btn_link_to 'Wettkämpfer hinzufügen', new_person_path(team: @team), remote: true
-  -#           .clearfix
-  -#       = render 'people_table', collection: @team.object.people.registration_order.map(&:decorate)
-  -#       - if admin_logged_in?
-  -#         - box.footer do
-  -#           Die Reihenfolge der Personen kann einfach verschoben werden. Dadurch soll ein besseres Abgleichen mit der Eingabe möglich sein.
+  - if can?(:edit, @competition) || @team.people.exists?
+    .col-md-12
+      = card(Team.human_attribute_name(:people)) do |card|
+        - card.primary_actions do |actions|
+          - actions.link_to 'Wettkämpfer hinzufügen', new_competition_person_path(team: @team), end_icon: :square_plus
+        - card.body do
+          - if @team.people.exists?
+            = render('people_table', resource_collection: @team.people)
+          - else
+            .alert.alert-info= t('a.no_entries_found')
 
-  -# - if @team.list_entries.exists?
-  -#   .col-md-12
-  -#     = box('Startlisten') do
-  -#       %table.table.table-bordered
-  -#         %tr
-  -#           %th Startliste
-  -#           %th Lauf
-  -#           %th Bahn
-  -#         - @team.list_entries.sort_by { |entry| entry.list.decorate.to_s }.each do |entry|
-  -#           %tr
-  -#             %td= link_to(entry.list.decorate, score_list_path(entry.list, anchor: "jump-run-#{entry.run}"))
-  -#             %td= entry.run
-  -#             %td= entry.track
+  - if @team.list_entries.exists?
+    .col-md-12
+      = card('Startlisten') do |card|
+        - card.direct do
+          %table.table.table-bordered
+            %tr
+              %th Startliste
+              %th Lauf
+              %th Bahn
+            - @team.list_entries.sort_by { |entry| entry.list.name }.each do |entry|
+              - next if entry.list.hidden?
+              %tr
+                %td= link_to(entry.list.name, competition_score_list_path(id: entry.list.id, anchor: "jump-run-#{entry.run}"))
+                %td= entry.run
+                %td= entry.track

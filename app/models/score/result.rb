@@ -13,10 +13,12 @@ class Score::Result < ApplicationRecord
   belongs_to :double_event_result, dependent: :destroy, class_name: 'Score::DoubleEventResult', inverse_of: :results
   has_many :result_lists, dependent: :destroy, inverse_of: :result
   has_many :lists, through: :result_lists
-  # has_many :series_assessment_results, class_name: 'Series::AssessmentResult', dependent: :destroy,
-  #                                      foreign_key: :score_result_id, inverse_of: :score_result
-  # has_many :series_assessments, through: :series_assessment_results, source: :assessment,
-  #                               class_name: 'Series::Assessment'
+  has_many :result_series_assessments, class_name: 'Score::ResultSeriesAssessment', dependent: :destroy,
+                                       inverse_of: :result
+  has_many :series_assessments, through: :result_series_assessments, source: :assessment,
+                                class_name: 'Series::Assessment'
+  has_many :competition_result_references, class_name: 'Score::CompetitionResultReference', dependent: :destroy
+  has_many :competition_results, class_name: 'Score::CompetitionResult', through: :competition_result_references
 
   delegate :discipline, to: :assessment
   delegate :band, to: :assessment, allow_nil: true
@@ -44,7 +46,7 @@ class Score::Result < ApplicationRecord
   end
 
   def possible_series_assessments
-    Series::Assessment.gender(assessment.band.gender).where(discipline: assessment.discipline.key)
+    Series::Assessment.gender(assessment.band.gender).where(discipline: assessment.discipline.key).year(Date.current.year)
   end
 
   def single_group_result?

@@ -42,6 +42,12 @@ Rails.application.routes.draw do
         resources :runs, only: %i[edit update], param: :run
       end
       resources :results
+      resources :competition_results, only: %i[new create index edit update destroy]
+    end
+
+    namespace :series do
+      resources :rounds, only: %i[index show]
+      resources :assessments, only: [:show]
     end
 
     # wrench menu

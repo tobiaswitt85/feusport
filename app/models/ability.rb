@@ -20,6 +20,7 @@ class Ability
     can(:manage, Score::ListEntry, competition: { user: })
     can(:manage, Score::Run, competition: { user: })
     can(:manage, Score::Result, competition: { user: })
+    can(:manage, Score::CompetitionResult, competition: { user: })
     can(:manage, Score::ListFactory, competition: { user: })
   end
 

@@ -1,0 +1,7 @@
+= card(t('a.actions'), class: 'mb-3') do |card|
+  - card.primary_actions do |actions|
+    - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
+  - card.body do
+    .d-grid.gap-2
+      = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete',turbo_confirm: 'Gesamtwertung wirklich löschen?' }
+

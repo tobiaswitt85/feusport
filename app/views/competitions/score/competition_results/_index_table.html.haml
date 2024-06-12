@@ -1,0 +1,18 @@
+%table.table.table-bordered
+  %tr
+    %th Platz
+    %th Mannschaft
+    - competition_result.results.each do |result|
+      %th{ colspan: 2 }
+        = discipline_image result.assessment.discipline.key
+        = result.assessment.discipline.short_name
+    %th.small.sum-points Punkte
+  - competition_result.rows.each do |row|
+    %tr
+      %td.sum-points #{competition_result.place_for_row(row)}.
+      %td= row.team.shortcut_name
+      - competition_result.results.each do |result|
+        - assessment_result = row.assessment_result_from(result)
+        %td.small.time= assessment_result.try(:result_entry).try(:decorate)
+        %td.small.points= assessment_result.try(:points)
+      %td.sum-points= row.points
