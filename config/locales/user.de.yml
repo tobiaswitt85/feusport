@@ -8,6 +8,7 @@ de:
         password: Passwort
         password_confirmation: Passwortbestätigung
         remember_me: Eingeloggt bleiben
+        reset_password_token: Zurücksetz-Link
     models:
       user:
         one: Benutzerkonto

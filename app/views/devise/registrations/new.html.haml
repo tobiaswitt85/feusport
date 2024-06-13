@@ -1,20 +1,9 @@
 = render 'devise/header'
 
-= page_title 'Erstellen eines neuen Benutzerkontos'
-
 .row
   .col-md-8
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      .card
-        .card-body
-          = f.error_notification
-
-          .form-inputs
-            = f.input :name, autofocus: true, input_html: { autocomplete: 'name' }
-            = f.input :email, input_html: { autocomplete: 'email' }
-            = f.input :password, required: true, input_html: { autocomplete: 'new-password' }
-            = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password' }
-          .btn-toolbar.mt-3
-            = f.button :submit, class: 'btn btn-primary'
+    = render('form')
   .col-md-4
-    = render 'devise/shared/links'
+    = card('Hinweise') do |c|
+      - c.body do
+        Hier kannst du dir ein Nutzerkonto registrieren. Bitte nutze sichere Passwörter und speichere Sie dir im Zweifel ab. Schlecht gespeichert ist besser, als leicht zu erraten. Im Anschluss musst du deine E-Mail-Adresse bestätigen.

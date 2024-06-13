@@ -1,17 +1,15 @@
 = render 'devise/header'
-= page_title 'Entsperr-E-Mail erneut zusenden'
 
 .row
   .col-md-8
     = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
-      .card
-        .card-body
-          = f.error_notification
+      = card('Entsperr-E-Mail erneut zusenden') do |c|
+        - c.body do
           = f.full_error :unlock_token
-
-          .form-inputs
-            = f.input :email, autofocus: true, required: true, input_html: { autocomplete: 'email' }
-          .btn-toolbar.mt-3
-            = f.button :submit, 'Zusenden', class: 'btn btn-primary'
+          = f.input :email, autofocus: true, required: true, input_html: { autocomplete: 'email' }
+        - c.footer do
+          = f.primary_button :submit, 'Zusenden'
   .col-md-4
-    = render 'devise/shared/links'
+    = card('Hinweise') do |c|
+      - c.body do
+        Wenn du die E-Mail nicht findest, schaue bitte auch in deinem Spam-Verzeichnis nach.
