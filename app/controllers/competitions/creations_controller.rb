@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-class CompetitionsController < ApplicationController
-  load_and_authorize_resource :competition
-
+class Competitions::CreationsController < ApplicationController
   def new
     @competition = Competition.new(user: current_user)
+    authorize!(:create, @competition)
   end
 
   def create
     @competition = Competition.new(user: current_user)
+    authorize!(:create, @competition)
     @competition.assign_attributes(competition_params)
     if @competition.save
       redirect_to competition_show_path(slug: @competition.slug, year: @competition.year), notice: :saved

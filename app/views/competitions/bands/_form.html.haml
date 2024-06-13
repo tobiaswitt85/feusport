@@ -1,8 +1,8 @@
 - card.body do
   = f.input :gender, collection: Band::GENDERS.keys, as: :radio_buttons, label_method: ->(b) { t("gender.#{b}") }
   = f.input :name
-  = f.input :person_tag_names, hint: "Werte mit Komma abtrennen, z.B.: U20, Gäste"
-  = f.input :team_tag_names, hint: "Werte mit Komma abtrennen, z.B.: BB-Cup, Ü40"
+  = f.input :person_tag_names, hint: 'Werte mit Komma abtrennen, z.B.: U20, Gäste'
+  = f.input :team_tag_names, hint: 'Werte mit Komma abtrennen, z.B.: BB-Cup, Ü40'
 - card.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_bands_path)

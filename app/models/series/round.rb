@@ -11,10 +11,6 @@ class Series::Round < ApplicationRecord
   schema_validations
 
   default_scope -> { order(year: :desc, name: :asc) }
-  scope :with_local_results, -> do
-    assessment_ids = Score::ResultSeriesAssessment.select(:assessment_id)
-    joins(:assessments).where(series_assessments: { id: assessment_ids })
-  end
 
   def disciplines
     assessments.pluck(:discipline).uniq.sort

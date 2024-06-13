@@ -3,9 +3,8 @@
 .row
   - if params[:info_hint] == 'competition'
     .col-md-4
-      = card('Neuen Wettkampf anlegen') do |c|
-        - c.body do
-          Um einen neuen Wettkampf anzulegen, musst du dich auf dieser Seite registrieren. Hast du das schon gemacht, brauchst du dich nur mit deinen Zugangsdaten anzumelden.
+      = card_body('Neuen Wettkampf anlegen') do
+        Um einen neuen Wettkampf anzulegen, musst du dich auf dieser Seite registrieren. Hast du das schon gemacht, brauchst du dich nur mit deinen Zugangsdaten anzumelden.
     .col-md-4
       = render('form')
     .col-md-4

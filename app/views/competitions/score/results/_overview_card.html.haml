@@ -10,19 +10,19 @@
       - if result.team_tags_included.present?
         %tr
           %th= Score::Result.human_attribute_name :team_tags_included
-          %td= result.team_tags_included.join(", ")
+          %td= result.team_tags_included.join(', ')
       - if result.team_tags_excluded.present?
         %tr
           %th= Score::Result.human_attribute_name :team_tags_excluded
-          %td= result.team_tags_excluded.join(", ")
+          %td= result.team_tags_excluded.join(', ')
       - if result.person_tags_included.present?
         %tr
           %th= Score::Result.human_attribute_name :person_tags_included
-          %td= result.person_tags_included.join(", ")
+          %td= result.person_tags_included.join(', ')
       - if result.person_tags_excluded.present?
         %tr
           %th= Score::Result.human_attribute_name :person_tags_excluded
-          %td= result.person_tags_excluded.join(", ")
+          %td= result.person_tags_excluded.join(', ')
 
       - if result.is_a? Score::DoubleEventResult
         %tr

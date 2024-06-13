@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Firesport::Series::Team::SaPokal < Firesport::Series::Team::LaCup
-  def self.max_points(round, gender:)
+  def self.max_points(_round, gender:)
     gender.to_sym == :male ? 11 : 4
   end
 

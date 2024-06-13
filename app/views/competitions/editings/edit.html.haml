@@ -2,13 +2,13 @@
 
 .row
   .col-md-8
-    = simple_form_for(@competition, url: competition_visibility_path) do |f|
-      = card 'Wettkampf aktualisieren' do |card|
-        - card.body do
+    = simple_form_for(@competition, url: competition_editing_path) do |f|
+      = card 'Wettkampf aktualisieren' do |c|
+        - c.body do
           = f.input :name, autofocus: true
           = f.input :date, html5: true
           = f.input :locality
           = f.input :description, input_html: { class: 'easymde-required' }
-        - card.footer do
+        - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_show_path)

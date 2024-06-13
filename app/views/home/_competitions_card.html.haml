@@ -11,7 +11,7 @@
         - competitions.each do |competition|
           = link_to(competition_path(competition), class: 'list-group-item list-group-item-action') do
             .d-flex.flex-row
-              - disciplines = competition.disciplines.map(&:key)
+              - disciplines = competition.disciplines.sort.map(&:key)
               - if disciplines.count == 0
                 .discipline-icons
               - elsif disciplines.count == 1
@@ -19,8 +19,8 @@
                   %img{ src: image_path("disciplines/#{disciplines[0]}.svg") }
               - else
                 .discipline-icons.four-discipline
-                  - (1..disciplines.count).each do |i|
-                    %img{ src: image_path("disciplines/#{disciplines[i - 1]}.svg") }
+                  - disciplines.first(4).each do |discipline|
+                    %img{ src: image_path("disciplines/#{discipline}.svg") }
               .ms-3
                 %h6.mb-0= competition.name
                 .mt-0

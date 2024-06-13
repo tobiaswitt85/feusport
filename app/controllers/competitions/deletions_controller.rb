@@ -9,7 +9,7 @@ class Competitions::DeletionsController < CompetitionNestedController
     @deletion = Competitions::Deletion.new(competition: @competition)
     @deletion.assign_attributes(deletion_params)
     if @deletion.save
-      redirect_to competitions_path, notice: :deleted
+      redirect_to root_path, notice: :deleted
     else
       flash.now[:alert] = :check_errors
       render action: :new, status: :unprocessable_entity

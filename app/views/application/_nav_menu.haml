@@ -5,7 +5,7 @@
 .collapse.navbar-collapse#navbar-supported-content
   %ul.navbar-nav.me-auto.mb-2.mb-lg-0
     %li.nav-item
-      = active_link_to('Wettkampf anlegen', new_competition_path, class: 'nav-link')
+      = active_link_to('Wettkampf anlegen', new_competitions_creations_path, class: 'nav-link')
     %li.nav-item
       = active_link_to('Über feusport.de', info_path, class: 'nav-link')
     - if user_signed_in?

@@ -18,7 +18,10 @@ module AccessDeniedSupport
         session[:requested_url_before_login] = request.fullpath if request.format == :html
 
         redirect_params = {}
-        redirect_params[:info_hint] = :competition if exception.action == :new && exception.subject.is_a?(Competition)
+        if exception.action == :create && exception.subject.is_a?(Competition)
+          redirect_params[:info_hint] =
+            :competition
+        end
         redirect_to new_user_session_path(redirect_params)
       end
     end

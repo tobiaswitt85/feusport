@@ -1,7 +1,6 @@
 // Entry point for the build script in your package.json
 import * as bootstrap from 'bootstrap';
 import '@hotwired/turbo-rails';
-import EasyMDE from 'easymde';
 
 import './_global';
 import './_certificates';
@@ -11,39 +10,9 @@ import './_team_suggestions';
 import './_person_suggestions';
 import './_tooltip';
 import './_edit_times';
+import './_easymde';
 
 document.addEventListener('turbo:load', () => {
-  document.querySelectorAll('textarea.easymde-required').forEach((textarea) => {
-    var editor = new EasyMDE({
-      element: textarea,
-      autoDownloadFontAwesome: false,
-      spellChecker: false,
-      status: false,
-      toolbar: [
-        'bold',
-        'italic',
-        'heading-3',
-        '|',
-        'unordered-list',
-        'ordered-list',
-        'link',
-        '|',
-        {
-          name: 'tabelle',
-          action: EasyMDE.drawTable,
-          className: 'fa fa-table',
-          title: 'Tabelle einfügen',
-        },
-        'horizontal-rule',
-        '|',
-        'preview',
-        'side-by-side',
-        'fullscreen',
-        'guide',
-      ],
-    });
-  });
-
   window.SocialShareButton = {
     openUrl: function (url, width = 640, height = 480) {
       var left, opt, top;

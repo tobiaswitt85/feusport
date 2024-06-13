@@ -3,10 +3,10 @@
 .row
   .col-md-8
     = simple_form_for(@competition, url: competition_visibility_path) do |f|
-      = card 'Wettkampf aktualisieren' do |card|
-        - card.body do
+      = card 'Wettkampf aktualisieren' do |c|
+        - c.body do
           = f.input :visible, autofocus: true
           = f.input :slug
-        - card.footer do
+        - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_show_path)

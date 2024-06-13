@@ -25,6 +25,7 @@ de:
         year_not_valid: hat ein ungültiges Jahr
   alerts:
     saved: Die Änderungen wurden gespeichert.
+    deleted: Der Eintrag wurde gelöscht.
     check_errors: 'Bitte überprüfen Sie folgende Fehler:'
   date:
     abbr_day_names:

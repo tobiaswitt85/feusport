@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
   }
 
-  resources :competitions, only: %i[new create index]
+  namespace :competitions do
+    resource :creations, only: %i[new create]
+  end
   scope '/:year/:slug', constraints: { year: /(\d{4})/ }, module: :competitions, as: :competition do
     root 'showings#show', as: :show
     resource :editing, only: %i[edit update]

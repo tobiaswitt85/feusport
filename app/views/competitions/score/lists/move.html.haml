@@ -5,7 +5,7 @@
     = card(@list.name) do |card|
       - card.direct do
         %table.table.sorted-table{ data: { track_count: @list.track_count } }
-          = render 'list_headline', list: @list, times: false,edit: false
+          = render 'list_headline', list: @list, times: false, edit: false
           %tbody
             - score_list_entries(@list, true) do |entry, run, track, _best_of_run|
               = render 'list_entry', entry:, run:, track:, list: @list, best_of_run: false, move: true

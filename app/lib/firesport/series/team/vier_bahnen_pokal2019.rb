@@ -5,7 +5,7 @@ class Firesport::Series::Team::VierBahnenPokal2019 < Firesport::Series::Team::La
     15
   end
 
-  def self.points_for_result(rank, time, round, double_rank_count: 0, gender:)
+  def self.points_for_result(rank, time, round, gender:, double_rank_count: 0)
     if rank == 1
       25
     elsif rank == 2
@@ -15,7 +15,7 @@ class Firesport::Series::Team::VierBahnenPokal2019 < Firesport::Series::Team::La
     elsif rank == 4
       13
     else
-      super(rank, time, round, double_rank_count: double_rank_count, gender: gender)
+      super(rank, time, round, double_rank_count:, gender:)
     end
   end
 

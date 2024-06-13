@@ -1,6 +1,5 @@
 = render 'competitions/header', competition: @competition, resource_class: Score::Run, sub: 'Zeiten eintragen'
 
-
 = simple_form_for(@run, url: url_for(controller: controller_path, action: :update)) do |f|
   = card @run.name do |card|
     - card.direct do

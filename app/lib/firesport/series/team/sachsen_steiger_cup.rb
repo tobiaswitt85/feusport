@@ -31,8 +31,6 @@ class Firesport::Series::Team::SachsenSteigerCup < Firesport::Series::Team::Base
   end
 
   def best_time
-    @best_time ||= begin
-      @cups.values.flatten.reject(&:time_invalid?).map(&:time).min || Firesport::INVALID_TIME
-    end
+    @best_time ||= @cups.values.flatten.reject(&:time_invalid?).map(&:time).min || Firesport::INVALID_TIME
   end
 end
