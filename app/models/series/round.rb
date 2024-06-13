@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Series::Round < ApplicationRecord
-  # include Series::Participationable
-  # include Series::Importable
+  include Series::Importable
 
   has_many :cups, class_name: 'Series::Cup', dependent: :destroy, inverse_of: :round
   has_many :assessments, class_name: 'Series::Assessment', dependent: :destroy, inverse_of: :round
@@ -13,7 +12,7 @@ class Series::Round < ApplicationRecord
 
   default_scope -> { order(year: :desc, name: :asc) }
   scope :with_local_results, -> do
-    assessment_ids = Series::AssessmentResult.select(:assessment_id)
+    assessment_ids = Score::ResultSeriesAssessment.select(:assessment_id)
     joins(:assessments).where(series_assessments: { id: assessment_ids })
   end
 
@@ -21,8 +20,8 @@ class Series::Round < ApplicationRecord
     assessments.pluck(:discipline).uniq.sort
   end
 
-  def team_assessment_rows(gender, cache = true)
-    @team_assessment_rows ||= calculate_rows(cache)
+  def team_assessment_rows(competition, gender)
+    @team_assessment_rows ||= calculate_rows(competition)
     @team_assessment_rows[gender]
   end
 
@@ -36,20 +35,22 @@ class Series::Round < ApplicationRecord
 
   protected
 
-  def calculate_rows(_cache)
+  def calculate_rows(competition)
     rows = {}
     %i[female male].each do |gender|
-      rows[gender] = teams(gender).values.sort
+      rows[gender] = teams(competition, gender).values.sort
       rows[gender].each { |row| row.calculate_rank!(rows[gender]) }
       rows[gender].each { |_row| aggregate_class.special_sort!(rows[gender]) }
     end
     rows
   end
 
-  def teams(gender)
+  def teams(competition, gender)
     teams = {}
     assessments = self.assessments.where(type: 'Series::TeamAssessment')
     Series::TeamParticipation.where(assessment: assessments.gender(gender)).find_each do |participation|
+      next if participation.cup.dummy_for_competition.present?
+
       teams[participation.entity_id] ||= aggregate_class.new(self, participation.team, participation.team_number)
       teams[participation.entity_id].add_participation(participation)
     end
@@ -57,7 +58,7 @@ class Series::Round < ApplicationRecord
       result = assessment.score_results.first
       next if result.blank?
 
-      cup  = Series::Cup.today_cup_for_round(self)
+      cup  = Series::Cup.find_or_create_today!(self, competition)
       rows = result.discipline.single_discipline? ? Score::GroupResult.new(result).rows : result.group_result_rows
 
       convert_result_rows(rows, gender) do |row, time, points, rank|

@@ -75,6 +75,7 @@ class FireSportStatistics < ActiveRecord::Migration[7.0]
       t.integer 'round_id', null: false
       t.string 'competition_place', null: false, limit: 100
       t.date 'competition_date', null: false
+      t.uuid 'dummy_for_competition_id'
       t.timestamps
     end
 

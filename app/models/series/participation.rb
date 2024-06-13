@@ -12,4 +12,8 @@ class Series::Participation < ApplicationRecord
   def result_entry
     @result_entry = Score::ResultEntry.new(time_with_valid_calculation: time)
   end
+
+  def result_entry_with_points
+    "#{result_entry.human_time} (#{points})"
+  end
 end

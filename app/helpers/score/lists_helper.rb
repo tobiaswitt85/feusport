@@ -23,11 +23,10 @@ module Score::ListsHelper
   end
 
   def label_method_for_select_entity(entity)
-    decorated = entity.decorate
     if @score_list.single_discipline?
-      "#{decorated.full_name} #{decorated.band}"
+      "#{entity.full_name} #{entity.band}"
     else
-      decorated.numbered_name_with_band
+      entity.numbered_name_with_band
     end
   end
 

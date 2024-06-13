@@ -1,0 +1,17 @@
+.row
+  .col-md-9
+    %h1 Wettkampfserien
+%table.table
+  %tr
+    %th Name
+    %th Jahr
+    %th Disziplinen
+    %th Mannschaften
+    %th Wettkämpfer
+  - @rounds.each do |row|
+    %tr
+      %td= link_to(row.name, row)
+      %td= link_to(row.year, row)
+      %td= safe_join(row.disciplines, ' ')
+      %td= row.team_count
+      %td= row.person_count

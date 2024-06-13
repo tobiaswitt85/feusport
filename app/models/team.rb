@@ -51,6 +51,10 @@ class Team < ApplicationRecord
     @people_assessments ||= Assessment.where(id: Score::ListEntry.where(entity: people).distinct.select(:assessment_id))
   end
 
+  def fire_sport_statistics_team_with_dummy
+    fire_sport_statistics_team.presence || FireSportStatistics::Team.dummy(self)
+  end
+
   def assessment_request_group_competitor_valid?
     @assessment_request_group_competitor_valid ||= Assessment.no_double_event.all.all? do |assessment|
       people.count do |person|

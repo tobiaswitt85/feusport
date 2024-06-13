@@ -2,7 +2,7 @@
 
 class Series::Assessment < ApplicationRecord
   include Genderable
-  # include Series::Importable
+  include Series::Importable
 
   belongs_to :round, class_name: 'Series::Round', inverse_of: :assessments
   has_many :cups, through: :round, class_name: 'Series::Cup'

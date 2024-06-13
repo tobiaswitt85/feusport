@@ -404,6 +404,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_12_111215) do
     t.integer "round_id", null: false
     t.string "competition_place", limit: 100, null: false
     t.date "competition_date", null: false
+    t.uuid "dummy_for_competition_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

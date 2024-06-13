@@ -17,10 +17,28 @@ class ImportSuggestionsJob < ApplicationJob
       import_series_cups
       import_series_assessments
       import_series_participations
+
+      translate_old_aggregate_types
+    end
+  end
+
+  def translate_old_aggregate_types
+    {
+      'MVCup' => 'MvCup',
+      'MVHindernisCup' => 'MvHindernisCup',
+      'MVSteigerCup' => 'MvSteigerCup',
+      'KPBautzen' => 'KpBautzen',
+    }.each do |old_type, new_type|
+      Series::Round.where(aggregate_type: old_type).update_all(aggregate_type: new_type)
     end
   end
 
   protected
+
+  def reset_autoincrement_id(klass)
+    next_id = (klass.maximum(:id) || 0) + 1
+    ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{klass.table_name}_id_seq RESTART WITH #{next_id}")
+  end
 
   def import_people
     fetch(:people, extended: 1) do |person|
@@ -43,6 +61,8 @@ class ImportSuggestionsJob < ApplicationJob
         saison_best_zk_competition: person[:best_scores].dig('sb', 'zk', 1),
       )
     end
+
+    reset_autoincrement_id(FireSportStatistics::Person)
   end
 
   def import_teams
@@ -53,6 +73,8 @@ class ImportSuggestionsJob < ApplicationJob
         short: team[:shortcut],
       )
     end
+
+    reset_autoincrement_id(FireSportStatistics::Team)
   end
 
   def import_team_members
@@ -62,6 +84,8 @@ class ImportSuggestionsJob < ApplicationJob
         team: teams[association[:team_id].to_i],
       )
     end
+
+    reset_autoincrement_id(FireSportStatistics::TeamAssociation)
   end
 
   def import_team_spellings
@@ -72,6 +96,8 @@ class ImportSuggestionsJob < ApplicationJob
         short: spelling[:shortcut],
       )
     end
+
+    reset_autoincrement_id(FireSportStatistics::TeamSpelling)
   end
 
   def import_person_spellings
@@ -83,6 +109,8 @@ class ImportSuggestionsJob < ApplicationJob
         gender: spelling[:gender],
       )
     end
+
+    reset_autoincrement_id(FireSportStatistics::PersonSpelling)
   end
 
   def import_series_rounds
@@ -95,6 +123,8 @@ class ImportSuggestionsJob < ApplicationJob
         full_cup_count: round[:full_cup_count],
       )
     end
+
+    reset_autoincrement_id(Series::Round)
   end
 
   def import_series_cups
@@ -106,6 +136,8 @@ class ImportSuggestionsJob < ApplicationJob
         competition_date: cup[:date],
       )
     end
+
+    reset_autoincrement_id(Series::Cup)
   end
 
   def import_series_assessments
@@ -123,6 +155,8 @@ class ImportSuggestionsJob < ApplicationJob
         type: assessment[:type],
       )
     end
+
+    reset_autoincrement_id(Series::Assessment)
   end
 
   def import_series_participations
@@ -140,6 +174,8 @@ class ImportSuggestionsJob < ApplicationJob
         person_id: participation[:person_id],
       )
     end
+
+    reset_autoincrement_id(Series::Participation)
   end
 
   def people
