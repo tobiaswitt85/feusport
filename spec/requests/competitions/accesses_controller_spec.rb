@@ -67,6 +67,14 @@ RSpec.describe Competitions::AccessesController do
         expect(flash[:notice]).to eq 'Du wurdest erfolgreich mit dem Wettkampf verbunden.'
       end.to change(UserAccess, :count).by(1)
 
+      # create an other request
+      req = UserAccessRequest.create!(competition:, sender: other_user, email: 'foo@bar.de', text: 'Hallo')
+
+      # GET connect with error
+      get "/#{competition.year}/#{competition.slug}/access_requests/#{req.id}/connect"
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/accesses")
+      expect(flash[:alert]).to eq 'Du hast bereits Zugriff auf diesen Wettkampf.'
+
       # POST create an other access_request
       post "/#{competition.year}/#{competition.slug}/access_requests",
            params: { user_access_request: { email: 'foo@bar.de', text: 'Hallo', drop_myself: false } }
