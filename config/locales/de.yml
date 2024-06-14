@@ -7,14 +7,6 @@ de:
     edit: Bearbeiten
     no_entries_found: Keine Einträge gefunden
     show: Ansehen
-
-  result_types:
-    waiting: Ausstehend
-    valid: Gültig
-    invalid: Ungültig
-    no_run: Nicht angetreten
-
-
   activerecord:
     errors:
       messages:
@@ -24,9 +16,26 @@ de:
           has_one: Datensatz kann nicht gelöscht werden, da ein abhängiger %{record}-Datensatz existiert.
         year_not_valid: hat ein ungültiges Jahr
   alerts:
-    saved: Die Änderungen wurden gespeichert.
-    deleted: Der Eintrag wurde gelöscht.
     check_errors: 'Bitte überprüfen Sie folgende Fehler:'
+    deleted: Der Eintrag wurde gelöscht.
+    saved: Die Änderungen wurden gespeichert.
+  assessment_types:
+    competitor: Teilnahme
+    competitor_order: Teilnahme (%{competitor_order})
+    competitor_short: T
+    competitor_short_order: "%{competitor_order}"
+    group_competitor: Mannschaftswertung
+    group_competitor_order: Mannschaftswertung (%{competitor_order})
+    group_competitor_short: M
+    group_competitor_short_order: M%{competitor_order}
+    out_of_competition: Außer der Wertung
+    out_of_competition_order: Außer der Wertung
+    out_of_competition_short: A
+    out_of_competition_short_order: A
+    single_competitor: Einzelstarter
+    single_competitor_order: Einzelstarter (%{competitor_order})
+    single_competitor_short: E
+    single_competitor_short_order: E%{competitor_order}
   date:
     abbr_day_names:
     - So
@@ -234,6 +243,11 @@ de:
     precision:
       format:
         delimiter: ''
+  result_types:
+    invalid: Ungültig
+    no_run: Nicht angetreten
+    valid: Gültig
+    waiting: Ausstehend
   social_share_button:
     email: Email
     facebook: Facebook
@@ -255,21 +269,3 @@ de:
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
     pm: nachmittags
-
-  assessment_types:
-    competitor: Teilnahme
-    competitor_order: Teilnahme (%{competitor_order})
-    competitor_short: T
-    competitor_short_order: '%{competitor_order}'
-    group_competitor: Mannschaftswertung
-    group_competitor_order: Mannschaftswertung (%{competitor_order})
-    group_competitor_short: M
-    group_competitor_short_order: M%{competitor_order}
-    single_competitor: Einzelstarter
-    single_competitor_order: Einzelstarter (%{competitor_order})
-    single_competitor_short: E
-    single_competitor_short_order: E%{competitor_order}
-    out_of_competition: Außer der Wertung
-    out_of_competition_order: Außer der Wertung
-    out_of_competition_short: A
-    out_of_competition_short_order: A

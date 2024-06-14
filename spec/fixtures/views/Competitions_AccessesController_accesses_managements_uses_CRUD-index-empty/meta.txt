@@ -1,4 +1,0 @@
-Competitions::AccessesController accesses managements uses CRUD-index-empty
-
-request
-html

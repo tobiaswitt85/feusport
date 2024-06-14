@@ -1,5 +1,9 @@
 ---
 de:
+  activemodel:
+    attributes:
+      competitions/deletion:
+        confirm: Bestätigung
   activerecord:
     attributes:
       competition:
@@ -12,10 +16,6 @@ de:
       competition:
         one: Wettkampf
         other: Wettkämpfe
-  activemodel:
-    attributes:
-      competitions/deletion:
-        confirm: Bestätigung
   simple_form:
     hints:
       competition:

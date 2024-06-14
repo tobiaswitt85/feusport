@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Discipline do
   let(:competition) { create(:competition) }
-  let(:user) { competition.user }
+  let(:user) { competition.users.first }
 
   describe 'disciplines managements' do
     it 'uses CRUD' do

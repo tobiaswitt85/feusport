@@ -2,11 +2,6 @@
 de:
   activerecord:
     attributes:
-      user_access_request:
-        email: E-Mail-Adresse
-        text: E-Mail-Text
-        drop_myself: Eigenen Zugang löschen
-        created_at: Erstellt am
       user:
         current_password: Aktuelles Passwort
         email: E-Mail-Adresse
@@ -14,25 +9,30 @@ de:
         password_confirmation: Passwortbestätigung
         remember_me: Eingeloggt bleiben
         reset_password_token: Zurücksetz-Link
+      user_access_request:
+        created_at: Erstellt am
+        drop_myself: Eigenen Zugang löschen
+        email: E-Mail-Adresse
+        text: E-Mail-Text
     models:
+      user:
+        one: Benutzerkonto
+        other: Benutzerkonten
       user_access:
         one: Zugang
         other: Zugänge
       user_access_request:
         one: Zugangsanfrage
         other: Zugangsanfragen
-      user:
-        one: Benutzerkonto
-        other: Benutzerkonten
+  simple_form:
+    hints:
+      user_access_request:
+        drop_myself: Wenn du hier einen Haken setzt, wird dein Zugang zu diesem Wettkampf automatisch gelöscht, sobald die Anfrage bestätigt wurde.
+        email: E-Mail-Adresse des zukünftigen Admins
+        text: Dieser Text wird an den zukünftigen Admin gesendet
   user_access_requests:
     example_text: |
       Hallo,
 
       ich habe bei feusport.de einen neuen Wettkampf für dich angelegt. Wenn du auf den nachfolgenden Link klickst, kannst du die Kontrolle über den Wettkampf übernehmen.
       Viele Grüße
-  simple_form:
-    hints:
-      user_access_request:
-        email: E-Mail-Adresse des zukünftigen Admins
-        text: Dieser Text wird an den zukünftigen Admin gesendet
-        drop_myself: Wenn du hier einen Haken setzt, wird dein Zugang zu diesem Wettkampf automatisch gelöscht, sobald die Anfrage bestätigt wurde.

@@ -28,7 +28,7 @@ group :red_green_refactor, halt_on_fail: true do
     dsl.watch_spec_files_for(rails.app_files)
     dsl.watch_spec_files_for(rails.views)
 
-    watch(%r{^app/views/(.+_mailer)/.+\.erb}) { |m| "#{rspec.spec_dir}/mailers/#{m[1]}_spec.rb" }
+    watch(%r{^app/views/(.+_mailer)/.+\.(erb)|(md)}) { |m| "#{rspec.spec_dir}/mailers/#{m[1]}_spec.rb" }
 
     watch(rails.controllers) do |m|
       [

@@ -37,6 +37,9 @@ RSpec.configure do |config|
   config.before do
     view_sanitizer.gsub(/[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}/, 'UUID')
   end
+  config.before(type: :mailer) do
+    view_sanitizer.gsub(/src="cid:[^\s.]+.mail"/, 'src="cid:CID.mail"')
+  end
 
   config.before(:suite) do
     FactoryBot.find_definitions

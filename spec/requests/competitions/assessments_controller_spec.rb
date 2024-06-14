@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Assessment do
   let(:competition) { create(:competition) }
-  let(:user) { competition.user }
+  let(:user) { competition.users.first }
 
   let!(:la) { create(:discipline, :la, competition:) }
   let!(:gs) { create(:discipline, :gs, competition:) }

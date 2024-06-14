@@ -3,7 +3,6 @@ de:
   activerecord:
     attributes:
       team:
-        tags: Kennzeichnungen
         band: Wertungsgruppe
         federal_state: Bundesland
         lottery_number: Losnummer
@@ -11,6 +10,7 @@ de:
         number: Nummer
         people: Wettkämpfer
         shortcut: Abkürzung
+        tags: Kennzeichnungen
     models:
       team:
         one: Mannschaft
