@@ -6,7 +6,7 @@ class Score::ListFactories::FireRelay < Score::ListFactory
   end
 
   def preview_entries_count
-    assessment_requests.map(&:relay_count).sum
+    assessment_requests.sum(&:relay_count)
   end
 
   protected

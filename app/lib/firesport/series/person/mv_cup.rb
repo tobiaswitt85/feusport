@@ -6,11 +6,11 @@ class Firesport::Series::Person::MVCup < Firesport::Series::Person::Base
   end
 
   def sum_time
-    @sum_time ||= ordered_participations.map(&:time).sum
+    @sum_time ||= ordered_participations.sum(&:time)
   end
 
   def points
-    @points ||= ordered_participations.map(&:points).sum
+    @points ||= ordered_participations.sum(&:points)
   end
 
   def <=>(other)

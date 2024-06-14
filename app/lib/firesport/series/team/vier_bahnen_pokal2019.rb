@@ -6,13 +6,14 @@ class Firesport::Series::Team::VierBahnenPokal2019 < Firesport::Series::Team::La
   end
 
   def self.points_for_result(rank, time, round, gender:, double_rank_count: 0)
-    if rank == 1
+    case rank
+    when 1
       25
-    elsif rank == 2
+    when 2
       20
-    elsif rank == 3
+    when 3
       16
-    elsif rank == 4
+    when 4
       13
     else
       super(rank, time, round, double_rank_count:, gender:)
@@ -50,12 +51,8 @@ class Firesport::Series::Team::VierBahnenPokal2019 < Firesport::Series::Team::La
 
   def sum_time
     @sum_time ||= begin
-      sum = ordered_participations.map(&:time).sum
-      if sum >= Firesport::INVALID_TIME
-        Firesport::INVALID_TIME
-      else
-        sum
-      end
+      sum = ordered_participations.sum(&:time)
+      [sum, Firesport::INVALID_TIME].min
     end
   end
 end

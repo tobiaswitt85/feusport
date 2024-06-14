@@ -14,11 +14,11 @@ class Firesport::Series::Person::ExtraLiga < Firesport::Series::Person::Base
   end
 
   def sum_time
-    @sum_time ||= ordered_participations.map(&:time).sum
+    @sum_time ||= ordered_participations.sum(&:time)
   end
 
   def points
-    @points ||= ordered_participations.map(&:points).sum + ((4 - max_count) * 9999)
+    @points ||= ordered_participations.sum(&:points) + ((4 - max_count) * 9999)
   end
 
   def <=>(other)

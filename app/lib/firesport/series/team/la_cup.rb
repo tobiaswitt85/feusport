@@ -6,7 +6,7 @@ class Firesport::Series::Team::LaCup < Firesport::Series::Team::Base
   end
 
   def points
-    @points ||= ordered_participations.map(&:points).sum
+    @points ||= ordered_participations.sum(&:points)
   end
 
   def <=>(other)

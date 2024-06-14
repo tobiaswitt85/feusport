@@ -5,8 +5,7 @@ FactoryBot.define do
     gender { 'female' }
     name { 'Frauen' }
 
-    trait :female do
-    end
+    trait :female
 
     trait :male do
       gender { 'male' }

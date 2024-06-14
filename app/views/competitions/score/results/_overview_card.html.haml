@@ -55,7 +55,7 @@
           %th= Score::Result.human_attribute_name :calculation_method
           %td= t("score_calculation_methods.#{result.calculation_method}")
 
-      - if false && result.series_assessments.exists?
+      - if result.series_assessments.exists?
         %tr
           %th Cup-Serie
           %td

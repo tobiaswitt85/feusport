@@ -15,14 +15,15 @@ Score::ResultRow = Struct.new(:entity, :result) do
   end
 
   def best_result_entry
-    @best_result_entry ||= case calculation_method
-                           when 'sum_of_two'
-                             Score::ResultEntry.new(
-                               time_with_valid_calculation: result_entries.select(&:result_valid?).first(2).sum(&:compare_time),
-                             )
-                           else
-                             result_entries.first
-                           end
+    @best_result_entry ||=
+      case calculation_method
+      when 'sum_of_two'
+        Score::ResultEntry.new(
+          time_with_valid_calculation: result_entries.select(&:result_valid?).first(2).sum(&:compare_time),
+        )
+      else
+        result_entries.first
+      end
   end
 
   def result_entry

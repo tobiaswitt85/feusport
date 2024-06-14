@@ -18,7 +18,7 @@ class Firesport::Series::Team::VierBahnenPokal < Firesport::Series::Team::LaCup
   def points
     @points ||= begin
       fail_points = ((round.full_cup_count || 5) - count) * 20
-      ordered_participations.map(&:points).sum + fail_points
+      ordered_participations.sum(&:points) + fail_points
     end
   end
 
@@ -61,12 +61,8 @@ class Firesport::Series::Team::VierBahnenPokal < Firesport::Series::Team::LaCup
 
   def sum_time
     @sum_time ||= begin
-      sum = @cups.values.flatten.map(&:time).sum
-      if sum >= Firesport::INVALID_TIME
-        Firesport::INVALID_TIME
-      else
-        sum
-      end
+      sum = @cups.values.flatten.sum(&:time)
+      [sum, Firesport::INVALID_TIME].min
     end
   end
 end

@@ -3,7 +3,7 @@
 - @competition.bands.sort.each do |band|
   = card(band.name, class: 'mb-3') do |card|
     - card.body do
-      - if resource_collection.where(band:).exists?
+      - if resource_collection.exists?(band:)
         = render('index_table', resource_class:, resource_collection: resource_collection.where(band:), band:, assessments: Assessment.requestable_for_team(band))
       - else
         .alert.alert-info= t('a.no_entries_found')

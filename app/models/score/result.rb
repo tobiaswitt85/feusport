@@ -46,7 +46,9 @@ class Score::Result < ApplicationRecord
   end
 
   def possible_series_assessments
-    Series::Assessment.gender(assessment.band.gender).where(discipline: assessment.discipline.key).year(Date.current.year)
+    Series::Assessment.gender(assessment.band.gender)
+                      .where(discipline: assessment.discipline.key)
+                      .year(Date.current.year)
   end
 
   def single_group_result?

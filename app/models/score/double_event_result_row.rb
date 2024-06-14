@@ -9,7 +9,9 @@ Score::DoubleEventResultRow = Struct.new(:entity, :result) do
   end
 
   def sum_result_entry
-    @sum_result_entry ||= Score::ResultEntry.new(time_with_valid_calculation: result_rows.map(&:best_result_entry).sum(&:compare_time))
+    @sum_result_entry ||= Score::ResultEntry.new(
+      time_with_valid_calculation: result_rows.map(&:best_result_entry).sum(&:compare_time),
+    )
   end
 
   def result_entry
