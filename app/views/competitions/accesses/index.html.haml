@@ -1,0 +1,41 @@
+= render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
+
+.row.g-4
+  .col-md-8
+    = card(resource_class.model_name.human(count: :many)) do |c|
+      - if resource_collection.exists?
+        - c.direct do
+          %table.table
+            %tr
+              %th= User.human_attribute_name(:name)
+              %th= User.human_attribute_name(:email)
+            - resource_collection.sort.each do |access|
+              %tr
+                %td= access.user.name
+                %td= access.user.email
+      - else
+        - c.body do
+          .alert.alert-info= t('a.no_entries_found')
+
+      - if can?(:create, UserAccessRequest.new(competition: @competition))
+        = c.primary_actions do |actions|
+          = actions.link_to t('a.add'), new_competition_access_request_path, end_icon: :square_plus
+
+  - if @competition.user_access_requests.exists?
+    .col-md-8
+      = card(UserAccessRequest.model_name.human(count: :many)) do |c|
+        - c.direct do
+          %table.table
+            %tr
+              %th= UserAccessRequest.human_attribute_name(:created_at)
+              %th= UserAccessRequest.human_attribute_name(:email)
+              %th= UserAccessRequest.human_attribute_name(:drop_myself)
+              %th
+            - @competition.user_access_requests.sort.each do |req|
+              %tr
+                %td= l(req.created_at)
+                %td= req.email
+                %td= req.drop_myself? ? 'Ja' : 'Nein'
+                %td
+                  = link_to(competition_access_request_path(id: req.id), class: 'btn btn-light btn-sm', data: { turbo_confirm: 'Anfrage wirklich entfernen?', 'turbo-method': :delete }) do
+                    %i.far.fa-trash

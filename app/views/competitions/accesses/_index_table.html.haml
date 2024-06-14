@@ -1,0 +1,8 @@
+%table.table
+  %tr
+    %th= User.human_attribute_name(:name)
+    %th= User.human_attribute_name(:email)
+  - resource_collection.sort.each do |access|
+    %tr
+      %td= access.user.name
+      %td= access.user.email

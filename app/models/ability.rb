@@ -8,20 +8,24 @@ class Ability
 
     return if user.nil?
 
-    can(:manage, Competition, user:)
-    can(:manage, Document, competition: { user: })
-    can(:manage, Discipline, competition: { user: })
-    can(:manage, Band, competition: { user: })
-    can(:manage, Assessment, competition: { user: })
-    can(:manage, Team, competition: { user: })
-    can(:manage, Person, competition: { user: })
-    can(:manage, Certificates::Template, competition: { user: })
-    can(:manage, Score::List, competition: { user: })
-    can(:manage, Score::ListEntry, competition: { user: })
-    can(:manage, Score::Run, competition: { user: })
-    can(:manage, Score::Result, competition: { user: })
-    can(:manage, Score::CompetitionResult, competition: { user: })
-    can(:manage, Score::ListFactory, competition: { user: })
+    can(:connect, UserAccessRequest)
+
+    can(:manage, Competition, user_accesses: { user: })
+    can(:manage, Document, competition: { user_accesses: { user: } })
+    can(:manage, Discipline, competition: { user_accesses: { user: } })
+    can(:manage, Band, competition: { user_accesses: { user: } })
+    can(:manage, Assessment, competition: { user_accesses: { user: } })
+    can(:manage, Team, competition: { user_accesses: { user: } })
+    can(:manage, Person, competition: { user_accesses: { user: } })
+    can(:manage, Certificates::Template, competition: { user_accesses: { user: } })
+    can(:manage, Score::List, competition: { user_accesses: { user: } })
+    can(:manage, Score::ListEntry, competition: { user_accesses: { user: } })
+    can(:manage, Score::Run, competition: { user_accesses: { user: } })
+    can(:manage, Score::Result, competition: { user_accesses: { user: } })
+    can(:manage, Score::CompetitionResult, competition: { user_accesses: { user: } })
+    can(:manage, Score::ListFactory, competition: { user_accesses: { user: } })
+    can(:manage, UserAccess, competition: { user_accesses: { user_id: user.id } })
+    can(:manage, UserAccessRequest, competition: { user_accesses: { user_id: user.id } })
   end
 
   def global_abilities

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_12_111215) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_13_205213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -108,7 +108,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_12_111215) do
   end
 
   create_table "competitions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
     t.string "name", limit: 50, null: false
     t.date "date", null: false
     t.string "locality", limit: 50, null: false
@@ -121,7 +120,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_12_111215) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_competitions_on_date"
-    t.index ["user_id"], name: "index_competitions_on_user_id"
     t.index ["year", "slug"], name: "index_competitions_on_year_and_slug", unique: true
   end
 
@@ -459,6 +457,27 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_12_111215) do
     t.index ["fire_sport_statistics_team_id"], name: "index_teams_on_fire_sport_statistics_team_id"
   end
 
+  create_table "user_access_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id", null: false
+    t.uuid "sender_id", null: false
+    t.string "email", limit: 200, null: false
+    t.text "text", null: false
+    t.boolean "drop_myself", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_user_access_requests_on_competition_id"
+    t.index ["sender_id"], name: "index_user_access_requests_on_sender_id"
+  end
+
+  create_table "user_accesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "competition_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_user_accesses_on_competition_id"
+    t.index ["user_id"], name: "index_user_accesses_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", limit: 100, null: false
     t.string "encrypted_password", limit: 100, null: false
@@ -495,7 +514,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_12_111215) do
   add_foreign_key "bands", "competitions"
   add_foreign_key "certificates_templates", "competitions"
   add_foreign_key "certificates_text_fields", "certificates_templates", column: "template_id"
-  add_foreign_key "competitions", "users"
   add_foreign_key "disciplines", "competitions"
   add_foreign_key "documents", "competitions"
   add_foreign_key "people", "bands"
@@ -526,4 +544,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_12_111215) do
   add_foreign_key "team_relays", "teams"
   add_foreign_key "teams", "bands"
   add_foreign_key "teams", "competitions"
+  add_foreign_key "user_access_requests", "competitions"
+  add_foreign_key "user_access_requests", "users", column: "sender_id"
+  add_foreign_key "user_accesses", "competitions"
+  add_foreign_key "user_accesses", "users"
 end

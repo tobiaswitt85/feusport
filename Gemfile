@@ -35,6 +35,7 @@ gem 'cancancan' # model authentication
 gem 'redcarpet' # markdown to html parser
 gem 'image_processing' # generate previews and thumbs
 gem 'activestorage-validator' # validate stored files
+gem 'valid_email2' # validates email addresses
 
 # exports
 gem 'caxlsx'

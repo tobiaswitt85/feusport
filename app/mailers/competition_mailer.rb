@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 class CompetitionMailer < ApplicationMailer
-  def test
-    @foo = params[:foo]
-    mail(to: email_address_with_name('foo@bar.de', 'Foo'), subject: 'Welcome to My Awesome Site')
+  def access_request
+    @access_request = params[:access_request]
+    mail(
+      to: @access_request.email,
+      reply_to: email_address_with_name(@access_request.sender.email, @access_request.sender.name),
+      subject: "Zugangsanfrage für Wettkampf - #{@access_request.competition.name}",
+    )
   end
 end

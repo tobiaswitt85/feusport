@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :competition do
-    user { User.first || create(:user) }
+    users { [User.first || create(:user)] }
     name { 'MV-Cup' }
     date { Date.parse('2024-02-29') }
     locality { 'Rostock' }

@@ -468,6 +468,9 @@ GEM
     unicorn (6.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    valid_email2 (5.2.3)
+      activemodel (>= 3.2)
+      mail (~> 2.5)
     vcr (6.2.0)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -541,6 +544,7 @@ DEPENDENCIES
   sqlite3
   turbo-rails
   unicorn
+  valid_email2
   vcr
   web-console
   webmock

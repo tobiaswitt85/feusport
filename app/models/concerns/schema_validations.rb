@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20240612111215
+# generated from version 20240613205213
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -150,10 +150,9 @@ module SchemaValidations
     end
 
     def dbv_competitions_validations(enums: [])
-      belongs_to_presence_validations_for([:user_id, :year])
+      belongs_to_presence_validations_for([:year])
       belongs_to_uniqueness_validations_for([["year", "slug"]])
       uniqueness_validations_for([["year", "slug"]])
-      validates_with_filter :user_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :date, {:presence=>{}}
@@ -575,6 +574,30 @@ module SchemaValidations
       validates_with_filter :lottery_number, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:lottery_number)
       validates_with_filter :enrolled, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :fire_sport_statistics_team_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:fire_sport_statistics_team_id)
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_user_access_requests_validations(enums: [])
+      belongs_to_presence_validations_for([:competition_id, :sender_id])
+      validates_with_filter :competition_id, {:presence=>{}}
+      validates_with_filter :sender_id, {:presence=>{}}
+      validates_with_filter :email, {:presence=>{}}
+      validates_with_filter :email, {:length=>{:allow_nil=>true, :maximum=>200}}
+      validates_with_filter :text, {:presence=>{}}
+      validates_with_filter :drop_myself, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_user_accesses_validations(enums: [])
+      belongs_to_presence_validations_for([:user_id, :competition_id])
+      validates_with_filter :user_id, {:presence=>{}}
+      validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

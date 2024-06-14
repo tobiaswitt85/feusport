@@ -7,5 +7,10 @@ FactoryBot.define do
     password { 'Password' }
     password_confirmation { 'Password' }
     confirmed_at { Date.current }
+
+    trait :other do
+      email { 'other@meier.de' }
+      name { 'Other Meier' }
+    end
   end
 end

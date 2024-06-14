@@ -2,12 +2,16 @@
 
 class Competitions::CreationsController < ApplicationController
   def new
-    @competition = Competition.new(user: current_user)
+    authorize!(:create, Competition)
+    @competition = Competition.new
+    @competition.users.push(current_user)
     authorize!(:create, @competition)
   end
 
   def create
-    @competition = Competition.new(user: current_user)
+    authorize!(:create, Competition)
+    @competition = Competition.new
+    @competition.users.push(current_user)
     authorize!(:create, @competition)
     @competition.assign_attributes(competition_params)
     if @competition.save

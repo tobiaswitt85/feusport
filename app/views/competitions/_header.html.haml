@@ -6,15 +6,14 @@
   = page.sub_title2 sub if sub.present?
   = page.tabs do |tabs|
     = tabs.link_to 'Informationen', competition_show_path, active: resource_class.nil?
-    - if @competition.bands.exists?
-      - if @competition.disciplines.exists?
-        = tabs.link_to Team, competition_teams_path
-        - if @competition.disciplines.single_disciplines.exists?
-          = tabs.link_to Person, competition_people_path
-        - if can?(:manage, @competition) || @competition.score_lists.exists?
-          = tabs.link_to Score::List, competition_score_lists_path, active: resource_class.in?([Score::List, Score::ListFactory, Score::Run])
+    - if @competition.bands.exists? && @competition.disciplines.exists?
+      = tabs.link_to Team, competition_teams_path
+      - if @competition.disciplines.single_disciplines.exists?
+        = tabs.link_to Person, competition_people_path
+      - if can?(:manage, @competition) || @competition.score_lists.exists?
+        = tabs.link_to Score::List, competition_score_lists_path, active: resource_class.in?([Score::List, Score::ListFactory, Score::Run])
 
-        = tabs.link_to Score::Result, competition_score_results_path
+      = tabs.link_to Score::Result, competition_score_results_path
 
     - if @competition.score_competition_results.where(hidden: false).exists?
       = tabs.link_to Score::CompetitionResult, competition_score_competition_results_path
@@ -27,3 +26,4 @@
         = dropdown.link_to Assessment, competition_assessments_path
         = dropdown.link_to Score::CompetitionResult, competition_score_competition_results_path
         = dropdown.link_to Certificates::Template, competition_certificates_templates_path
+        = dropdown.link_to UserAccess, competition_accesses_path

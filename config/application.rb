@@ -44,6 +44,8 @@ module Feusport
     config.active_record.encryption.key_derivation_salt = Rails.application.secrets.encryption_key_derivation_salt
     config.active_record.encryption.primary_key = Rails.application.secrets.encryption_primary_key
 
+    config.x.email_validation = { mx: true }
+
     config.default_url_options = {}
 
     config.action_mailer.default_options = {
