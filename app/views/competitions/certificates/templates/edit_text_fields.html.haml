@@ -3,6 +3,8 @@
 - if @template.font2.attached?
   = render 'font_style', type: :bold, font: @template.font2
 
+= render 'competitions/header', competition: @competition, sub: "Urkundenvorlage: #{@template.name}"
+
 = simple_form_for(@template, url: url_for(controller: controller_path, action: :update)) do |f|
   = card("Urkundenvorlage: #{@template.name}", title: true) do |card|
     - card.direct do
@@ -36,7 +38,7 @@
           = tf.input :height, as: :hidden
           = tf.input :size, as: :hidden
           = tf.input :key, as: :hidden, input_html: { value: 'template' }
-          = tf.input :align, as: :hidden
+          = tf.input :align, as: :hidden, input_html: { value: "center" }
           = tf.input :text, as: :hidden
           = tf.input :font, as: :hidden
           = tf.input :color, as: :hidden
@@ -44,7 +46,7 @@
           = tf.input :_destroy, as: :hidden, input_html: { value: 'true' }
       - card.footer do
         = f.primary_button :submit
-        = f.cancel_button(competition_certificates_templates_path)
+        = f.cancel_button(competition_certificates_template_path(id: @template.id))
 
 .feusport-modal#new-positions-form
   .feusport-modal-content

@@ -40,6 +40,11 @@ class Competitions::Certificates::TemplatesController < CompetitionNestedControl
     end
   end
 
+  def destroy
+    @template.destroy
+    redirect_to competition_certificates_templates_path, notice: :deleted
+  end
+
   protected
 
   def assign_resource_for_edit

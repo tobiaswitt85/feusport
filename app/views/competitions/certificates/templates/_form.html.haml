@@ -5,4 +5,4 @@
   = f.input :font2, as: :file, hint: ['Zweite Schriftart für variable Texte', @template.font2_hint].compact_blank.join('; ')
 - card.footer do
   = f.primary_button :submit
-  = f.cancel_button(competition_certificates_templates_path)
+  = f.cancel_button(competition_certificates_template_path(id: @template.id))
