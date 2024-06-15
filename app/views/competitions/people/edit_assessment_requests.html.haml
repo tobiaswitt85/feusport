@@ -21,11 +21,11 @@
                   .col-md-3.competitor-order
                     - case assessment.discipline.key
                     - when 'fs'
-                      = g.input :competitor_order, collection: AssessmentRequestDecorator.fs_names.each_with_index.map { |n, i| [n, i] }, include_blank: false
+                      = g.input :competitor_order, collection: AssessmentRequest.fs_names.each_with_index.map { |n, i| [n, i] }, include_blank: false
                     - when 'la'
-                      = g.input :competitor_order, collection: AssessmentRequestDecorator.la_names.each_with_index.map { |n, i| [n, i] }, include_blank: false
+                      = g.input :competitor_order, collection: AssessmentRequest.la_names.each_with_index.map { |n, i| [n, i] }, include_blank: false
                     - when 'gs'
-                      = g.input :competitor_order, collection: AssessmentRequestDecorator.gs_names.each_with_index.map { |n, i| [n, i] }, include_blank: false
+                      = g.input :competitor_order, collection: AssessmentRequest.gs_names.each_with_index.map { |n, i| [n, i] }, include_blank: false
                     - else
                       = g.input :competitor_order
         - card.footer do

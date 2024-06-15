@@ -15,6 +15,7 @@ class Assessment < ApplicationRecord
   has_many :lists, class_name: 'Score::List', through: :list_assessments, dependent: :restrict_with_error
 
   scope :no_zweikampf, -> { joins(:discipline).where.not(disciplines: { key: 'zk' }) }
+  scope :single_disciplines, -> { joins(:discipline).where(disciplines: { single_discipline: true }) }
 
   schema_validations
   delegate :like_fire_relay?, to: :discipline

@@ -17,19 +17,15 @@
           %tr
             %th= Team.human_attribute_name(:band)
             %td= @team.band.name
-          -# - if admin_logged_in? || @team.object.people.exists?
-          -#   %tr{ admin_logged_in? && !@team.assessment_request_group_competitor_valid? ? { class: 'danger' } : {} }
-          -#     %th= Team.human_attribute_name :people
-          -#     %td= @team.people.count
+          - unless @team.group_assessment_validator.valid?
+            %tr
+              %th.bg-warning Mannschaftswertung ungültig
+              %td.bg-warning= @team.group_assessment_validator.messages
+
           - @team.band.team_tags.each do |tag|
             %tr
               %th= tag
               %td= @team.tags.include?(tag) ? 'Ja' : 'Nein'
-          -# - if admin_logged_in?
-          -#   - @team.people_assessments.each do |assessment|
-          -#     %tr{ @team.list_entries_group_competitor(assessment) > Competition.one.group_run_count ? { class: 'danger' } : {} }
-          -#       %th= assessment.decorate
-          -#       %td #{@team.list_entries_group_competitor(assessment)} von #{Competition.one.group_run_count}
           %tr
             %td{ colspan: 2 }
               = render('connected', team: @team, remove: false)

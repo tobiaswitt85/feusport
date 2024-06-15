@@ -24,6 +24,10 @@ class Team < ApplicationRecord
   after_create :create_assessment_requests
   attr_accessor :disable_autocreate_assessment_requests
 
+  def group_assessment_validator
+    @group_assessment_validator ||= GroupAssessmentValidator.new(self)
+  end
+
   def numbered_name
     multi_team? ? "#{name} #{number}" : name
   end
@@ -76,5 +80,29 @@ class Team < ApplicationRecord
 
   def multi_team?
     Team.where(band:).where(name:).where.not(id:).exists?
+  end
+
+  class GroupAssessmentValidator
+    def initialize(team)
+      @team = team
+      @bad_results = []
+
+      return unless @team.people.exists?
+
+      Score::Result.where(group_assessment: true, assessment: @team.band.assessments.single_disciplines)
+                   .find_each do |result|
+        requests = AssessmentRequest.where(entity: team.people, assessment_type: 'group_competitor',
+                                           assessment: result.assessment).count
+        @bad_results.push([result, requests, result.group_run_count]) if requests > result.group_run_count
+      end
+    end
+
+    def valid?
+      @bad_results.empty?
+    end
+
+    def messages
+      @bad_results.map { |result, requests, run_count| "#{result.name}: #{requests} von #{run_count}" }.join(', ')
+    end
   end
 end
