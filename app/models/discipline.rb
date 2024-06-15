@@ -5,7 +5,7 @@ class Discipline < ApplicationRecord
 
   DISCIPLINES = %w[la hl hb zk gs fs other].freeze
   DEFAULT_NAMES = {
-    la: 'Löschangriff nass',
+    la: 'Löschangriff Nass',
     hl: 'Hakenleitersteigen',
     hb: '100m-Hindernisbahn',
     zk: 'Zweikampf',

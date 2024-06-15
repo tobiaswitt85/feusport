@@ -27,7 +27,7 @@ RSpec.describe Discipline do
 
       # POST create an own discipline
       post "/#{competition.year}/#{competition.slug}/disciplines",
-           params: { discipline: { name: 'Löschangriff nass', short_name: 'LA', key: 'la' } }
+           params: { discipline: { name: 'Löschangriff Nass', short_name: 'LA', key: 'la' } }
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/disciplines")
       follow_redirect!
 

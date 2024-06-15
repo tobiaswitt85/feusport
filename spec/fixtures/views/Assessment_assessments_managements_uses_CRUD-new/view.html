@@ -126,12 +126,15 @@ Erweitert
 </div>
 <div class='card-body'>
 <div class="form-group my-2 select required assessment_discipline"><label class="control-label select required" for="assessment_discipline_id">Disziplin <abbr title="required">*</abbr></label><select class="form-select select required" name="assessment[discipline_id]" id="assessment_discipline_id"><option value="" label=" "></option>
-<option value="UUID">Löschangriff nass</option>
+<option value="UUID">Löschangriff Nass</option>
 <option value="UUID">Gruppenstafette</option></select></div>
 <div class="form-group my-2 select required assessment_band"><label class="control-label select required" for="assessment_band_id">Wertungsgruppe <abbr title="required">*</abbr></label><select class="form-select select required" name="assessment[band_id]" id="assessment_band_id"><option value="" label=" "></option>
 <option value="UUID">Frauen</option>
 <option value="UUID">Männer</option></select></div>
 <div class="form-group my-2 string optional assessment_forced_name"><label class="control-label string optional" for="assessment_forced_name">Name</label><input class="form-control string optional" type="text" name="assessment[forced_name]" id="assessment_forced_name" /></div>
+<fieldset class='group'>
+<fieldset class="form-group boolean optional assessment_generate_score_result"><div class="form-check"><input name="assessment[generate_score_result]" type="hidden" value="0" autocomplete="off" /><input class="form-check-input boolean optional" type="checkbox" value="1" name="assessment[generate_score_result]" id="assessment_generate_score_result" /><label class="form-check-label boolean optional" for="assessment_generate_score_result">Ergebnisliste erzeugen</label><small class="form-text text-muted">Soll eine passende Ergebnisliste mit angelegt werden?</small></div></fieldset>
+</fieldset>
 
 </div>
 <div class='card-footer'>

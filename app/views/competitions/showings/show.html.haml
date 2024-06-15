@@ -17,6 +17,7 @@
               .far.fa-eye-slash
               Nicht öffentlich sichtbar
             = link_to 'Sichtbarkeit bearbeiten', edit_competition_visibility_path, class: 'btn btn-light btn-sm'
+      = render('next_step_card')
       .card-header
         .d-grid.gap-2.col-10.mx-auto
           - if can?(:edit, @competition)

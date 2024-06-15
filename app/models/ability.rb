@@ -26,6 +26,7 @@ class Ability
     can(:manage, Score::ListFactory, competition: { user_accesses: { user: } })
     can(:manage, UserAccess, competition: { user_accesses: { user_id: user.id } })
     can(:manage, UserAccessRequest, competition: { user_accesses: { user_id: user.id } })
+    can(:manage, Presets::Base) { |preset| can?(:manage, preset.competition) }
   end
 
   def global_abilities

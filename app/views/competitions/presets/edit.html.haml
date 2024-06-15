@@ -1,0 +1,13 @@
+= render 'competitions/header', competition: @competition, sub: 'Vorlage wählen', resource_class: Presets::Base
+
+.row.g-4
+  .col-md-8
+    = simple_form_for(@preset, url: url_for(controller: controller_path, action: :update), as: :preset) do |f|
+      = card(@preset.name) do |c|
+        - c.body do
+          - @preset.params.each do |param|
+            %fieldset.group
+              = f.input param.name, **param.options
+        - c.footer do
+          = f.primary_button :submit
+          = f.cancel_button(competition_presets_path)

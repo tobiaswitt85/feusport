@@ -2,6 +2,9 @@
   = f.association :discipline, collection: @competition.disciplines
   = f.association :band, collection: @competition.bands
   = f.input :forced_name
+  - unless @assessment.persisted?
+    %fieldset.group
+      = f.input :generate_score_result, hint: 'Soll eine passende Ergebnisliste mit angelegt werden?'
 - card.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_assessments_path)

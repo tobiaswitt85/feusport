@@ -3,7 +3,8 @@
 class Assessment < ApplicationRecord
   include SortableByName
 
-  schema_validations
+  attribute :generate_score_result, :boolean, default: false
+
   belongs_to :competition
   belongs_to :discipline
   belongs_to :band
@@ -15,7 +16,12 @@ class Assessment < ApplicationRecord
 
   scope :no_zweikampf, -> { joins(:discipline).where.not(disciplines: { key: 'zk' }) }
 
+  schema_validations
   delegate :like_fire_relay?, to: :discipline
+
+  after_create do
+    competition.score_results.create!(assessment: self) if generate_score_result
+  end
 
   def name
     @name ||= forced_name.presence || [discipline&.name, band&.name].compact_blank.join(' - ')

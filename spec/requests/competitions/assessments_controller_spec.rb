@@ -41,7 +41,7 @@ RSpec.describe Assessment do
 
       assessment = described_class.find_by(discipline: la)
       expect(assessment.band).to eq female
-      expect(assessment.name).to eq 'Löschangriff nass - Frauen'
+      expect(assessment.name).to eq 'Löschangriff Nass - Frauen'
 
       # GET index XLSX
       get "/#{competition.year}/#{competition.slug}/assessments.xlsx"

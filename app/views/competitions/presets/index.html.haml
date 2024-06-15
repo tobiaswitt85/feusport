@@ -1,0 +1,10 @@
+= render 'competitions/header', competition: @competition, sub: 'Vorlage wählen', resource_class: Presets::Base
+
+.row.g-4
+  .col-md-8
+    = card_direct('Mögliche Vorlagen') do
+      %table.table
+        - Presets::Base.list.each do |key, preset|
+          %tr
+            %th= preset.new.name
+            %td.text-end= btn_link_to('Ansehen', edit_competition_preset_path(id: key))

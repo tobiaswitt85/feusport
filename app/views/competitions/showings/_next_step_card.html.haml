@@ -1,0 +1,30 @@
+- if !@competition.preset_ran?
+  .card-header.text-bg-info
+    .d-grid.gap-2.col-10.mx-auto
+      .text-center
+        Nächster Schritt
+      = link_to 'Vorlage wählen', competition_presets_path, class: 'btn btn-light btn-sm'
+- elsif !@competition.disciplines.exists?
+  .card-header.text-bg-info
+    .d-grid.gap-2.col-10.mx-auto
+      .text-center
+        Nächster Schritt
+      = link_to 'Disziplinen anlegen', competition_disciplines_path, class: 'btn btn-light btn-sm'
+- elsif !@competition.bands.exists?
+  .card-header.text-bg-info
+    .d-grid.gap-2.col-10.mx-auto
+      .text-center
+        Nächster Schritt
+      = link_to 'Wertungsgruppen anlegen', competition_bands_path, class: 'btn btn-light btn-sm'
+- elsif !@competition.assessments.exists?
+  .card-header.text-bg-info
+    .d-grid.gap-2.col-10.mx-auto
+      .text-center
+        Nächster Schritt
+      = link_to 'Wertungen anlegen', competition_assessments_path, class: 'btn btn-light btn-sm'
+- elsif !@competition.score_results.exists?
+  .card-header.text-bg-info
+    .d-grid.gap-2.col-10.mx-auto
+      .text-center
+        Nächster Schritt
+      = link_to 'Ergebnislisten anlegen', competition_score_results_path, class: 'btn btn-light btn-sm'

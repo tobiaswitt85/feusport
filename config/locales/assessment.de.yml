@@ -6,6 +6,7 @@ de:
         band: Wertungsgruppe
         discipline: Disziplin
         forced_name: Name
+        generate_score_result: Ergebnisliste erzeugen
         name: Name
     models:
       assessment:

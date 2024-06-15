@@ -166,6 +166,7 @@ module SchemaValidations
       validates_with_filter :visible, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :lottery_numbers, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :show_bib_numbers, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :preset_ran, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

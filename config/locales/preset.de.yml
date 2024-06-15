@@ -1,0 +1,18 @@
+---
+de:
+  activemodel:
+    attributes:
+      presets/base:
+        selected_assessments: Wertungen
+        selected_bands: Wertungsgruppen
+        selected_disciplines: Disziplinen
+    models:
+      presets/base:
+        one: Vorlage
+        other: Vorlagen
+  simple_form:
+    hints:
+      preset:
+        selected_assessments: Wähle aus, ob es mehrere Wertungen gibt.
+        selected_bands: Wähle die Wertungsgruppen aus, die bei deinem Wettkampf starten.
+        selected_disciplines: Disziplinen, die von den Wertungsgruppen gelaufen werden sollen.

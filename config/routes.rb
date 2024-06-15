@@ -76,6 +76,7 @@ Rails.application.routes.draw do
     resources :access_requests, only: %i[new create destroy] do
       member { get :connect }
     end
+    resources :presets, only: %i[index edit update]
   end
 
   namespace :fire_sport_statistics do
