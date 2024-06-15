@@ -1,10 +1,11 @@
 import Draggable from 'draggable';
 
 let config;
+let formElementTemplate;
+let currentDraggableForPrintDocument = null;
 
 onVisit(function () {
-  window.currentDraggableForPrintDocument = null;
-
+  const modalForm = document.getElementById('new-positions-form');
   const boundary = document.getElementById('certificates-template-position');
   if (boundary === null) return;
 
@@ -20,26 +21,44 @@ onVisit(function () {
       new FormElement(number, boundary);
     });
 
-    // , newFieldHtml;
-    //   newFieldHtml = $('.new-position-form').html();
-    //   $('.new-position-form').remove();
-    //   return $('#add-new-field').click(function() {
-    //     window.Modals.push(newFieldHtml);
-    //     $('#certificates_text_field_key').change(function() {
-    //       return $('.form-group.certificates_text_field_text').toggle($(this).val() === 'text');
-    //     }).change();
-    //     return $('.modal .btn.btn-primary').click(function(e) {
-    //       var key, text;
-    //       key = $('#certificates_text_field_key').val();
-    //       if (key === '') {
-    //         return false;
-    //       }
-    //       text = $('#certificates_text_field_text').val();
-    //       Modals.pop();
-    //       window.formElementTemplate.newElement(key, text);
-    //       return e.stopPropagation();
-    //     });
-    //   });
+    const formKeySelect = modalForm.querySelector('#certificates_text_field_key');
+    const selectChanged = function () {
+      const textGroup = modalForm.querySelector('#certificates_text_field_text').closest('.form-group');
+      const value = formKeySelect.value;
+      if (value === 'text') {
+        textGroup.style.display = 'block';
+      } else {
+        textGroup.style.display = 'none';
+      }
+    };
+    formKeySelect.addEventListener('change', selectChanged);
+
+    document.getElementById('add-new-field').addEventListener('click', function () {
+      modalForm.style.display = 'block';
+      selectChanged();
+    });
+
+    window.addEventListener('click', function (event) {
+      if (event.target == modalForm) {
+        modalForm.style.display = 'none';
+      }
+    });
+
+    modalForm.querySelector('a[href=""]').addEventListener('click', function (event) {
+      event.stopPropagation();
+      event.preventDefault();
+      modalForm.style.display = 'none';
+    });
+
+    modalForm.querySelector('form').addEventListener('submit', function (event) {
+      event.stopPropagation();
+      event.preventDefault();
+      modalForm.style.display = 'none';
+
+      const key = formKeySelect.value;
+      const text = modalForm.querySelector('#certificates_text_field_text').value;
+      formElementTemplate.newElement(key, text);
+    });
   }, 300);
 });
 
@@ -65,7 +84,7 @@ class FormElement {
       this.textElement = new TextElement(this, this.boundary);
     } else {
       this.nextNumber = parseInt(this.number, 10) + 1;
-      window.window.formElementTemplate = this;
+      formElementTemplate = this;
     }
   }
 
@@ -77,23 +96,24 @@ class FormElement {
     return this.formInputs[input].value;
   }
 
-  // newElement(new_key, new_text) {
-  //   var input, key;
-  //   for (key in this.formInputs) {
-  //     input = this.formInputs[key].clone();
-  //     input.attr('id', input.attr('id').replace(RegExp(`_${this.number}_`), `_${this.nextNumber}_`));
-  //     input.attr('name', input.attr('name').replace(RegExp(`\\[${this.number}\\]`), `[${this.nextNumber}]`));
-  //     input.insertAfter(this.formInputs[key]);
-  //   }
-  //   $(`#certificates_template_text_fields_attributes_${this.nextNumber}_key`).val(new_key);
-  //   $(`#certificates_template_text_fields_attributes_${this.nextNumber}_text`).val(new_text);
-  //   $(`#certificates_template_text_fields_attributes_${this.nextNumber}__destroy`).val('false');
-  //   (new FormElement(this.nextNumber, this.element)).focus();
-  //   return this.nextNumber = this.nextNumber + 1;
-  // }
+  newElement(newKey, newText) {
+    var input, key;
+    for (key in this.formInputs) {
+      input = this.formInputs[key].cloneNode();
+      input.id = input.id.replace(RegExp(`_${this.number}_`), `_${this.nextNumber}_`);
+      input.name = input.name.replace(RegExp(`\\[${this.number}\\]`), `[${this.nextNumber}]`);
+      this.formInputs[key].after(input);
+    }
+    document.getElementById(`certificates_template_text_fields_attributes_${this.nextNumber}_key`).value = newKey;
+    document.getElementById(`certificates_template_text_fields_attributes_${this.nextNumber}_text`).value = newText;
+    document.getElementById(`certificates_template_text_fields_attributes_${this.nextNumber}__destroy`).value = 'false';
+
+    new FormElement(this.nextNumber, this.boundary).focus();
+    this.nextNumber = this.nextNumber + 1;
+  }
 
   focus() {
-    return this.textElement.element.click();
+    this.textElement.element.click();
   }
 }
 
@@ -132,10 +152,10 @@ class TextElement {
 
     this.element.addEventListener('click', (event) => {
       event.stopPropagation();
-      if (window.currentDraggableForPrintDocument != null) {
-        window.currentDraggableForPrintDocument.blur();
+      if (currentDraggableForPrintDocument != null) {
+        currentDraggableForPrintDocument.blur();
       }
-      window.currentDraggableForPrintDocument = this;
+      currentDraggableForPrintDocument = this;
       this.focus();
       this.registerBlur();
     });
@@ -145,15 +165,15 @@ class TextElement {
 
   registerBlur() {
     const outsideClickListener = (event) => {
-      if (window.currentDraggableForPrintDocument == null) {
+      if (currentDraggableForPrintDocument == null) {
         return removeClickListener();
       }
       if (event.target.tagName === 'INPUT' && event.target.type === 'color') {
         return;
       } else {
         if (!this.element.contains(event.target)) {
-          window.currentDraggableForPrintDocument.blur();
-          window.currentDraggableForPrintDocument = null;
+          currentDraggableForPrintDocument.blur();
+          currentDraggableForPrintDocument = null;
           removeClickListener();
         }
       }
