@@ -1,0 +1,12 @@
+= render 'competitions/header', competition: @competition, resource_class: nil, sub: 'Wettkampf aktualisieren'
+
+.row
+  .col-md-8
+    = simple_form_for(@competition, url: competition_registration_path) do |f|
+      = card 'Wettkampf aktualisieren' do |c|
+        - c.body do
+          = f.input :registration_open, as: :radio_buttons, collection: Competition::REGISTRATION_OPEN.map { |k, _v| [t("competitions.registration_open.#{k}"), k] }
+          = f.input :registration_open_until, html5: true
+        - c.footer do
+          = f.primary_button :submit
+          = f.cancel_button(competition_show_path)

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     root 'showings#show', as: :show
     resource :editing, only: %i[edit update]
     resource :visibility, only: %i[edit update]
+    resource :registration, only: %i[edit update]
     resource :deletion, only: %i[new create]
     resources :documents, only: %i[new create edit update destroy]
 

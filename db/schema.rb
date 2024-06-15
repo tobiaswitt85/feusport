@@ -118,6 +118,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_205213) do
     t.boolean "lottery_numbers", default: false, null: false
     t.boolean "show_bib_numbers", default: false, null: false
     t.boolean "preset_ran", default: false, null: false
+    t.integer "registration_open", default: 0, null: false
+    t.date "registration_open_until"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_competitions_on_date"

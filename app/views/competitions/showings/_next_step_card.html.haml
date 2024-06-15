@@ -28,3 +28,9 @@
       .text-center
         Nächster Schritt
       = link_to 'Ergebnislisten anlegen', competition_score_results_path, class: 'btn btn-light btn-sm'
+- elsif @competition.registration_open == 'unstated'
+  .card-header.text-bg-info
+    .d-grid.gap-2.col-10.mx-auto
+      .text-center
+        Nächster Schritt
+      = link_to 'Anmeldungen freischalten', edit_competition_registration_path, class: 'btn btn-light btn-sm'

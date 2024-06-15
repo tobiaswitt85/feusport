@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Competition < ApplicationRecord
-  schema_validations
+  REGISTRATION_OPEN = { unstated: 0, open: 1, close: 2 }.freeze
+  enum registration_open: REGISTRATION_OPEN
 
   belongs_to :user
   has_many :documents, dependent: :destroy
@@ -37,7 +38,16 @@ class Competition < ApplicationRecord
 
     self.description ||= "Der Wettkampf *#{name}* findet am **#{I18n.l date}** in **#{locality}** statt.\n\n" \
                          'Weitere Informationen folgen.'
+    self.registration_open_until = date - 1.day
   end
+  before_validation(on: :update) do
+    next unless date_changed?
+
+    self.registration_open_until = [(date - 1.day), registration_open_until].compact_blank.min
+  end
+  schema_validations
+  validates :registration_open_until, presence: true, if: -> { registration_open == 'open' }
+  validates :registration_open_until, comparison: { less_than_or_equal_to: :date }, allow_nil: true
 
   def description_html
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)

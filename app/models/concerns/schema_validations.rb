@@ -150,7 +150,7 @@ module SchemaValidations
     end
 
     def dbv_competitions_validations(enums: [])
-      belongs_to_presence_validations_for([:year])
+      belongs_to_presence_validations_for([:year, :registration_open])
       belongs_to_uniqueness_validations_for([["year", "slug"]])
       uniqueness_validations_for([["year", "slug"]])
       validates_with_filter :name, {:presence=>{}}
@@ -167,6 +167,9 @@ module SchemaValidations
       validates_with_filter :lottery_numbers, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :show_bib_numbers, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :preset_ran, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :registration_open, {:presence=>{}}
+      validates_with_filter :registration_open, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:registration_open)
+      validates_with_filter :registration_open_until, {:date_in_db_range=>{}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

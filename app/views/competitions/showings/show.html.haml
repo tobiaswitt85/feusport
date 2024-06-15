@@ -23,6 +23,7 @@
           - if can?(:edit, @competition)
             = link_to 'Bearbeiten', edit_competition_editing_path, class: 'btn btn-light btn-sm'
             = link_to 'Sichtbarkeit bearbeiten', edit_competition_visibility_path, class: 'btn btn-light btn-sm'
+            = link_to 'Anmeldungen bearbeiten', edit_competition_registration_path, class: 'btn btn-light btn-sm'
             = link_to 'Dokument hinzufügen', new_competition_document_path, class: 'btn btn-light btn-sm'
           - if can?(:destroy, @competition)
             = link_to 'Löschen', new_competition_deletion_path, class: 'btn btn-danger btn-sm'

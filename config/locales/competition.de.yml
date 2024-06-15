@@ -10,12 +10,19 @@ de:
         date: Datum
         locality: Ort
         name: Name
+        registration_open: Selbstständige Anmeldungen
+        registration_open_until: Anmeldung offen bis einschließlich
         slug: URL-Bestandteil
         visible: Sichtbar
     models:
       competition:
         one: Wettkampf
         other: Wettkämpfe
+  competitions:
+    registration_open:
+      close: Nur Verwalter können Mannschaften anmelden
+      open: Mannschaften können sich selber anmelden
+      unstated: Nicht definiert
   simple_form:
     hints:
       competition:
