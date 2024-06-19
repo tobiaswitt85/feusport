@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 module Exports::ScoreLists
-  def show_export_data(list, more_columns: false, double_run: false, pdf: false, hint_size: 6,
-                       show_bib_numbers: Competition.one.show_bib_numbers?, separate_target_times_as_columns: false)
-    data = [show_export_header(list, more_columns:, double_run:,
+  def show_export_data(list, more_columns: false, pdf: false, hint_size: 6,
+                       show_bib_numbers: competition.show_bib_numbers?,
+                       separate_target_times_as_columns: false)
+
+    data = [show_export_header(list, more_columns:,
                                      show_bib_numbers:,
                                      separate_target_times_as_columns:)]
 
@@ -11,25 +13,18 @@ module Exports::ScoreLists
       line = []
       line.push((track == 1 ? run : ''), track)
       if list.single_discipline?
-        line.push(entry.try(:entity).try(:bib_number).to_s) if show_bib_numbers
+        line.push(entry&.entity&.bib_number.to_s) if show_bib_numbers
 
-        line.push(entry.try(:entity).try(:export_last_name, list, pdf:, hint_size:) || '')
-        line.push(entry.try(:entity).try(:short_first_name).to_s)
-        team_name = entry.try(:entity).try(:team_shortcut_name, entry.try(:assessment_type))
+        line.push(fit_in(entry&.entity&.last_name, pdf:))
+        line.push(fit_in(entry&.entity&.first_name, pdf:))
+        team_name = entry&.entity&.team_shortcut_name(entry&.assessment_type)
         team_name = append_assessment(list, entry, team_name, pdf:, hint_size:)
       else
-        team_name = entry.try(:entity).to_s
+        team_name = entry&.entity.to_s
         team_name = append_assessment(list, entry, team_name, pdf:, hint_size:)
 
         tags = (entry.try(:entity).try(:tag_names) || []) & list.tag_names
         team_name += "<font size='6'> #{tags.join(',')}</font>" if tags.present?
-
-        if Competition.one.federal_states?
-          federal_state_shortcut = entry.try(:entity).try(:federal_state).try(:shortcut)
-          if federal_state_shortcut.present?
-            team_name += "<font size='#{hint_size}'> <i>#{federal_state_shortcut}</i></font>"
-          end
-        end
       end
       if pdf
         line.push(content: team_name, inline_format: true)
@@ -46,13 +41,25 @@ module Exports::ScoreLists
       end
       line.push(entry.try(:human_time))
       line.push('', '') if more_columns
-      line.push('') if double_run
       data.push(line)
     end
     data
   end
 
-  def show_export_header(list, more_columns:, double_run:, show_bib_numbers:, separate_target_times_as_columns:)
+  def fit_in(name, pdf:)
+    return name unless pdf
+
+    name = name.to_s
+    return name if name.length < 16
+    return { content: name, size: 9 } if name.length < 20
+    return { content: name, size: 8 } if name.length < 24
+    return { content: name, size: 7 } if name.length < 28
+    return { content: name, size: 6 } if name.length < 32
+
+    { content: name, size: 5 }
+  end
+
+  def show_export_header(list, more_columns:, show_bib_numbers:, separate_target_times_as_columns:)
     header = %w[Lauf Bahn]
     if list.single_discipline?
       header.push('Nr.') if show_bib_numbers
@@ -61,8 +68,6 @@ module Exports::ScoreLists
     header.push('Mannschaft')
     if more_columns
       header.push('', '', '')
-    elsif double_run
-      header.push('Lauf 1', 'Lauf 2')
     else
       if list.separate_target_times?
         if separate_target_times_as_columns
@@ -76,7 +81,7 @@ module Exports::ScoreLists
     header
   end
 
-  def score_list_entries(list, move_modus = false)
+  def score_list_entries(list, move_modus: false)
     entries = if list.errors.present?
                 list.entries.to_a
               else
@@ -121,9 +126,9 @@ module Exports::ScoreLists
   def append_assessment(list, entry, team_name, pdf:, hint_size: 6)
     if list.show_multiple_assessments? && list.multiple_assessments? && entry.present?
       team_name += if pdf
-                     "<font size='#{hint_size}'> (#{entry&.assessment&.decorate})</font>"
+                     "<font size='#{hint_size}'> (#{entry&.assessment&.name})</font>"
                    else
-                     " (#{entry&.assessment&.decorate})"
+                     " (#{entry&.assessment&.name})"
                    end
     end
     team_name

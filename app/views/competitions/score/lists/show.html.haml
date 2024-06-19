@@ -58,7 +58,6 @@
         - card.actions do |actions|
           = actions.link_to 'PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
           = actions.link_to 'PDF für Kampfrichter', { format: :pdf, more_columns: true }, target: '_blank', rel: 'noopener'
-          = actions.link_to 'XLS', format: :xlsx
 
       - if can?(:edit, @list)
         = card('Allgemein', class: 'mb-3') do |card|

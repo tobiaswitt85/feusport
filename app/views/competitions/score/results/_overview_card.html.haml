@@ -45,10 +45,13 @@
       %tr
         %th= Score::Result.human_attribute_name :lists
         %td
-          %table.table.table-condensed
-            - result.lists.each do |list|
-              %tr
-                %td= link_to(list.name, competition_score_list_path(id: list.id))
+          - if result.lists.exists?
+            %table.table.table-condensed
+              - result.lists.each do |list|
+                %tr
+                  %td= link_to(list.name, competition_score_list_path(id: list.id))
+          - else
+            %em Noch keine Einträge
 
       - unless result.calculation_method == 'default'
         %tr

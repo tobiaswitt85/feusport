@@ -27,21 +27,10 @@ class Competitions::Score::ListsController < CompetitionNestedController
     @list.errors.add(:base, :invalid) unless order_params[:save]
   end
 
-  # before_action :assign_resource_for_action, only: %i[move select_entity destroy_entity edit_times]
-  # before_action :assign_tags
-
-  # def index
-  #   @list_factory = Score::ListFactory.find_by(session_id: session.id.to_s)
-  # end
-
-  # def show
-  #   super
-  #   page_title @score_list.decorate.to_s
-  #   send_pdf(Exports::PDF::Score::List) do
-  #     [@score_list.decorate, params[:more_columns].present?, params[:double_run].present?]
-  #   end
-  #   send_xlsx(Exports::XLSX::Score::List) { [@score_list.decorate] }
-  # end
+  def show
+    send_pdf(Exports::Pdf::Score::List, args: [@list, params[:more_columns].present?])
+    send_xlsx(Exports::Xlsx::Score::List, args: [@list])
+  end
 
   def edit_times
     authorize!(:edit_times, resource_instance)

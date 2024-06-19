@@ -2,19 +2,19 @@
 
 module Score::ListFactoryDefaults
   def possible_assessments
-    Assessment.where(discipline:)
+    Assessment.where(discipline:).sort
   end
 
   def possible_results
-    Score::Result.where(id: assessments.joins(:results).pluck('score_results.id'))
+    Score::Result.where(id: assessments.joins(:results).pluck('score_results.id')).sort
   end
 
   def possible_before_results
-    Score::Result.where(id: assessments.joins(:results).pluck('score_results.id'))
+    Score::Result.where(id: assessments.joins(:results).pluck('score_results.id')).sort
   end
 
   def possible_before_lists
-    Score::List.where(id: assessments.joins(:lists).pluck('score_lists.id'))
+    Score::List.where(id: assessments.joins(:lists).pluck('score_lists.id')).sort
   end
 
   def default_shortcut

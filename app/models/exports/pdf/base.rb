@@ -47,7 +47,7 @@ module Exports::Pdf::Base
   end
 
   def pdf_discipline_image(discipline, width:, at:)
-    pdf.image(Rails.root.join('app', 'assets', 'images', 'disciplines', discipline.decorate.image),
+    pdf.image(Rails.root.join('app', 'assets', 'images', 'disciplines', "#{discipline.key}.png"),
               width:, at:)
   end
 

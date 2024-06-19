@@ -8,6 +8,6 @@ module Exports::Base
   end
 
   def filename_base
-    export_title.underscore.dasherize
+    export_title.parameterize
   end
 end
