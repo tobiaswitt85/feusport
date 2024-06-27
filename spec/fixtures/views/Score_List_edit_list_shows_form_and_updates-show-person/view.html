@@ -51,7 +51,7 @@ Benutzer
 <div class='container'>
 <h1>MV-Cup</h1>
 <p class='lead m-0 ms-1'>29.02.2024 - Rostock</p>
-<p class='lead m-0 ms-1'>Startliste hinzufügen</p>
+<p class='lead m-0 ms-1'>Startlisten</p>
 
 </div>
 </header>
@@ -64,6 +64,10 @@ Benutzer
 </div>
 <div class='nav-item'>
 <a class="nav-link" href="/2024/mv-cup/teams">Mannschaften
+</a>
+</div>
+<div class='nav-item'>
+<a class="nav-link" href="/2024/mv-cup/people">Wettkämpfer
 </a>
 </div>
 <div class='nav-item active'>
@@ -116,90 +120,191 @@ Erweitert
 </div>
 </div>
 <div class='pb-4 mt-4 container'>
-<div class='row'>
-<div class='col-md-6'>
+<div class='row g-4'>
+<div class='col-md-8'>
 <div class='card'>
 <div class='card-header p-0'>
 <div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Startliste erstellen - Schritt 7</h4>
+<h4 class='m-0 py-2 ps-3'>Hakenleitersteigen - Frauen - Lauf 1</h4>
+</div>
+</div>
+<table class='table much-data'>
+<thead>
+<tr class='small'>
+<th>
+<span class='thead-run'>Lauf</span>
+</th>
+<th>
+<span class='thead-track'>Bahn</span>
+</th>
+<th>Nachname</th>
+<th>Vorname</th>
+<th>Mannschaft</th>
+<th>Zeit</th>
+</tr>
+</thead>
+
+<tbody>
+<tr class='' data-id='UUID'>
+<td class='run'>
+<a name='jump-run-2'></a>
+1
+</td>
+<th class='track'>1</th>
+<td>Meier1</td>
+<td>Alfred1</td>
+<td>
+
+</td>
+<td class='time-col'>
+
+</td>
+<td class='text-end'>
+<a title="Zeiten bearbeiten" class="btn-xs btn btn-light btn-sm" href="/2024/mv-cup/score/lists/UUID/runs/1/edit"><i class="far fa-edit"></i></a>
+</td>
+
+</tr>
+<tr class='next-run' data-id='UUID'>
+<td class='run'>
+</td>
+<th class='track'>2</th>
+<td>Meier2</td>
+<td>Alfred2</td>
+<td>
+
+</td>
+<td class='time-col'>
+
+</td>
+<td class='text-end'>
+</td>
+
+</tr>
+<tr class='' data-id='UUID'>
+<td class='run'>
+<a name='jump-run-3'></a>
+2
+</td>
+<th class='track'>1</th>
+<td>Meier3</td>
+<td>Alfred3</td>
+<td>
+
+</td>
+<td class='time-col'>
+
+</td>
+<td class='text-end'>
+<a title="Zeiten bearbeiten" class="btn-xs btn btn-light btn-sm" href="/2024/mv-cup/score/lists/UUID/runs/2/edit"><i class="far fa-edit"></i></a>
+</td>
+
+</tr>
+<tr class='next-run'>
+<td class='run'>
+</td>
+<th class='track'>2</th>
+<td></td>
+<td></td>
+<td>
+
+</td>
+<td class='time-col'>
+
+</td>
+<td class='text-end'>
+</td>
+
+</tr>
+</tbody>
+</table>
+
+<div class='card-footer'>
+<div class='d-flex justify-content-between align-items-start'>
+<div></div>
+<div>
+<div class='btn-group'>
+<a class="btn btn-outline-secondary btn-sm" href="/2024/mv-cup/score/lists/UUID.pdf">als PDF
+</a>
+<a class="btn btn-outline-secondary btn-sm" href="/2024/mv-cup/score/lists/UUID.xlsx">als XLS
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class='col-md-3'>
+<div class='card mb-3 text-bg-warning'>
+<div class='card-header p-0'>
+<div class='d-flex justify-content-between'>
+<h4 class='m-0 py-2 ps-3'>Versteckt</h4>
 </div>
 </div>
 <div class='card-body'>
-<form class="simple_form edit_score_list_factory" id="edit_score_list_factory" novalidate="novalidate" action="/2024/mv-cup/score/list_factories" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off" /><div class="form-group my-2 hidden score_list_factory_next_step"><input class="form-control hidden" value="finish" autocomplete="off" type="hidden" name="score_list_factory[next_step]" id="score_list_factory_next_step" /></div>
-<div class="form-group my-2 select optional score_list_factory_before_list"><label class="control-label select optional" for="score_list_factory_before_list_id">Vorherige Liste</label><select class="form-select select optional" name="score_list_factory[before_list_id]" id="score_list_factory_before_list_id"></select></div>
-<table class='table table-condensed'>
-<tr>
-<th class=''>Bahnwechsel</th>
-<td class=''>Die Bahn wird gegenüber einer vorherigen Liste getauscht.</td>
-</tr>
+<p>Die Startliste ist derzeit noch versteckt. Bitte geben Sie diese nach der Kontrolle frei.</p>
+<a class=" btn btn-light btn-sm" href="/2024/mv-cup/score/lists/UUID/edit">Bearbeiten</a>
 
-</table>
-<button name="button" type="submit" class="btn btn-primary mt-3" data-disable-with="Bitte warten...">Weiter</button>
+</div>
+</div>
+<div class='card mb-3'>
+<div class='card-header p-0'>
+<div class='d-flex justify-content-between'>
+<h4 class='m-0 py-2 ps-3'>Aktionen</h4>
+<a class="card-primary-action" href="/2024/mv-cup/score/lists">Übersicht
+<i class='far fa-list'></i>
+</a>
+</div>
+</div>
+<div class='card-body'>
+<div class='d-grid gap-2'>
+<a class=" btn btn-light btn-sm" href="/2024/mv-cup/score/lists/UUID/move">Reihenfolge bearbeiten</a>
+<a class=" btn btn-light btn-sm" href="/2024/mv-cup/score/lists/UUID/edit_times">Zeiten im Block eintragen</a>
+<a class=" btn btn-light btn-sm" data-remote="true" href="/2024/mv-cup/score/lists/UUID/select_entity">Teilnehmer hinzufügen</a>
+<a class=" btn btn-light btn-sm" href="/2024/mv-cup/score/lists/UUID?destroy_index=1">Teilnehmer entfernen</a>
+<a class=" btn btn-light btn-sm" href="/2024/mv-cup/score/list_factories/copy_list/UUID">Startliste klonen</a>
+</div>
 
-</form>
 </div>
 <div class='card-footer'>
 <div class='d-flex justify-content-between align-items-start'>
-<div><form class="simple_form edit_score_list_factory" id="edit_score_list_factory" novalidate="novalidate" action="/2024/mv-cup/score/list_factories" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off" /><div class="form-group my-2 hidden score_list_factory_next_step"><input class="form-control hidden" value="generator" autocomplete="off" type="hidden" name="score_list_factory[next_step]" id="score_list_factory_next_step" /></div>
-<input type="submit" name="commit" value="Zurück" class="btn btn-light btn-sm" data-disable-with="Zurück" />
-<a data-turbo-method="delete" data-turbo-confirm="Listenerstellung abbrechen?" class=" btn btn-light btn-sm" href="/2024/mv-cup/score/list_factories">Abbrechen</a>
-</form></div>
+<div></div>
+<div>
+<div class='btn-group'>
+<a class="btn btn-outline-secondary btn-sm" href="/2024/mv-cup/score/lists/UUID.pdf">PDF
+</a>
+<a class="btn btn-outline-secondary btn-sm" href="/2024/mv-cup/score/lists/UUID.pdf?more_columns=true">PDF für Kampfrichter
+</a>
 </div>
 </div>
 </div>
 </div>
-<div class='col-md-6'>
+</div>
+<div class='card mb-3'>
+<div class='card-header p-0'>
+<div class='d-flex justify-content-between'>
+<h4 class='m-0 py-2 ps-3'>Allgemein</h4>
+</div>
+</div>
+<div class='card-body'>
+<div class='d-grid gap-2'>
+<a class=" btn btn-light btn-sm" href="/2024/mv-cup/score/lists/UUID/edit">Bearbeiten</a>
+<a data-confirm="Startliste wirklich löschen? Alle bisher eingetragenen Zeiten dieser Liste gehen verloren!" class=" btn btn-light btn-sm" rel="nofollow" data-method="delete" href="/2024/mv-cup/score/lists/UUID">Löschen</a>
+</div>
+
+</div>
+</div>
 <div class='card'>
 <div class='card-header p-0'>
 <div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Bisher ausgewählt</h4>
+<h4 class='m-0 py-2 ps-3'>Ergebnisse</h4>
 </div>
 </div>
-<table class='table'>
-<tr>
-<th>Disziplin</th>
-<td>
-<img src="/assets/disciplines/la.svg" width="20" height="20" />
-Löschangriff Nass
-</td>
-</tr>
-<tr>
-<th>Wertungen</th>
-<td>
-<ul>
-<li><a href="/2024/mv-cup/assessments/UUID">Löschangriff Nass - Männer</a></li>
-<li><a href="/2024/mv-cup/assessments/UUID">Löschangriff Nass - Frauen</a></li>
-</ul>
-</td>
-</tr>
-<tr>
-<th>Name</th>
-<td>Löschangriff Nass - Lauf 1</td>
-</tr>
-<tr>
-<th>Abkürzung</th>
-<td>Lauf 1</td>
-</tr>
-<tr>
-<th>Wettkampfbahnen</th>
-<td>2</td>
-</tr>
-<tr>
-<th>Ergebnislisten</th>
-<td>
-<ul>
-<li><a href="/2024/mv-cup/score/results/UUID">Löschangriff Nass - Männer</a></li>
-<li><a href="/2024/mv-cup/score/results/UUID">Löschangriff Nass - Frauen</a></li>
-</ul>
-</td>
-</tr>
-<tr>
-<th class=''>Bahnwechsel</th>
-<td class=''>Die Bahn wird gegenüber einer vorherigen Liste getauscht.</td>
-</tr>
+<div class='card-body'>
+<div class='d-grid gap-2'>
+<a class=" btn btn-light btn-sm" href="/2024/mv-cup/score/results/UUID">Hakenleitersteigen - Frauen</a>
+</div>
 
-</table>
-
+</div>
 </div>
 </div>
 </div>

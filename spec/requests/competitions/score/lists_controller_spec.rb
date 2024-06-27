@@ -7,14 +7,16 @@ RSpec.describe Score::List do
   let(:user) { competition.users.first }
 
   let!(:la) { create(:discipline, :la, competition:) }
+  let!(:hl) { create(:discipline, :hl, competition:) }
   let!(:female) { create(:band, :female, competition:) }
   let!(:male) { create(:band, :male, competition:) }
   let!(:assessment_male) { create(:assessment, competition:, discipline: la, band: male) }
   let!(:assessment_female) { create(:assessment, competition:, discipline: la, band: female) }
+  let!(:assessment_hl_female) { create(:assessment, competition:, discipline: hl, band: female) }
 
-  let!(:team_female) { create(:team, band: female) }
-  let!(:team_male1) { create(:team, band: male) }
-  let!(:team_male2) { create(:team, band: male) }
+  let!(:team_female) { create(:team, band: female, competition:) }
+  let!(:team_male1) { create(:team, band: male, competition:) }
+  let!(:team_male2) { create(:team, band: male, competition:) }
 
   describe 'create lists' do
     it 'uses list factory' do
@@ -97,6 +99,31 @@ RSpec.describe Score::List do
                                               next_step: 'create' } }
         follow_redirect!
       end.to change(Score::ListEntry, :count).by(3)
+    end
+  end
+
+  describe 'edit list' do
+    let(:result_hl) { create(:score_result, competition:, assessment: assessment_hl_female) }
+    let(:result_la) { create(:score_result, competition:, assessment: assessment_female) }
+    let(:person1) { create(:person, :generated, competition:) }
+    let(:person2) { create(:person, :generated, competition:) }
+    let(:person3) { create(:person, :generated, competition:) }
+    let!(:person_list) { create_score_list(result_hl, person1 => :waiting, person2 => :waiting, person3 => :waiting) }
+    let!(:team_list) { create_score_list(result_la, team_female => :waiting) }
+
+    it 'shows form and updates' do
+      sign_in user
+
+      person_list.update!(hidden: true)
+
+      get "/#{competition.year}/#{competition.slug}/score/lists"
+      expect(response).to match_html_fixture.with_affix('index-with-two')
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}"
+      expect(response).to match_html_fixture.with_affix('show-person')
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}/edit"
+      expect(response).to match_html_fixture.with_affix('edit-person')
     end
   end
 end

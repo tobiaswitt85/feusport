@@ -16,6 +16,7 @@ require 'spec_views/support'
 require 'devise'
 
 ActiveRecord::Migration.maintain_test_schema!
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'

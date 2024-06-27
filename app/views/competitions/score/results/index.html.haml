@@ -12,7 +12,4 @@
 
       - if can?(:create, resource_class.new(competition: @competition))
         = card.primary_actions do |actions|
-          = actions.link_to t('a.add'), new_competition_score_list_factories_path, end_icon: :square_plus
-
-      = card.actions do |actions|
-        = actions.link_to 'Mehrere zusammen drucken', { format: :todo }
+          = actions.link_to t('a.add'), { action: :new }, end_icon: :square_plus

@@ -415,12 +415,12 @@ class TextElement {
     if (this.formElement.get('width') !== '') {
       this.width = parseInt(this.formElement.get('width'), 10);
     } else {
-      this.width = 100;
+      this.width = 400;
     }
     if (this.formElement.get('height') !== '') {
       this.height = parseInt(this.formElement.get('height'), 10);
     } else {
-      this.height = 100;
+      this.height = 50;
     }
     this.formElement.set('width', this.width);
     this.formElement.set('height', this.height);
@@ -438,7 +438,7 @@ class TextElement {
     if (this.formElement.get('left') !== '') {
       left = parseInt(this.formElement.get('left'), 10);
     } else {
-      left = 200;
+      left = 97;
     }
     if (this.formElement.get('top') !== '') {
       top = (parseInt(this.formElement.get('top'), 10) - 842) * -1;
