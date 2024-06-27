@@ -45,7 +45,7 @@ class Assessment < ApplicationRecord
     if like_fire_relay? && related_requests.present?
       numbers = []
       (1..related_requests.map(&:relay_count).max).each do |number|
-        count = related_requests.where('relay_count >= ?', number).count
+        count = related_requests.where(relay_count: number..).count
         numbers.push("#{count}x #{(64 + number).chr}")
       end
       "#{to_label} (#{numbers.join(', ')})"

@@ -12,24 +12,6 @@ AllCops:
   TargetRubyVersion: 3.2.3
 Bundler/OrderedGems:
   Enabled: false
-Capybara/ClickLinkOrButtonStyle:
-  Enabled: true
-Capybara/MatchStyle:
-  Enabled: true
-Capybara/NegationMatcher:
-  Enabled: true
-Capybara/RSpec/HaveSelector:
-  Enabled: true
-Capybara/RSpec/PredicateMatcher:
-  Enabled: true
-Capybara/RedundantWithinFind:
-  Enabled: true
-Capybara/SpecificActions:
-  Enabled: true
-Capybara/SpecificFinders:
-  Enabled: true
-Capybara/SpecificMatcher:
-  Enabled: true
 FactoryBot/AssociationStyle:
   Enabled: true
 FactoryBot/ConsistentParenthesesStyle:
@@ -434,6 +416,8 @@ Rails/WhereNot:
   Enabled: true
 Rails/WhereNotWithMultipleConditions:
   Enabled: true
+Rails/WhereRange:
+  Enabled: true
 Security/CompoundHash:
   Enabled: true
 Security/IoMethods:
@@ -568,9 +552,13 @@ Style/SafeNavigation:
   Enabled: false
 Style/SelectByRegexp:
   Enabled: true
+Style/SendWithLiteralMethodName:
+  Enabled: true
 Style/SingleLineDoEndBlock:
   Enabled: true
 Style/StringChars:
+  Enabled: true
+Style/SuperArguments:
   Enabled: true
 Style/SuperWithArgsParentheses:
   Enabled: true
@@ -585,7 +573,6 @@ Style/TrailingCommaInHashLiteral:
 Style/YAMLFileRead:
   Enabled: true
 require:
-- rubocop-capybara
 - rubocop-factory_bot
 - rubocop-performance
 - rubocop-rails

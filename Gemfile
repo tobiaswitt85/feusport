@@ -63,6 +63,8 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'rubocop-rspec_rails'
+  gem 'rubocop-factory_bot'
   gem 'haml-lint', require: false
   gem 'i18n-tasks'
 

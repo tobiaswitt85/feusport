@@ -12,7 +12,7 @@ Firesport::Series::Team::Base = Struct.new(:round, :team, :team_number) do
   end
 
   def initialize(*args)
-    super(*args)
+    super
     @rank = 0
   end
 
