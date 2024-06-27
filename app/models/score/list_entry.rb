@@ -56,6 +56,11 @@ class Score::ListEntry < ApplicationRecord
     "#{run.to_s.rjust(3, '0')}-#{track.to_s.rjust(3, '0')}"
   end
 
+  def overview
+    name = entity.is_a?(Person) ? entity.full_name : entity.numbered_name
+    "#{list.name}; #{name}: #{long_human_time}"
+  end
+
   private
 
   def check_changed_while_editing

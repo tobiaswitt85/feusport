@@ -1,0 +1,4 @@
+Score::List edit list shows form and updates-show-team
+
+request
+html

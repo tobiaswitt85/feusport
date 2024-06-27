@@ -50,4 +50,12 @@ class Score::List < ApplicationRecord
       Team
     end
   end
+
+  def column_count
+    @column_count ||= if single_discipline?
+                        competition.show_bib_numbers? ? 7 : 6
+                      else
+                        4
+                      end
+  end
 end

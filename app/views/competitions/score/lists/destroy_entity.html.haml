@@ -7,7 +7,7 @@
         - card.body do
           = f.simple_fields_for(:entries, @entries) do |g|
             = g.input :_destroy, as: :hidden, input_html: { value: '1' }
-            %p Teilnehmer: #{g.object.entity.name}
+            %p= g.object.overview
             - unless g.object.result_waiting?
               .alert.alert-danger Achtung: Die eingetragene Zeit wird unwiderruflich gelöscht!
         - card.footer do

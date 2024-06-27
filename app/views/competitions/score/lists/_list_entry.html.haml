@@ -34,10 +34,10 @@
         %i.far.fa-down
 
 - if entry&.errors&.include?(:changed_while_editing)
-  %tr.danger
-    %td{ colspan: list.column_count }
+  %tr
+    %td.bg-warning{ colspan: list.column_count }
       %p
         %strong Der Eintrag wurde in der Zwischenzeit von einem anderen Benutzer geändert. Durch ein erneutes Drücken auf »Speichern« überschreiben Sie den geänderten Eintrag.
       %p
         In der Datenbank steht zur Zeit folgender Wert:
-        %strong= Score::ListEntry.find(entry.id).decorate.overview
+        %strong= Score::ListEntry.find(entry.id).overview

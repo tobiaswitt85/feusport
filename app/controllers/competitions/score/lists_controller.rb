@@ -42,7 +42,11 @@ class Competitions::Score::ListsController < CompetitionNestedController
       redirect_to competition_score_list_path, notice: :saved
     else
       flash.now[:alert] = :check_errors
-      render action: :edit, status: :unprocessable_entity
+      if list_params[:entries_attributes].present?
+        render action: :edit_times, status: :unprocessable_entity
+      else
+        render action: :edit, status: :unprocessable_entity
+      end
     end
   end
 
