@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '3.2.3'
+ruby '3.2.4'
 
 gem 'rails', '~> 7.0.5'
 
@@ -58,13 +58,13 @@ group :development, :test do
   gem 'webmock' # mock http requests
 
   # code beautifier
-  gem 'rubocop'
-  gem 'rubocop-daemon'
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
-  gem 'rubocop-rspec'
-  gem 'rubocop-rspec_rails'
-  gem 'rubocop-factory_bot'
+  gem 'rubocop', require: false
+  gem 'rubocop-daemon', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
+  gem 'rubocop-factory_bot', require: false
   gem 'haml-lint', require: false
   gem 'i18n-tasks'
 
