@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Exports::Pdf::Score::List = Struct.new(:list, :more_columns) do
-  delegate :competition, to: :list
   include Exports::Pdf::Base
   include Exports::ScoreLists
 
@@ -76,9 +75,5 @@ Exports::Pdf::Score::List = Struct.new(:list, :more_columns) do
       color -= 9
       color.to_s(16) * 3
     end
-  end
-
-  def export_title
-    list.name
   end
 end

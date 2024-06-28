@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module Exports::ScoreLists
+  extend ActiveSupport::Concern
+  included do
+    delegate :competition, to: :list
+  end
+
   def show_export_data(list, more_columns: false, pdf: false, hint_size: 6,
                        show_bib_numbers: competition.show_bib_numbers?,
                        separate_target_times_as_columns: false)
@@ -18,14 +23,10 @@ module Exports::ScoreLists
         line.push(fit_in(entry&.entity&.last_name, pdf:))
         line.push(fit_in(entry&.entity&.first_name, pdf:))
         team_name = entry&.entity&.team_shortcut_name(entry&.assessment_type)
-        team_name = append_assessment(list, entry, team_name, pdf:, hint_size:)
       else
-        team_name = entry&.entity.to_s
-        team_name = append_assessment(list, entry, team_name, pdf:, hint_size:)
-
-        tags = (entry.try(:entity).try(:tag_names) || []) & list.tag_names
-        team_name += "<font size='6'> #{tags.join(',')}</font>" if tags.present?
+        team_name = entry&.entity&.full_name
       end
+      team_name = append_assessment(list, entry, team_name, pdf:, hint_size:)
       if pdf
         line.push(content: team_name, inline_format: true)
       else
@@ -140,5 +141,9 @@ module Exports::ScoreLists
     else
       content
     end
+  end
+
+  def export_title
+    list.name
   end
 end

@@ -1,0 +1,4 @@
+Score::List export list shows as pdf and xlsx-team-normal-pdf
+
+request
+pdf

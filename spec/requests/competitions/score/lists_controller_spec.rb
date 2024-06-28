@@ -285,4 +285,67 @@ RSpec.describe Score::List do
       expect(response).to match_html_fixture.with_affix('select-with-error').for_status(422)
     end
   end
+
+  describe 'export list' do
+    let!(:person_list) { create_score_list(result_hl, person1 => 1234, person2 => :waiting, person3 => :waiting) }
+    let!(:team_list) { create_score_list(result_la, team_female => :waiting) }
+
+    it 'shows as pdf and xlsx' do
+      sign_in user
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}.pdf"
+      expect(response).to match_pdf_fixture.with_affix('person-normal-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="hakenleitersteigen-frauen-lauf-1.pdf"; ' \
+        "filename*=UTF-8''hakenleitersteigen-frauen-lauf-1.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}.pdf?more_columns=true"
+      expect(response).to match_pdf_fixture.with_affix('person-more-columns-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="hakenleitersteigen-frauen-lauf-1-kampfrichter.pdf"; ' \
+        "filename*=UTF-8''hakenleitersteigen-frauen-lauf-1-kampfrichter.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      # GET index XLSX
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}.xlsx"
+      expect(response.content_type).to eq(Mime[:xlsx])
+      expect(response.header['Content-Disposition']).to eq(
+        'attachment; filename="hakenleitersteigen-frauen-lauf-1.xlsx"; ' \
+        "filename*=UTF-8''hakenleitersteigen-frauen-lauf-1.xlsx",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{team_list.id}.pdf"
+      expect(response).to match_pdf_fixture.with_affix('team-normal-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="loschangriff-nass-frauen-lauf-1.pdf"; ' \
+        "filename*=UTF-8''loschangriff-nass-frauen-lauf-1.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{team_list.id}.pdf?more_columns=true"
+      expect(response).to match_pdf_fixture.with_affix('team-more-columns-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="loschangriff-nass-frauen-lauf-1-kampfrichter.pdf"; ' \
+        "filename*=UTF-8''loschangriff-nass-frauen-lauf-1-kampfrichter.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      # GET index XLSX
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{team_list.id}.xlsx"
+      expect(response.content_type).to eq(Mime[:xlsx])
+      expect(response.header['Content-Disposition']).to eq(
+        'attachment; filename="loschangriff-nass-frauen-lauf-1.xlsx"; ' \
+        "filename*=UTF-8''loschangriff-nass-frauen-lauf-1.xlsx",
+      )
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
