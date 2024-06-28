@@ -2,7 +2,7 @@
 
 .row
   .col-md-8
-    = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update, form: :edit_assessment_requests)) do |f|
+    = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update, form: :edit_assessment_requests, return_to: params[:return_to])) do |f|
       = card("Wettkämpfer: #{@person.full_name}", class: 'mb-3') do |card|
         - card.body do
           - @competition.assessments.requestable_for_person(@person.band).each do |assessment|

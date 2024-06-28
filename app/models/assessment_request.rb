@@ -22,18 +22,6 @@ class AssessmentRequest < ApplicationRecord
     ]
   end
 
-  def self.la_names_short
-    [
-      ['1', h.tag.span('(Ma)', class: 'small')],
-      ['2', h.tag.span('(A)', class: 'small')],
-      ['3', h.tag.span('(SK)', class: 'small')],
-      ['4', h.tag.span('(B)', class: 'small')],
-      ['5', h.tag.span('(SL)', class: 'small')],
-      ['6', h.tag.span('(V)', class: 'small')],
-      ['7', h.tag.span('(SR)', class: 'small')],
-    ]
-  end
-
   def self.gs_names
     [
       '1 B-Schlauch',
@@ -45,16 +33,28 @@ class AssessmentRequest < ApplicationRecord
     ]
   end
 
-  def self.gs_names_short
-    [
-      ['1', h.tag.span('(B)', class: 'small')],
-      ['2', h.tag.span('(V)', class: 'small')],
-      ['3', h.tag.span('(C)', class: 'small')],
-      ['4', h.tag.span('(Kn)', class: 'small')],
-      ['5', h.tag.span('(D)', class: 'small')],
-      ['6', h.tag.span('(Lä)', class: 'small')],
-    ]
+  def self.short_names
+    {
+      'la' => [
+        ['1', '(Ma)'],
+        ['2', '(A)'],
+        ['3', '(SK)'],
+        ['4', '(B)'],
+        ['5', '(SL)'],
+        ['6', '(V)'],
+        ['7', '(SR)'],
+      ],
+      'gs' => [
+        ['1', '(B)'],
+        ['2', '(V)'],
+        ['3', '(C)'],
+        ['4', '(Kn)'],
+        ['5', '(D)'],
+        ['6', '(Lä)'],
+      ],
+    }
   end
+
   belongs_to :assessment
   belongs_to :entity, polymorphic: true
   enum assessment_type: { group_competitor: 0, single_competitor: 1, out_of_competition: 2, competitor: 3 }
@@ -94,27 +94,6 @@ class AssessmentRequest < ApplicationRecord
         self.class.la_names[competitor_order]
       when 'gs'
         self.class.gs_names[competitor_order]
-      end
-    else
-      0
-    end
-  end
-
-  def short_type
-    if group_competitor?
-      I18n.t('assessment_types.group_competitor_short_order', competitor_order: group_competitor_order)
-    elsif single_competitor?
-      I18n.t('assessment_types.single_competitor_short_order', competitor_order: single_competitor_order)
-    elsif out_of_competition?
-      I18n.t('assessment_types.out_of_competition_short')
-    elsif competitor?
-      case assessment.discipline.key
-      when 'fs'
-        self.class.fs_names[competitor_order]
-      when 'la'
-        h.safe_join(self.class.la_names_short[competitor_order] || [])
-      when 'gs'
-        h.safe_join(self.class.gs_names_short[competitor_order] || [])
       end
     else
       0

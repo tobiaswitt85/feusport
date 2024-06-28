@@ -16,7 +16,11 @@ class Competitions::PeopleController < CompetitionNestedController
   def update
     @person.assign_attributes(person_params)
     if @person.save
-      redirect_to competition_people_path, notice: :saved
+      if params[:return_to] == 'team'
+        redirect_to competition_team_path(id: @person.team_id, anchor: 'people-table'), notice: :saved
+      else
+        redirect_to competition_people_path, notice: :saved
+      end
     else
       flash.now[:alert] = :check_errors
       render action: :edit, status: :unprocessable_entity

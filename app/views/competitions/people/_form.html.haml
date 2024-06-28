@@ -27,7 +27,7 @@
     - else
       .col-md-6
         %strong Mannschaft:
-        = @person.team
+        = @person.team.full_name
       = f.hidden_field :team_id
     - if @competition.show_bib_numbers?
       .col-md-6

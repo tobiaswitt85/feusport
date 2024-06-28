@@ -65,25 +65,28 @@
       = card(Team.human_attribute_name(:people)) do |card|
         - card.primary_actions do |actions|
           - actions.link_to 'Wettkämpfer hinzufügen', new_competition_person_path(team: @team), end_icon: :square_plus
-        - card.body do
-          - if @team.people.exists?
+        - if @team.people.exists?
+          - card.direct do
             = render('people_table', resource_collection: @team.people)
-          - else
+        - else
+          - card.body do
             .alert.alert-info= t('a.no_entries_found')
 
   - if @team.list_entries.exists?
     .col-md-12
       = card('Startlisten') do |card|
         - card.direct do
-          %table.table.table-bordered
-            %tr
-              %th Startliste
-              %th Lauf
-              %th Bahn
-            - @team.list_entries.sort_by { |entry| entry.list.name }.each do |entry|
-              - next if entry.list.hidden?
-
+          %table.table.table-bordered.table-hover
+            %thead
               %tr
-                %td= link_to(entry.list.name, competition_score_list_path(id: entry.list.id, anchor: "jump-run-#{entry.run}"))
-                %td= entry.run
-                %td= entry.track
+                %th Startliste
+                %th Lauf
+                %th Bahn
+            %tbody
+              - @team.list_entries.sort_by { |entry| entry.list.name }.each do |entry|
+                - next if entry.list.hidden?
+
+                %tr
+                  %td= link_to(entry.list.name, competition_score_list_path(id: entry.list.id, anchor: "jump-run-#{entry.run}"))
+                  %td= entry.run
+                  %td= entry.track
