@@ -19,9 +19,9 @@
   - else
     %td
       - if !list.show_multiple_assessments? && list.multiple_assessments?
-        = entry&.entity&.numbered_name_with_band
+        = entry&.entity&.full_name_with_band
       - else
-        = entry&.entity&.numbered_name
+        = entry&.entity&.full_name
       - if list.show_multiple_assessments? && list.multiple_assessments?
         %br
         .tiny= entry&.assessment&.name

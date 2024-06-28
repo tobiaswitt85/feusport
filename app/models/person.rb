@@ -29,6 +29,10 @@ class Person < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def full_name_with_band
+    "#{full_name} (#{band.name})"
+  end
+
   def request_for(assessment)
     requests.find_by(assessment:)
   end

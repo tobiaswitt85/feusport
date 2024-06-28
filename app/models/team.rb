@@ -28,12 +28,12 @@ class Team < ApplicationRecord
     @group_assessment_validator ||= GroupAssessmentValidator.new(self)
   end
 
-  def numbered_name
+  def full_name
     multi_team? ? "#{name} #{number}" : name
   end
 
-  def numbered_name_with_band
-    "#{numbered_name} #{band.name}"
+  def full_name_with_band
+    "#{full_name} #{band.name}"
   end
 
   def shortcut_name

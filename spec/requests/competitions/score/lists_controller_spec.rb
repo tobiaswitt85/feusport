@@ -239,4 +239,50 @@ RSpec.describe Score::List do
       expect(entries[0].reload.run).to eq 2
     end
   end
+
+  describe 'add to list' do
+    let!(:person_list) { create_score_list(result_hl, person1 => :waiting) }
+
+    it 'shows and add entries' do
+      sign_in user
+
+      person2
+      person3
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}/select_entity"
+      expect(response).to match_html_fixture.with_affix('select')
+
+      expect do
+        patch "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}",
+              params: { score_list: { entries_attributes: {
+                '0' => {
+                  entity_id: person2.id,
+                  run: '1',
+                  track: '2',
+                  entity_type: 'Person',
+                  assessment_id: assessment_hl_female.id,
+                  assessment_type: 'group_competitor',
+                },
+              } } }
+      end.to change(Score::ListEntry, :count).by(1)
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}/select_entity?all_entities=1"
+      expect(response).to match_html_fixture.with_affix('select-with-all')
+
+      expect do
+        patch "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}",
+              params: { score_list: { entries_attributes: {
+                '0' => {
+                  entity_id: person2.id,
+                  run: '2',
+                  track: '3',
+                  entity_type: 'Person',
+                  assessment_id: nil,
+                  assessment_type: 'group_competitor',
+                },
+              } } }
+      end.not_to change(Score::ListEntry, :count)
+      expect(response).to match_html_fixture.with_affix('select-with-error').for_status(422)
+    end
+  end
 end

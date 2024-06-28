@@ -11,25 +11,6 @@ module Score::ListsHelper
     options
   end
 
-  def not_yet_present_entities
-    if @score_list.assessments.first.fire_relay?
-      Team.all.map { |team| TeamRelay.create_next_free_for(team, @score_list.entries.pluck(:entity_id)) }
-    elsif params[:all_entities].blank?
-      @score_list.discipline_klass.where.not(id: @score_list.entries.pluck(:entity_id))
-                 .sort_by { |e| label_method_for_select_entity(e) }
-    else
-      @score_list.discipline_klass.all.sort_by { |e| label_method_for_select_entity(e) }
-    end
-  end
-
-  def label_method_for_select_entity(entity)
-    if @score_list.single_discipline?
-      "#{entity.full_name} #{entity.band}"
-    else
-      entity.numbered_name_with_band
-    end
-  end
-
   def preset_value_for(field, value)
     @score_list.send(field).blank? ? { value: } : {}
   end

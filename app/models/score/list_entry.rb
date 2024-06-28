@@ -57,8 +57,7 @@ class Score::ListEntry < ApplicationRecord
   end
 
   def overview
-    name = entity.is_a?(Person) ? entity.full_name : entity.numbered_name
-    "#{list.name}; #{name}: #{long_human_time}"
+    "#{list.name}; #{entity.full_name}: #{long_human_time}"
   end
 
   private

@@ -1,0 +1,26 @@
+= render 'competitions/header', competition: @competition, sub: 'Teilnehmer hinzufügen'
+
+.row
+  .col-md-8
+    = simple_form_for(@list, url: url_for(controller: controller_path, action: :update)) do |f|
+      = card "#{resource_class.model_name.human} aktualisieren" do |card|
+        - card.body do
+          - if @not_yet_present_entities.empty?
+            .alert.alert-danger Es wurde alle möglichen Teilnehmer zugeordnet
+          - else
+            - free_run, free_track = @list.next_free_track
+            = f.simple_fields_for :entries, @list.entries.build(run: free_run, track: free_track, entity_type: @list.discipline_klass.name) do |g|
+              = g.association :entity, collection: @not_yet_present_entities, label_method: :full_name
+              = g.input :run, as: :hidden
+              = g.input :track, as: :hidden
+              = g.input :entity_type, as: :hidden
+              = g.association :assessment, collection: @list.assessments, label: 'Wertung/Gruppe'
+              = g.input :assessment_type, as: :select, collection: AssessmentRequest.assessment_types.keys, label_method: ->(type) { t("assessment_types.#{type}") }
+
+            Wird in Lauf #{free_run} auf Bahn #{free_track} eingeordnet.
+        - card.footer do
+          = f.primary_button :submit, 'Teilnehmer hinzufügen'
+          = f.cancel_button(action: :show)
+        - if params[:all_entities].blank?
+          - card.actions do |actions|
+            = actions.link_to 'Alle anzeigen (für doppelte Einträge)', { action: :select_entity, all_entities: true }

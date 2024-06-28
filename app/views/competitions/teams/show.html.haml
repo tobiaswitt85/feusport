@@ -1,8 +1,8 @@
-= render 'competitions/header', competition: @competition, sub: "Mannschaft: #{@team.numbered_name}"
+= render 'competitions/header', competition: @competition, sub: "Mannschaft: #{@team.full_name}"
 
 .row.g-4
   .col-md-8
-    = card("Mannschaft: #{@team.numbered_name}", class: 'mb-3') do |card|
+    = card("Mannschaft: #{@team.full_name}", class: 'mb-3') do |card|
       - card.direct do
         %table.table.table-condensed
           %tr

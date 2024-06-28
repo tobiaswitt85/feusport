@@ -8,7 +8,7 @@
     %th{ style: 'width: 200px' }
   - resource_collection.each do |team|
     %tr
-      %td= team.numbered_name
+      %td= team.full_name
       - band.team_tags.each do |tag|
         %td= team.tags.include?(tag) ? 'X' : ''
       - assessments.each do |assessment|

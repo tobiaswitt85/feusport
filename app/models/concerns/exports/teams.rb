@@ -12,7 +12,7 @@ module Exports::Teams
 
     collection.each do |team|
       pc = team.people.count
-      line = [team.numbered_name]
+      line = [team.full_name]
       line.push(team.federal_state.try(:shortcut)) if Competition.one.federal_states?
       line.push(team.band.name, pc.zero? ? '-' : pc)
       line.push(team.lottery_number) if Competition.one.lottery_numbers?

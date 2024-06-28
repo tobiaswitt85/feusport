@@ -40,7 +40,7 @@
               - @group_result.rows.each do |row|
                 %tr{ class: row_invalid_class(row) }
                   %td #{@group_result.place_for_row(row)}.
-                  %th= row.team.numbered_name
+                  %th= row.team.full_name
                   %th= row.result_entry.human_time
                 %tr{ class: row_invalid_class(row) }
                   %td

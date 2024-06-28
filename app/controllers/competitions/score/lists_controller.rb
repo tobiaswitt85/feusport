@@ -7,6 +7,10 @@ class Competitions::Score::ListsController < CompetitionNestedController
     @entries = @list.entries.where(id: params[:entry_id])
   end
 
+  def select_entity
+    @not_yet_present_entities = not_yet_present_entities
+  end
+
   def move
     return if params[:new_order].blank?
 
@@ -38,11 +42,16 @@ class Competitions::Score::ListsController < CompetitionNestedController
 
   def update
     @list.assign_attributes(list_params)
+    @list.entries.reject(&:persisted?).each { |e| e.competition = @competition }
     if @list.save
       redirect_to competition_score_list_path, notice: :saved
     else
       flash.now[:alert] = :check_errors
-      if list_params[:entries_attributes].present?
+      if @list.entries.reject(&:persisted?).present?
+        params[:all_entities] = true
+        select_entity
+        render action: :select_entity, status: :unprocessable_entity
+      elsif list_params[:entries_attributes].present?
         render action: :edit_times, status: :unprocessable_entity
       else
         render action: :edit, status: :unprocessable_entity
@@ -73,5 +82,17 @@ class Competitions::Score::ListsController < CompetitionNestedController
                                        :show_best_of_run,
                                        result_ids: [],
                                        entries_attributes: editable_attributes)
+  end
+
+  def not_yet_present_entities
+    if @list.assessments.first.like_fire_relay?
+      Team.all.map do |team|
+        TeamRelay.create_next_free_for(team, @list.entries.pluck(:entity_id))
+      end
+    else
+      all = @list.discipline_klass.where(competition: @competition)
+      all = all.where.not(id: @list.entries.pluck(:entity_id)) if params[:all_entities].blank?
+      all.sort_by(&:full_name)
+    end
   end
 end
