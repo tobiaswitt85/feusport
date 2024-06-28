@@ -1,4 +1,0 @@
-Score::List export list shows as pdf and xlsx-normal-pdf
-
-request
-pdf

@@ -20,7 +20,6 @@ class Competitions::TeamsController < CompetitionNestedController
     else
       flash.now[:alert] = :check_errors
       if params[:form] == 'edit_assessment_requests'
-        flash[:info] = @team.errors.messages.inspect
         render action: :edit_assessment_requests, status: :unprocessable_entity
       else
         render action: :edit, status: :unprocessable_entity
