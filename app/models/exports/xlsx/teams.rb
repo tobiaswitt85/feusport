@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-Exports::XLSX::Teams = Struct.new(:teams) do
-  include Exports::XLSX::Base
+Exports::Xlsx::Teams = Struct.new(:teams) do
+  include Exports::Xlsx::Base
   include Exports::Teams
 
   def perform

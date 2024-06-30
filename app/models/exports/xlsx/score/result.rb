@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-Exports::XLSX::Score::Result = Struct.new(:result) do
-  include Exports::XLSX::Base
+Exports::Xlsx::Score::Result = Struct.new(:result) do
+  include Exports::Xlsx::Base
   include Exports::ScoreResults
 
   def perform
