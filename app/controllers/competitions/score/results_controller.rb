@@ -34,7 +34,7 @@ class Competitions::Score::ResultsController < CompetitionNestedController
 
   def destroy
     @result.destroy
-    redirect_to competition_results_path, notice: :deleted
+    redirect_to competition_score_results_path, notice: :deleted
   end
 
   protected

@@ -46,6 +46,10 @@ Score::ResultRow = Struct.new(:entity, :result) do
     true
   end
 
+  def display
+    "#{entity.full_name} (#{result_entry.long_human_time})"
+  end
+
   def <=>(other)
     case calculation_method
     when 'sum_of_two'

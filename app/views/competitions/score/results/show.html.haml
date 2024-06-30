@@ -45,8 +45,8 @@
                 %tr{ class: row_invalid_class(row) }
                   %td
                   %td{ colspan: 2 }
-                    %em= row.rows_in.join(', ')
-                    %small= row.rows_out.join(', ')
+                    %em= row.rows_in.map(&:display).join(', ')
+                    %small= row.rows_out.map(&:display).join(', ')
   - else
     .col-md-8
       .alert.alert-info Keine Einträge gefunden
