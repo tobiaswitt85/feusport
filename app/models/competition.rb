@@ -43,7 +43,7 @@ class Competition < ApplicationRecord
   before_validation(on: :update) do
     next unless date_changed?
 
-    self.registration_open_until = [(date - 1.day), registration_open_until].compact_blank.min
+    self.registration_open_until = [date - 1.day, registration_open_until].compact_blank.min
   end
   schema_validations
   validates :registration_open_until, presence: true, if: -> { registration_open == 'open' }
@@ -52,6 +52,10 @@ class Competition < ApplicationRecord
   def description_html
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     markdown.render(description)
+  end
+
+  def date=(new_date)
+    super if new_date.present?
   end
 
   def year_and_month

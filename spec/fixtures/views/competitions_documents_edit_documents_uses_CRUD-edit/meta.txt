@@ -1,0 +1,4 @@
+competitions/documents edit documents uses CRUD-edit
+
+request
+html

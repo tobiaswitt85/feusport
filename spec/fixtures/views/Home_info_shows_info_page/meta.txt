@@ -1,0 +1,4 @@
+Home info shows info page
+
+request
+html

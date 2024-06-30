@@ -18,7 +18,6 @@ class Competitions::CreationsController < ApplicationController
       redirect_to competition_show_path(slug: @competition.slug, year: @competition.year), notice: :saved
     else
       flash.now[:alert] = :check_errors
-      flash.now[:alert] = @competition.errors.inspect
       render action: :new, status: :unprocessable_entity
     end
   end

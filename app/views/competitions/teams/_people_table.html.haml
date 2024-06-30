@@ -7,7 +7,7 @@
 
       - assessments = Assessment.requestable_for_person(resource_collection.first.band)
       - assessments.each do |assessment|
-        %th{ title: assessment }= discipline_image assessment.discipline.key
+        %th{ title: assessment.name }= discipline_image assessment.discipline.key
       - if can?(:edit, @competition)
         %th
   %tbody
@@ -19,7 +19,7 @@
         - assessments.each do |assessment|
           - request = person.request_for(assessment)
           - if request.present?
-            %td{ title: "#{assessment}: #{request.type}" }= person_short_type(request)
+            %td{ title: "#{assessment.name}: #{request.type}" }= person_short_type(request)
           - else
             %td
         - if can?(:edit, @competition)

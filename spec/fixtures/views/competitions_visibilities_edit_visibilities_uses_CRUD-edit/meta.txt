@@ -1,0 +1,4 @@
+competitions/visibilities edit visibilities uses CRUD-edit
+
+request
+html

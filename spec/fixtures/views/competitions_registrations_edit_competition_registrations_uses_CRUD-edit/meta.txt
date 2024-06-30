@@ -1,0 +1,4 @@
+competitions/registrations edit competition registrations uses CRUD-edit
+
+request
+html

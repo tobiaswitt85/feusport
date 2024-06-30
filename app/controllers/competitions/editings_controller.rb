@@ -13,11 +13,6 @@ class Competitions::EditingsController < CompetitionNestedController
     end
   end
 
-  def destroy
-    @competition.destroy
-    redirect_to competitions_path, notice: :deleted
-  end
-
   protected
 
   def competition_params

@@ -10,7 +10,7 @@
 
       - assessments = Assessment.no_zweikampf.where(band:)
       - assessments.each do |assessment|
-        %th.small{ style: 'width: 60px', title: assessment }= discipline_image assessment.discipline.key
+        %th.small{ style: 'width: 60px', title: assessment.name }= discipline_image assessment.discipline.key
       %th{ style: 'width: 60px' }
       %th{ style: 'width: 100px' }
   %tbody
@@ -29,7 +29,7 @@
         - assessments.each do |assessment|
           - request = person.request_for(assessment)
           - if request.present?
-            %td{ title: "#{assessment}: #{request.type}" }= person_short_type(request)
+            %td{ title: "#{assessment.name}: #{request.type}" }= person_short_type(request)
           - else
             %td
         %td.text-end

@@ -1,0 +1,4 @@
+competitions/editings edit competition uses CRUD-edit-error
+
+request
+html
