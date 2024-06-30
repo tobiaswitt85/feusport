@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Exports::JSON::Base
+module Exports::Json::Base
   include Exports::Base
   extend ActiveSupport::Concern
 

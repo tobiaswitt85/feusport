@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-Exports::JSON::Score::Result = Struct.new(:result) do
-  include Exports::JSON::Base
+Exports::Json::Score::Result = Struct.new(:result) do
+  include Exports::Json::Base
   include Exports::ScoreResults
 
   def to_hash
