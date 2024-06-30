@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-Exports::PDF::Score::Result = Struct.new(:result, :only) do
-  include Exports::PDF::Base
+Exports::Pdf::Score::Result = Struct.new(:result, :only) do
+  include Exports::Pdf::Base
   include Exports::ScoreResults
 
   def perform

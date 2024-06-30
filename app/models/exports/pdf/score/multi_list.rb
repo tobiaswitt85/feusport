@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-Exports::PDF::Score::MultiList = Struct.new(:print_elements) do
-  include Exports::PDF::Base
+Exports::Pdf::Score::MultiList = Struct.new(:print_elements) do
+  include Exports::Pdf::Base
   include Exports::ScoreLists
 
   attr_accessor :top_cursor

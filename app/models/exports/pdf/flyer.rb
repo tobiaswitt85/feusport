@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Exports::PDF::Flyer
-  include Exports::PDF::Base
+class Exports::Pdf::Flyer
+  include Exports::Pdf::Base
 
   def perform
     pdf.text(competition.flyer_headline, align: :center, size: 20)

@@ -5,7 +5,7 @@ class Competitions::Certificates::TemplatesController < CompetitionNestedControl
 
   def show
     # page_title('Urkundenvorlage')
-    # send_pdf(Exports::PDF::Certificates::Export) do
+    # send_pdf(Exports::Pdf::Certificates::Export) do
     #   [@certificates_template, "Urkundenvorlage: #{resource_instance.name}", [Certificates::Example.new], true]
     # end
   end
