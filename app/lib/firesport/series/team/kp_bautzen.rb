@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Firesport::Series::Team::KPBautzen < Firesport::Series::Team::LaCup
+class Firesport::Series::Team::KpBautzen < Firesport::Series::Team::LaCup
   def self.max_points(_round, gender:)
     10
   end

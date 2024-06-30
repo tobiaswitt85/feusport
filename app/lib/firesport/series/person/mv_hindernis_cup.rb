@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Firesport::Series::Person::MVHindernisCup < Firesport::Series::Person::MVCup
+class Firesport::Series::Person::MvHindernisCup < Firesport::Series::Person::MvCup
   def self.assessment_disciplines
     { hb: [''], hw: [''] }
   end
