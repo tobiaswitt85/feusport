@@ -1,0 +1,4 @@
+competitions/certificates/templates manage templates uses CRUD-show
+
+request
+html

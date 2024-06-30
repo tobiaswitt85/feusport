@@ -118,6 +118,7 @@ module SchemaValidations
     def dbv_certificates_templates_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id])
       validates_with_filter :competition_id, {:presence=>{}}
+      validates_with_filter :name, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>200}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}

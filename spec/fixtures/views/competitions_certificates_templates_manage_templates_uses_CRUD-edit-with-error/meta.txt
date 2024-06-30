@@ -1,0 +1,4 @@
+competitions/certificates/templates manage templates uses CRUD-edit-with-error
+
+request
+html

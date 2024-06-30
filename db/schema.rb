@@ -84,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_205213) do
 
   create_table "certificates_templates", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "competition_id", null: false
-    t.string "name", limit: 200
+    t.string "name", limit: 200, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["competition_id"], name: "index_certificates_templates_on_competition_id"
