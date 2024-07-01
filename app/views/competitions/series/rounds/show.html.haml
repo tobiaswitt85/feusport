@@ -1,19 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: 'Serien', resource_class: Series::Round
 
-.row.g-4
-  .col-md-6
-    = card(@round.name) do |card|
-      - card.direct do
-        %table.table
-          %thead
-            %tr
-              %th Ort
-              %th Datum
-          %tbody
-            - @round.cups.each do |cup|
-              %tr
-                %td= cup.competition_place
-                %td= cup.competition_date
+.row.g-4.mb-4
+  .col-md-6= render('round_card', round: @round)
   - if @person_assessments.present?
     .col-md-6
       = card('Einzelwertungen') do |card|
@@ -28,31 +16,34 @@
               - @person_assessments.each do |row|
                 %tr
                   %td
-                    = discipline_image(row.discipline.key)
+                    = discipline_image(row.discipline)
                     = row.name
-                %td= row.participations.pluck(:person_id).uniq.count
-                %td= link_to('Ansehen', controller: 'series/assessments', action: :show, id: row)
+                  %td= row.participations.pluck(:person_id).uniq.count
+                  %td= link_to('Ansehen', competition_series_assessment_path(id: row.id), class: 'btn btn-sm btn-light')
+
 
 - if @team_assessments_exists
   - %i[female male].each do |gender|
     - next if @round.team_assessment_rows(@competition, gender).blank?
 
-    = card("Mannschaftswertung #{t("gender.#{gender}")}") do |card|
+    = card("Mannschaftswertung #{t("gender.#{gender}")}", class: 'mb-4') do |card|
       - card.direct do
-        %table.table
-          %th Platz
-          %th Team
-          - @round.cups.each do |cup|
-            %th= cup.competition_place
-          %th Teil.
-          %th Bestzeit
-          %th Punkte
-          - @round.team_assessment_rows(@competition, gender).each do |row|
-            %tr
-              %td= row.rank
-              %td= row.name_with_number
-              - @round.cups.each do |cup|
-                %td= render('competitions/series/rounds/participations_table', participations: row.participations_for_cup(cup))
-              %td= row.count
-              %td= row.best_result_entry
-              %td= row.points
+        %table.table.table-hover.table-bordered.table-sm
+          %thead
+            %th Platz
+            %th Team
+            - @round.cups.each do |cup|
+              %th= cup.competition_place
+            %th Teil.
+            %th Bestzeit
+            %th Punkte
+          %tbody
+            - @round.team_assessment_rows(@competition, gender).each do |row|
+              %tr
+                %td= row.rank
+                %td= row.name_with_number
+                - @round.cups.each do |cup|
+                  %td= render('competitions/series/rounds/participations_table', participations: row.participations_for_cup(cup))
+                %td= row.count
+                %td= row.best_result_entry
+                %td= row.points

@@ -53,8 +53,8 @@ class Series::Assessment < ApplicationRecord
     end
     result = score_results.first
     if result.present?
-      cup = Series::Cup.today_cup_for_round(round)
-      convert_result_rows(result.rows) do |row, time, points, rank|
+      cup = Series::Cup.find_or_create_today!(round, result.competition)
+      convert_result_rows(result.rows, gender) do |row, time, points, rank|
         participation = Series::PersonParticipation.new(
           cup:,
           person: row.entity.fire_sport_statistics_person_with_dummy,

@@ -1,17 +1,19 @@
+= render 'competitions/header', competition: @competition, sub: Series::Round.model_name.human(count: :many), resource_class: Series::Round
+
 .row
-  .col-md-9
-    %h1 Wettkampfserien
-%table.table
-  %tr
-    %th Name
-    %th Jahr
-    %th Disziplinen
-    %th Mannschaften
-    %th Wettkämpfer
-  - @rounds.each do |row|
-    %tr
-      %td= link_to(row.name, row)
-      %td= link_to(row.year, row)
-      %td= safe_join(row.disciplines, ' ')
-      %td= row.team_count
-      %td= row.person_count
+  .col-md-12
+    = card_direct('Wettkampfserien') do
+      %table.table
+        %tr
+          %th Name
+          %th Jahr
+          %th Disziplinen
+          %th Mannschaften
+          %th Wettkämpfer
+        - @rounds.each do |row|
+          %tr
+            %td= link_to(row.name, competition_series_round_path(id: row.id))
+            %td= link_to(row.year, competition_series_round_path(id: row.id))
+            %td= safe_join(row.disciplines.map { |d| discipline_image(d) }, ' ')
+            %td= row.team_count
+            %td= row.person_count

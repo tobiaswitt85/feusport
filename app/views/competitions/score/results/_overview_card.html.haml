@@ -66,9 +66,9 @@
               - result.series_assessments.each do |assessment|
                 %li
                   - if assessment.is_a?(Series::TeamAssessment)
-                    = link_to("Mannschaftswertung: #{assessment.to_label}", series_round_path(assessment.round))
+                    = link_to("Mannschaftswertung: #{assessment.to_label}", competition_series_rounds_path(id: assessment.round.id))
                   - else
-                    = link_to(assessment.to_label, series_assessment_path(assessment))
+                    = link_to(assessment.to_label, competition_series_assessment_path(id: assessment.id))
 
   - card.actions do |actions|
     - if result.group_assessment? && result.discipline.single_discipline?

@@ -2,7 +2,7 @@
 
 class Competitions::Series::RoundsController < CompetitionNestedController
   def index
-    @rounds = Series::Round.with_local_results.distinct
+    @rounds = Series::Round.exists_for(@competition).order(:year, :name)
     redirect_to competition_series_round_path(id: @rounds.first.id) if @rounds.count == 1
   end
 

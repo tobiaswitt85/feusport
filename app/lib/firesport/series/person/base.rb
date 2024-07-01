@@ -32,6 +32,14 @@ Firesport::Series::Person::Base = Struct.new(:round, :entity) do
     @best_time ||= @participations.map(&:time).min
   end
 
+  def best_result_entry
+    @best_result_entry ||= Score::ResultEntry.new(time_with_valid_calculation: best_time).human_time
+  end
+
+  def sum_result_entry
+    @sum_result_entry ||= Score::ResultEntry.new(time_with_valid_calculation: sum_time).human_time
+  end
+
   def sum_time
     @sum_time ||= @participations.sum(&:time)
   end

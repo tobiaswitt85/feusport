@@ -1,0 +1,11 @@
+= card_direct(round.name) do
+  %table.table
+    %thead
+      %tr
+        %th Ort
+        %th Datum
+    %tbody
+      - round.cups.each do |cup|
+        %tr
+          %td= cup.competition_place
+          %td= l(cup.competition_date)

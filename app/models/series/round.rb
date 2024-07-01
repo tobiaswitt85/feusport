@@ -11,6 +11,10 @@ class Series::Round < ApplicationRecord
   schema_validations
 
   default_scope -> { order(year: :desc, name: :asc) }
+  scope :exists_for, ->(competition) do
+    where(id: competition.score_results.joins(result_series_assessments: { assessment: :round })
+      .select(Series::Round.arel_table[:id]))
+  end
 
   def disciplines
     assessments.pluck(:discipline).uniq.sort
@@ -27,6 +31,22 @@ class Series::Round < ApplicationRecord
 
   def round
     self
+  end
+
+  def team_count
+    team_participations.pluck(:team_id, :team_number).uniq.count
+  end
+
+  def team_participations
+    participations.where(type: 'Series::TeamParticipation')
+  end
+
+  def person_count
+    person_participations.pluck(:person_id).uniq.count
+  end
+
+  def person_participations
+    participations.where(type: 'Series::PersonParticipation')
   end
 
   protected
