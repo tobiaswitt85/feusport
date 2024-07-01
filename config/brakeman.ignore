@@ -1,13 +1,36 @@
 {
   "ignored_warnings": [
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "47f7ea01000498838743cd95db4fcf03d432d1bb6923b2bf114a4e9d62866822",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/jobs/import_suggestions_job.rb",
+      "line": 40,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "ActiveRecord::Base.connection.execute(\"ALTER SEQUENCE #{klass.table_name}_id_seq RESTART WITH #{((klass.maximum(:id) or 0) + 1)}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ImportSuggestionsJob",
+        "method": "reset_autoincrement_id"
+      },
+      "user_input": "((klass.maximum(:id) or 0) + 1)",
+      "confidence": "Medium",
+      "cwe_id": [
+        89
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 2,
       "fingerprint": "e88c7ca3ecd90e4e7e2aee81df05bd04bbf26eded928b0fea52178dd03ca45d5",
       "check_name": "CrossSiteScripting",
       "message": "Unescaped model attribute",
       "file": "app/views/competitions/showings/show.html.haml",
-      "line": 9,
+      "line": 10,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
       "code": "Competition.find_by!(:year => params[:year], :slug => params[:slug]).description_html",
       "render_path": [
@@ -35,6 +58,6 @@
       "note": ""
     }
   ],
-  "updated": "2024-04-22 10:38:54 +0200",
+  "updated": "2024-07-01 09:32:40 +0200",
   "brakeman_version": "6.1.2"
 }
