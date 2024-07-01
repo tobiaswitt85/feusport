@@ -67,6 +67,13 @@ class Team < ApplicationRecord
     end
   end
 
+  def <=>(other)
+    sort_by_name = full_name <=> other.full_name
+    return sort_by_name unless sort_by_name == 0
+
+    super
+  end
+
   private
 
   def create_assessment_requests

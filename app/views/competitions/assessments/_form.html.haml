@@ -1,6 +1,6 @@
 - card.body do
-  = f.association :discipline, collection: @competition.disciplines
-  = f.association :band, collection: @competition.bands
+  = f.association :discipline, collection: @competition.disciplines.sort
+  = f.association :band, collection: @competition.bands.sort
   = f.input :forced_name
   - unless @assessment.persisted?
     %fieldset.group

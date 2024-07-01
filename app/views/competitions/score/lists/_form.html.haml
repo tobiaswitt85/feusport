@@ -5,7 +5,7 @@
   = f.input :show_multiple_assessments
   = f.input :hidden
   = f.input :show_best_of_run
-  = f.association :results, collection: @competition.score_results, as: :check_boxes
+  = f.association :results, collection: @competition.score_results.sort, as: :check_boxes
 - card.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_score_results_path)

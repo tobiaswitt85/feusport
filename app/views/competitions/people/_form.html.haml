@@ -18,7 +18,7 @@
   .row
     - if @person.team.nil? || !@person.team.persisted?
       .col-md-6
-        = f.association :team, label_method: ->(team) { team.full_name_with_band }, label: 'Vorhandene Mannschaft', collection: @person.band.teams
+        = f.association :team, label_method: ->(team) { team.full_name_with_band }, label: 'Vorhandene Mannschaft', collection: @person.band.teams.sort
       .col-md-6
         %datalist#team-names
           - @competition.teams.reorder(:name).distinct.pluck(:name).each do |team_name|

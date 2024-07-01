@@ -38,7 +38,7 @@ class Band < ApplicationRecord
   end
 
   def person_tag_names=(names)
-    self.person_tags = names.to_s.split(',').map(&:strip).compact_blank
+    self.person_tags = names.to_s.split(',').map(&:strip).compact_blank.sort
   end
 
   def person_tag_names
@@ -46,7 +46,7 @@ class Band < ApplicationRecord
   end
 
   def team_tag_names=(names)
-    self.team_tags = names.to_s.split(',').map(&:strip).compact_blank
+    self.team_tags = names.to_s.split(',').map(&:strip).compact_blank.sort
   end
 
   def team_tag_names

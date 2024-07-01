@@ -14,7 +14,7 @@
               = g.input :run, as: :hidden
               = g.input :track, as: :hidden
               = g.input :entity_type, as: :hidden
-              = g.association :assessment, collection: @list.assessments, label: 'Wertung/Gruppe'
+              = g.association :assessment, collection: @list.assessments.sort, label: 'Wertung/Gruppe'
               = g.input :assessment_type, as: :select, collection: AssessmentRequest.assessment_types.keys, label_method: ->(type) { t("assessment_types.#{type}") }
 
             Wird in Lauf #{free_run} auf Bahn #{free_track} eingeordnet.
