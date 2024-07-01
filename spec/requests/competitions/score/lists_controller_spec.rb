@@ -20,9 +20,9 @@ RSpec.describe Score::List do
 
   let(:result_hl) { create(:score_result, competition:, assessment: assessment_hl_female) }
   let(:result_la) { create(:score_result, competition:, assessment: assessment_female) }
-  let(:person1) { create(:person, :generated, competition:) }
-  let(:person2) { create(:person, :generated, competition:) }
-  let(:person3) { create(:person, :generated, competition:) }
+  let(:person1) { create(:person, :generated, band: female, competition:) }
+  let(:person2) { create(:person, :generated, band: female, competition:) }
+  let(:person3) { create(:person, :generated, band: female, competition:) }
 
   describe 'create lists' do
     it 'uses list factory' do
@@ -283,6 +283,49 @@ RSpec.describe Score::List do
               } } }
       end.not_to change(Score::ListEntry, :count)
       expect(response).to match_html_fixture.with_affix('select-with-error').for_status(422)
+    end
+  end
+
+  describe 'copy list' do
+    let!(:person_list) { create_score_list(result_hl, person1 => 1234, person2 => :waiting, person3 => :waiting) }
+
+    it 'duplicates list with factory' do
+      sign_in user
+
+      get "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}"
+
+      expect do
+        get "/#{competition.year}/#{competition.slug}/score/list_factories/copy_list/#{person_list.id}"
+        expect(response).to redirect_to "/#{competition.year}/#{competition.slug}/score/list_factories/edit"
+      end.to change(Score::ListFactory, :count).by(1)
+
+      get "/#{competition.year}/#{competition.slug}/score/list_factories/edit"
+      expect(response).to match_html_fixture.with_affix('edit')
+
+      factory = Score::ListFactory.last
+      expect(factory).to be_instance_of(Score::ListFactories::TrackChange)
+      expect(factory.discipline).to eq hl
+      expect(factory.results).to eq [result_hl]
+    end
+  end
+
+  describe 'abort list factory' do
+    it 'destroys list factory' do
+      sign_in user
+
+      # get not existing factory
+      get "/#{competition.year}/#{competition.slug}/score/list_factories/edit"
+      follow_redirect!
+
+      post "/#{competition.year}/#{competition.slug}/score/list_factories",
+           params: { score_list_factory: { discipline_id: la.id,
+                                           next_step: 'assessments' } }
+      follow_redirect!
+
+      expect do
+        delete "/#{competition.year}/#{competition.slug}/score/list_factories"
+        expect(response).to redirect_to "/#{competition.year}/#{competition.slug}/score/lists"
+      end.to change(Score::ListFactory, :count).by(-1)
     end
   end
 
