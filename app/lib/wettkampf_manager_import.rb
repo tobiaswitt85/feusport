@@ -163,7 +163,8 @@ class WettkampfManagerImport
         id,name,shortcut,track_count,date,show_multiple_assessments,hidden,separate_target_times,show_best_of_run
       FROM score_lists
     SQL
-    @db.execute(sql).each do |id, name, shortcut, track_count, date, show_multiple_assessments, hidden, separate_target_times, show_best_of_run|
+    @db.execute(sql).each do |id, name, shortcut, track_count, date, show_multiple_assessments, hidden,
+      separate_target_times, show_best_of_run|
       list = competition.score_lists.create!(
         name:,
         shortcut:,
@@ -198,7 +199,8 @@ class WettkampfManagerImport
         list_id,entity_type,entity_id,track,run,result_type,assessment_type,assessment_id,time,time_left_target,time_right_target
       FROM score_list_entries
     SQL
-    @db.execute(sql).each do |list_id, entity_type, entity_id, track, run, result_type, assessment_type, assessment_id, time, time_left_target, time_right_target|
+    @db.execute(sql).each do |list_id, entity_type, entity_id, track, run, result_type, assessment_type,
+      assessment_id, time, time_left_target, time_right_target|
       list = competition.score_lists.find(@score_lists_translations[list_id])
       if entity_type == 'Team'
         entity_id = @teams_translations[entity_id]

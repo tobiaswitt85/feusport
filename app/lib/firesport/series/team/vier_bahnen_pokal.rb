@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Firesport::Series::Team::VierBahnenPokal < Firesport::Series::Team::LaCup
-  def self.points_for_result(rank, _time, _round, gender:, double_rank_count: 0)
+  def self.points_for_result(rank, _time, _round, *)
     rank == 1 ? 0 : rank
   end
 

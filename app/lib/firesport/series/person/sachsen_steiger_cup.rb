@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Firesport::Series::Person::SachsenSteigerCup < Firesport::Series::Person::MvCup
-  def self.max_points(_round, gender:)
+  def self.max_points(*)
     30
   end
 

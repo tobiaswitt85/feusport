@@ -4,7 +4,7 @@ class Score::DoubleEventResult < Score::Result
   include Score::Resultable
   has_many :results, class_name: 'Score::Result', dependent: :nullify, inverse_of: :double_event_result
 
-  def generate_rows(_group_result = false)
+  def generate_rows(*)
     rows = {}
     results.each do |result|
       result.rows.select(&:valid?).each do |result_row|

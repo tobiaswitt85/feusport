@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Firesport::Series::Team::SachsenSteigerCup < Firesport::Series::Team::Base
-  def self.max_points(_round, gender:)
+  def self.max_points(*)
     10
   end
 

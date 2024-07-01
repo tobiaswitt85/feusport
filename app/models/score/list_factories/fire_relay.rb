@@ -12,18 +12,18 @@ class Score::ListFactories::FireRelay < Score::ListFactory
   protected
 
   def perform_rows
-    number_requests = {}
-    assessment_requests.each do |request|
-      (1..request.relay_count).each do |number|
-        number_requests[number] ||= []
-        relay = TeamRelay.find_or_create_by!(team: request.entity, number:)
-        number_requests[number].push(OpenStruct.new(
-                                       entity: relay,
-                                       assessment_type: request.assessment_type,
-                                       assessment: request.assessment,
-                                     ))
-      end
-    end
-    number_requests.values.flatten
+    # number_requests = {}
+    # assessment_requests.each do |request|
+    #   (1..request.relay_count).each do |number|
+    #     number_requests[number] ||= []
+    #     relay = TeamRelay.find_or_create_by!(team: request.entity, number:)
+    #     number_requests[number].push(OpenStruct.new(
+    #                                    entity: relay,
+    #                                    assessment_type: request.assessment_type,
+    #                                    assessment: request.assessment,
+    #                                  ))
+    #   end
+    # end
+    # number_requests.values.flatten
   end
 end

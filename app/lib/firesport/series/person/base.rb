@@ -7,7 +7,7 @@ Firesport::Series::Person::Base = Struct.new(:round, :entity) do
     3
   end
 
-  def self.max_points(_round, gender:)
+  def self.max_points(*)
     30
   end
 

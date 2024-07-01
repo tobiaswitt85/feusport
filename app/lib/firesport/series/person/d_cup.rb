@@ -5,7 +5,7 @@ class Firesport::Series::Person::DCup < Firesport::Series::Person::Base
     10
   end
 
-  def self.max_points(_round, gender:)
+  def self.max_points(*)
     30
   end
 
