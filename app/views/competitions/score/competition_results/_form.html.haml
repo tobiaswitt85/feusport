@@ -1,6 +1,7 @@
 - card.body do
-  = f.input :name
-  = f.input :result_type, collection: Score::CompetitionResult.result_types.invert
+  = f.input :name, hint: 'Überlicherweise: Frauen oder Männer'
+  = f.input :hidden
+  = f.input :result_type, as: :radio_buttons, collection: Score::CompetitionResult.result_types.invert
   = f.association :results, as: :check_boxes, collection: @competition.score_results.sort
 - card.footer do
   = f.primary_button :submit

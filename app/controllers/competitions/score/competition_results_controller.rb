@@ -6,7 +6,7 @@ class Competitions::Score::CompetitionResultsController < CompetitionNestedContr
   def create
     @competition_result.assign_attributes(competition_result_params)
     if @competition_result.save
-      redirect_to competition_score_competition_result_path(id: @competition_result.id), notice: :saved
+      redirect_to competition_score_competition_results_path, notice: :saved
     else
       flash.now[:alert] = :check_errors
       render action: :new, status: :unprocessable_entity

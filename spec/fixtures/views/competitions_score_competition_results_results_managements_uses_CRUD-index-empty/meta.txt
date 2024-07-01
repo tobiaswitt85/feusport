@@ -1,0 +1,4 @@
+competitions/score/competition_results results managements uses CRUD-index-empty
+
+request
+html

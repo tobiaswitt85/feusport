@@ -13,6 +13,6 @@
       %td= row.team.shortcut_name
       - competition_result.results.each do |result|
         - assessment_result = row.assessment_result_from(result)
-        %td.small.time= assessment_result.try(:result_entry).try(:decorate)
-        %td.small.points= assessment_result.try(:points)
+        %td.small.time= assessment_result&.result_entry&.human_time
+        %td.small.points= assessment_result&.points
       %td.sum-points= row.points

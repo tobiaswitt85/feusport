@@ -5,8 +5,10 @@ de:
       score/competition_result:
         assessments: Wertungen
         gender: Geschlecht
+        hidden: Verstecken
         name: Name
         result_type: Punkteberechnung
+        results: Ergebnislisten
       score/list:
         assessments: Wertungen
         competition: Wettkampf
