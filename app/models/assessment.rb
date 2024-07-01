@@ -34,11 +34,11 @@ class Assessment < ApplicationRecord
   end
 
   def self.requestable_for_person(band)
-    where(band:)
+    where(band:).sort
   end
 
   def self.requestable_for_team(band)
-    where(band:).reject { |a| a.discipline.single_discipline? }
+    where(band:).reject { |a| a.discipline.single_discipline? }.sort
   end
 
   def name_with_request_count
