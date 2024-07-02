@@ -8,8 +8,8 @@ Exports::Pdf::Teams = Struct.new(:competition) do
     competition.bands.sort.each_with_index do |band, index|
       pdf.start_new_page unless index.zero?
 
-      pdf.font_size = 10
       pdf_header("#{Team.model_name.human(count: :many)} - #{band.name}")
+      pdf.font_size = 10
       pdf.table(index_export_data(band),
                 header: true,
                 row_colors: pdf_default_row_colors,

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Exports::Teams
+  protected
+
   def index_export_data(band, full: false)
     collection = band.teams.sort
 
@@ -49,8 +51,6 @@ module Exports::Teams
     end
     data
   end
-
-  protected
 
   def export_title
     'Mannschaften'

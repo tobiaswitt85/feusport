@@ -1,32 +1,48 @@
 # frozen_string_literal: true
 
 module Exports::People
-  def index_export_data(band, collection)
-    return [] if collection.empty?
+  include AssessmentRequestHelper
 
-    assessments = Assessment.requestable_for_person(band).map(&:decorate)
+  def index_export_data(band)
+    collection = band.people.sort
+
+    assessments = Assessment.no_zweikampf.where(band:)
+
     headline = []
-    headline.push('Nr.') if Competition.one.show_bib_numbers?
+    headline.push('Nr.') if competition.show_bib_numbers?
     headline.push('Nachname', 'Vorname', 'Mannschaft')
-    tags.each { |tag| headline.push(tag.to_s) }
-    assessments.each { |assessment| headline.push(assessment.discipline.to_short) }
+
+    band.person_tags.each { |tag| headline.push(tag) }
+    assessments.each do |assessment|
+      full_name = assessment.name
+      full_name = full_name.gsub(band.name, '').strip
+      full_name = full_name.gsub(/\s*-\s*-\s*/, ' - ').strip
+      full_name = full_name.gsub(/-\Z/, '').strip
+      full_name = full_name.gsub(/\s*-\s*-\s*/, ' - ').strip
+      full_name = full_name.gsub(/-\Z/, '').strip
+      headline.push(full_name)
+    end
     data = [headline]
 
     collection.each do |person|
       line = []
-      line.push(person.bib_number) if Competition.one.show_bib_numbers?
+      line.push(person.bib_number) if competition.show_bib_numbers?
       line.push(person.last_name, person.first_name, person.team&.shortcut_name)
-      tags.each { |tag| line.push(person.tags.include?(tag) ? 'X' : '') }
+      band.person_tags.each { |tag| line.push(person.tags.include?(tag) ? 'X' : '') }
       assessments.each do |assessment|
-        request = person.request_for(assessment.object)
-        line.push(request.present? ? t("assessment_types.#{request.assessment_type}_short") : '')
+        request = person.request_for(assessment)
+        if request.present?
+          line.push(person_short_type(request, html: false))
+        else
+          line.push('')
+        end
       end
       data.push(line)
     end
     data
   end
 
-  def tags
-    @tags ||= PersonTag.all.decorate
+  def export_title
+    'Wettkämpfer'
   end
 end

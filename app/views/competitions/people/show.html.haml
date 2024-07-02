@@ -5,6 +5,10 @@
     = card("Wettkämpfer: #{@person.full_name}", class: 'mb-3') do |card|
       - card.direct do
         %table.table.table-condensed
+          - if @competition.show_bib_numbers?
+            %tr
+              %th= Person.human_attribute_name(:bib_number)
+              %td= @person.bib_number
           %tr
             %th= Person.human_attribute_name(:first_name)
             %td= @person.first_name
@@ -14,6 +18,10 @@
           %tr
             %th= Person.human_attribute_name(:band)
             %td= @person.band.name
+          - if @person.band.person_tags.present?
+            %tr
+              %th= Person.human_attribute_name(:tags)
+              %td= @person.tags.join(', ')
           %tr
             %th= Person.human_attribute_name(:team)
             %td

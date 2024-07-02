@@ -52,6 +52,23 @@ RSpec.describe 'People' do
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/people/#{new_id}")
       expect(Person.find(new_id).first_name).to eq('new-name')
 
+      get "/#{competition.year}/#{competition.slug}/people.pdf"
+      expect(response).to match_pdf_fixture.with_affix('all-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="wettkampfer.pdf"; ' \
+        "filename*=UTF-8''wettkampfer.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/people.xlsx"
+      expect(response.content_type).to eq(Mime[:xlsx])
+      expect(response.header['Content-Disposition']).to eq(
+        'attachment; filename="wettkampfer.xlsx"; ' \
+        "filename*=UTF-8''wettkampfer.xlsx",
+      )
+      expect(response).to have_http_status(:success)
+
       expect do
         delete "/#{competition.year}/#{competition.slug}/people/#{new_id}"
       end.to change(Person, :count).by(-1)

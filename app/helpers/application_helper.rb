@@ -52,27 +52,4 @@ module ApplicationHelper
     classes.push('personal-best') if person.new_personal_best?(current_result)
     tag.span('i', class: classes, data: { balloon_content: render('competitions/people/best_badge', person:) })
   end
-
-  def person_short_type(request)
-    if request.group_competitor?
-      I18n.t('assessment_types.group_competitor_short_order',
-             competitor_order: request.group_competitor_order)
-    elsif request.single_competitor?
-      I18n.t('assessment_types.single_competitor_short_order',
-             competitor_order: request.single_competitor_order)
-    elsif request.out_of_competition?
-      I18n.t('assessment_types.out_of_competition_short')
-    elsif request.competitor?
-      case request.assessment.discipline.key
-      when 'fs'
-        AssessmentRequest.fs_names[competitor_order]
-      when 'la', 'gs'
-        arr = AssessmentRequest.short_names[request.assessment.discipline.key][request.competitor_order] || []
-        arr[1] = tag.span(arr[1], class: 'small') if arr[1]
-        safe_join(arr)
-      end
-    else
-      0
-    end
-  end
 end

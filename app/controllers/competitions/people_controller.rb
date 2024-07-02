@@ -3,6 +3,11 @@
 class Competitions::PeopleController < CompetitionNestedController
   default_resource
 
+  def index
+    send_pdf(Exports::Pdf::People, args: [@competition])
+    send_xlsx(Exports::Xlsx::People, args: [@competition])
+  end
+
   def create
     @person.assign_attributes(person_params)
     if @person.save
