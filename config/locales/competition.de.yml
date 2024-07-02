@@ -8,6 +8,8 @@ de:
     attributes:
       competition:
         date: Datum
+        flyer_content: Flyer-Inhalt
+        flyer_headline: Flyer-Überschrift
         locality: Ort
         lottery_numbers: Losnummern
         name: Name

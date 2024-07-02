@@ -18,6 +18,17 @@
                 = f.input :lottery_numbers
               .col-md-6
                 = f.input :show_bib_numbers
+
+          %fieldset.group
+            %legend Flyer
+
+            .row
+              .col-md-6
+                = f.input :flyer_headline
+              .col-md-6
+                = f.input :flyer_content
+
+            %small.text-muted Diese Werten werden auf dem PDF-Flyer zu diesem Wettkampf angezeigt.
         - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_show_path)

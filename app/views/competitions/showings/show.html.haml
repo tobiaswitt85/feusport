@@ -31,6 +31,9 @@
       .card-body.text-center.p-0.pt-3
         %pre.small= link_to(competition_show_url.gsub(%r{https?://}, ''), competition_show_url)
         = image_tag qrcode(competition_show_url)
+        - if can?(:edit, @competition)
+          .d-grid.gap-2.col-10.mx-auto.mb-2
+            = link_to 'Flyer anzeigen', { format: :pdf }, class: 'btn btn-dark btn-sm', target: '_blank', rel: 'noopener'
 
 - if @competition.documents.exists?
   .row

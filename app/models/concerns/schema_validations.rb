@@ -321,6 +321,8 @@ module SchemaValidations
 
     def dbv_score_competition_results_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id])
+      belongs_to_uniqueness_validations_for([["name", "competition_id"]])
+      uniqueness_validations_for([["name", "competition_id"]])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}

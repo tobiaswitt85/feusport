@@ -38,6 +38,10 @@ class Competition < ApplicationRecord
 
     self.description ||= "Der Wettkampf *#{name}* findet am **#{I18n.l date}** in **#{locality}** statt.\n\n" \
                          'Weitere Informationen folgen.'
+
+    self.flyer_headline ||= 'Webseite mit Ergebnissen im Internet'
+    self.flyer_content ||= "- Ergebnisse\n- Startlisten"
+
     self.registration_open_until = date - 1.day
   end
   before_validation(on: :update) do

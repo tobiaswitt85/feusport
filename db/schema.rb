@@ -120,6 +120,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_205213) do
     t.boolean "preset_ran", default: false, null: false
     t.integer "registration_open", default: 0, null: false
     t.date "registration_open_until"
+    t.string "flyer_headline"
+    t.text "flyer_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["date"], name: "index_competitions_on_date"
@@ -253,6 +255,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_205213) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["competition_id"], name: "index_score_competition_results_on_competition_id"
+    t.index ["name", "competition_id"], name: "index_score_competition_results_on_name_and_competition_id", unique: true
   end
 
   create_table "score_list_assessments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

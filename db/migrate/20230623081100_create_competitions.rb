@@ -16,6 +16,9 @@ class CreateCompetitions < ActiveRecord::Migration[7.0]
       t.integer :registration_open, default: 0, null: false
       t.date :registration_open_until
 
+      t.string :flyer_headline
+      t.text :flyer_content
+
       t.timestamps
     end
 
