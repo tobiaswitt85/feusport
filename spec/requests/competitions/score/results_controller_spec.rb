@@ -61,6 +61,42 @@ RSpec.describe 'competitions/score/results' do
 
       expect(result.reload.name).to eq 'Cooler Name'
 
+      get "/#{competition.year}/#{competition.slug}/score/results/#{result.id}.pdf"
+      expect(response).to match_pdf_fixture.with_affix('full-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="cooler-name.pdf"; ' \
+        "filename*=UTF-8''cooler-name.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/score/results/#{result.id}.pdf?only=single_competitors"
+      expect(response).to match_pdf_fixture.with_affix('single_competitors-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="cooler-name.pdf"; ' \
+        "filename*=UTF-8''cooler-name.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/score/results/#{result.id}.pdf?only=group_assessment"
+      expect(response).to match_pdf_fixture.with_affix('group_assessment-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="cooler-name.pdf"; ' \
+        "filename*=UTF-8''cooler-name.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      # GET index XLSX
+      get "/#{competition.year}/#{competition.slug}/score/results/#{result.id}.xlsx"
+      expect(response.content_type).to eq(Mime[:xlsx])
+      expect(response.header['Content-Disposition']).to eq(
+        'attachment; filename="cooler-name.xlsx"; ' \
+        "filename*=UTF-8''cooler-name.xlsx",
+      )
+      expect(response).to have_http_status(:success)
+
       expect do
         delete "/#{competition.year}/#{competition.slug}/score/results/#{result.id}"
       end.to change(Score::Result, :count).by(-1)

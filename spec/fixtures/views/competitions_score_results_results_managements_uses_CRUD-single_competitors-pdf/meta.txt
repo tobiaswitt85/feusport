@@ -1,0 +1,4 @@
+competitions/score/results results managements uses CRUD-single_competitors-pdf
+
+request
+pdf

@@ -1,0 +1,4 @@
+competitions/score/results results managements uses CRUD-full-pdf
+
+request
+pdf

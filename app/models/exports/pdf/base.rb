@@ -61,6 +61,7 @@ module Exports::Pdf::Base
     return if discipline.blank?
 
     pdf_discipline_image(discipline, width: 30, at: [10, headline_y])
+    pdf.move_down 10
   end
 
   def pdf_footer(name: nil, no_page_count: nil, date: nil)

@@ -5,23 +5,15 @@ Exports::Pdf::Score::Result = Struct.new(:result, :only) do
   include Exports::ScoreResults
 
   def perform
-    single_table if only != :group_assessment
-    group_table if only != :single_competitors && result.group_assessment? && discipline.single_discipline?
-    pdf_footer(name: result.to_s, date: result.date)
-  end
-
-  def filename
-    "#{result.to_s.parameterize}.pdf"
+    single_table if only != 'group_assessment'
+    group_table if only != 'single_competitors' && result.group_assessment? && discipline.single_discipline?
+    pdf_footer(name: result.name, date: result.date)
   end
 
   protected
 
-  def discipline
-    @discipline ||= result.assessment.discipline.decorate
-  end
-
   def single_table
-    pdf_header(result.to_s, discipline:, date: result.date)
+    pdf_header(result.name, discipline:, date: result.date)
 
     pdf.table(build_data_rows(result, discipline, true, pdf: true),
               header: true,
@@ -35,7 +27,7 @@ Exports::Pdf::Score::Result = Struct.new(:result, :only) do
 
   def group_table
     pdf.start_new_page if only.nil?
-    pdf_header("#{result} - Mannschaftswertung", discipline:, date: result.date)
+    pdf_header("#{result.name} - Mannschaftswertung", discipline:, date: result.date)
 
     pdf.table(build_group_data_rows(result),
               header: true,
@@ -52,7 +44,7 @@ Exports::Pdf::Score::Result = Struct.new(:result, :only) do
   end
 
   def team_result_table(team_result)
-    data = [[team_result.team.to_s, team_result.result_entry.to_s]]
+    data = [[team_result.team.full_name, team_result.result_entry.human_time]]
     team_result.rows_in.each { |row| data.push(row) }
     team_result.rows_out.each { |row| data.push(row) }
 
