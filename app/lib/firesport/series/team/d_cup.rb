@@ -5,14 +5,6 @@ class Firesport::Series::Team::DCup < Firesport::Series::Team::Base
     10
   end
 
-  def self.assessment_disciplines
-    { la: [''], fs: [''], gs: [''] }
-  end
-
-  def self.group_assessment_disciplines
-    { hl: [''], hb: [''], hw: [''] }
-  end
-
   def self.points_for_rank(row, ranks)
     points = super
     row.competition_result_valid? ? points : 0

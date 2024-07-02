@@ -62,4 +62,17 @@ RSpec.describe 'competitions/certificates/templates' do
       end.to change(Certificates::Template, :count).by(-1)
     end
   end
+
+  describe 'previews' do
+    let(:template) { create(:certificates_template, competition:, image: nil) }
+    let!(:text_field1) { create(:certificates_text_field, :team_name, template:) }
+    let!(:text_field2) { create(:certificates_text_field, :free_text, template:) }
+
+    it 'previews pdf' do
+      sign_in user
+
+      get "/#{competition.year}/#{competition.slug}/certificates/templates/#{template.id}.pdf"
+      expect(response).to match_pdf_fixture
+    end
+  end
 end

@@ -5,10 +5,6 @@ class Firesport::Series::Team::SachsenSteigerCup < Firesport::Series::Team::Base
     10
   end
 
-  def self.group_assessment_disciplines
-    { hl: [''] }
-  end
-
   def <=>(other)
     compare = other.points <=> points
     return compare unless compare.zero?

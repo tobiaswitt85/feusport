@@ -1,0 +1,4 @@
+competitions/certificates/templates previews previews pdf
+
+request
+pdf

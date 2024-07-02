@@ -11,7 +11,7 @@ class Firesport::Series::Team::SachsenCup < Firesport::Series::Team::LaCup
     elsif rank == 2
       max_points(round, gender:) - 2 - double_rank_count
     else
-      super(rank + 2, time, round, double_rank_count:)
+      super(rank + 2, time, round, gender:, double_rank_count:)
     end
   end
 

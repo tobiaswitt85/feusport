@@ -5,10 +5,6 @@ class Firesport::Series::Person::SachsenSteigerCup < Firesport::Series::Person::
     30
   end
 
-  def self.assessment_disciplines
-    { hl: ['', 'Nachwuchs'] }
-  end
-
   def <=>(other)
     compare = other.points <=> points
     return compare unless compare.zero?
