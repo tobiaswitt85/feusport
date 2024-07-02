@@ -13,4 +13,8 @@ module Exports::Json::Base
   def bytestream
     @bytestream ||= to_hash.to_json
   end
+
+  def filename
+    "#{filename_base}.json"
+  end
 end

@@ -12,17 +12,7 @@ Exports::Json::Score::Result = Struct.new(:result) do
       discipline: result.assessment.discipline.key,
       name: result.to_s,
     }
-    hash[:group_rows] = build_group_data_rows(result) if result.group_assessment? && discipline.single_discipline?
+    hash[:group_rows] = build_group_data_rows(result) if result.single_group_result?
     hash
-  end
-
-  def filename
-    "#{result.to_s.parameterize}.json"
-  end
-
-  protected
-
-  def discipline
-    @discipline ||= result.assessment.discipline.decorate
   end
 end
