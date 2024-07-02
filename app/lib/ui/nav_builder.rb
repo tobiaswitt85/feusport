@@ -52,4 +52,8 @@ Ui::NavBuilderItem = Struct.new(:label, :url, :options) do
   def dropdown
     options[:dropdown]
   end
+
+  def link_options
+    options.slice(:title, :target, :rel)
+  end
 end

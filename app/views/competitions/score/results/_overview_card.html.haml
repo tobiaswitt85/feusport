@@ -72,11 +72,12 @@
 
   - card.actions do |actions|
     - if result.group_assessment? && result.discipline.single_discipline?
-      = actions.link_to 'Mannschaftswertung als PDF', { format: :pdf, only: :group_assessment }, target: '_blank', rel: 'noopener'
-      = actions.link_to 'Einzelwertung als PDF', { format: :pdf, only: :single_competitors }, target: '_blank', rel: 'noopener'
-      = actions.link_to 'Komplett als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
+      = actions.link_to 'Mannschaftswertung als PDF', { format: :pdf, only: :group_assessment }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+      = actions.link_to 'Einzelwertung als PDF', { format: :pdf, only: :single_competitors }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+      = actions.link_to 'Komplett als PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
     - else
-      = actions.link_to 'als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
-    = actions.link_to 'als XLS', format: :xlsx
+      - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+
+    - actions.link_to 'XLS', { format: :xlsx }, end_icon: :file_excel
     - if @competition.certificates_templates.exists?
-      = actions.link_to 'als Urkunden', new_competition_certificates_list_path(score_result_id: @result.id)
+      = actions.link_to 'Urkunden', new_competition_certificates_list_path(score_result_id: @result.id), end_icon: :file_certificate

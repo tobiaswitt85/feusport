@@ -7,4 +7,4 @@
         = render 'nav_items', items: item.dropdown.items, li_class: nil, a_class: 'dropdown-item'
   - else
     %div{ class: [li_class] + [item.active ? 'active' : nil] }
-      = render('nav_link', link: item, a_class:)
+      = render('nav_link', link: item, a_class:, link_options: item.link_options)

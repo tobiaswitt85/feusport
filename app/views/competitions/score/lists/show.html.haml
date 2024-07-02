@@ -24,8 +24,8 @@
                       - if entry.present? && params[:destroy_index]
                         = short_destroy_link destroy_entity_competition_score_list_path(id: @list, entry_id: entry.id), title: 'Aus Liste entfernen', class: 'btn-xs'
         - card.actions do |actions|
-          = actions.link_to 'als PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
-          = actions.link_to 'als XLS', format: :xlsx
+          - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+          - actions.link_to 'XLS', { format: :xlsx }, end_icon: :file_excel
       - else
         - card.body do
           %p Diese Startliste ist derzeit nicht öffentlich einsehbar.
@@ -56,8 +56,8 @@
             - if can?(:copy, @list)
               = btn_link_to 'Startliste klonen', copy_list_competition_score_list_factories_path(list_id: @list.id)
         - card.actions do |actions|
-          = actions.link_to 'PDF', { format: :pdf }, target: '_blank', rel: 'noopener'
-          = actions.link_to 'PDF für Kampfrichter', { format: :pdf, more_columns: true }, target: '_blank', rel: 'noopener'
+          = actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+          = actions.link_to 'PDF für Kampfrichter', { format: :pdf, more_columns: true }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
 
       - if can?(:edit, @list)
         = card('Allgemein', class: 'mb-3') do |card|
