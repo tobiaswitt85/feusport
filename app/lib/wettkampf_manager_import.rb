@@ -8,7 +8,7 @@ class WettkampfManagerImport
 
     name, date, place = @db.execute('SELECT name,date,place FROM competitions').first
     @competition = Competition.create_with(user: User.first).find_or_create_by!(
-      name:, locality: place, visible: true, date:,
+      name:, place:, visible: true, date:,
     )
 
     competition.score_lists.destroy_all

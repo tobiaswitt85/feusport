@@ -158,8 +158,8 @@ module SchemaValidations
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :date, {:presence=>{}}
       validates_with_filter :date, {:date_in_db_range=>{}}
-      validates_with_filter :locality, {:presence=>{}}
-      validates_with_filter :locality, {:length=>{:allow_nil=>true, :maximum=>50}}
+      validates_with_filter :place, {:presence=>{}}
+      validates_with_filter :place, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :slug, {:presence=>{}}
       validates_with_filter :slug, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :year, {:presence=>{}}

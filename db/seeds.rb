@@ -6,7 +6,7 @@ user = User.create_with(password: 'Admin123', confirmed_at: Time.current)
            .find_or_create_by!(email: 'georf@georf.de', name: 'Georg Limbach')
 
 c = Competition.create_with(date: 2.months.from_now).find_or_create_by!(
-  name: 'Wettkampf ohne Text', locality: 'Schwerin', visible: true,
+  name: 'Wettkampf ohne Text', place: 'Schwerin', visible: true,
 )
 c.users.push(user)
 
@@ -14,7 +14,7 @@ c.disciplines.find_or_create_by(key: :la, name: Discipline::DEFAULT_NAMES[:la], 
                                 single_discipline: false)
 
 c = Competition.create_with(date: 2.months.from_now).find_or_create_by!(
-  name: 'Wettkampf mit mehr Disziplinen', locality: 'Wismar', visible: true,
+  name: 'Wettkampf mit mehr Disziplinen', place: 'Wismar', visible: true,
 )
 c.users.push(user)
 
@@ -28,7 +28,7 @@ c.disciplines.find_or_create_by(key: :hl, name: Discipline::DEFAULT_NAMES[:hl], 
                                 single_discipline: true)
 
 c = Competition.create_with(date: 4.months.from_now).find_or_create_by!(
-  name: 'Wettkampf mit Urkunden', locality: 'Rostock', visible: true,
+  name: 'Wettkampf mit Urkunden', place: 'Rostock', visible: true,
 )
 c.users.push(user)
 

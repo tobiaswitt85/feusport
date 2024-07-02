@@ -5,7 +5,7 @@
     .card
       .card-header
         = page_title(@competition.name)
-        %p.lead.mb-0 #{l @competition.date} - #{@competition.locality}
+        %p.lead.mb-0 #{l @competition.date} - #{@competition.place}
       .card-body
         != @competition.description_html
   .col-lg-6.col-xl-4

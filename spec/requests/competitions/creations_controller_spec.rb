@@ -13,11 +13,11 @@ RSpec.describe 'Competition' do
       expect(response).to match_html_fixture.with_affix('new')
 
       # POST create with failure
-      post '/competitions/creations', params: { competition: { name: 'Foo', date: '', locality: '' } }
+      post '/competitions/creations', params: { competition: { name: 'Foo', date: '', place: '' } }
       expect(response).to match_html_fixture.with_affix('new-error').for_status(422)
 
       expect do
-        post '/competitions/creations', params: { competition: { name: 'Foo', date: '2024-02-29', locality: 'Berlin' } }
+        post '/competitions/creations', params: { competition: { name: 'Foo', date: '2024-02-29', place: 'Berlin' } }
         expect(response).to redirect_to '/2024/foo'
         follow_redirect!
         expect(response).to match_html_fixture.with_affix('showing')

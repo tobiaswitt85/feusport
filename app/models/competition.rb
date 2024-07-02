@@ -36,7 +36,7 @@ class Competition < ApplicationRecord
 
     next if date.blank?
 
-    self.description ||= "Der Wettkampf *#{name}* findet am **#{I18n.l date}** in **#{locality}** statt.\n\n" \
+    self.description ||= "Der Wettkampf *#{name}* findet am **#{I18n.l date}** in **#{place}** statt.\n\n" \
                          'Weitere Informationen folgen.'
 
     self.flyer_headline ||= 'Webseite mit Ergebnissen im Internet'

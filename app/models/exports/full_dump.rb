@@ -19,7 +19,7 @@ class Exports::FullDump
       files: files.map(&:to_export_hash),
       name: competition.name,
       date: competition.date.to_s,
-      place: competition.locality,
+      place: competition.place,
     }
   end
 

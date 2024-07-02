@@ -2,7 +2,7 @@
 
 = page do |page|
   = page.title @competition.name
-  = page.sub_title "#{l competition.date} - #{competition.locality}"
+  = page.sub_title "#{l competition.date} - #{competition.place}"
   = page.sub_title2 sub if sub.present?
   = page.tabs do |tabs|
     = tabs.link_to 'Informationen', competition_show_path, active: resource_class.nil?

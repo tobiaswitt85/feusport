@@ -10,9 +10,9 @@ de:
         date: Datum
         flyer_content: Flyer-Inhalt
         flyer_headline: Flyer-Überschrift
-        locality: Ort
         lottery_numbers: Losnummern
         name: Name
+        place: Ort
         registration_open: Selbstständige Anmeldungen
         registration_open_until: Anmeldung offen bis einschließlich
         show_bib_numbers: Startnummern
@@ -31,9 +31,9 @@ de:
     hints:
       competition:
         date: Sollte sich der Wettkampf über mehrere Tage erstrecken, gib den Haupttag an. Weiteres musst du in der Beschreibung ergänzen.
-        locality: Es sieht besser aus, wenn du hier nur den Namen des Ortes schreibst. Die vollständige Adresse solltest du in der Beschreibung angeben.
         lottery_numbers: Mit Losnummern kann die Reihenfolge der Mannschaften vorgegeben werden. Die Losnummern können dann bei den Mannschaften eingegeben werden, so wie außerhalb des Systems gezogen wurden.
         name: Gib einen kurzen Namen an. Das Datum erscheint extra und braucht nicht im Namen auftauchen.
+        place: Es sieht besser aus, wenn du hier nur den Namen des Ortes schreibst. Die vollständige Adresse solltest du in der Beschreibung angeben.
         show_bib_numbers: Startnummern können zu Personen vergeben werden und werden dann bei Startlisten mit angezeigt.
         slug: Der »Slug« ist der Bestandteil der URL, der in der Adresse deines Browsers angezeigt wird. Änderst du diesen, werden alle von dir bisher verteilten QR-Codes und URLs ungültig.
         visible: Sobald du deinen Wettkampf sichtbar schaltest, wird er allen Besuchern in der Terminliste angezeigt.

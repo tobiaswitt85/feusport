@@ -36,7 +36,7 @@ module Certificates::StorageSupport
     when :date
       I18n.l(result.try(:date) || competition.date)
     when :place
-      competition.locality
+      competition.place
     when :competition_name
       competition.name
     when :points

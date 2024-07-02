@@ -16,7 +16,7 @@ class Series::Cup < ApplicationRecord
   end
 
   def competition_place
-    dummy_for_competition&.locality || super
+    dummy_for_competition&.place || super
   end
 
   def competition_date

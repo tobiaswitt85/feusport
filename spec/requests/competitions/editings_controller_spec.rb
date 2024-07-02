@@ -14,11 +14,11 @@ RSpec.describe 'competitions/editings' do
       expect(response).to match_html_fixture.with_affix('edit')
 
       patch "/#{competition.year}/#{competition.slug}/editing",
-            params: { competition: { name: 'Foo', date: '', locality: '', description: 'new-description' } }
+            params: { competition: { name: 'Foo', date: '', place: '', description: 'new-description' } }
       expect(response).to match_html_fixture.with_affix('edit-error').for_status(422)
 
       patch "/#{competition.year}/#{competition.slug}/editing",
-            params: { competition: { name: 'Foo', date: '2024-02-29', locality: 'Berlin',
+            params: { competition: { name: 'Foo', date: '2024-02-29', place: 'Berlin',
                                      description: 'new-description' } }
 
       expect(competition.reload.description).to eq 'new-description'

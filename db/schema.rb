@@ -110,7 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_205213) do
   create_table "competitions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.date "date", null: false
-    t.string "locality", limit: 50, null: false
+    t.string "place", limit: 50, null: false
     t.string "slug", limit: 50, null: false
     t.integer "year", null: false
     t.boolean "visible", default: false, null: false
