@@ -10,5 +10,7 @@ class CreateScoreCompetitionResults < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :score_competition_results, %i[name competition_id], unique: true
   end
 end

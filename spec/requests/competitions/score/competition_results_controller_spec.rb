@@ -42,6 +42,9 @@ RSpec.describe 'competitions/score/competition_results' do
 
       result = Score::CompetitionResult.first
 
+      get "/#{competition.year}/#{competition.slug}/score/competition_results/#{result.id}"
+      expect(response).to redirect_to "/#{competition.year}/#{competition.slug}/score/competition_results"
+
       get "/#{competition.year}/#{competition.slug}/score/competition_results/#{result.id}/edit"
       expect(response).to match_html_fixture.with_affix('edit')
 
@@ -49,12 +52,48 @@ RSpec.describe 'competitions/score/competition_results' do
             params: { score_competition_result: { name: '' } }
       expect(response).to match_html_fixture.with_affix('edit-with-error').for_status(422)
 
+      Score::CompetitionResult.create!(competition:, name: 'other', result_type: 'places_to_points')
+
       patch "/#{competition.year}/#{competition.slug}/score/competition_results/#{result.id}",
             params: { score_competition_result: { hidden: '0' } }
       expect(response).to redirect_to "/#{competition.year}/#{competition.slug}/score/competition_results"
       follow_redirect!
 
       expect(response).to match_html_fixture.with_affix('index')
+
+      get "/#{competition.year}/#{competition.slug}/score/competition_results.pdf"
+      expect(response).to match_pdf_fixture.with_affix('all-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="gesamtwertung.pdf"; ' \
+        "filename*=UTF-8''gesamtwertung.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/score/competition_results/#{result.id}.pdf"
+      expect(response).to match_pdf_fixture.with_affix('one-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="gesamtwertung-frauen.pdf"; ' \
+        "filename*=UTF-8''gesamtwertung-frauen.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/score/competition_results.xlsx"
+      expect(response.content_type).to eq(Mime[:xlsx])
+      expect(response.header['Content-Disposition']).to eq(
+        'attachment; filename="gesamtwertung.xlsx"; ' \
+        "filename*=UTF-8''gesamtwertung.xlsx",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/score/competition_results/#{result.id}.xlsx"
+      expect(response.content_type).to eq(Mime[:xlsx])
+      expect(response.header['Content-Disposition']).to eq(
+        'attachment; filename="gesamtwertung-frauen.xlsx"; ' \
+        "filename*=UTF-8''gesamtwertung-frauen.xlsx",
+      )
+      expect(response).to have_http_status(:success)
 
       expect do
         delete "/#{competition.year}/#{competition.slug}/score/competition_results/#{result.id}"

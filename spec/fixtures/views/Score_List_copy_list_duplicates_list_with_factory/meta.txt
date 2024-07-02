@@ -1,4 +1,0 @@
-Score::List copy list duplicates list with factory
-
-request
-html

@@ -7,24 +7,19 @@ Exports::Pdf::Score::CompetitionResults = Struct.new(:results) do
   def perform
     results.each_with_index do |result, index|
       pdf.start_new_page unless index.zero?
-      pdf_header("Gesamtwertung - #{result}")
+      pdf_header("Gesamtwertung - #{result.name}")
 
+      pdf.font_size = 10
       pdf.table(table_data(result),
                 header: true,
                 width: pdf.bounds.width,
-                cell_style: { align: :center, size: 8 },
+                cell_style: { align: :center },
                 row_colors: pdf_default_row_colors) do
-        row(0).style(font_style: :bold, size: 10)
-        column([0, 1]).style(size: 12)
-        column(-1).style(size: 12)
+        row(0).style(font_style: :bold)
       end
     end
 
-    pdf_footer(name: 'Gesamtwertung')
-  end
-
-  def filename
-    'gesamtwertungen.pdf'
+    pdf_footer(name: export_title)
   end
 
   protected
