@@ -1,5 +1,8 @@
 - card.body do
-  = f.input :name, hint: 'Überlicherweise: Frauen oder Männer'
+  %datalist#band-names
+    - @competition.bands.sort.each do |band|
+      %option{ value: band.name }
+  = f.input :name, hint: 'Überlicherweise: Frauen oder Männer', input_html: { list: 'band-names' }
   = f.input :hidden
   = f.input :result_type, as: :radio_buttons, collection: Score::CompetitionResult.result_types.invert
   = f.association :results, as: :check_boxes, collection: @competition.score_results.sort

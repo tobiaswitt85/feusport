@@ -6,7 +6,7 @@ Exports::Xlsx::Score::Result = Struct.new(:result) do
 
   def perform
     single_table
-    group_table if result.group_assessment? && discipline.single_discipline?
+    group_table if result.single_group_result?
   end
 
   protected

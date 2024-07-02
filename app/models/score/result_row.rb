@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 Score::ResultRow = Struct.new(:entity, :result) do
+  include Certificates::StorageSupport
   attr_reader :list_entries
 
-  delegate :calculation_method, to: :result
+  delegate :calculation_method, :competition, to: :result
 
   def add_list(list_entry)
     @list_entries ||= []

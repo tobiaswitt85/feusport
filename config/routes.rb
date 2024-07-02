@@ -69,7 +69,7 @@ Rails.application.routes.draw do
       end
       resources :lists, only: %i[new create] do
         collection do
-          post :export
+          get :export
         end
       end
     end

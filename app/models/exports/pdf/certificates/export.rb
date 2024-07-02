@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Exports::Pdf::Certificates::Export = Struct.new(:template, :title, :rows, :background_image) do
+Exports::Pdf::Certificates::Export = Struct.new(:template, :export_title, :rows, :background_image) do
   include Exports::Pdf::Base
 
   def perform
@@ -13,10 +13,6 @@ Exports::Pdf::Certificates::Export = Struct.new(:template, :title, :rows, :backg
 
       pdf.start_new_page if i != rows.count - 1
     end
-  end
-
-  def filename
-    "#{title.parameterize}.pdf"
   end
 
   protected
@@ -54,13 +50,13 @@ Exports::Pdf::Certificates::Export = Struct.new(:template, :title, :rows, :backg
     }
     pdf.fill_color position.color
     pdf.font("certificates_template_#{position.font}") do
-      pdf.text_box(row.get(position).to_s, options.merge(min_font_size: 4, overflow: :shrink_to_fit))
+      pdf.text_box(row.storage_support_get(position).to_s, options.merge(min_font_size: 4, overflow: :shrink_to_fit))
     end
   rescue Prawn::Errors::CannotFit
     pdf.font("certificates_template_#{position.font}") do
-      pdf.text_box(row.get(position).to_s, options.merge(size: 4, overflow: :truncate))
+      pdf.text_box(row.storage_support_get(position).to_s, options.merge(size: 4, overflow: :truncate))
     end
   rescue Prawn::Errors::UnknownFont
-    pdf.text_box(row.get(position).to_s, options.merge(min_font_size: 4, overflow: :shrink_to_fit))
+    pdf.text_box(row.storage_support_get(position).to_s, options.merge(min_font_size: 4, overflow: :shrink_to_fit))
   end
 end

@@ -6,7 +6,7 @@ Exports::Pdf::Score::Result = Struct.new(:result, :only) do
 
   def perform
     single_table if only != 'group_assessment'
-    group_table if only != 'single_competitors' && result.group_assessment? && discipline.single_discipline?
+    group_table if only != 'single_competitors' && result.single_group_result?
     pdf_footer(name: result.name, date: result.date)
   end
 

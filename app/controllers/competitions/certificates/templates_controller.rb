@@ -4,10 +4,9 @@ class Competitions::Certificates::TemplatesController < CompetitionNestedControl
   default_resource resource_class: Certificates::Template, through_association: :certificates_templates
 
   def show
-    # page_title('Urkundenvorlage')
-    # send_pdf(Exports::Pdf::Certificates::Export) do
-    #   [@certificates_template, "Urkundenvorlage: #{resource_instance.name}", [Certificates::Example.new], true]
-    # end
+    send_pdf(Exports::Pdf::Certificates::Export) do
+      [@template, "Urkundenvorlage: #{@template.name}", [Certificates::Example.new], true]
+    end
   end
 
   def duplicate

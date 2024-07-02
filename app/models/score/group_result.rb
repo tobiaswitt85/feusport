@@ -3,7 +3,7 @@
 Score::GroupResult = Struct.new(:result) do
   include Score::Resultable
 
-  delegate :assessment, to: :result
+  delegate :competition, :assessment, :name, to: :result
 
   def rows
     @rows ||= calculated_rows.sort
