@@ -58,7 +58,7 @@
         .d-grid.gap-2
           = btn_link_to 'Wettkämpfer hinzufügen', new_competition_person_path(team: @team)
           = btn_link_to 'Name bearbeiten', { action: :edit }
-          = btn_link_to 'Löschen', { action: :destroy }, method: :delete, data: { confirm: 'Mannschaft wirklich löschen? Alle Zeiten usw. werden auch gelöscht!' }
+          = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Mannschaft wirklich löschen? Alle Zeiten usw. werden auch gelöscht!' }
 
   - if can?(:edit, @competition) || @team.people.exists?
     .col-md-12#people-table
