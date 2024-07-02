@@ -119,6 +119,17 @@ Erweitert
 <div class="form-group my-2 string required competition_locality form-group-invalid"><label class="control-label string required" for="competition_locality">Ort <abbr title="required">*</abbr></label><input class="form-control is-invalid string required" aria-invalid="true" type="text" value="" name="competition[locality]" id="competition_locality" /><div class="invalid-feedback">Ort muss ausgefüllt werden</div><small class="form-text text-muted">Es sieht besser aus, wenn du hier nur den Namen des Ortes schreibst. Die vollständige Adresse solltest du in der Beschreibung angeben.</small></div>
 <div class="form-group my-2 text optional competition_description form-group-valid"><label class="control-label text optional" for="competition_description">Description</label><textarea class="form-control text optional easymde-required" name="competition[description]" id="competition_description">
 new-description</textarea></div>
+<fieldset class='group'>
+<legend>Kennzeichnungen</legend>
+<div class='row'>
+<div class='col-md-6'>
+<fieldset class="form-group boolean optional competition_lottery_numbers"><div class="form-check"><input name="competition[lottery_numbers]" type="hidden" value="0" autocomplete="off" /><input class="form-check-input boolean optional" type="checkbox" value="1" name="competition[lottery_numbers]" id="competition_lottery_numbers" /><label class="form-check-label boolean optional" for="competition_lottery_numbers">Losnummern</label><small class="form-text text-muted">Mit Losnummern kann die Reihenfolge der Mannschaften vorgegeben werden. Die Losnummern können dann bei den Mannschaften eingegeben werden, so wie außerhalb des Systems gezogen wurden.</small></div></fieldset>
+</div>
+<div class='col-md-6'>
+<fieldset class="form-group boolean optional competition_show_bib_numbers"><div class="form-check"><input name="competition[show_bib_numbers]" type="hidden" value="0" autocomplete="off" /><input class="form-check-input boolean optional" type="checkbox" value="1" name="competition[show_bib_numbers]" id="competition_show_bib_numbers" /><label class="form-check-label boolean optional" for="competition_show_bib_numbers">Startnummern</label><small class="form-text text-muted">Startnummern können zu Personen vergeben werden und werden dann bei Startlisten mit angezeigt.</small></div></fieldset>
+</div>
+</div>
+</fieldset>
 
 </div>
 <div class='card-footer'>

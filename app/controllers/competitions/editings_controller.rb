@@ -17,7 +17,7 @@ class Competitions::EditingsController < CompetitionNestedController
 
   def competition_params
     params.require(:competition).permit(
-      :name, :date, :locality, :description
+      :name, :date, :locality, :description, :lottery_numbers, :show_bib_numbers
     )
   end
 end

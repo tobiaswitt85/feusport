@@ -47,6 +47,23 @@ RSpec.describe Team do
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{new_id}")
       expect(described_class.find(new_id).shortcut).to eq('short')
 
+      get "/#{competition.year}/#{competition.slug}/teams.pdf"
+      expect(response).to match_pdf_fixture.with_affix('all-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="mannschaften.pdf"; ' \
+        "filename*=UTF-8''mannschaften.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
+      get "/#{competition.year}/#{competition.slug}/teams.xlsx"
+      expect(response.content_type).to eq(Mime[:xlsx])
+      expect(response.header['Content-Disposition']).to eq(
+        'attachment; filename="mannschaften.xlsx"; ' \
+        "filename*=UTF-8''mannschaften.xlsx",
+      )
+      expect(response).to have_http_status(:success)
+
       expect do
         delete "/#{competition.year}/#{competition.slug}/teams/#{new_id}"
       end.to change(described_class, :count).by(-1)

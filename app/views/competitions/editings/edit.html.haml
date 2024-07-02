@@ -9,6 +9,15 @@
           = f.input :date, html5: true
           = f.input :locality
           = f.input :description, input_html: { class: 'easymde-required' }
+
+          %fieldset.group
+            %legend Kennzeichnungen
+
+            .row
+              .col-md-6
+                = f.input :lottery_numbers
+              .col-md-6
+                = f.input :show_bib_numbers
         - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_show_path)

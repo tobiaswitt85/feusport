@@ -3,6 +3,11 @@
 class Competitions::TeamsController < CompetitionNestedController
   default_resource
 
+  def index
+    send_pdf(Exports::Pdf::Teams, args: [@competition])
+    send_xlsx(Exports::Xlsx::Teams, args: [@competition])
+  end
+
   def create
     @team.assign_attributes(team_params)
     if @team.save
