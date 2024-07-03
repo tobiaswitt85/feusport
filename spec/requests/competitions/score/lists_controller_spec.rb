@@ -79,17 +79,28 @@ RSpec.describe Score::List do
                                             next_step: 'generator_params' } }
       expect(response).to match_html_fixture.with_affix('new-generator_params-error').for_status(422)
 
+      # Score::ListFactories::TrackChange
+      Score::ListFactory.last.update!(next_step: :generator, type: 'Score::ListFactory')
+
       patch "/#{competition.year}/#{competition.slug}/score/list_factories",
             params: { score_list_factory: { type: 'Score::ListFactories::TrackChange',
                                             next_step: 'generator_params' } }
       follow_redirect!
       expect(response).to match_html_fixture.with_affix('new-generator_params_track_change')
 
+      team_list = create_score_list(result_male, team_female => :waiting).tap do |l|
+        l.update!(assessments: [assessment_male, assessment_female])
+      end
+
       patch "/#{competition.year}/#{competition.slug}/score/list_factories",
-            params: { score_list_factory: { type: 'Score::ListFactories::TrackSame',
-                                            next_step: 'generator_params' } }
+            params: { score_list_factory: { before_list_id: team_list.id,
+                                            next_step: 'finish' } }
       follow_redirect!
-      expect(response).to match_html_fixture.with_affix('new-generator_params_track_same')
+      expect(response).to match_html_fixture.with_affix('new-generator_params_track_change_finish')
+
+      # Score::ListFactories::Best
+
+      Score::ListFactory.last.update!(next_step: :generator, type: 'Score::ListFactory', before_list_id: nil)
 
       patch "/#{competition.year}/#{competition.slug}/score/list_factories",
             params: { score_list_factory: { type: 'Score::ListFactories::Best',
@@ -98,15 +109,34 @@ RSpec.describe Score::List do
       expect(response).to match_html_fixture.with_affix('new-generator_params_best')
 
       patch "/#{competition.year}/#{competition.slug}/score/list_factories",
+            params: { score_list_factory: { before_result_id: result_male.id, best_count: 30,
+                                            next_step: 'finish' } }
+      expect(response).to match_html_fixture.with_affix('new-generator_params_best_error').for_status(422)
+
+      # Score::ListFactories::TrackSame
+
+      Score::ListFactory.last.update!(next_step: :generator, type: 'Score::ListFactory', before_list_id: nil)
+
+      patch "/#{competition.year}/#{competition.slug}/score/list_factories",
+            params: { score_list_factory: { type: 'Score::ListFactories::TrackSame',
+                                            next_step: 'generator_params' } }
+      follow_redirect!
+      expect(response).to match_html_fixture.with_affix('new-generator_params_track_same')
+
+      patch "/#{competition.year}/#{competition.slug}/score/list_factories",
+            params: { score_list_factory: { before_list_id: team_list.id,
+                                            next_step: 'finish' } }
+      follow_redirect!
+      expect(response).to match_html_fixture.with_affix('new-generator_params_track_same_finish')
+
+      # Score::ListFactories::Simple
+      Score::ListFactory.last.update!(next_step: :generator, type: 'Score::ListFactory')
+
+      patch "/#{competition.year}/#{competition.slug}/score/list_factories",
             params: { score_list_factory: { type: 'Score::ListFactories::Simple',
                                             next_step: 'generator_params' } }
       follow_redirect!
-      expect(response).to match_html_fixture.with_affix('new-generator_params_single')
-
-      patch "/#{competition.year}/#{competition.slug}/score/list_factories",
-            params: { score_list_factory: { next_step: 'finish' } }
-      follow_redirect!
-      expect(response).to match_html_fixture.with_affix('new-finish')
+      expect(response).to match_html_fixture.with_affix('new-generator_params_single_finish')
 
       expect do
         patch "/#{competition.year}/#{competition.slug}/score/list_factories",

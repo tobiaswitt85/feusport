@@ -5,6 +5,7 @@ SimpleCov.start do
 
   add_filter '/spec/'
   add_filter '/app/lib/wettkampf_manager_import.rb'
+  add_filter '/app/models/concerns/schema_validations.rb'
 end
 
 SimpleCov.at_exit do

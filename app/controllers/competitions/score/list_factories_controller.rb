@@ -16,12 +16,7 @@ class Competitions::Score::ListFactoriesController < CompetitionNestedController
 
     @list_factory.assign_attributes(list_factory_params)
     if @list_factory.save
-      if @list_factory.status == :create
-        @list_factory.destroy
-        redirect_to competition_score_list_path(id: @list_factory.list.id)
-      else
-        redirect_to action: :edit
-      end
+      redirect_to action: :edit
     else
       flash.now[:alert] = :check_errors
       render action: :new, status: :unprocessable_entity

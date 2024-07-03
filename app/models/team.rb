@@ -44,27 +44,8 @@ class Team < ApplicationRecord
     requests.find_by(assessment:)
   end
 
-  def list_entries_group_competitor(assessment)
-    @list_entries_group_competitor = {} if @list_entries_group_competitor.nil?
-    @list_entries_group_competitor[assessment.id] ||= people.includes(:list_entries).count do |person|
-      person.list_entries.select { |l| l.assessment_id == assessment.id }.find(&:group_competitor?).present?
-    end
-  end
-
-  def people_assessments
-    @people_assessments ||= Assessment.where(id: Score::ListEntry.where(entity: people).distinct.select(:assessment_id))
-  end
-
   def fire_sport_statistics_team_with_dummy
     fire_sport_statistics_team.presence || FireSportStatistics::Team.dummy(self)
-  end
-
-  def assessment_request_group_competitor_valid?
-    @assessment_request_group_competitor_valid ||= Assessment.no_double_event.all.all? do |assessment|
-      people.count do |person|
-        person.requests.assessment_type(:group_competitor).exists?(assessment:)
-      end <= Competition.one.group_run_count
-    end
   end
 
   def <=>(other)

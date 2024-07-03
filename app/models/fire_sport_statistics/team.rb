@@ -18,9 +18,6 @@ class FireSportStatistics::Team < ApplicationRecord
                                                     .like_name_or_short(name).to_sql
     where("#{table_name}.id IN (#{in_names}) OR #{table_name}.id IN (#{in_spellings})")
   end
-  scope :for_team, ->(team) do
-    where_name_like(team.name.to_s)
-  end
   scope :dummies, -> { where(dummy: true) }
 
   def self.dummy(team)
