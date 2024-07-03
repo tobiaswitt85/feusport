@@ -1,5 +1,12 @@
 ---
 de:
+  activemodel:
+    attributes:
+      team_import:
+        band_id: Wertungsgruppe
+        import_rows: Namen
+    models:
+      team_import: Mannschafts-Import
   activerecord:
     attributes:
       team:

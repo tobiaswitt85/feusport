@@ -1,0 +1,14 @@
+= render 'competitions/header', competition: @competition, sub: 'Mannschaften importieren', resource_class: Team
+
+.row.g-4
+  .col-md-8
+    = simple_form_for(@team_import, url: competition_team_import_path, data: { turbo: false }) do |f|
+      = card('Mannschaften importieren') do |c|
+        - c.body do
+          = f.input :band_id, as: :radio_buttons, collection: Band.all, required: true
+          = f.input :import_rows, as: :text, hint: 'Bitte die Namen Zeilenweise angeben', required: true
+          = f.hint 'Mannschaften, die schon vorhanden sind, werden übersprungen und nicht erneut angelegt.'
+
+        - c.footer do
+          = f.primary_button :submit, 'Importieren'
+          = f.cancel_button(competition_score_results_path)

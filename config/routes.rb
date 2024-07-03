@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         get :edit_assessment_requests
       end
     end
+    resource :team_import, only: %i[new create]
     resources :people do
       member do
         get :edit_assessment_requests
