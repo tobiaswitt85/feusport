@@ -74,4 +74,22 @@ RSpec.describe 'People' do
       end.to change(Person, :count).by(-1)
     end
   end
+
+  describe 'return to team' do
+    let(:team) { create(:team, competition:, band:) }
+    let(:person) { create(:person, competition:, band:, team:) }
+
+    it 'redirects to team page' do
+      sign_in user
+
+      patch "/#{competition.year}/#{competition.slug}/people/#{person.id}?return_to=team",
+            params: { person: { first_name: 'new-name' } }
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{team.id}#people-table")
+
+      post "/#{competition.year}/#{competition.slug}/people?return_to=team",
+           params: { band_id: band.id,
+                     person: { first_name: 'first-name', last_name: 'last-name', team_id: team.id } }
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{team.id}#people-table")
+    end
+  end
 end
