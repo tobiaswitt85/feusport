@@ -42,6 +42,11 @@ RSpec.describe 'competitions/certificates/lists' do
       )
       follow_redirect!
       expect(response).to match_pdf_fixture
+
+      # invalid list redirects
+      get "/#{competition.year}/#{competition.slug}/certificates/lists/export?" \
+          'certificates_list%5Bbackground_image%5D=false'
+      expect(response).to redirect_to "/#{competition.year}/#{competition.slug}/certificates/lists/new"
     end
   end
 end

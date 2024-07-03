@@ -35,6 +35,10 @@ RSpec.describe Score::List do
       expect(response).to match_html_fixture.with_affix('new')
 
       post "/#{competition.year}/#{competition.slug}/score/list_factories",
+           params: { score_list_factory: { next_step: 'assessments' } }
+      expect(response).to match_html_fixture.with_affix('new-with-error').for_status(422)
+
+      post "/#{competition.year}/#{competition.slug}/score/list_factories",
            params: { score_list_factory: { discipline_id: la.id,
                                            next_step: 'assessments' } }
       follow_redirect!
@@ -69,6 +73,11 @@ RSpec.describe Score::List do
                                             next_step: 'generator' } }
       follow_redirect!
       expect(response).to match_html_fixture.with_affix('new-generator')
+
+      patch "/#{competition.year}/#{competition.slug}/score/list_factories",
+            params: { score_list_factory: { type: '',
+                                            next_step: 'generator_params' } }
+      expect(response).to match_html_fixture.with_affix('new-generator_params-error').for_status(422)
 
       patch "/#{competition.year}/#{competition.slug}/score/list_factories",
             params: { score_list_factory: { type: 'Score::ListFactories::TrackChange',

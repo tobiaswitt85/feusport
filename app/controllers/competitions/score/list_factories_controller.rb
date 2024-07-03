@@ -5,7 +5,7 @@ class Competitions::Score::ListFactoriesController < CompetitionNestedController
   authorize_resource :list_factory, class: Score::ListFactory
 
   before_action :redirect_to_edit, only: %i[new create]
-  before_action :assign_disciplines, only: :new
+  before_action :assign_disciplines, only: %i[new create]
 
   def create
     @list_factory = Score::ListFactory.new(
