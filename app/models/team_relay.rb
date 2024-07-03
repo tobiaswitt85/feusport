@@ -13,6 +13,18 @@ class TeamRelay < ApplicationRecord
     (64 + number).chr
   end
 
+  def full_name
+    "#{team.full_name} #{name}"
+  end
+
+  def full_name_with_band
+    "#{team.full_name_with_band} #{name}"
+  end
+
+  def shortcut_name
+    "#{team.shortcut_name} #{name}"
+  end
+
   def self.create_next_free_for(team, not_ids)
     existing = where(team:).where.not(id: not_ids).reorder(:number).first
     return existing if existing.present?

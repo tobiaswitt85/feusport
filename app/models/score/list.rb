@@ -44,7 +44,7 @@ class Score::List < ApplicationRecord
   def discipline_klass
     if single_discipline?
       Person
-    elsif assessments.first.fire_relay?
+    elsif assessments.first.like_fire_relay?
       TeamRelay
     else
       Team

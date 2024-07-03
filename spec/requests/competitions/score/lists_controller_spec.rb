@@ -284,6 +284,21 @@ RSpec.describe Score::List do
       end.not_to change(Score::ListEntry, :count)
       expect(response).to match_html_fixture.with_affix('select-with-error').for_status(422)
     end
+
+    context 'when discipline is like_fire_relay' do
+      let!(:fs) { create(:discipline, :fs, competition:) }
+      let!(:assessment_fs) { create(:assessment, competition:, discipline: fs, band: male) }
+      let(:result_fs) { create(:score_result, competition:, assessment: assessment_fs) }
+      let(:relay1) { TeamRelay.create!(team: team_male1) }
+      let!(:fs_list) { create_score_list(result_fs, relay1 => :waiting) }
+
+      it 'shows and add entries' do
+        sign_in user
+
+        get "/#{competition.year}/#{competition.slug}/score/lists/#{fs_list.id}/select_entity"
+        expect(response).to match_html_fixture.with_affix('select')
+      end
+    end
   end
 
   describe 'copy list' do
