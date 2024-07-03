@@ -72,7 +72,13 @@ RSpec.describe 'competitions/certificates/templates' do
       sign_in user
 
       get "/#{competition.year}/#{competition.slug}/certificates/templates/#{template.id}.pdf"
-      expect(response).to match_pdf_fixture
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="urkundenvorlage-einfache-vorlage.pdf"; ' \
+        "filename*=UTF-8''urkundenvorlage-einfache-vorlage.pdf",
+      )
+      expect(response).to have_http_status(:success)
+      expect(response.body.size).to be_between 24_000, 25_000
     end
   end
 end

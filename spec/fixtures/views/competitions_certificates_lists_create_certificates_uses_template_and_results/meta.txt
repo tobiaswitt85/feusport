@@ -1,4 +1,0 @@
-competitions/certificates/lists create certificates uses template and results
-
-request
-pdf

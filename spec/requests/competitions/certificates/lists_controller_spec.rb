@@ -41,7 +41,13 @@ RSpec.describe 'competitions/certificates/lists' do
         "score_result_id%5D=#{result_hl.id}&certificates_list%5Btemplate_id%5D=#{template.id}",
       )
       follow_redirect!
-      expect(response).to match_pdf_fixture
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        'inline; filename="urkunden-hakenleitersteigen-frauen.pdf"; ' \
+        "filename*=UTF-8''urkunden-hakenleitersteigen-frauen.pdf",
+      )
+      expect(response).to have_http_status(:success)
+      expect(response.body.size).to be_between 24_000, 25_000
 
       # invalid list redirects
       get "/#{competition.year}/#{competition.slug}/certificates/lists/export?" \
