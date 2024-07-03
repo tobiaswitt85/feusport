@@ -3,8 +3,10 @@
 module Certificates::StorageSupport
   def storage_support_get(position)
     case position.key
-    when :team_name, :person_name
-      entity.full_name
+    when :team_name
+      entity.is_a?(TeamRelay) ? entity&.full_name : entity&.team&.full_name
+    when :person_name
+      entity&.full_name
     when :person_bib_number
       entity.try(:bib_number)
     when :time_long
@@ -26,7 +28,7 @@ module Certificates::StorageSupport
     when :rank_without_dot
       result.place_for_row(self)
     when :assessment
-      result.assessment.try(:name).presence || result.assessment.try(:discipline) if result.respond_to?(:assessment)
+      result.assessment&.forced_name.presence || result.assessment&.discipline&.name if result.respond_to?(:assessment)
     when :result_name
       result&.name
     when :assessment_with_gender

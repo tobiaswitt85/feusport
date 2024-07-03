@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Score::DoubleEventResultRow = Struct.new(:entity, :result) do
+  include Certificates::StorageSupport
+  delegate :competition, to: :result
   attr_reader :result_rows
 
   def add_result_row(result_row)
@@ -46,14 +48,14 @@ Score::DoubleEventResultRow = Struct.new(:entity, :result) do
   protected
 
   def climbing_hook_ladder_time
-    time_by_discipline(Disciplines::ClimbingHookLadder)
+    time_by_discipline('hl')
   end
 
   def obstacle_course_time
-    time_by_discipline(Disciplines::ObstacleCourse)
+    time_by_discipline('hb')
   end
 
-  def time_by_discipline(discipline_class)
-    result_rows.find { |row| row.result.assessment.discipline.is_a?(discipline_class) }.try(:best_result_entry)
+  def time_by_discipline(discipline_key)
+    result_rows.find { |row| row.result.discipline.key == discipline_key }&.best_result_entry
   end
 end

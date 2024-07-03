@@ -204,7 +204,7 @@ RSpec/EmptyOutput:
 RSpec/Eq:
   Enabled: true
 RSpec/ExampleLength:
-  Max: 120
+  Enabled: false
 RSpec/ExcessiveDocstringSpacing:
   Enabled: true
 RSpec/Focus:

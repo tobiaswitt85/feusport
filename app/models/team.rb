@@ -74,6 +74,10 @@ class Team < ApplicationRecord
     super
   end
 
+  def team
+    self
+  end
+
   private
 
   def create_assessment_requests

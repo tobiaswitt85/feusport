@@ -172,7 +172,7 @@ class Score::ListFactory < ApplicationRecord
   end
 
   def team_shuffle?
-    competition.lottery_numbers?
+    !competition.lottery_numbers?
   end
 
   def create_list_entry(request, run, track)
