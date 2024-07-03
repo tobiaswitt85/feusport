@@ -65,7 +65,7 @@
             .d-grid.gap-2
               = btn_link_to 'Bearbeiten', { action: :edit }
               - if can?(:destroy, @list)
-                = btn_link_to 'Löschen', { action: :destroy }, method: :delete, data: { confirm: 'Startliste wirklich löschen? Alle bisher eingetragenen Zeiten dieser Liste gehen verloren!' }
+                = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Startliste wirklich löschen? Alle bisher eingetragenen Zeiten dieser Liste gehen verloren!' }
 
     - if @list.results.present?
       = card('Ergebnisse') do |card|
