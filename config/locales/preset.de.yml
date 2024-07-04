@@ -13,6 +13,6 @@ de:
   simple_form:
     hints:
       preset:
-        selected_assessments: Wähle aus, ob es mehrere Wertungen gibt.
+        selected_assessments: Wähle aus, ob es mehrere Wertungen gibt. Du kannst die Wertungen auch später noch selber ergänzen oder verändern.
         selected_bands: Wähle die Wertungsgruppen aus, die bei deinem Wettkampf starten.
         selected_disciplines: Disziplinen, die von den Wertungsgruppen gelaufen werden sollen.

@@ -49,6 +49,22 @@ RSpec.describe 'competitions/presets' do
       end.to change(Score::Result, :count).by(2)
     end
 
+    it 'use fire_attack with multiple groups' do
+      sign_in user
+
+      expect do
+        expect do
+          expect do
+            expect do
+              patch "/#{competition.year}/#{competition.slug}/presets/fire_attack",
+                    params: { preset: { selected_bands: ['', 'youth', 'male'], selected_assessments: 'din_tgl' } }
+              expect(response).to redirect_to "/#{competition.year}/#{competition.slug}"
+            end.to change(Band, :count).by(2)
+          end.to change(Discipline, :count).by(1)
+        end.to change(Assessment, :count).by(3)
+      end.to change(Score::Result, :count).by(3)
+    end
+
     it 'use single_disciplines' do
       sign_in user
 
@@ -70,6 +86,22 @@ RSpec.describe 'competitions/presets' do
           end.to change(Discipline, :count).by(2)
         end.to change(Assessment, :count).by(4)
       end.to change(Score::Result, :count).by(4)
+    end
+
+    it 'use single_disciplines with zk' do
+      sign_in user
+
+      expect do
+        expect do
+          expect do
+            expect do
+              patch "/#{competition.year}/#{competition.slug}/presets/single_disciplines",
+                    params: { preset: { selected_bands: ['', 'female', 'male'], selected_disciplines: %w[hl hb zk] } }
+              expect(response).to redirect_to "/#{competition.year}/#{competition.slug}"
+            end.to change(Band, :count).by(2)
+          end.to change(Discipline, :count).by(3)
+        end.to change(Assessment, :count).by(6)
+      end.to change(Score::Result, :count).by(6)
     end
   end
 end

@@ -15,7 +15,8 @@ class Presets::FireAttack < Presets::Base
       Param.new(:selected_bands, as: :check_boxes, collection: [%w[Frauen female], %w[Männer male], %w[Jugend youth]]),
       Param.new(:selected_assessments, as: :radio_buttons,
                                        collection: [['Eine Wertung: DIN oder TGL', 'single'],
-                                                    ['Mehrere Wertungen: DIN und TGL', 'double']]),
+                                                    ['Mehrere Wertungen: DIN und TGL', 'din_tgl'],
+                                                    ['Mehrere Wertungen: Sport und Einsatz', 'sport_einsatz']]),
     ]
   end
 
@@ -39,13 +40,17 @@ class Presets::FireAttack < Presets::Base
       next unless gender.in?(selected_bands)
 
       band = competition.bands.find_or_create_by!(gender:, name:)
-      if selected_assessments == 'double'
-        tgl_assessment = competition.assessments.find_or_create_by!(discipline: la, band:,
-                                                                    forced_name: "Löschangriff Nass - TGL - #{name}")
-        competition.score_results.find_or_create_by!(assessment: tgl_assessment)
-        din_assessment = competition.assessments.find_or_create_by!(discipline: la, band:,
-                                                                    forced_name: "Löschangriff Nass - DIN - #{name}")
-        competition.score_results.find_or_create_by!(assessment: din_assessment)
+      if selected_assessments.in?(%w[din_tgl sport_einsatz])
+        groups = []
+        groups = %w[DIN TGL] if selected_assessments == 'din_tgl'
+        groups = %w[Sport Einsatz] if selected_assessments == 'sport_einsatz'
+
+        groups.each do |group|
+          assessment = competition.assessments.find_or_create_by!(discipline: la, band:,
+                                                                  forced_name: "Löschangriff Nass - #{group} - #{name}")
+
+          competition.score_results.find_or_create_by!(assessment:)
+        end
       else
         assessment = competition.assessments.find_or_create_by!(discipline: la, band:)
         competition.score_results.find_or_create_by!(assessment:)
