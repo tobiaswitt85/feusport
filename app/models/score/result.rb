@@ -26,6 +26,7 @@ class Score::Result < ApplicationRecord
   scope :gender, ->(gender) { joins(:assessment).merge(Assessment.gender(gender)) }
   scope :group_assessment_for, ->(gender) { gender(gender).where(group_assessment: true) }
   scope :discipline, ->(discipline) { where(assessment: Assessment.discipline(discipline)) }
+  scope :no_zweikampf, -> { where.not(type: 'Score::DoubleEventResult') }
 
   schema_validations
   before_validation :clean_tags

@@ -27,9 +27,9 @@
       %td.less-important= row.entity&.team&.shortcut_name
       - if row.is_a?(Score::DoubleEventResultRow)
         %td
-          %strong= row.sum_result_entry
+          %strong= row.sum_result_entry.human_time
         - @result.results.each do |result|
-          %td= row.result_entry_from(result)
+          %td= row.result_entry_from(result)&.human_time
       - else
         %td
           %strong= row.best_result_entry.human_time

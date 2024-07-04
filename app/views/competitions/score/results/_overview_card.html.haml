@@ -31,7 +31,7 @@
             %table.table.table-condensed
               - result.results.each do |result|
                 %tr
-                  %td= link_to result, competition_score_result_path(result)
+                  %td= link_to(result.name, competition_score_result_path(id: result.id))
       - else
         %tr
           %th= Score::Result.human_attribute_name :group_assessment

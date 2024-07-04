@@ -34,7 +34,7 @@ class Assessment < ApplicationRecord
   end
 
   def self.requestable_for_person(band)
-    where(band:).sort
+    where(band:).reject { |a| a.discipline.zweikampf? }.sort
   end
 
   def self.requestable_for_team(band)

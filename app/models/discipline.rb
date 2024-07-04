@@ -34,4 +34,8 @@ class Discipline < ApplicationRecord
   def destroy_possible?
     assessments.empty?
   end
+
+  def zweikampf?
+    key == 'zk'
+  end
 end
