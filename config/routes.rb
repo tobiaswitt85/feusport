@@ -88,4 +88,10 @@ Rails.application.routes.draw do
       post :teams
     end
   end
+
+  if Rails.env.development? || Rails.env.test?
+    get 'not_found', to: 'errors#not_found'
+    get 'internal_server_error', to: 'errors#internal_server_error'
+    get 'unprocessable_entity', to: 'errors#unprocessable_entity'
+  end
 end

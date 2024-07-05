@@ -1,0 +1,18 @@
+- page_title('Fehler 500 - Interner Server-Fehler')
+
+- content_for :page_header do
+  %h1 Fehler 500
+  %p.lead.mb-0 Interner Server-Fehler
+
+.row
+  .col-md-6
+    = card_body 'Mögliche Ursachen' do
+      %ul
+        %li Programmfehler
+        %li Absichtliche oder unabsichtliche Eingabe falscher Daten
+  .col-md-6
+    = card_body 'Mögliche Lösungen' do
+      %ul
+        %li Erneut probieren
+        %li Probieren Sie andere Werte oder Daten aus
+        %li #{link_to('Entwickler', info_path)} über Fehler benachrichtigen

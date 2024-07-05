@@ -1,0 +1,18 @@
+- page_title('Fehler 422 - Unprocessable Entity')
+
+- content_for :page_header do
+  %h1 Fehler 422
+  %p.lead.mb-0 Unprocessable Entity
+
+.row
+  .col-md-6
+    = card_body 'Mögliche Ursachen' do
+      %ul
+        %li Absichtliche oder unabsichtliche Eingabe falscher Daten
+        %li Programmfehler
+  .col-md-6
+    = card_body 'Mögliche Lösungen' do
+      %ul
+        %li Erneut probieren
+        %li Probieren Sie andere Werte oder Daten aus
+        %li #{link_to('Entwickler', info_path)} über Fehler benachrichtigen
