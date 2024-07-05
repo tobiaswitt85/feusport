@@ -13,7 +13,7 @@ module AssessmentRequestHelper
     elsif request.competitor?
       case request.assessment.discipline.key
       when 'fs'
-        AssessmentRequest.fs_names[competitor_order]
+        AssessmentRequest.fs_names[request.competitor_order]
       when 'la', 'gs'
         arr = AssessmentRequest.short_names[request.assessment.discipline.key][request.competitor_order] || []
         if html
