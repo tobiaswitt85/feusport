@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_13_205213) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_07_100246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -301,7 +301,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_205213) do
     t.string "status", limit: 50
     t.integer "track"
     t.boolean "hidden", default: false, null: false
-    t.boolean "separate_target_times", default: false, null: false
+    t.boolean "separate_target_times"
     t.boolean "single_competitors_first", default: true, null: false
     t.boolean "show_best_of_run", default: false, null: false
     t.datetime "created_at", null: false
