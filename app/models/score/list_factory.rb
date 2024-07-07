@@ -121,7 +121,7 @@ class Score::ListFactory < ApplicationRecord
       unless discipline.like_fire_relay?
         run = 1
         loop do
-          break if Score::List.where(name: "#{main_name} - Lauf #{run}").blank?
+          break if competition.score_lists.where(name: "#{main_name} - Lauf #{run}").blank?
 
           run += 1
         end

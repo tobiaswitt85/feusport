@@ -60,7 +60,7 @@ module Score::ListFactoryDefaults
   def default_run
     run = 1
     loop do
-      break if Score::List.where(name: "#{default_main_name} - Lauf #{run}").blank?
+      break if competition.score_lists.where(name: "#{default_main_name} - Lauf #{run}").blank?
 
       run += 1
     end
