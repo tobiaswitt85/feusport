@@ -1,0 +1,34 @@
+= render 'competitions/header', competition: @competition, sub: resource_class.model_name.human
+
+.row.mb-3
+  .col-md-7
+    = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update)) do |f|
+      = f.input :print_list, as: :hidden
+      = card 'Reihenfolge auf der generierten Liste' do |card|
+        - card.body do
+          %ul.list-group.sortable-list#sortable-list-elements
+            - resource_instance.print_list_extended.each do |entry|
+              - case entry
+              - when Score::List
+                = render('list_entry', list: entry)
+              - when 'page'
+                = render('page_entry')
+              - when 'column'
+                = render('column_entry')
+
+        - card.footer do
+          = f.primary_button :submit, 'Generieren'
+          = f.cancel_button(competition_score_list_print_generators_path)
+  .col-md-5
+    = card_body 'Mögliche offene Werte' do
+      %ul.list-group.sortable-list#sortable-list-possible-elements
+        - @lists.each do |list|
+          = render('list_entry', list:)
+        - (@lists.count - 1).times do
+          = render('column_entry')
+        - (@lists.count - 1).times do
+          = render('page_entry')
+
+  .col-md-4
+    = render('edit_right')
+.row#pages-row

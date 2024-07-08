@@ -13,6 +13,7 @@ class Competitions::Deletion
     return false unless valid?
 
     Competition.transaction do
+      competition.score_list_print_generators.destroy_all
       competition.documents.destroy_all
       competition.certificates_templates.destroy_all
       competition.score_competition_results.destroy_all

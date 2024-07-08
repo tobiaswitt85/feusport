@@ -4,6 +4,8 @@ Exports::Pdf::Score::List = Struct.new(:list, :more_columns) do
   include Exports::Pdf::Base
   include Exports::ScoreLists
 
+  delegate :competition, to: :list
+
   def perform
     pdf_header(export_title, discipline: list.discipline, date: list.date)
 

@@ -238,7 +238,7 @@
 .next-run
   border-bottom: 2px solid black
 
-.sorted-table tbody tr
+.sorted-table tbody tr, .sortable-list
   cursor: move
 
 .sortable-chosen
@@ -251,7 +251,12 @@
   td, th
     background-color: $info
 
-
+li.sortable-chosen
+  background-color: $light
+li.sortable-ghost
+  background-color: $light
+li.sortable-drag
+  background-color: $info
 
 .animate-fade-out
   animation: animate-fade-out 0.5s both

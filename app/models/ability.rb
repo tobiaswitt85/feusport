@@ -24,6 +24,7 @@ class Ability
     can(:manage, Score::Result, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Score::CompetitionResult, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Score::ListFactory, competition: { user_accesses: { user_id: user.id } })
+    can(:manage, Score::ListPrintGenerator, competition: { user_accesses: { user_id: user.id } })
     can(:manage, UserAccess, competition: { user_accesses: { user_id: user.id } })
     can(:manage, UserAccessRequest, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Presets::Base) { |preset| can?(:manage, preset.competition) }

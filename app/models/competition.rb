@@ -19,6 +19,7 @@ class Competition < ApplicationRecord
   has_many :user_access_requests, class_name: 'UserAccessRequest', dependent: :destroy
   has_many :user_accesses, class_name: 'UserAccess', dependent: :destroy
   has_many :users, through: :user_accesses
+  has_many :score_list_print_generators, class_name: 'Score::ListPrintGenerator', dependent: :destroy
 
   scope :visible, -> { where(visible: true) }
   scope :current, -> { visible.where(date: (5.days.ago..5.days.from_now)) }

@@ -1,0 +1,25 @@
+= render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
+
+.row.g-4
+  .col-md-12
+    = card(resource_class.model_name.human(count: :many)) do |c|
+      - if resource_collection.exists?
+        - c.direct do
+          %table.table
+            %tr
+              %th= User.human_attribute_name(:name)
+              %th
+            - resource_collection.sort.each do |generator|
+              %tr
+                %td= generator.name
+                %td.text-end
+                  = btn_link_to('Generieren', competition_score_list_print_generator_path(id: generator.id))
+                  = btn_link_to('Bearbeiten', edit_competition_score_list_print_generator_path(id: generator.id))
+
+      - else
+        - c.body do
+          .alert.alert-info= t('a.no_entries_found')
+
+      - if can?(:create, UserAccessRequest.new(competition: @competition))
+        = c.primary_actions do |actions|
+          = actions.link_to t('a.add'), new_competition_score_list_print_generator_path, end_icon: :square_plus

@@ -1,0 +1,4 @@
+%li.list-group-item.d-flex.justify-content-between.align-items-start{ data: { print_id: list.id } }
+  = list.name
+  %span.badge.rounded-pill.bg-warning
+    = t('.entries', count: list.entries.count)

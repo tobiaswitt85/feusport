@@ -330,6 +330,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_07_100246) do
     t.index ["list_factory_id"], name: "index_score_list_factory_bands_on_list_factory_id"
   end
 
+  create_table "score_list_print_generators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id", null: false
+    t.text "print_list"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_score_list_print_generators_on_competition_id"
+  end
+
   create_table "score_lists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "competition_id", null: false
     t.string "name", limit: 100, default: "", null: false
@@ -538,6 +546,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_07_100246) do
   add_foreign_key "score_list_factory_assessments", "score_list_factories", column: "list_factory_id"
   add_foreign_key "score_list_factory_bands", "bands"
   add_foreign_key "score_list_factory_bands", "score_list_factories", column: "list_factory_id"
+  add_foreign_key "score_list_print_generators", "competitions"
   add_foreign_key "score_lists", "competitions"
   add_foreign_key "score_result_list_factories", "score_list_factories", column: "list_factory_id"
   add_foreign_key "score_result_list_factories", "score_results", column: "result_id"

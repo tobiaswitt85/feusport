@@ -1,0 +1,4 @@
+Score::ListPrintGenerator manage list print generators uses CRUD-index-empty
+
+request
+html

@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       end
       resources :results
       resources :competition_results
+      resources :list_print_generators, only: %i[index new show edit update destroy]
     end
 
     namespace :series do

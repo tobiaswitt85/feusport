@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 module Exports::ScoreLists
-  extend ActiveSupport::Concern
-  included do
-    delegate :competition, to: :list
-  end
-
   def show_export_data(list, more_columns: false, pdf: false, hint_size: 6,
                        show_bib_numbers: competition.show_bib_numbers?,
                        separate_target_times_as_columns: false)

@@ -412,6 +412,15 @@ module SchemaValidations
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
+    def dbv_score_list_print_generators_validations(enums: [])
+      belongs_to_presence_validations_for([:competition_id])
+      validates_with_filter :competition_id, {:presence=>{}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
     def dbv_score_lists_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :track_count])
       validates_with_filter :competition_id, {:presence=>{}}

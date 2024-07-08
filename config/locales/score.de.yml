@@ -97,8 +97,16 @@ de:
       score/list_factories/track_bandable: Bahn abhängig von Wertungsgruppen
       score/list_factories/track_change: Bahnwechsel
       score/list_factories/track_same: Bahn behalten
+      score/list_print_generator: Mehrere Startlisten drucken
       score/result: Ergebnisse
       score/run: Lauf
+  competitions:
+    score:
+      list_print_generators:
+        list_entry:
+          entries:
+            one: Ein Starter
+            other: "%{count} Starter"
   score_calculation_methods:
     default: Standard (Bester Lauf in der Wertung)
     sum_of_two: Summe der besten zwei Läufe
