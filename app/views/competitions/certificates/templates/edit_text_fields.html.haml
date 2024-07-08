@@ -6,8 +6,8 @@
 = render 'competitions/header', competition: @competition, sub: "Urkundenvorlage: #{@template.name}"
 
 = simple_form_for(@template, url: url_for(controller: controller_path, action: :update)) do |f|
-  = card("Urkundenvorlage: #{@template.name}", title: true) do |card|
-    - card.direct do
+  = card("Urkundenvorlage: #{@template.name}", title: true) do |c|
+    - c.direct do
       .row
         .col-md-10
           #certificates-template-position{ data: { font_family_regular: @template.font.attached? ? "certificates_template_#{@template.id}_regular" : '', font_family_bold: @template.font2.attached? ? "certificates_template_#{@template.id}_bold" : '', background: @template.image.attached? ? rails_blob_path(@template.image) : '', config: Certificates::TextField::KEY_CONFIG.to_json } }
@@ -44,7 +44,7 @@
           = tf.input :color, as: :hidden
           = tf.input :id, as: :hidden
           = tf.input :_destroy, as: :hidden, input_html: { value: 'true' }
-      - card.footer do
+      - c.footer do
         = f.primary_button :submit
         = f.cancel_button(competition_certificates_template_path(id: @template.id))
 

@@ -3,8 +3,8 @@
 .row
   .col-md-8
     = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update, form: :edit_assessment_requests, return_to: params[:return_to])) do |f|
-      = card("Wettkämpfer: #{@person.full_name}", class: 'mb-3') do |card|
-        - card.body do
+      = card("Wettkämpfer: #{@person.full_name}", class: 'mb-3') do |c|
+        - c.body do
           - @competition.assessments.requestable_for_person(@person.band).each do |assessment|
             .assessment-request
               = f.simple_fields_for :requests, @person.requests.find_or_initialize_by(assessment:) do |g|
@@ -28,7 +28,7 @@
                       = g.input :competitor_order, collection: AssessmentRequest.gs_names.each_with_index.map { |n, i| [n, i] }, include_blank: false
                     - else
                       = g.input :competitor_order
-        - card.footer do
+        - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_people_path)
   .col-md-4

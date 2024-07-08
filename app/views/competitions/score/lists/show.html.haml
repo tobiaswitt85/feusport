@@ -2,9 +2,9 @@
 
 .row.g-4
   .col-md-8
-    = card(@list.name) do |card|
+    = card(@list.name) do |c|
       - if can?(:edit, @list) || !@list.hidden?
-        - card.direct do
+        - c.direct do
           %table.table.much-data
             = render 'list_headline', times: true, list: @list, edit: false
             %tbody
@@ -23,25 +23,24 @@
                         = short_edit_link edit_competition_score_list_run_path(list_id: @list.id, run:), title: 'Zeiten bearbeiten', class: 'btn-xs'
                       - if entry.present? && params[:destroy_index]
                         = short_destroy_link destroy_entity_competition_score_list_path(id: @list, entry_id: entry.id), title: 'Aus Liste entfernen', class: 'btn-xs'
-        - card.actions do |actions|
+        - c.actions do |actions|
           - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
           - actions.link_to 'XLS', { format: :xlsx }, end_icon: :file_excel
       - else
-        - card.body do
+        - c.body do
           %p Diese Startliste ist derzeit nicht öffentlich einsehbar.
   .col-md-3
     - if can?(:edit, @list)
       - if @list.hidden?
-        = card('Versteckt', class: 'mb-3 text-bg-warning') do |card|
-          - card.body do
-            %p Die Startliste ist derzeit noch versteckt. Bitte geben Sie diese nach der Kontrolle frei.
-            - if can?(:edit, @list)
-              = btn_link_to 'Bearbeiten', { action: :edit }
+        = card_body('Versteckt', class: 'mb-3 text-bg-warning') do
+          %p Die Startliste ist derzeit noch versteckt. Bitte geben Sie diese nach der Kontrolle frei.
+          - if can?(:edit, @list)
+            = btn_link_to 'Bearbeiten', { action: :edit }
 
-      = card(t('a.actions'), class: 'mb-3') do |card|
-        - card.primary_actions do |actions|
+      = card(t('a.actions'), class: 'mb-3') do |c|
+        - c.primary_actions do |actions|
           - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
-        - card.body do
+        - c.body do
           .d-grid.gap-2
             - if can?(:edit, @list)
               = btn_link_to 'Reihenfolge bearbeiten', { action: :move }
@@ -55,21 +54,19 @@
               = btn_link_to 'Teilnehmer entfernen', { action: :show, destroy_index: 1 }
             - if can?(:copy, @list)
               = btn_link_to 'Startliste klonen', copy_list_competition_score_list_factories_path(list_id: @list.id)
-        - card.actions do |actions|
-          = actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
-          = actions.link_to 'PDF für Kampfrichter', { format: :pdf, more_columns: true }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+        - c.actions do |actions|
+          - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+          - actions.link_to 'PDF für Kampfrichter', { format: :pdf, more_columns: true }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
 
       - if can?(:edit, @list)
-        = card('Allgemein', class: 'mb-3') do |card|
-          - card.body do
-            .d-grid.gap-2
-              = btn_link_to 'Bearbeiten', { action: :edit }
-              - if can?(:destroy, @list)
-                = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Startliste wirklich löschen? Alle bisher eingetragenen Zeiten dieser Liste gehen verloren!' }
+        = card_body('Allgemein', class: 'mb-3') do
+          .d-grid.gap-2
+            = btn_link_to 'Bearbeiten', { action: :edit }
+            - if can?(:destroy, @list)
+              = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Startliste wirklich löschen? Alle bisher eingetragenen Zeiten dieser Liste gehen verloren!' }
 
     - if @list.results.present?
-      = card('Ergebnisse') do |card|
-        - card.body do
-          .d-grid.gap-2
-            - @list.results.each do |result|
-              = btn_link_to(result.name, competition_score_result_path(id: result.id))
+      = card_body('Ergebnisse') do
+        .d-grid.gap-2
+          - @list.results.each do |result|
+            = btn_link_to(result.name, competition_score_result_path(id: result.id))

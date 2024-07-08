@@ -1,4 +1,4 @@
-- card.body do
+- c.body do
   = f.input :name
   = f.input :shortcut, input_html: { maxlength: 8 }
   = f.input :date, html5: true
@@ -6,6 +6,6 @@
   = f.input :hidden
   = f.input :show_best_of_run
   = f.association :results, collection: @competition.score_results.sort, as: :check_boxes
-- card.footer do
+- c.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_score_results_path)

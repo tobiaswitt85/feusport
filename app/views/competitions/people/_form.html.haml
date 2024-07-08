@@ -1,4 +1,4 @@
-- card.body do
+- c.body do
   - unless @person.persisted?
     = hidden_field_tag :band_id, @person.band_id
   = f.association :band, disabled: true
@@ -43,6 +43,6 @@
   %small.form-text.text-muted Eine Verknüpfung ist bei Wettkampfserien wichtig, um vorhanden Ergebnisse zu nutzen.
 
 
-- card.footer do
+- c.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_people_path)

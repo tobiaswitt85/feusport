@@ -3,8 +3,8 @@
 .row
   .col-md-8
     = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update, form: :edit_assessment_requests)) do |f|
-      = card "#{resource_class.model_name.human} aktualisieren" do |card|
-        - card.body do
+      = card("#{resource_class.model_name.human} aktualisieren") do |c|
+        - c.body do
           - @competition.assessments.requestable_for_team(@team.band).each do |assessment|
             .assessment-request
               = f.simple_fields_for :requests, @team.requests.find_or_initialize_by(assessment:) do |g|
@@ -14,7 +14,7 @@
                   = g.input :assessment_type, as: :select, collection: AssessmentRequest.group_assessment_type_keys, label: assessment.name, label_method: ->(type) { t("assessment_types.#{type}") }
                   - if assessment.like_fire_relay?
                     = g.input :relay_count
-        - card.footer do
+        - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_teams_path)
   .col-md-4

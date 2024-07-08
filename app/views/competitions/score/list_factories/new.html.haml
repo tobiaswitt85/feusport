@@ -2,8 +2,8 @@
 
 .row
   .col-md-6
-    = card('Startliste erstellen - Schritt 1') do |card|
-      - card.direct do
+    = card('Startliste erstellen - Schritt 1') do |c|
+      - c.direct do
         - @factories.each do |factory|
           = simple_form_for [:competition, factory] do |f|
             = f.input :discipline_id, as: :hidden
@@ -14,12 +14,11 @@
               .col-md-7
                 .d-grid.gap-2
                   = f.primary_button :submit, factory.discipline.name
-      - card.footer do
+      - c.footer do
         .form-text.text-muted
           Bitte wähle die Disziplin.
 
   .col-md-6
-    = card('Hinweise') do |card|
-      - card.body do
-        %p Beim Erstellen von Startlisten werden die gewünschten Wertungsgruppen der Mannschaften und Personen beachtet. Durch verschiedene Generatoren kann man zum Beispiel die Reihenfolge vorgeben.
-        %p Sobald die Liste generiert ist, kann man die Reihenfolge noch manuell verändern. Es empfiehlt sich deshalb, die Startliste zuerst versteckt zu erzeugen und erst nach einer Kontrolle für die Öffentlichkeit freizugeben.
+    = card_body('Hinweise') do
+      %p Beim Erstellen von Startlisten werden die gewünschten Wertungsgruppen der Mannschaften und Personen beachtet. Durch verschiedene Generatoren kann man zum Beispiel die Reihenfolge vorgeben.
+      %p Sobald die Liste generiert ist, kann man die Reihenfolge noch manuell verändern. Es empfiehlt sich deshalb, die Startliste zuerst versteckt zu erzeugen und erst nach einer Kontrolle für die Öffentlichkeit freizugeben.

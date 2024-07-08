@@ -2,18 +2,18 @@
 
 .row.g-4
   .col-md-8
-    = card(resource_class.model_name.human(count: :many)) do |card|
-      - card.body do
+    = card(resource_class.model_name.human(count: :many)) do |c|
+      - c.body do
         - if resource_collection.exists?
           = render('index_table', resource_class:, resource_collection:)
         - else
           .alert.alert-info= t('a.no_entries_found')
 
       - if can?(:create, resource_class.new(competition: @competition))
-        = card.primary_actions do |actions|
-          = actions.link_to t('a.add'), { action: :new }, end_icon: :square_plus
+        - c.primary_actions do |actions|
+          - actions.link_to t('a.add'), { action: :new }, end_icon: :square_plus
 
-      - card.actions do |actions|
+      - c.actions do |actions|
         - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
         - actions.link_to 'XLS', { format: :xlsx }, end_icon: :file_excel
 

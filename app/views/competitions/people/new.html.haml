@@ -3,5 +3,5 @@
 .row
   .col-md-8
     = simple_form_for(@person, url: competition_people_path(return_to: params[:return_to])) do |f|
-      = card("#{resource_class.model_name.human} hinzufügen") do |card|
-        = render('form', f:, card:)
+      = card("#{resource_class.model_name.human} hinzufügen") do |c|
+        = render('form', f:, c:)

@@ -2,41 +2,40 @@
 
 .row
   .col-md-8
-    = card("Wettkämpfer: #{@person.full_name}", class: 'mb-3') do |card|
-      - card.direct do
-        %table.table.table-condensed
-          - if @competition.show_bib_numbers?
-            %tr
-              %th= Person.human_attribute_name(:bib_number)
-              %td= @person.bib_number
+    = card_direct("Wettkämpfer: #{@person.full_name}", class: 'mb-3') do
+      %table.table.table-condensed
+        - if @competition.show_bib_numbers?
           %tr
-            %th= Person.human_attribute_name(:first_name)
-            %td= @person.first_name
+            %th= Person.human_attribute_name(:bib_number)
+            %td= @person.bib_number
+        %tr
+          %th= Person.human_attribute_name(:first_name)
+          %td= @person.first_name
+        %tr
+          %th= Person.human_attribute_name(:last_name)
+          %td= @person.last_name
+        %tr
+          %th= Person.human_attribute_name(:band)
+          %td= @person.band.name
+        - if @person.band.person_tags.present?
           %tr
-            %th= Person.human_attribute_name(:last_name)
-            %td= @person.last_name
-          %tr
-            %th= Person.human_attribute_name(:band)
-            %td= @person.band.name
-          - if @person.band.person_tags.present?
-            %tr
-              %th= Person.human_attribute_name(:tags)
-              %td= @person.tags.join(', ')
-          %tr
-            %th= Person.human_attribute_name(:team)
-            %td
-              - if @person.team.present?
-                = link_to @person.team.name, competition_team_path(id: @person.team.id)
-          %tr
-            %td{ colspan: 2 }
-              = render('connected', person: @person, remove: false)
+            %th= Person.human_attribute_name(:tags)
+            %td= @person.tags.join(', ')
+        %tr
+          %th= Person.human_attribute_name(:team)
+          %td
+            - if @person.team.present?
+              = link_to @person.team.name, competition_team_path(id: @person.team.id)
+        %tr
+          %td{ colspan: 2 }
+            = render('connected', person: @person, remove: false)
 
   - if can?(:edit, @person)
     .col-md-4
-      = card(t('a.actions')) do |card|
-        - card.primary_actions do |actions|
+      = card(t('a.actions')) do |c|
+        - c.primary_actions do |actions|
           - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
-        - card.body do
+        - c.body do
           .d-grid.gap-2
             = btn_link_to 'Bearbeiten', action: :edit
             = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Wettkämpfer wirklich löschen? Die zugehörigen Ergebnisse werden gelöscht!' }

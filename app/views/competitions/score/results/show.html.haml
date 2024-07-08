@@ -6,10 +6,10 @@
 
   - if can?(:edit, @result)
     .col-md-4
-      = card(t('a.actions')) do |card|
-        - card.primary_actions do |actions|
+      = card(t('a.actions')) do |c|
+        - c.primary_actions do |actions|
           - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
-        - card.body do
+        - c.body do
           .d-grid.gap-2
             = btn_link_to 'Bearbeiten', action: :edit
             = btn_link_to 'Cup-Serie-Zugehörigkeit', action: :edit, form: 'series_assessments'
@@ -21,32 +21,30 @@
 
   - if @rows.count > 0
     .col-md-12
-      = card @result.name do |card|
-        - card.direct do
-          - if @discipline.single_discipline?
-            = render 'result_table_single', rows: @rows, places: true
-          - else
-            = render 'result_table_group', rows: @rows, places: true
+      = card_direct(@result.name) do
+        - if @discipline.single_discipline?
+          = render 'result_table_single', rows: @rows, places: true
+        - else
+          = render 'result_table_group', rows: @rows, places: true
 
     - if @result.group_assessment? && @result.discipline.single_discipline?
       .col-md-12
-        = card 'Mannschaftswertung' do |card|
-          - card.direct do
-            %table.table.table-bordered
-              %tr
-                %th
-                %th Mannschaft
-                %th Zeit
-              - @group_result.rows.each do |row|
-                %tr{ class: row_invalid_class(row) }
-                  %td #{@group_result.place_for_row(row)}.
-                  %th= row.team.full_name
-                  %th= row.result_entry.human_time
-                %tr{ class: row_invalid_class(row) }
-                  %td
-                  %td{ colspan: 2 }
-                    %em= row.rows_in.map(&:display).join(', ')
-                    %small= row.rows_out.map(&:display).join(', ')
+        = card_direct('Mannschaftswertung') do
+          %table.table.table-bordered
+            %tr
+              %th
+              %th Mannschaft
+              %th Zeit
+            - @group_result.rows.each do |row|
+              %tr{ class: row_invalid_class(row) }
+                %td #{@group_result.place_for_row(row)}.
+                %th= row.team.full_name
+                %th= row.result_entry.human_time
+              %tr{ class: row_invalid_class(row) }
+                %td
+                %td{ colspan: 2 }
+                  %em= row.rows_in.map(&:display).join(', ')
+                  %small= row.rows_out.map(&:display).join(', ')
   - else
     .col-md-8
       .alert.alert-info Keine Einträge gefunden
@@ -54,5 +52,5 @@
 
   - if @out_of_competition_rows.count > 0
     .col-md-12.much-data
-      = box 'Außer der Wertung' do
+      = card_direct('Außer der Wertung') do
         = render 'result_table', rows: @out_of_competition_rows, places: false

@@ -3,13 +3,13 @@
 .row
   .col-md-8
     = simple_form_for(@list, url: url_for(controller: controller_path, action: :update)) do |f|
-      = card "#{resource_class.model_name.human} aktualisieren" do |card|
-        - card.body do
+      = card("#{resource_class.model_name.human} aktualisieren") do |c|
+        - c.body do
           = f.simple_fields_for(:entries, @entries) do |g|
             = g.input :_destroy, as: :hidden, input_html: { value: '1' }
             %p= g.object.overview
             - unless g.object.result_waiting?
               .alert.alert-danger Achtung: Die eingetragene Zeit wird unwiderruflich gelöscht!
-        - card.footer do
+        - c.footer do
           = f.primary_button :submit, 'Teilnehmer entfernen'
           = f.cancel_button(action: :show)

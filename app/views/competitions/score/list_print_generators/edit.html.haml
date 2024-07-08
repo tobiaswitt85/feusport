@@ -4,8 +4,8 @@
   .col-md-7
     = simple_form_for(resource_instance, url: url_for(controller: controller_path, action: :update)) do |f|
       = f.input :print_list, as: :hidden
-      = card 'Reihenfolge auf der generierten Liste' do |card|
-        - card.body do
+      = card('Reihenfolge auf der generierten Liste') do |c|
+        - c.body do
           %ul.list-group.sortable-list#sortable-list-elements
             - resource_instance.print_list_extended.each do |entry|
               - case entry
@@ -16,11 +16,11 @@
               - when 'column'
                 = render('column_entry')
 
-        - card.footer do
+        - c.footer do
           = f.primary_button :submit, 'Generieren'
           = f.cancel_button(competition_score_list_print_generators_path)
   .col-md-5
-    = card_body 'Mögliche offene Werte' do
+    = card_body('Mögliche offene Werte') do
       %ul.list-group.sortable-list#sortable-list-possible-elements
         - @lists.each do |list|
           = render('list_entry', list:)

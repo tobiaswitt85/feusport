@@ -1,14 +1,14 @@
 = render 'competitions/header', competition: @competition, sub: 'Zeiten eintragen'
 
 = simple_form_for(@list, url: url_for(controller: controller_path, action: :update)) do |f|
-  = card "#{@list.name} aktualisieren" do |card|
-    - card.direct do
+  = card("#{@list.name} aktualisieren") do |c|
+    - c.direct do
       %table.table
         = render 'list_headline', times: true, list: @list, edit: true
         %tbody
           - score_list_entries(@list) do |entry, run, track, _best_of_run|
             = render layout: 'list_entry', locals: { entry:, run:, track:, list: @list, best_of_run: false } do
               = render 'competitions/score/runs/edit_time', entry:, f:, fields_for: :entries
-    - card.footer do
+    - c.footer do
       = f.primary_button :submit, 'Speichern'
       = f.cancel_button(action: :show)

@@ -12,7 +12,7 @@
 
   .col-md-8
     = simple_form_for(@competition, url: competition_visibility_path) do |f|
-      = card 'Wettkampf aktualisieren' do |c|
+      = card('Wettkampf aktualisieren') do |c|
         - c.body do
           = f.input :visible, autofocus: true
           = f.input :slug

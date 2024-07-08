@@ -3,8 +3,8 @@
 .row
   .col-md-8
     = simple_form_for(@list, url: url_for(controller: controller_path, action: :update)) do |f|
-      = card "#{resource_class.model_name.human} aktualisieren" do |card|
-        - card.body do
+      = card("#{resource_class.model_name.human} aktualisieren") do |c|
+        - c.body do
           - if @not_yet_present_entities.empty?
             .alert.alert-danger Es wurde alle möglichen Teilnehmer zugeordnet
           - else
@@ -18,9 +18,9 @@
               = g.input :assessment_type, as: :select, collection: AssessmentRequest.assessment_types.keys, label_method: ->(type) { t("assessment_types.#{type}") }
 
             Wird in Lauf #{free_run} auf Bahn #{free_track} eingeordnet.
-        - card.footer do
+        - c.footer do
           = f.primary_button :submit, 'Teilnehmer hinzufügen'
           = f.cancel_button(action: :show)
         - if params[:all_entities].blank?
-          - card.actions do |actions|
-            = actions.link_to 'Alle anzeigen (für doppelte Einträge)', { action: :select_entity, all_entities: true }
+          - c.actions do |actions|
+            - actions.link_to 'Alle anzeigen (für doppelte Einträge)', { action: :select_entity, all_entities: true }

@@ -2,39 +2,38 @@
 
 .row.g-4
   .col-md-8
-    = card("Mannschaft: #{@team.full_name}", class: 'mb-3') do |card|
-      - card.direct do
-        %table.table.table-condensed
+    = card_direct("Mannschaft: #{@team.full_name}", class: 'mb-3') do
+      %table.table.table-condensed
+        %tr
+          %th= Team.human_attribute_name(:name)
+          %td= @team.name
+        %tr
+          %th= Team.human_attribute_name(:shortcut)
+          %td= @team.shortcut
+        %tr
+          %th= Team.human_attribute_name(:number)
+          %td= @team.number
+        %tr
+          %th= Team.human_attribute_name(:band)
+          %td= @team.band.name
+        - unless @team.group_assessment_validator.valid?
           %tr
-            %th= Team.human_attribute_name(:name)
-            %td= @team.name
-          %tr
-            %th= Team.human_attribute_name(:shortcut)
-            %td= @team.shortcut
-          %tr
-            %th= Team.human_attribute_name(:number)
-            %td= @team.number
-          %tr
-            %th= Team.human_attribute_name(:band)
-            %td= @team.band.name
-          - unless @team.group_assessment_validator.valid?
-            %tr
-              %th.bg-warning Mannschaftswertung ungültig
-              %td.bg-warning= @team.group_assessment_validator.messages
+            %th.bg-warning Mannschaftswertung ungültig
+            %td.bg-warning= @team.group_assessment_validator.messages
 
-          - @team.band.team_tags.each do |tag|
-            %tr
-              %th= tag
-              %td= @team.tags.include?(tag) ? 'Ja' : 'Nein'
+        - @team.band.team_tags.each do |tag|
           %tr
-            %td{ colspan: 2 }
-              = render('connected', team: @team, remove: false)
+            %th= tag
+            %td= @team.tags.include?(tag) ? 'Ja' : 'Nein'
+        %tr
+          %td{ colspan: 2 }
+            = render('connected', team: @team, remove: false)
 
-    = card("Gewünschte #{Assessment.model_name.human(count: :many)}") do |card|
+    = card("Gewünschte #{Assessment.model_name.human(count: :many)}") do |c|
       - if can?(:edit, @team)
-        - card.primary_actions do |actions|
-          = actions.link_to 'Wertungen bearbeiten', { action: :edit_assessment_requests }, end_icon: :edit
-      - card.direct do
+        - c.primary_actions do |actions|
+          - actions.link_to 'Wertungen bearbeiten', { action: :edit_assessment_requests }, end_icon: :edit
+      - c.direct do
         %table.table.table-condensed
           - Assessment.requestable_for_team(@team.band).each do |assessment|
             %tr
@@ -52,10 +51,10 @@
 
   - if can?(:edit, @competition)
     .col-md-4
-      = card(t('a.actions')) do |card|
-        - card.primary_actions do |actions|
+      = card(t('a.actions')) do |c|
+        - c.primary_actions do |actions|
           - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
-        - card.body do
+        - c.body do
           .d-grid.gap-2
             = btn_link_to 'Wettkämpfer hinzufügen', new_competition_person_path(team: @team, return_to: 'team')
             = btn_link_to 'Name bearbeiten', { action: :edit }
@@ -63,31 +62,30 @@
 
   - if can?(:edit, @competition) || @team.people.exists?
     .col-md-12#people-table
-      = card(Team.human_attribute_name(:people)) do |card|
-        - card.primary_actions do |actions|
+      = card(Team.human_attribute_name(:people)) do |c|
+        - c.primary_actions do |actions|
           - actions.link_to 'Wettkämpfer hinzufügen', new_competition_person_path(team: @team, return_to: 'team'), end_icon: :square_plus
         - if @team.people.exists?
-          - card.direct do
+          - c.direct do
             = render('people_table', resource_collection: @team.people)
         - else
-          - card.body do
+          - c.body do
             .alert.alert-info= t('a.no_entries_found')
 
   - if @team.list_entries.exists?
     .col-md-12
-      = card('Startlisten') do |card|
-        - card.direct do
-          %table.table.table-bordered.table-hover
-            %thead
-              %tr
-                %th Startliste
-                %th Lauf
-                %th Bahn
-            %tbody
-              - @team.list_entries.sort_by { |entry| entry.list.name }.each do |entry|
-                - next if entry.list.hidden?
+      = card_direct('Startlisten') do
+        %table.table.table-bordered.table-hover
+          %thead
+            %tr
+              %th Startliste
+              %th Lauf
+              %th Bahn
+          %tbody
+            - @team.list_entries.sort_by { |entry| entry.list.name }.each do |entry|
+              - next if entry.list.hidden?
 
-                %tr
-                  %td= link_to(entry.list.name, competition_score_list_path(id: entry.list.id, anchor: "jump-run-#{entry.run}"))
-                  %td= entry.run
-                  %td= entry.track
+              %tr
+                %td= link_to(entry.list.name, competition_score_list_path(id: entry.list.id, anchor: "jump-run-#{entry.run}"))
+                %td= entry.run
+                %td= entry.track

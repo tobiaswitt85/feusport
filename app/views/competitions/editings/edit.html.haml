@@ -3,7 +3,7 @@
 .row
   .col-md-8
     = simple_form_for(@competition, url: competition_editing_path) do |f|
-      = card 'Wettkampf aktualisieren' do |c|
+      = card('Wettkampf aktualisieren') do |c|
         - c.body do
           = f.input :name, autofocus: true
           = f.input :date, html5: true

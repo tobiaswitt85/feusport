@@ -3,7 +3,7 @@
 .row
   .col-md-8
     = simple_form_for([:competition, resource_instance]) do |f|
-      = card("#{resource_class.model_name.human} hinzufügen") do |card|
-        = render('form', f:, card:)
+      = card("#{resource_class.model_name.human} hinzufügen") do |c|
+        = render('form', f:, c:)
   .col-md-4
     = render('new_right')

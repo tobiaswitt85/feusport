@@ -2,52 +2,50 @@
 
 .row.mb-3
   .col-md-6
-    = card('Erwachsene aus Vorlage') do |card|
-      - card.body do
-        .row
-          .col-md-4.text-center
-            = simple_form_for(@band, url: competition_bands_path) do |f|
-              = f.input :name, input_html: { value: 'Frauen' }, as: :hidden
-              = f.input :gender, input_html: { value: 'female' }, as: :hidden
-              .d-grid
-                = f.submit 'Frauen', class: 'btn btn-light'
-          .col-md-4.text-center
-            = simple_form_for(@band, url: competition_bands_path) do |f|
-              = f.input :name, input_html: { value: 'Männer' }, as: :hidden
-              = f.input :gender, input_html: { value: 'male' }, as: :hidden
-              .d-grid
-                = f.submit 'Männer', class: 'btn btn-light'
-          .col-md-4.text-center
-            = simple_form_for(@band, url: competition_bands_path) do |f|
-              = f.input :name, input_html: { value: 'Erwachsene' }, as: :hidden
-              = f.input :gender, input_html: { value: 'indifferent' }, as: :hidden
-              .d-grid
-                = f.submit 'Erwachsene', class: 'btn btn-light'
-            %em.small Geschlechtsunabhängig
+    = card_body('Erwachsene aus Vorlage') do
+      .row
+        .col-md-4.text-center
+          = simple_form_for(@band, url: competition_bands_path) do |f|
+            = f.input :name, input_html: { value: 'Frauen' }, as: :hidden
+            = f.input :gender, input_html: { value: 'female' }, as: :hidden
+            .d-grid
+              = f.submit 'Frauen', class: 'btn btn-light'
+        .col-md-4.text-center
+          = simple_form_for(@band, url: competition_bands_path) do |f|
+            = f.input :name, input_html: { value: 'Männer' }, as: :hidden
+            = f.input :gender, input_html: { value: 'male' }, as: :hidden
+            .d-grid
+              = f.submit 'Männer', class: 'btn btn-light'
+        .col-md-4.text-center
+          = simple_form_for(@band, url: competition_bands_path) do |f|
+            = f.input :name, input_html: { value: 'Erwachsene' }, as: :hidden
+            = f.input :gender, input_html: { value: 'indifferent' }, as: :hidden
+            .d-grid
+              = f.submit 'Erwachsene', class: 'btn btn-light'
+          %em.small Geschlechtsunabhängig
 
-    = card('Jugend aus Vorlage') do |card|
-      - card.body do
-        .row
-          .col-md-4.text-center
-            = simple_form_for(@band, url: competition_bands_path) do |f|
-              = f.input :name, input_html: { value: 'Mädchen' }, as: :hidden
-              = f.input :gender, input_html: { value: 'female' }, as: :hidden
-              .d-grid
-                = f.submit 'Mädchen', class: 'btn btn-light'
-          .col-md-4.text-center
-            = simple_form_for(@band, url: competition_bands_path) do |f|
-              = f.input :name, input_html: { value: 'Jungen' }, as: :hidden
-              = f.input :gender, input_html: { value: 'male' }, as: :hidden
-              .d-grid
-                = f.submit 'Jungen', class: 'btn btn-light'
-          .col-md-4.text-center
-            = simple_form_for(@band, url: competition_bands_path) do |f|
-              = f.input :name, input_html: { value: 'Jugend' }, as: :hidden
-              = f.input :gender, input_html: { value: 'indifferent' }, as: :hidden
-              .d-grid
-                = f.submit 'Jugend', class: 'btn btn-light'
-            %em.small Geschlechtsunabhängig
+    = card_body('Jugend aus Vorlage') do
+      .row
+        .col-md-4.text-center
+          = simple_form_for(@band, url: competition_bands_path) do |f|
+            = f.input :name, input_html: { value: 'Mädchen' }, as: :hidden
+            = f.input :gender, input_html: { value: 'female' }, as: :hidden
+            .d-grid
+              = f.submit 'Mädchen', class: 'btn btn-light'
+        .col-md-4.text-center
+          = simple_form_for(@band, url: competition_bands_path) do |f|
+            = f.input :name, input_html: { value: 'Jungen' }, as: :hidden
+            = f.input :gender, input_html: { value: 'male' }, as: :hidden
+            .d-grid
+              = f.submit 'Jungen', class: 'btn btn-light'
+        .col-md-4.text-center
+          = simple_form_for(@band, url: competition_bands_path) do |f|
+            = f.input :name, input_html: { value: 'Jugend' }, as: :hidden
+            = f.input :gender, input_html: { value: 'indifferent' }, as: :hidden
+            .d-grid
+              = f.submit 'Jugend', class: 'btn btn-light'
+          %em.small Geschlechtsunabhängig
   .col-md-6
     = simple_form_for([:competition, resource_instance]) do |f|
-      = card "#{resource_class.model_name.human} hinzufügen" do |card|
-        = render('form', f:, card:)
+      = card("#{resource_class.model_name.human} hinzufügen") do |c|
+        = render('form', f:, c:)

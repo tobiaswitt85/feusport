@@ -2,9 +2,9 @@
 
 .row
   .col-md-8
-    = card('Wertungen') do |card|
+    = card('Wertungen') do |c|
       - if @discipline.assessments.exists?
-        - card.direct do
+        - c.direct do
           %table.table
             - @discipline.assessments.each do |assessment|
               %tr
@@ -12,13 +12,13 @@
                 %td.text-right
                   = btn_link_to 'Ansehen', competition_assessment_path(id: assessment.id)
       - else
-        - card.body do
+        - c.body do
           .alert.alert-info Keine Einträge gefunden
   .col-md-4
-    = card(t('a.actions')) do |card|
-      = card.primary_actions do |actions|
-        = actions.link_to 'Übersicht', { action: :index }, end_icon: :list
-      - card.body do
+    = card(t('a.actions')) do |c|
+      - c.primary_actions do |actions|
+        - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
+      - c.body do
         .d-grid.gap-2
           = btn_link_to 'Bearbeiten', { action: :edit }
           - if @discipline.destroy_possible?

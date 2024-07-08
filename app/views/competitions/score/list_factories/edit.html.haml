@@ -2,12 +2,12 @@
 
 .row
   .col-md-6
-    = card("Startliste erstellen - Schritt #{@list_factory.current_step_number + 1}") do |card|
-      - card.body do
+    = card("Startliste erstellen - Schritt #{@list_factory.current_step_number + 1}") do |c|
+      - c.body do
         = simple_form_for [:competition, @list_factory], url: url_for(action: :update), as: :score_list_factory do |f|
           = render(@list_factory.current_step.to_s, f:)
 
-      - card.footer do
+      - c.footer do
         - if @list_factory.current_step_number > 1
           = simple_form_for @list_factory, url: url_for(action: :update), as: :score_list_factory do |f|
             = f.input :next_step, as: :hidden, input_html: { value: Score::ListFactory::STEPS[@list_factory.current_step_number - 1] }
@@ -17,57 +17,56 @@
           = btn_link_to 'Abbrechen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Listenerstellung abbrechen?' }
 
   .col-md-6
-    = card 'Bisher ausgewählt' do |card|
-      - card.direct do
-        %table.table
+    = card_direct('Bisher ausgewählt') do
+      %table.table
+        %tr
+          %th Disziplin
+          %td
+            = discipline_image @list_factory.discipline.key
+            = @list_factory.discipline.name
+
+        - if @list_factory.current_step_number > 1
           %tr
-            %th Disziplin
+            %th Wertungen
             %td
-              = discipline_image @list_factory.discipline.key
-              = @list_factory.discipline.name
+              %ul
+                - @list_factory.assessments.sort.each do |assessment|
+                  %li= link_to(assessment.name, competition_assessment_path(id: assessment.id))
 
-          - if @list_factory.current_step_number > 1
+        - if @list_factory.current_step_number > 2
+          %tr
+            %th Name
+            %td= @list_factory.name
+          %tr
+            %th Abkürzung
+            %td= @list_factory.shortcut
+
+        - if @list_factory.current_step_number > 3
+          %tr
+            %th Wettkampfbahnen
+            %td= @list_factory.track_count
+
+        - if @list_factory.current_step_number > 4
+          %tr
+            %th Ergebnislisten
+            %td
+              %ul
+                - @list_factory.results.sort.each do |result|
+                  %li= link_to(result.name, competition_score_result_path(id: result.id))
+
+        - if @list_factory.current_step_number > 5
+          = render 'generator_description', generator_class: @list_factory.class
+
+        - if @list_factory.current_step_number > 6
+          - if :before_list.in?(@list_factory.class.generator_params)
             %tr
-              %th Wertungen
-              %td
-                %ul
-                  - @list_factory.assessments.sort.each do |assessment|
-                    %li= link_to(assessment.name, competition_assessment_path(id: assessment.id))
-
-          - if @list_factory.current_step_number > 2
+              %th Vorherige Startliste
+              %td= link_to(@list_factory.before_list.name, competition_score_list_path(id: @list_factory.before_list.id))
+          - if :before_result.in?(@list_factory.class.generator_params)
             %tr
-              %th Name
-              %td= @list_factory.name
+              %th Vorherige Ergebnisliste
+              %td= link_to(@list_factory.before_result.name, competition_score_result_path(id: @list_factory.before_result.id))
+          - if :best_count.in?(@list_factory.class.generator_params)
             %tr
-              %th Abkürzung
-              %td= @list_factory.shortcut
-
-          - if @list_factory.current_step_number > 3
-            %tr
-              %th Wettkampfbahnen
-              %td= @list_factory.track_count
-
-          - if @list_factory.current_step_number > 4
-            %tr
-              %th Ergebnislisten
-              %td
-                %ul
-                  - @list_factory.results.sort.each do |result|
-                    %li= link_to(result.name, competition_score_result_path(id: result.id))
-
-          - if @list_factory.current_step_number > 5
-            = render 'generator_description', generator_class: @list_factory.class
-
-          - if @list_factory.current_step_number > 6
-            - if :before_list.in?(@list_factory.class.generator_params)
-              %tr
-                %th Vorherige Startliste
-                %td= link_to(@list_factory.before_list.name, competition_score_list_path(id: @list_factory.before_list.id))
-            - if :before_result.in?(@list_factory.class.generator_params)
-              %tr
-                %th Vorherige Ergebnisliste
-                %td= link_to(@list_factory.before_result.name, competition_score_result_path(id: @list_factory.before_result.id))
-            - if :best_count.in?(@list_factory.class.generator_params)
-              %tr
-                %th Anzahl auf neuer Liste
-                %td= @list_factory.best_count
+              %th Anzahl auf neuer Liste
+              %td= @list_factory.best_count

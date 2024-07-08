@@ -2,17 +2,17 @@
 
 .row.g-4
   .col-md-8
-    = card(resource_class.model_name.human(count: :many)) do |card|
+    = card(resource_class.model_name.human(count: :many)) do |c|
       - if resource_collection.exists?
-        - card.direct do
+        - c.direct do
           = render('index_table', resource_class:, resource_collection:)
       - else
-        - card.body do
+        - c.body do
           .alert.alert-info= t('a.no_entries_found')
 
       - if can?(:create, resource_class.new(competition: @competition))
-        = card.primary_actions do |actions|
-          = actions.link_to t('a.add'), new_competition_score_list_factories_path, end_icon: :square_plus
+        - c.primary_actions do |actions|
+          - actions.link_to t('a.add'), new_competition_score_list_factories_path, end_icon: :square_plus
 
-      = card.actions do |actions|
-        = actions.link_to 'Mehrere zusammen drucken', competition_score_list_print_generators_path
+        - c.actions do |actions|
+          - actions.link_to 'Mehrere zusammen drucken', competition_score_list_print_generators_path

@@ -18,8 +18,8 @@
           .alert.alert-info= t('a.no_entries_found')
 
       - if can?(:create, UserAccessRequest.new(competition: @competition))
-        = c.primary_actions do |actions|
-          = actions.link_to t('a.add'), new_competition_access_request_path, end_icon: :square_plus
+        - c.primary_actions do |actions|
+          - actions.link_to t('a.add'), new_competition_access_request_path, end_icon: :square_plus
 
   - if @competition.user_access_requests.exists?
     .col-md-8
