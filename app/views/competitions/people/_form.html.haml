@@ -1,7 +1,7 @@
 - c.body do
   - unless @person.persisted?
     = hidden_field_tag :band_id, @person.band_id
-  = f.association :band, disabled: true
+  = f.association :band, disabled: true, collection: [[@person.band.name, @person.band_id]]
 
   .form-group.string
     %label.string.control-label{ for: 'person_suggestion' } Schnelleingabe
@@ -36,7 +36,7 @@
   - if @person.band.person_tags.present?
     = f.input :tags, as: :check_boxes, collection: @person.band.person_tags
 
-  = f.hidden_field :fire_sport_statistics_person_id, data: { first_name: @person.fire_sport_statistics_person&.first_name, last_name: @person.fire_sport_statistics_person&.last_name }
+  = f.hidden_field :fire_sport_statistics_person_id, data: { first_name: @person.fire_sport_statistics_person&.first_name, last_name: @person.fire_sport_statistics_person&.last_name, gender: @person.fire_sport_statistics_person&.gender }
 
   .mb-0.mt-3 Verknüpfung
   = render('connected', person: @person, remove: true)

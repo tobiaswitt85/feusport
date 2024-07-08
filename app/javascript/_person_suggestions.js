@@ -39,6 +39,7 @@ const suggestions = function (div) {
             const fireSportId = document.querySelector('#person_fire_sport_statistics_person_id');
             fireSportId.dataset.firstName = result.first_name;
             fireSportId.dataset.lastName = result.last_name;
+            fireSportId.dataset.gender = result.gender;
             fireSportId.value = result.id;
             fireSportId.dispatchEvent(new Event('change'));
           });
@@ -73,6 +74,15 @@ const connectionInfo = function (fireSportId) {
     const connected = document.querySelector('#fire-sport-connected');
     const notConnected = document.querySelector('#fire-sport-not-connected');
     if (fireSportId.value.match(/\d+/)) {
+      const genderWarning = document.getElementById('gender-warning');
+      if (genderWarning) {
+        if (genderWarning.dataset.gender == fireSportId.dataset.gender) {
+          genderWarning.classList.add('d-none');
+        } else {
+          genderWarning.classList.remove('d-none');
+        }
+      }
+
       connected.classList.remove('d-none');
       notConnected.classList.add('d-none');
       connected.querySelector('strong.first-name').innerText = fireSportId.dataset.firstName;
