@@ -55,7 +55,10 @@ const generatePrintList = function () {
 };
 
 onVisit(function () {
-  new Sortable(document.getElementById('sortable-list-elements'), {
+  const sortableListElements = document.getElementById('sortable-list-elements');
+  if (sortableListElements === null) return;
+
+  new Sortable(sortableListElements, {
     animation: 150,
     group: 'shared',
     ghostClass: 'sortable-ghost',
