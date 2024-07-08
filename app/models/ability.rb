@@ -8,6 +8,8 @@ class Ability
 
     return if user.nil?
 
+    can(:visit, :disseminator)
+
     can(:connect, UserAccessRequest)
 
     can(:manage, Competition, user_accesses: { user_id: user.id })

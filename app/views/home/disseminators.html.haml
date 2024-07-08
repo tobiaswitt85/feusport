@@ -1,0 +1,30 @@
+- content_for :page_header do
+  = page_title('Multiplikatoren')
+  %p.lead.mb-0 Die Helfer bei feusport.de
+
+.row.g-4
+  .col-md-6.col-lg-4
+    .card.text-bg-accent2
+      .card-header
+        %h2 Multiplikatoren
+        %p.lead Was ist das?
+
+      .card-body
+        %p Die hier vorgestellten Leute haben sich bereiterklärt, dir beim Durchführen von Wettkämpfen im Zusammenspiel mit feusport.de zu helfen. Wenn du also nicht weiterkommst, kannst du die passende Person kontaktieren und kannst dann deinen Wettkampf wie gewünscht durchführen.
+
+  - @disseminators.each do |disseminator|
+    .col-md-6.col-lg-4
+      = card_direct(disseminator.name) do
+        %table.table
+          %tr
+            %th LFV
+            %td= disseminator.lfv
+          %tr
+            %th Position
+            %td= disseminator.position
+          %tr
+            %th E-Mail-Adresse
+            %td= disseminator.email_address
+          %tr
+            %th Telefonnummer
+            %td= disseminator.phone_number
