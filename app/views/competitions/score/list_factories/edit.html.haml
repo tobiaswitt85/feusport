@@ -31,7 +31,7 @@
               %th Wertungen
               %td
                 %ul
-                  - @list_factory.assessments.each do |assessment|
+                  - @list_factory.assessments.sort.each do |assessment|
                     %li= link_to(assessment.name, competition_assessment_path(id: assessment.id))
 
           - if @list_factory.current_step_number > 2
@@ -52,7 +52,7 @@
               %th Ergebnislisten
               %td
                 %ul
-                  - @list_factory.results.each do |result|
+                  - @list_factory.results.sort.each do |result|
                     %li= link_to(result.name, competition_score_result_path(id: result.id))
 
           - if @list_factory.current_step_number > 5
