@@ -30,7 +30,7 @@ class Competitions::Score::ListPrintGeneratorsController < CompetitionNestedCont
       Dir.mktmpdir do |dir_path|
         multi_list = Exports::Pdf::Score::MultiList.perform(@competition, @list_print_generator.print_list_extended)
         File.binwrite("#{dir_path}/in.pdf", multi_list.bytestream)
-        command = "cd #{dir_path} ; " \
+        command = "cd #{Shellwords.escape(dir_path)} ; " \
                   'convert -strip -background white -alpha remove -alpha off -quality 100 -density 100 in.pdf out.png'
         Open3.capture2(command)
         pages_pngs = if multi_list.pdf.page_count == 1
