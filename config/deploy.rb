@@ -16,3 +16,21 @@ set :migration_servers, -> { release_roles(fetch(:migration_role)) }
 # set :enable_whenever, true # default is true
 
 set :systemd_usage, true
+
+namespace :feusport do
+  desc 'generate static error pages'
+  task :generate_static_html do
+    on roles(:web) do |_host|
+      within release_path do
+        execute :curl,
+                '-sk', '-u', 'feusport:feusport', 'https://feusport.de/not_found', '-o', 'public/404.html'
+        execute :curl,
+                '-sk', '-u', 'feusport:feusport', 'https://feusport.de/unprocessable_entity', '-o', 'public/422.html'
+        execute :curl,
+                '-sk', '-u', 'feusport:feusport', 'https://feusport.de/internal_server_error', '-o', 'public/500.html'
+      end
+    end
+  end
+end
+
+after 'm3:unicorn_upgrade', 'feusport:generate_static_html'
