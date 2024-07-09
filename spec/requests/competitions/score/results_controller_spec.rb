@@ -25,6 +25,14 @@ RSpec.describe 'competitions/score/results' do
       get "/#{competition.year}/#{competition.slug}/score/results/new"
       expect(response).to match_html_fixture.with_affix('new')
 
+      # POST create with name_preview
+      expect do
+        post "/#{competition.year}/#{competition.slug}/score/results",
+             params: { name_preview: 1, score_result: { assessment_id: assessment_hl_female.id } }
+        expect(response).to have_http_status(:success)
+        expect(response.body).to eq '{"name":"Hakenleitersteigen - Frauen"}'
+      end.not_to change(Score::Result, :count)
+
       post "/#{competition.year}/#{competition.slug}/score/results",
            params: { score_result: { forced_name: '', assessment_id: nil } }
       expect(response).to match_html_fixture.with_affix('new-error').for_status(422)
@@ -56,6 +64,14 @@ RSpec.describe 'competitions/score/results' do
             params: { score_result: { forced_name: 'Cooler Name' } }
       expect(response).to redirect_to "/#{competition.year}/#{competition.slug}/score/results/#{result.id}"
       follow_redirect!
+
+      # PATCH update with name_preview
+      expect do
+        patch "/#{competition.year}/#{competition.slug}/score/results/#{result.id}",
+              params: { name_preview: 1, score_result: { assessment_id: assessment_hl_female.id } }
+        expect(response).to have_http_status(:success)
+        expect(response.body).to eq '{"name":"Hakenleitersteigen - Frauen"}'
+      end.not_to change(Score::Result, :count)
 
       result = Score::Result.find(result.id)
 

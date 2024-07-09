@@ -15,7 +15,10 @@ class Competitions::Score::ResultsController < CompetitionNestedController
 
   def create
     @result.assign_attributes(result_params)
-    if @result.save
+    if params[:name_preview]
+      @result.forced_name = nil
+      render json: { name: @result.name }
+    elsif @result.save
       redirect_to competition_score_result_path(id: @result.id), notice: :saved
     else
       flash.now[:alert] = :check_errors
@@ -25,7 +28,10 @@ class Competitions::Score::ResultsController < CompetitionNestedController
 
   def update
     @result.assign_attributes(result_params)
-    if @result.save
+    if params[:name_preview]
+      @result.forced_name = nil
+      render json: { name: @result.name }
+    elsif @result.save
       redirect_to competition_score_result_path, notice: :saved
     else
       flash.now[:alert] = :check_errors

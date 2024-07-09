@@ -10,7 +10,10 @@ class Competitions::AssessmentsController < CompetitionNestedController
 
   def create
     @assessment.assign_attributes(assessment_params)
-    if @assessment.save
+    if params[:name_preview]
+      @assessment.forced_name = nil
+      render json: { name: @assessment.name }
+    elsif @assessment.save
       redirect_to competition_assessments_path, notice: :saved
     else
       flash.now[:alert] = :check_errors
@@ -20,7 +23,10 @@ class Competitions::AssessmentsController < CompetitionNestedController
 
   def update
     @assessment.assign_attributes(assessment_params)
-    if @assessment.save
+    if params[:name_preview]
+      @assessment.forced_name = nil
+      render json: { name: @assessment.name }
+    elsif @assessment.save
       redirect_to competition_assessments_path, notice: :saved
     else
       flash.now[:alert] = :check_errors

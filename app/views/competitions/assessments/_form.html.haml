@@ -1,7 +1,7 @@
 - c.body do
-  = f.association :discipline, collection: @competition.disciplines.sort
-  = f.association :band, collection: @competition.bands.sort
-  = f.input :forced_name
+  = f.association :discipline, collection: @competition.disciplines.sort, as: :radio_buttons, label_method: ->(d) { safe_join([discipline_image(d.key, size: 20), d.name], ' ') }
+  = f.association :band, collection: @competition.bands.sort, as: :radio_buttons
+  = f.input :forced_name, hint: 'Es wird automatisch ein Name erzeugt. Mit dieser Angabe kannst du ihn überschreiben.', input_html: { data: { name_preview: 1 } }
   - unless @assessment.persisted?
     %fieldset.group
       = f.input :generate_score_result, hint: 'Soll eine passende Ergebnisliste mit angelegt werden?'

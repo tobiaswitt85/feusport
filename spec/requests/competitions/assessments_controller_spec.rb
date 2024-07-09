@@ -25,6 +25,14 @@ RSpec.describe Assessment do
       get "/#{competition.year}/#{competition.slug}/assessments/new"
       expect(response).to match_html_fixture.with_affix('new')
 
+      # POST create with name_preview
+      expect do
+        post "/#{competition.year}/#{competition.slug}/assessments",
+             params: { name_preview: 1, assessment: { discipline_id: la.id, band_id: female.id } }
+        expect(response).to have_http_status(:success)
+        expect(response.body).to eq '{"name":"Löschangriff Nass - Frauen"}'
+      end.not_to change(described_class, :count)
+
       # POST create with failure
       post "/#{competition.year}/#{competition.slug}/assessments", params: { assessment: { forced_name: 'Foo' } }
       expect(response).to match_html_fixture.with_affix('new-error').for_status(422)
@@ -68,24 +76,52 @@ RSpec.describe Assessment do
       get "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}/edit"
       expect(response).to match_html_fixture.with_affix('edit')
 
-      # PUT update with failure
-      put "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}",
-          params: { assessment: { discipline_id: 'not-exists' } }
+      # PATCH update with failure
+      patch "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}",
+            params: { assessment: { discipline_id: 'not-exists' } }
       expect(response).to match_html_fixture.with_affix('edit-error').for_status(422)
 
-      # PUT update
-      put "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}",
-          params: { assessment: { forced_name: 'other' } }
+      # PATCH update
+      patch "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}",
+            params: { assessment: { forced_name: 'other' } }
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/assessments")
 
       assessment = described_class.find_by(discipline: la)
       expect(assessment.name).to eq 'other'
+
+      # PATCH update with name_preview
+      expect do
+        patch "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}",
+              params: { name_preview: 1, assessment: { discipline_id: la.id } }
+        expect(response).to have_http_status(:success)
+        expect(response.body).to eq '{"name":"Löschangriff Nass - Frauen"}'
+      end.not_to change(described_class, :count)
 
       expect do
         # DELETE destroy
         delete "/#{competition.year}/#{competition.slug}/assessments/#{assessment.id}"
         expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/assessments")
       end.to change(described_class, :count).by(-1)
+    end
+  end
+
+  describe 'generate_score_result' do
+    it 'generates result on create' do
+      sign_in user
+
+      expect do
+        post "/#{competition.year}/#{competition.slug}/assessments", params: { assessment: {
+          discipline_id: la.id, band_id: female.id, generate_score_result: false
+        } }
+        expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/assessments")
+      end.not_to change(Score::Result, :count)
+
+      expect do
+        post "/#{competition.year}/#{competition.slug}/assessments", params: { assessment: {
+          discipline_id: la.id, band_id: female.id, generate_score_result: true
+        } }
+        expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/assessments")
+      end.to change(Score::Result, :count).by(1)
     end
   end
 end

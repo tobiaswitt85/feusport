@@ -21,8 +21,8 @@
             = f.input :person_tags_excluded, as: :check_boxes, collection: @result.band.person_tags
       %small.text-muted Wenn Kennzeichnungen ausgewählt wurden, können die Ergebnisse entsprechend eingegrenzt werden.
   - else
-    = f.association :assessment, hint: 'Es kann mehrere Ergebnisse für eine Wertung geben: Zum Beispiel Finalläufe.'
-    = f.input :forced_name, hint: 'Der Name wird automatisch aus den Wertungen und Kennzeichnungen generiert. Hier kann man ihn überschreiben.'
+    = f.association :assessment, collection: @competition.assessments.sort, hint: 'Es kann mehrere Ergebnisse für eine Wertung geben: Zum Beispiel Finalläufe.'
+    = f.input :forced_name, hint: 'Der Name wird automatisch aus den Wertungen und Kennzeichnungen generiert. Hier kann man ihn überschreiben.', input_html: { data: { name_preview: 1 } }
     = f.input :date, html5: true, hint: 'Mit Angabe dieses Datums kann man das allgemeine Datum des Wettkampfes auf dem PDF überschreiben. Dies ist nützlich, wenn der Wettkampf über mehrer Tage geht.'
     %fieldset.group.row
       .col-md-6

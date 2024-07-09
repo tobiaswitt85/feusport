@@ -12,6 +12,7 @@ import './_tooltip';
 import './_edit_times';
 import './_easymde';
 import './_list_print_generator';
+import './_name_preview';
 
 document.addEventListener('turbo:load', () => {
   window.SocialShareButton = {
