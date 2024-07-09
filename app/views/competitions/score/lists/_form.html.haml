@@ -1,11 +1,17 @@
 - c.body do
   = f.input :name
   = f.input :shortcut, input_html: { maxlength: 8 }
-  = f.input :date, html5: true
-  = f.input :show_multiple_assessments
-  = f.input :hidden
-  = f.input :show_best_of_run
   = f.association :results, collection: @competition.score_results.sort, as: :check_boxes
+
+  %fieldset.group
+    %legend Optional
+    .row
+      .col-md-6
+        = f.input :hidden, hint: 'Solange die Startliste versteckt ist, kann man die Reihenfolge noch unbemerkt verändern.'
+        = f.input :show_multiple_assessments
+        = f.input :show_best_of_run, hint: 'Hilft bei der Entscheidung, wer Schläuche messen soll.'
+      .col-md-6
+        = f.input :date, html5: true, hint: 'Mit Angabe dieses Datums kann man das allgemeine Datum des Wettkampfes auf dem PDF überschreiben. Dies ist nützlich, wenn der Wettkampf über mehrer Tage geht.'
 - c.footer do
   = f.primary_button :submit
   = f.cancel_button(competition_score_results_path)
