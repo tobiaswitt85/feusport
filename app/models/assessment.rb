@@ -21,7 +21,7 @@ class Assessment < ApplicationRecord
   delegate :like_fire_relay?, to: :discipline
 
   after_create do
-    competition.score_results.create!(assessment: self) if generate_score_result
+    competition.score_results.create!(assessment: self) if generate_score_result?
   end
 
   def name

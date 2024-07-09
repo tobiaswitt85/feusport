@@ -43,7 +43,7 @@ class Competitions::AssessmentsController < CompetitionNestedController
 
   def assessment_params
     params.require(:assessment).permit(
-      :forced_name, :discipline_id, :band_id
+      :forced_name, :discipline_id, :band_id, :generate_score_result
     )
   end
 end
