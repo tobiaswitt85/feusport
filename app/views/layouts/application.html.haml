@@ -8,7 +8,7 @@
     = csp_meta_tag
     = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
     = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
-
+    %link{ rel: :icon, type: 'image/png', href: image_path('favicon.png') }
   %body
     %nav.navbar.navbar-expand-lg.navbar-dark.bg-accent1
       .container
