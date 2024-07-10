@@ -15,6 +15,7 @@ class Competitions::CreationsController < ApplicationController
     authorize!(:create, @competition)
     @competition.assign_attributes(competition_params)
     if @competition.save
+      Certificates::Template.create_example(@competition)
       redirect_to competition_show_path(slug: @competition.slug, year: @competition.year), notice: :saved
     else
       flash.now[:alert] = :check_errors

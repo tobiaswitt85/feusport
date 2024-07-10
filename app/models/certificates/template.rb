@@ -22,6 +22,58 @@ class Certificates::Template < ApplicationRecord
 
   accepts_nested_attributes_for :text_fields, allow_destroy: true
 
+  def self.create_example(competition)
+    template = create(competition:, name: 'Beispiel-Urkunde (Vorlage)')
+    template.update(
+      text_fields_attributes: [
+        {
+          left: 97, top: 497,
+          width: 400, height: 50,
+          size: 36,
+          key: 'rank_with_rank2',
+          align: 'center',
+          font: 'bold'
+        },
+        {
+          left: 97, top: 603,
+          width: 400, height: 50,
+          size: 16,
+          key: 'time_other_long',
+          align: 'center'
+        },
+        {
+          left: 97, top: 687,
+          width: 400, height: 50,
+          size: 36,
+          key: 'team_name',
+          align: 'center',
+          font: 'bold'
+        },
+        {
+          left: 42, top: 166,
+          width: 250, height: 30,
+          size: 16,
+          key: 'competition_name',
+          align: 'center'
+        },
+        {
+          left: 42, top: 96,
+          width: 250, height: 30,
+          size: 16,
+          key: 'date',
+          align: 'center'
+        },
+        {
+          left: 42, top: 131,
+          width: 250, height: 30,
+          size: 16,
+          key: 'place',
+          align: 'center'
+        },
+      ],
+    )
+  end
+
   def duplicate_to(new_competition)
     duplicate = dup
     duplicate.competition = new_competition
