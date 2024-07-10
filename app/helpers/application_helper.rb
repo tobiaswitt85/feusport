@@ -52,4 +52,11 @@ module ApplicationHelper
     classes.push('personal-best') if person.new_personal_best?(current_result)
     tag.span('i', class: classes, data: { balloon_content: render('competitions/people/best_badge', person:) })
   end
+
+  def team_badge(team, gender)
+    return if team.nil?
+
+    classes = %w[balloon team-badge]
+    tag.span('i', class: classes, data: { balloon_content: render('competitions/teams/badge', team:, gender:) })
+  end
 end

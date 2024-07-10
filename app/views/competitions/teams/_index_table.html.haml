@@ -8,7 +8,9 @@
     %th{ style: 'width: 200px' }
   - resource_collection.each do |team|
     %tr
-      %td= team.full_name
+      %td
+        = team.full_name
+        = team_badge(team&.fire_sport_statistics_team, team.band.gender)
       - band.team_tags.each do |tag|
         %td= team.tags.include?(tag) ? 'X' : ''
       - assessments.each do |assessment|

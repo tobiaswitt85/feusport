@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class FireSportStatistics::Team < ApplicationRecord
+  BEST_TABLE_HEAD = { 'pb' => ['PB', 'Persönliche Bestleistung'].freeze,
+                      'sb' => %w[SB Saison-Bestleistung].freeze }.freeze
+
   include FireSportStatistics::TeamScopes
   has_many :team_associations, class_name: 'FireSportStatistics::TeamAssociation', dependent: :destroy,
                                inverse_of: :team
@@ -22,5 +25,25 @@ class FireSportStatistics::Team < ApplicationRecord
 
   def self.dummy(team)
     find_or_create_by(name: team.name, short: team.shortcut, dummy: true)
+  end
+
+  def team_best_table(gender)
+    table = {}
+    return if best_scores[gender].nil?
+
+    %w[din tgl].each do |type|
+      next if best_scores[gender][type].nil?
+
+      BEST_TABLE_HEAD.each do |method, infos|
+        next if best_scores[gender][type][method].nil?
+
+        table[type] ||= {}
+        table[type][infos] = [
+          Firesport::Time.second_time(best_scores[gender][type][method][0]),
+          best_scores[gender][type][method][1],
+        ]
+      end
+    end
+    table
   end
 end

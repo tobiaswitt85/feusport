@@ -52,6 +52,9 @@
 
 
     - if @out_of_competition_rows.count > 0
-      .col-md-12.much-data
+      .col-md-12
         = card_direct('Außer der Wertung') do
-          = render 'result_table', rows: @out_of_competition_rows, places: false
+          - if @discipline.single_discipline?
+            = render 'result_table_single', rows: @out_of_competition_rows, places: false
+          - else
+            = render 'result_table_group', rows: @out_of_competition_rows, places: false

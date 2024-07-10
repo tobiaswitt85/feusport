@@ -71,6 +71,7 @@ class ImportSuggestionsJob < ApplicationJob
         id: team[:id],
         name: team[:name],
         short: team[:shortcut],
+        best_scores: team[:best_scores] || {},
       )
     end
 

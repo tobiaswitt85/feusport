@@ -55,7 +55,7 @@ class FireSportStatistics::Person < ApplicationRecord
 
           table[discipline] ||= {}
           table[discipline][short] = [
-            second_time(public_send(:"#{method}_#{discipline}")),
+            Firesport::Time.second_time(public_send(:"#{method}_#{discipline}")),
             public_send(:"#{method}_#{discipline}_competition"),
           ]
         end
@@ -70,13 +70,5 @@ class FireSportStatistics::Person < ApplicationRecord
     discipline = current_result.try(:list)&.discipline&.key || :zk
     best_time = public_send(:"personal_best_#{discipline}") || Firesport::INVALID_TIME
     best_time > current_result.compare_time
-  end
-
-  private
-
-  def second_time(time)
-    return '' if time.blank? || time.zero?
-
-    Firesport::Time.second_time(time)
   end
 end
