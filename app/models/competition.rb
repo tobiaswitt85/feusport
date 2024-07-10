@@ -4,7 +4,6 @@ class Competition < ApplicationRecord
   REGISTRATION_OPEN = { unstated: 0, open: 1, close: 2 }.freeze
   enum registration_open: REGISTRATION_OPEN
 
-  belongs_to :user
   has_many :documents, dependent: :destroy
   has_many :disciplines, dependent: :destroy
   has_many :bands, dependent: :destroy

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Document < ApplicationRecord
-  belongs_to :competition
+  belongs_to :competition, touch: true
   has_one_attached :file
 
   schema_validations

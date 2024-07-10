@@ -9,7 +9,7 @@ class Score::CompetitionResult < ApplicationRecord
   include Score::Resultable
   include SortableByName
 
-  belongs_to :competition
+  belongs_to :competition, touch: true
   has_many :result_references, class_name: 'Score::CompetitionResultReference', dependent: :destroy
   has_many :results, through: :result_references, class_name: 'Score::Result'
 

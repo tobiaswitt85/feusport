@@ -3,7 +3,7 @@
 class Person < ApplicationRecord
   include Taggable
 
-  belongs_to :competition
+  belongs_to :competition, touch: true
   belongs_to :band
   belongs_to :team
   belongs_to :fire_sport_statistics_person, class_name: 'FireSportStatistics::Person', inverse_of: :person

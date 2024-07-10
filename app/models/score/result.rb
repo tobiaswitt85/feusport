@@ -8,7 +8,7 @@ class Score::Result < ApplicationRecord
 
   enum calculation_method: CALCULATION_METHODS
 
-  belongs_to :competition
+  belongs_to :competition, touch: true
   belongs_to :assessment, inverse_of: :results
   belongs_to :double_event_result, dependent: :destroy, class_name: 'Score::DoubleEventResult', inverse_of: :results
   has_many :result_lists, dependent: :destroy, inverse_of: :result

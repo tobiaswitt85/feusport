@@ -15,7 +15,7 @@ class Score::ListFactory < ApplicationRecord
     'Score::ListFactories::TrackBandable',
   ].freeze
 
-  belongs_to :competition
+  belongs_to :competition, touch: true
   belongs_to :discipline
   belongs_to :before_list, class_name: 'Score::List'
   belongs_to :before_result, class_name: 'Score::Result'

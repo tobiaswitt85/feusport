@@ -3,7 +3,7 @@
 class Score::List < ApplicationRecord
   include SortableByName
 
-  belongs_to :competition
+  belongs_to :competition, touch: true
   has_many :list_assessments, dependent: :destroy
   has_many :assessments, through: :list_assessments
   has_many :result_lists, dependent: :destroy

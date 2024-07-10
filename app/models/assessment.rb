@@ -5,7 +5,7 @@ class Assessment < ApplicationRecord
 
   attribute :generate_score_result, :boolean, default: false
 
-  belongs_to :competition
+  belongs_to :competition, touch: true
   belongs_to :discipline
   belongs_to :band
   has_many :requests, class_name: 'AssessmentRequest', dependent: :destroy, inverse_of: :assessment

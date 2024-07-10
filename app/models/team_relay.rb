@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TeamRelay < ApplicationRecord
-  belongs_to :team
+  belongs_to :team, touch: true
   has_many :list_entries, class_name: 'Score::ListEntry', as: :entity, dependent: :destroy, inverse_of: :entity
 
   validates :team, :number, presence: true

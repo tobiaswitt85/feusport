@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserAccessRequest < ApplicationRecord
-  belongs_to :competition
+  belongs_to :competition, touch: true
   belongs_to :sender, class_name: 'User'
 
   schema_validations

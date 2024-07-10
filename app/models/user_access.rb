@@ -2,7 +2,7 @@
 
 class UserAccess < ApplicationRecord
   belongs_to :user
-  belongs_to :competition
+  belongs_to :competition, touch: true
 
   schema_validations
 end

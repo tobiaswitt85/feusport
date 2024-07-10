@@ -23,7 +23,7 @@ class Discipline < ApplicationRecord
     other: false,
   }.with_indifferent_access.freeze
 
-  belongs_to :competition
+  belongs_to :competition, touch: true
   has_many :assessments, dependent: :restrict_with_error
 
   scope :single_disciplines, -> { where(single_discipline: true) }

@@ -55,7 +55,7 @@ class AssessmentRequest < ApplicationRecord
     }
   end
 
-  belongs_to :assessment
+  belongs_to :assessment, touch: true
   belongs_to :entity, polymorphic: true
   enum assessment_type: { group_competitor: 0, single_competitor: 1, out_of_competition: 2, competitor: 3 }
 

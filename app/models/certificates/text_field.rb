@@ -94,7 +94,7 @@ class Certificates::TextField < ApplicationRecord
     },
   }.freeze
 
-  belongs_to :template, class_name: 'Certificates::Template', inverse_of: :text_fields
+  belongs_to :template, class_name: 'Certificates::Template', inverse_of: :text_fields, touch: true
 
   validates :template, :left, :top, :width, :height, :size, :key, :align, presence: true
   validates :key, inclusion: { in: KEY_CONFIG.keys }

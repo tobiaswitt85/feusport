@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Certificates::Template < ApplicationRecord
-  belongs_to :competition
+  belongs_to :competition, touch: true
   has_many :text_fields, class_name: 'Certificates::TextField', inverse_of: :template, dependent: :destroy
 
   schema_validations

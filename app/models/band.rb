@@ -8,7 +8,7 @@ class Band < ApplicationRecord
   enum gender: GENDERS
   default_scope { order(:position) }
 
-  belongs_to :competition
+  belongs_to :competition, touch: true
   has_many :assessments, class_name: 'Assessment', dependent: :restrict_with_error
   has_many :teams, dependent: :restrict_with_error
   has_many :people, dependent: :restrict_with_error
