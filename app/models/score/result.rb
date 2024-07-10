@@ -33,6 +33,7 @@ class Score::Result < ApplicationRecord
   validate :useless_team_tags
   validate :useless_person_tags
   validates :group_run_count, :group_score_count, numericality: { greater_than: 0 }
+  validates :assessment, :double_event_result, :competition_results, same_competition: true
 
   def name
     @name ||= forced_name.presence || generated_name

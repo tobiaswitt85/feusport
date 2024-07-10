@@ -10,6 +10,7 @@ de:
   activerecord:
     errors:
       messages:
+        not_same_competition: hat nicht den gleichen Wettkampf
         record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
         restrict_dependent_destroy:
           has_many: Datensatz kann nicht gelöscht werden, da abhängige %{record} existieren.

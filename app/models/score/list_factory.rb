@@ -39,6 +39,7 @@ class Score::ListFactory < ApplicationRecord
   validates :track_count, numericality: { only_integer: true, graeter_than: 0 }, if: -> { step_reached?(:results) }
   validates :results, presence: true, if: -> { step_reached?(:generator) }
   validate :type_valid, if: -> { step_reached?(:generator_params) }
+  validates :discipline, :before_list, :before_result, :assessments, :results, :bands, same_competition: true
 
   attr_writer :next_step
 

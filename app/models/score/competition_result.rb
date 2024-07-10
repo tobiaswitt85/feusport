@@ -14,6 +14,7 @@ class Score::CompetitionResult < ApplicationRecord
   has_many :results, through: :result_references, class_name: 'Score::Result'
 
   schema_validations
+  validates :results, same_competition: true
 
   def rows
     @rows ||= result_type.present? ? send(result_type) : []

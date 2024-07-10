@@ -23,7 +23,6 @@ RSpec.describe Score::ListFactories::GroupOrder do
 
   describe '#perform_rows' do
     let(:list) { build_stubbed(:score_list, assessments: [assessment]) }
-    let(:assessment) { create(:assessment) }
 
     let(:team1) { create(:team, competition:, band:, lottery_number: 3) }
     let(:person1_team1) { create(:person, :generated, competition:, band:, team: team1) }

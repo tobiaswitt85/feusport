@@ -3,6 +3,7 @@
 class Score::DoubleEventResult < Score::Result
   include Score::Resultable
   has_many :results, class_name: 'Score::Result', dependent: :nullify, inverse_of: :double_event_result
+  validates :results, same_competition: true
 
   def generate_rows(*)
     rows = {}

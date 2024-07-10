@@ -18,6 +18,7 @@ class Assessment < ApplicationRecord
   scope :single_disciplines, -> { joins(:discipline).where(disciplines: { single_discipline: true }) }
 
   schema_validations
+  validates :discipline, :band, :results, :lists, same_competition: true
   delegate :like_fire_relay?, to: :discipline
 
   after_create do

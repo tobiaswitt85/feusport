@@ -18,6 +18,7 @@ class Score::ListEntry < ApplicationRecord
   validates :track, :run, numericality: { greater_than: 0 }
   validates :track, numericality: { less_than_or_equal_to: :track_count }
   validate :check_changed_while_editing, on: :update
+  validates :list, :assessment, same_competition: true
 
   schema_validations
   before_validation do
