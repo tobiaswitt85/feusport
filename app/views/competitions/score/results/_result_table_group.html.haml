@@ -16,7 +16,7 @@
         %td.less-important #{@result.place_for_row(row)}.
       %td
         = row.entity.full_name
-        = team_badge(row.entity&.fire_sport_statistics_team, team.band.gender)
+        = team_badge(row.entity&.fire_sport_statistics_team, row.entity.band.gender)
       %td
         %strong= row.best_result_entry.human_time
       - @result.lists.each do |list|
