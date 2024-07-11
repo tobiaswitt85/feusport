@@ -6,7 +6,7 @@
       = card("#{resource_class.model_name.human} aktualisieren") do |c|
         - c.body do
           - if @not_yet_present_entities.empty?
-            .alert.alert-danger Es wurde alle möglichen Teilnehmer zugeordnet
+            .alert.alert-danger Es wurden alle möglichen Teilnehmer zugeordnet
           - else
             - free_run, free_track = @list.next_free_track
             = f.simple_fields_for :entries, @list.entries.build(run: free_run, track: free_track, entity_type: @list.discipline_klass.name) do |g|
@@ -19,7 +19,8 @@
 
             Wird in Lauf #{free_run} auf Bahn #{free_track} eingeordnet.
         - c.footer do
-          = f.primary_button :submit, 'Teilnehmer hinzufügen'
+          - unless @not_yet_present_entities.empty?
+            = f.primary_button :submit, 'Teilnehmer hinzufügen'
           = f.cancel_button(action: :show)
         - if params[:all_entities].blank?
           - c.actions do |actions|
