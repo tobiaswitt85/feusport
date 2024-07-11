@@ -1,0 +1,37 @@
+.animate-fade-out
+  animation: animate-fade-out 0.5s both
+
+@keyframes animate-fade-out
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
+.animate-fade-in
+  animation: animate-fade-in 0.5s both
+
+@keyframes animate-fade-in
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+.sorted-table tbody tr, .sortable-list
+  cursor: move
+
+.sortable-chosen
+  td, th
+    background-color: $light
+.sortable-ghost
+  td, th
+    background-color: $light
+.sortable-drag
+  td, th
+    background-color: $info
+
+li.sortable-chosen
+  background-color: $light
+li.sortable-ghost
+  background-color: $light
+li.sortable-drag
+  background-color: $info

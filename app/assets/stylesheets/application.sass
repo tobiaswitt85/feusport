@@ -6,6 +6,8 @@
 @import "easymde/dist/easymde.min"
 @import social_share_buttons
 @import certificates
+@import form
+@import sortable
 
 .navbar-brand
   padding-block: 0
@@ -85,18 +87,8 @@
 .sm
   font-size: 0.8rem
 
-.form-group.boolean
-  margin-bottom: 2rem
-  small
-    margin-left: -1.5rem
-    display: block
 
-.form-group.hidden
-  display: none
 
-.btn-toolbar, .card-footer
-  input[type=submit] + a, button + a
-    margin-left: 0.25rem
 
 .card
   background-color: $white
@@ -211,21 +203,6 @@
     margin-right: 10px
 
 
-.form-group.discipline_key
-  .form-check
-    display: inline-block
-
-  [type=radio]
-    position: absolute
-    opacity: 0
-    width: 0
-    height: 0
-  [type=radio] + label
-    cursor: pointer
-
-  [type=radio]:checked + label
-    outline: 0.2rem solid $primary
-
 
 .assessment-request
   border: 1px solid $light
@@ -237,44 +214,6 @@
 
 .next-run
   border-bottom: 2px solid black
-
-.sorted-table tbody tr, .sortable-list
-  cursor: move
-
-.sortable-chosen
-  td, th
-    background-color: $light
-.sortable-ghost
-  td, th
-    background-color: $light
-.sortable-drag
-  td, th
-    background-color: $info
-
-li.sortable-chosen
-  background-color: $light
-li.sortable-ghost
-  background-color: $light
-li.sortable-drag
-  background-color: $info
-
-.animate-fade-out
-  animation: animate-fade-out 0.5s both
-
-@keyframes animate-fade-out
-  0%
-    opacity: 1
-  100%
-    opacity: 0
-
-.animate-fade-in
-  animation: animate-fade-in 0.5s both
-
-@keyframes animate-fade-in
-  0%
-    opacity: 0
-  100%
-    opacity: 1
 
 .suggestions-entries
   overflow: auto
@@ -325,40 +264,6 @@ span.best-badge, span.team-badge
     height: 1em
     width: 1em
 
-
-fieldset.group
-  border: var(--bs-border-width) solid #e0dad7
-  border-radius: $border-radius
-  margin: 0.25rem
-  padding: 0.5rem
-
-  legend
-    font-size: 1.3rem
-
-
-
-.time-types
-  border-left: 1px solid $light
-  input
-    margin-right: 0.6rem
-  span
-    display: block
-    margin-left: 0.8rem
-    label
-      font-size: 0.7rem
-      margin-bottom: 0
-.time-entries
-  label
-    font-size: 0.6rem
-    font-weight: normal
-  .form-group
-    display: inline-block
-    text-align: center
-    margin-left: 6px
-  input
-    width: 6rem
-  &.disabled-time-entries
-    opacity: 0.3
 
 
 .feusport-modal
