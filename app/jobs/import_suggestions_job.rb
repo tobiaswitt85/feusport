@@ -28,6 +28,7 @@ class ImportSuggestionsJob < ApplicationJob
       'MVHindernisCup' => 'MvHindernisCup',
       'MVSteigerCup' => 'MvSteigerCup',
       'KPBautzen' => 'KpBautzen',
+      'VierBahnenPokal2019' => 'VierBahnenPokal',
     }.each do |old_type, new_type|
       Series::Round.where(aggregate_type: old_type).update_all(aggregate_type: new_type)
     end

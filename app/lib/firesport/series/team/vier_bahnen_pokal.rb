@@ -1,37 +1,37 @@
 # frozen_string_literal: true
 
 class Firesport::Series::Team::VierBahnenPokal < Firesport::Series::Team::LaCup
-  def self.points_for_result(rank, _time, _round, *)
-    rank == 1 ? 0 : rank
+  def self.max_points(*)
+    15
+  end
+
+  def self.points_for_result(rank, time, round, gender:, double_rank_count: 0)
+    case rank
+    when 1
+      25
+    when 2
+      20
+    when 3
+      16
+    when 4
+      13
+    else
+      super(rank, time, round, double_rank_count:, gender:)
+    end
+  end
+
+  def self.special_sort!(rows)
+    honor_rows = rows.select { |row| row.rank.present? && row.rank <= 3 }.sort { |row, other| row.honor_sort(other) }
+    honor_rows.each { |row| row.calculate_rank!(honor_rows) }
+    rows.sort_by! { |row| row.rank || 999 }
   end
 
   def <=>(other)
-    compare = points <=> other.points
-    return compare unless compare.zero?
-
-    compare = other.participation_count <=> participation_count
-    return compare unless compare.zero?
-
-    sum_time <=> other.sum_time
-  end
-
-  def points
-    @points ||= begin
-      fail_points = ((round.full_cup_count || 5) - count) * 20
-      ordered_participations.sum(&:points) + fail_points
-    end
-  end
-
-  def calculate_rank!(other_rows)
-    current_rank = 0
-    other_rows.each do |rank_row|
-      current_rank += 1
-      return @rank = current_rank if (self <=> rank_row).zero?
-    end
+    other.points <=> points
   end
 
   def honor_sort(other)
-    compare = points <=> other.points
+    compare = other.points <=> points
     return compare unless compare.zero?
 
     compare = best_rank <=> other.best_rank
@@ -43,25 +43,15 @@ class Firesport::Series::Team::VierBahnenPokal < Firesport::Series::Team::LaCup
     sum_time <=> other.sum_time
   end
 
-  def participation_count
-    @cups.values.count
-  end
-
-  def self.special_sort!(rows)
-    honor_rows = rows.select { |row| row.rank.present? && row.rank <= 3 }.sort { |row, other| row.honor_sort(other) }
-    honor_rows.each { |row| row.calculate_rank!(honor_rows) }
-    rows.sort_by! { |row| row.rank || 999 }
-  end
-
   protected
 
   def calc_participation_count
-    round.full_cup_count
+    4
   end
 
   def sum_time
     @sum_time ||= begin
-      sum = @cups.values.flatten.sum(&:time)
+      sum = ordered_participations.sum(&:time)
       [sum, Firesport::INVALID_TIME].min
     end
   end
