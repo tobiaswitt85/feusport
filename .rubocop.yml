@@ -28,6 +28,8 @@ FactoryBot/RedundantFactoryOption:
   Enabled: true
 FactoryBot/SyntaxMethods:
   Enabled: true
+Gemspec/AddRuntimeDependency:
+  Enabled: true
 Gemspec/DeprecatedAttributeAssignment:
   Enabled: true
 Gemspec/DevelopmentDependencies:
