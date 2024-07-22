@@ -1,7 +1,7 @@
 = render 'devise/header'
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
       = card('Passwort ändern') do |c|
         - c.body do
@@ -12,6 +12,6 @@
           = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password' }
         - c.footer do
           = f.primary_button :submit, 'Passwort ändern'
-  .col-md-4
+  .col-lg-4
     = card_body do
       Hier kannst du dir ein neues Passwort geben. Bitte nutze sichere Passwörter und speichere Sie dir im Zweifel ab. Schlecht gespeichert ist besser, als leicht zu erraten.

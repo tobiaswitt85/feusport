@@ -9,6 +9,7 @@
 @import form
 @import sortable
 
+
 .navbar-brand
   padding-block: 0
   opacity: 0.75
@@ -36,6 +37,12 @@
     padding: 0.1rem 0.75rem
     display: inline-block
     transform: skew(-10deg, 0deg)
+    @include media-breakpoint-down(md)
+      font-size: calc(0.8rem + 1vw)
+
+  h1
+    @include media-breakpoint-down(md)
+      font-size: calc(1rem + 2.4vw)
 
 .page-tabs
   @extend .text-bg-light, .bg-white
@@ -48,17 +55,10 @@
   @include media-breakpoint-up(xl)
     margin-top: -2rem
 
-  // .nav
-  //   gap: 5px
-  //   --bs-nav-tabs-border-width: 0
-  //   --bs-nav-link-color: #{$white}
-  //   --bs-nav-link-hover-color: #{tint-color($primary, 50%)}
-
-  //   .nav-link
-  //     background-color: lighten($accent1, 5%)
-
-  //     &.active
-  //       background-color: $primary
+  @include media-breakpoint-down(sm)
+    .nav-item a
+      padding-left: 0.5rem
+      padding-right: 0.5rem
 
 .nav-tabs-responsive
   overflow-x: auto
@@ -70,25 +70,16 @@
   > .nav-item
     scroll-snap-align: end
 
-    // > .active
-    //  // TODO show by default
-    //  // scroll-snap-align: end
-
     &.dropdown
       position: static
 
-.stretched-links-row
-  @extend .row
-  @extend .position-relative
-
-  &:hover
-    background-color: $light
+@include media-breakpoint-down(sm)
+  .row > * , .container
+    padding-right: calc(var(--bs-gutter-x) * 0.3)
+    padding-left: calc(var(--bs-gutter-x) * 0.3)
 
 .sm
   font-size: 0.8rem
-
-
-
 
 .card
   background-color: $white
@@ -111,12 +102,20 @@
     background-color: transparent
 
   > .table
+    @include media-breakpoint-down(sm)
+      td, tr, .btn
+        font-size: calc(0.4rem + 1.5vw)
+      td, tr
+        padding-left: calc(0.2rem + 0.5vw)
+        padding-right: calc(0.2rem + 0.5vw)
     > thead, tbody
       > tr 
         > th:first-child, > td:first-child
-          padding-left: var(--bs-card-spacer-x)
+          padding-left: calc(0.5rem + 0.5vw)
+          border-left: 0
         > th:last-child, > td:last-child
-          padding-right: var(--bs-card-spacer-x)
+          padding-right: calc(0.5rem + 0.5vw)
+          border-right: 0
 
 .text-bg-accent2
   --bs-card-cap-bg: #{darken($accent2, 5%)}
@@ -139,6 +138,13 @@
   tr:last-child
     td, th
       border-bottom-width: 0
+
+.hide-xs
+  @include media-breakpoint-only(xs)
+    display: none
+
+.scroll-x
+  overflow-x: auto
 
 .btn-primary, .card-primary-action
   --bs-btn-color: #{$white}

@@ -1,7 +1,7 @@
 - page_title 'Neuen Wettkampf anlegen'
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = simple_form_for(@competition, url: competitions_creations_path) do |f|
       = card('Neuen Wettkampf anlegen') do |c|
         - c.body do
@@ -11,7 +11,7 @@
         - c.footer do
           = f.primary_button :submit, 'Erstellen und weiter zum nächsten Schritt'
           = f.cancel_button(root_path)
-  .col-md-4
+  .col-lg-4
     = card_body do
       %p Hier kannst du einen neuen (zukünftigen) Wettkampf anlegen. Er erscheint dann in der Terminliste und andere Feuerwehrsportler können ihn sehen. Du kannst später auch Dateien (z.B. die Ausschreibung) hochladen und eine Beschreibung ergänzen.
       %p Es ist auch möglich, dass sich die Mannschaften gleich hier auf der Seite anmelden können. Dann hast du gleich eine Übersicht, wer alles dabei sein möchte.

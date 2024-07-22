@@ -2,10 +2,11 @@
 
 - @competition.bands.sort.each do |band|
   = card(band.name, class: 'mb-3') do |c|
-    - c.body do
-      - if resource_collection.exists?(band:)
+    - if resource_collection.exists?(band:)
+      - c.direct do
         = render('index_table', resource_class:, resource_collection: resource_collection.where(band:).sort, band:, assessments: Assessment.requestable_for_team(band))
-      - else
+    - else
+      - c.body do
         .alert.alert-info= t('a.no_entries_found')
 
     - if can?(:create, resource_class.new(competition: @competition, band:))

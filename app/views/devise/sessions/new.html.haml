@@ -1,14 +1,14 @@
 = render 'devise/header'
 
-.row
+.row.g-4
   - if params[:info_hint] == 'competition'
-    .col-md-4
+    .col-lg-4
       = card_body('Neuen Wettkampf anlegen') do
         Um einen neuen Wettkampf anzulegen, musst du dich auf dieser Seite registrieren. Hast du das schon gemacht, brauchst du dich nur mit deinen Zugangsdaten anzumelden.
-    .col-md-4
+    .col-lg-4
       = render('form')
-    .col-md-4
+    .col-lg-4
       = render('devise/registrations/form')
   - else
-    .col-md-8
+    .col-lg-8
       = render('form')

@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: 'Vorlage wählen', resource_class: Presets::Base
 
 .row.g-4
-  .col-md-8
+  .col-lg-8
     = card_direct('Mögliche Vorlagen') do
       %table.table
         - Presets::Base.list.each do |key, preset|

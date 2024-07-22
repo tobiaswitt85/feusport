@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: 'Startliste hinzufügen', resource_class: Score::ListFactory
 
-.row
-  .col-md-6
+.row.g-4
+  .col-lg-6
     = card('Startliste erstellen - Schritt 1') do |c|
       - c.direct do
         - @factories.each do |factory|
@@ -18,7 +18,7 @@
         .form-text.text-muted
           Bitte wähle die Disziplin.
 
-  .col-md-6
+  .col-lg-6
     = card_body('Hinweise') do
       %p Beim Erstellen von Startlisten werden die gewünschten Wertungsgruppen der Mannschaften und Personen beachtet. Durch verschiedene Generatoren kann man zum Beispiel die Reihenfolge vorgeben.
       %p Sobald die Liste generiert ist, kann man die Reihenfolge noch manuell verändern. Es empfiehlt sich deshalb, die Startliste zuerst versteckt zu erzeugen und erst nach einer Kontrolle für die Öffentlichkeit freizugeben.

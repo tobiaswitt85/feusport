@@ -1,16 +1,16 @@
 = render 'competitions/header', competition: @competition, resource_class: nil, sub: 'Wettkampf aktualisieren'
 
-.row
+.row.g-4
   - next_step = capture do
     = render('competitions/showings/next_step_card')
   - if next_step.strip.present?
-    .col-md-4
+    .col-lg-4
       .card.text-bg-light
         = next_step
         .card-header
           Es ist sinnvoll, wenn du zuerst so viel wie möglich über deinen Wettkampf einstellst, bevor du ihn veröffentlichst.
 
-  .col-md-8
+  .col-lg-8
     = simple_form_for(@competition, url: competition_visibility_path) do |f|
       = card('Wettkampf aktualisieren') do |c|
         - c.body do

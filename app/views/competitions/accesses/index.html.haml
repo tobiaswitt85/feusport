@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
 
 .row.g-4
-  .col-md-8
+  .col-lg-8
     = card(resource_class.model_name.human(count: :many)) do |c|
       - if resource_collection.exists?
         - c.direct do
@@ -22,7 +22,7 @@
           - actions.link_to t('a.add'), new_competition_access_request_path, end_icon: :square_plus
 
   - if @competition.user_access_requests.exists?
-    .col-md-8
+    .col-lg-8
       = card(UserAccessRequest.model_name.human(count: :many)) do |c|
         - c.direct do
           %table.table

@@ -1,13 +1,13 @@
 = render 'devise/header'
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
       = card('Passwort vergessen?') do |c|
         - c.body do
           = f.input :email, autofocus: true, required: true, input_html: { autocomplete: 'email' }
         - c.footer do
           = f.primary_button :submit, 'Link zum Zurücksetzen zusenden'
-  .col-md-4
+  .col-lg-4
     = card_body do
       Wenn du dein Paswort für diese Seite vergessen hast, kannst du dir einen Link zum Zurücksetzen zusenden lassen. Wenn du die E-Mail nicht findest, schaue bitte auch in deinem Spam-Verzeichnis nach.

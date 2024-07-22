@@ -1,6 +1,6 @@
 = render 'competitions/header', competition: @competition, resource_class: nil
 
-.row
+.row.g-4
   .col-md-8
     = simple_form_for(@deletion, url: competition_deletion_path) do |f|
       = card('Wettkampf löschen') do |c|

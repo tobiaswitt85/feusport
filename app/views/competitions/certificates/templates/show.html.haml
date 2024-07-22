@@ -5,8 +5,8 @@
 
 = render 'competitions/header', competition: @competition, sub: "Urkundenvorlage: #{@template.name}"
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = card_direct("Urkundenvorlage: #{@template.name}") do
       %table.table
         - if @template.name.present?
@@ -38,7 +38,7 @@
           - else
             %td Nicht angegeben
             %td
-  .col-md-4
+  .col-lg-4
     = card(t('a.actions')) do |c|
       - c.primary_actions do |actions|
         - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
@@ -50,6 +50,6 @@
           = btn_link_to 'Vorlage duplizieren', { action: :duplicate }
           = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_confirm: 'Vorlage wirklich löschen?', 'turbo-method': :delete }
 .row
-  .col-md-6.mt-3
+  .col-lg-6.mt-3
     = card_body('Vorschau') do
       %iframe#certificates-template-preview{ src: url_for(format: :pdf) }

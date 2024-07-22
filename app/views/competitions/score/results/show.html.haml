@@ -2,11 +2,11 @@
 
 - cache_if(current_user.nil?, @competition) do
   .row.g-4
-    .col-md-8.mb-4
+    .col-lg-8.mb-4
       = render 'overview_card', result: @result
 
     - if can?(:edit, @result)
-      .col-md-4
+      .col-lg-4
         = card(t('a.actions')) do |c|
           - c.primary_actions do |actions|
             - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
@@ -21,7 +21,7 @@
             = btn_link_to 'Urkunden', new_competition_certificates_list_path(score_result_id: @result.id)
 
     - if @rows.count > 0
-      .col-md-12
+      .col-lg-12
         = card_direct(@result.name) do
           - if @discipline.single_discipline?
             = render 'result_table_single', rows: @rows, places: true
@@ -29,7 +29,7 @@
             = render 'result_table_group', rows: @rows, places: true
 
       - if @result.group_assessment? && @result.discipline.single_discipline?
-        .col-md-12
+        .col-lg-12
           = card_direct('Mannschaftswertung') do
             %table.table.table-bordered
               %tr
@@ -47,12 +47,12 @@
                     %em= row.rows_in.map(&:display).join(', ')
                     %small= row.rows_out.map(&:display).join(', ')
     - else
-      .col-md-8
+      .col-lg-8
         .alert.alert-info Keine Einträge gefunden
 
 
     - if @out_of_competition_rows.count > 0
-      .col-md-12
+      .col-lg-12
         = card_direct('Außer der Wertung') do
           - if @discipline.single_discipline?
             = render 'result_table_single', rows: @out_of_competition_rows, places: false

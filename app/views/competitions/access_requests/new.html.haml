@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: "#{resource_class.model_name.human} hinzufügen"
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = simple_form_for([:competition, resource_instance], url: competition_access_requests_path) do |f|
       = card('Neuen Wettkampf anlegen') do |c|
         - c.body do
@@ -12,5 +12,5 @@
         - c.footer do
           = f.primary_button :submit
           = f.cancel_button(root_path)
-  .col-md-4
+  .col-lg-4
     = render('new_right')

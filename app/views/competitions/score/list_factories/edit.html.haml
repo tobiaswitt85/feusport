@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: 'Startliste hinzufügen', resource_class: Score::ListFactory
 
-.row
-  .col-md-6
+.row.g-4
+  .col-lg-6
     = card("Startliste erstellen - Schritt #{@list_factory.current_step_number + 1}") do |c|
       - c.body do
         = simple_form_for [:competition, @list_factory], url: url_for(action: :update), as: :score_list_factory do |f|
@@ -16,7 +16,7 @@
         - else
           = btn_link_to 'Abbrechen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Listenerstellung abbrechen?' }
 
-  .col-md-6
+  .col-lg-6
     = card_direct('Bisher ausgewählt') do
       %table.table
         %tr

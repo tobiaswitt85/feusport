@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: "#{Band.model_name.human}: #{@band.name}"
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = card_direct(@band.name, class: 'mb-3') do
       %table.table
         %tr
@@ -46,7 +46,7 @@
         - c.body do
           .alert.alert-info= t('a.no_entries_found')
 
-  .col-md-4
+  .col-lg-4
     = card(t('a.actions')) do |c|
       - c.primary_actions do |actions|
         - actions.link_to 'Übersicht', { action: :index }, end_icon: :list

@@ -25,22 +25,23 @@
     - next if @round.team_assessment_rows(@competition, gender).blank?
 
     = card_direct("Mannschaftswertung #{t("gender.#{gender}")}", class: 'mb-4') do
-      %table.table.table-hover.table-bordered.table-sm
-        %thead
-          %th Platz
-          %th Team
-          - @round.cups.each do |cup|
-            %th= cup.competition_place
-          %th Teil.
-          %th Bestzeit
-          %th Punkte
-        %tbody
-          - @round.team_assessment_rows(@competition, gender).each do |row|
-            %tr
-              %td= row.rank
-              %td= row.name_with_number
-              - @round.cups.each do |cup|
-                %td= render('competitions/series/rounds/participations_table', participations: row.participations_for_cup(cup))
-              %td= row.count
-              %td= row.best_result_entry
-              %td= row.points
+      .scroll-x
+        %table.table.table-hover.table-bordered.table-sm
+          %thead
+            %th.hide-xs Platz
+            %th Team
+            - @round.cups.each do |cup|
+              %th= cup.competition_place
+            %th.hide-xs Teil.
+            %th.hide-xs Bestzeit
+            %th Punkte
+          %tbody
+            - @round.team_assessment_rows(@competition, gender).each do |row|
+              %tr
+                %td.hide-xs= row.rank
+                %td= row.name_with_number
+                - @round.cups.each do |cup|
+                  %td= render('competitions/series/rounds/participations_table', participations: row.participations_for_cup(cup))
+                %td.hide-xs= row.count
+                %td.hide-xs= row.best_result_entry
+                %td= row.points

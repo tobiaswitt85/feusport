@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
 
 .row.g-4
-  .col-md-8
+  .col-lg-8
     = card(resource_class.model_name.human(count: :many)) do |c|
       - if resource_collection.exists?
         - c.direct do

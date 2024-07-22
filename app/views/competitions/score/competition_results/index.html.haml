@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     - @competition.score_competition_results.sort.each do |result|
       - if can?(:create, resource_class.new(competition: @competition))
         - name = capture do
@@ -23,14 +23,23 @@
       - elsif result.hidden?
         = card_body(result.name) do
           Diese Gesamtwertung ist nicht öffentlich.
-  .col-md-4
-    = card(t('a.actions'), class: 'mb-3') do |c|
-      - c.primary_actions do |actions|
-        - actions.link_to t('a.add'), { action: :new }, end_icon: :square_plus
+      - else
+        = card(result.name, class: 'mb-3') do |c|
+          - c.direct do
+            = render('index_table', resource_class:, competition_result: result)
+          - c.actions do |actions|
+            - actions.link_to 'PDF', { action: :show, id: result.id, format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+            - actions.link_to 'XLS', { action: :show, id: result.id, format: :xlsx }, end_icon: :file_excel
 
-      - c.body do
-        %p Mit Gesamtwertungen kann man mehrere Ergebnislisten kombinieren.
+  - if can?(:create, resource_class.new(competition: @competition))
+    .col-lg-4
+      = card(t('a.actions'), class: 'mb-3') do |c|
+        - c.primary_actions do |actions|
+          - actions.link_to t('a.add'), { action: :new }, end_icon: :square_plus
 
-      - c.actions do |actions|
-        - actions.link_to 'Alle als PDF', { action: :index, format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
-        - actions.link_to 'Alle als XLS', { action: :index, format: :xlsx }, end_icon: :file_excel
+        - c.body do
+          %p Mit Gesamtwertungen kann man mehrere Ergebnislisten kombinieren.
+
+        - c.actions do |actions|
+          - actions.link_to 'Alle als PDF', { action: :index, format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+          - actions.link_to 'Alle als XLS', { action: :index, format: :xlsx }, end_icon: :file_excel

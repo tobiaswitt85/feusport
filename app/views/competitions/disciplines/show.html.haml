@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: "Disziplin: #{@discipline.name}"
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = card('Wertungen') do |c|
       - if @discipline.assessments.exists?
         - c.direct do
@@ -14,7 +14,7 @@
       - else
         - c.body do
           .alert.alert-info Keine Einträge gefunden
-  .col-md-4
+  .col-lg-4
     = card(t('a.actions')) do |c|
       - c.primary_actions do |actions|
         - actions.link_to 'Übersicht', { action: :index }, end_icon: :list

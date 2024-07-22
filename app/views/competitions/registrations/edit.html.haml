@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, resource_class: nil, sub: 'Wettkampf aktualisieren'
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = simple_form_for(@competition, url: competition_registration_path) do |f|
       = card('Wettkampf aktualisieren') do |c|
         - c.body do

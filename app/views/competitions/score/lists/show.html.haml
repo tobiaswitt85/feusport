@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
 
 .row.g-4
-  .col-md-8
+  .col-lg-8
     = card(@list.name) do |c|
       - if can?(:edit, @list) || !@list.hidden?
         - c.direct do
@@ -29,7 +29,7 @@
       - else
         - c.body do
           %p Diese Startliste ist derzeit nicht öffentlich einsehbar.
-  .col-md-3
+  .col-lg-4
     - if can?(:edit, @list)
       - if @list.hidden?
         = card_body('Versteckt', class: 'mb-3 text-bg-warning') do

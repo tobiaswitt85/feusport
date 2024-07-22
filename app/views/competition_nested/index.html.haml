@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
 
 .row.g-4
-  .col-md-8
+  .col-lg-8
     = card(resource_class.model_name.human(count: :many)) do |c|
       - c.body do
         - if resource_collection.exists?
@@ -18,4 +18,4 @@
         - actions.link_to 'XLS', { format: :xlsx }, end_icon: :file_excel
 
     = render('index_bottom', resource_class:, resource_collection:)
-  .col-md-4= render('index_right', resource_class:, resource_collection:)
+  .col-lg-4= render('index_right', resource_class:, resource_collection:)

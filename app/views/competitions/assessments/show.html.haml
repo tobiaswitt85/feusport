@@ -1,7 +1,7 @@
 = render 'competitions/header', competition: @competition, sub: "#{Assessment.model_name.human}: #{@assessment.name}"
 
-.row
-  .col-md-8
+.row.g-4
+  .col-lg-8
     = card_direct(@assessment.name, class: 'mb-3') do
       %table.table
         %tr
@@ -14,7 +14,7 @@
           %th= Assessment.human_attribute_name(:band)
           %td= link_to(@assessment.band.name, competition_band_path(id: @assessment.band.id))
 
-  .col-md-4
+  .col-lg-4
     = card(t('a.actions')) do |c|
       - c.primary_actions do |actions|
         - actions.link_to 'Übersicht', { action: :index }, end_icon: :list
