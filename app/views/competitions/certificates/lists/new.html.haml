@@ -2,7 +2,7 @@
 
 .row.g-4
   .col-md-8
-    = simple_form_for([:competition, @certificates_list], data: { turbo: false }) do |f|
+    = simple_form_for([:competition, @certificates_list], data: { turbo: false }, html: { target: '_blank' }) do |f|
       = card('Urkunden') do |c|
         - c.body do
           = f.input :template_id, collection: @competition.certificates_templates.sort, include_blank: false
