@@ -44,7 +44,7 @@ class Score::Result < ApplicationRecord
     tags_included = (team_tags_included + person_tags_included).join(', ').presence
     tags_excluded = (team_tags_excluded + person_tags_excluded).join(', ').presence
     tags_excluded = "ohne #{tags_excluded}" if tags_excluded.present?
-    [assessment.name, tags_included, tags_excluded].compact_blank.join(' - ')
+    [assessment&.name, tags_included, tags_excluded].compact_blank.join(' - ')
   end
 
   def possible_series_assessments
