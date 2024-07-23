@@ -18,7 +18,6 @@ onVisit(function () {
       const rect = b.getBoundingClientRect();
       div.style.left = `${rect.x + window.pageXOffset - 100}px`;
       div.style.top = `${rect.y + window.pageYOffset + 30}px`;
-      console.log(div);
     };
 
     const hide = function (force) {

@@ -6,7 +6,6 @@ const handleBadInput = function (input) {
 
   const handleInput = function () {
     const value = input.value;
-    console.log(value);
 
     const goodInput = !input.validity.badInput;
     const goodValue = value.match(/^\d+([.,]\d{1,2})?$/) || value.match(/^\s*$/);
