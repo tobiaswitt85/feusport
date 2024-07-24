@@ -1,0 +1,49 @@
+- content_for :page_header do
+  = page_title('Dokumentation und Hilfe')
+  %p.lead.mb-0 Du kommst nicht weiter, dann lies hier!
+= render 'home/help_header'
+
+.row.g-4
+  .col-lg-8
+    = card_body('Aufbau eines Wettkampfes') do
+      = image_tag 'help/description.svg', class: 'img-fluid'
+  .col-lg-4
+    = card_body('Erläuterung') do
+      %p Jeder Wettkampf besteht aus <b>Disziplinen</b>, <b>Wertungsgruppen</b>, <b>Wertungen</b>, <b>Ergebnissen</b> und <b>Startlisten</b>. Durch eine geschickte Kombination kann man jeden Wettkampf mit dem System abbilden.
+      %p Man kann im Prinzip alles frei wählen, aber wenn man sich an die Beispielwerte hält, hat man eine Vorstellung davon, wie das System am besten funktioniert. Das System schlägt einem auch Vorlagen vor, welche nach dem Anlegen eines Wettkampfes ausgewählt werden können.
+      %p Alle nachfolgenden Beispiele lassen sich natürlich auch auf die anderen Disziplinen übertragen.
+      %p <b>Startlisten als letztes Anlegen!</b> Am besten funktioniert es, wenn man die Startlisten erst generiert, wenn alle am Wettkampftag angereisten Mannschaften eingetragen sind.
+
+  .col-lg-8
+    = card_body('Beispiel: Einfacher Löschangriff-Pokallauf') do
+      = image_tag 'help/example-la-pokallauf.svg', class: 'img-fluid'
+  .col-lg-4
+    = card_body('Erläuterung') do
+      %p In diesem Beispiel wollen wir einen Wettkampf mit zwei Läufen im LA für beide Geschlechter anlegen.
+      %p Man sieht, dass es für jede Wertungsgruppe nur eine Wertung gibt. Diese ist auch nur mit einem Ergebnis verknüpft. Man sieht auch, dass es zwei Startlisten gibt, die aber für beide Ergebnislisten gelten. Das System erkennt dann automatisch welche Zeit für welche Wertungsgruppe gezählt werden soll und sortiert diese zu.
+
+  .col-lg-8
+    = card_body('Beispiel: MV-Cup mit Jugend') do
+      = image_tag 'help/example-la-mv-cup.svg', class: 'img-fluid'
+  .col-lg-4
+    = card_body('Erläuterung') do
+      %p Beim MV-Cup können die Männer für die DIN- und TGL-Wertung starten. Frauen und Jugend haben eine eigene Ergebnisliste.
+      %p Im Gegensatz zum einfachen Pokallauf gibt es hier für die Männer zwei mögliche Wertungen. Die Startlisten für DIN werden mit den Frauen geteilt. TGL und Jugend hat hier nur einen Lauf.
+
+  .col-lg-8
+    = card_body('Beispiel: Löschangriff mit Finale') do
+      = image_tag 'help/example-la-finale.svg', class: 'img-fluid'
+  .col-lg-4
+    = card_body('Erläuterung') do
+      %p Bei einigen Wettkämpfen gibt es Vorläufe, von denen dann die besten X ins Finale kommen. In den Finalläufen zählt dann nur diese Zeit und die Vorläufe werden für die endgültige Platzierung ignoriert.
+      %p Um dies zu ermöglichen, muss man eine zusätzliche Ergebnisliste für die entsprechende Wertung anlegen. Die Startlisten der Vorläufe werden auch nur diesem Ergebnis zugeordet. Der Finallauf dann entsprechend auch nur dem Finalergebnis.
+
+  .col-lg-8
+    = card_body('Beispiel: Löschangriff mit Teilmengen') do
+      = image_tag 'help/example-la-teilmenge.svg', class: 'img-fluid'
+  .col-lg-4
+    = card_body('Erläuterung') do
+      %p Es gibt viele Wettkämpfe, bei denen eine Teilmenge der Mannschaften einen gesonderten Wettbewerb austragen. In unserem Beispiel ist ein Pokallauf (Alle), ein Cup-Lauf (Cup) und ein Kreisausscheid (Kreis) gleichzeit dran. Es gibt Mannschaften, die an allen dreien teilnehmen, aber es gibt auch Mannschaften, die weder Kreis noch Cup sind.
+      %p Zuerst muss man bei den Wertungsgruppen ermöglichen, dass die Mannschaften mögliche Kennzeichnungen haben. Dies können dann bei der Anmeldung für die jeweiligen Mannschaften ausgewählt werden.
+      %p Bei den Ergebnislisten kann man dann auch auswählen, für welche Kennzeichnungen diese gelten.
+      %p Die Mannschaften laufen also zweimal, erscheinen aber je nach Kennzeichnung auf bis zu drei Ergebnlisten.

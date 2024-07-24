@@ -1,0 +1,4 @@
+= page do |page|
+  = page.tabs do |tabs|
+    = tabs.link_to 'Hilfe', help_path, active: action_name == 'help'
+    = tabs.link_to 'Multiplikatoren', disseminators_path, active: action_name == 'disseminators'

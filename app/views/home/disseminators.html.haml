@@ -1,6 +1,7 @@
 - content_for :page_header do
   = page_title('Multiplikatoren')
   %p.lead.mb-0 Die Helfer bei feusport.de
+= render 'home/help_header'
 
 .row.g-4
   .col-md-6.col-lg-4
@@ -11,20 +12,28 @@
 
       .card-body
         %p Die hier vorgestellten Leute haben sich bereiterklärt, dir beim Durchführen von Wettkämpfen im Zusammenspiel mit feusport.de zu helfen. Wenn du also nicht weiterkommst, kannst du die passende Person kontaktieren und kannst dann deinen Wettkampf wie gewünscht durchführen.
+  - if can?(:visit, :disseminator)
+    - @disseminators.each do |disseminator|
+      .col-md-6.col-lg-4
+        = card_direct(disseminator.name) do
+          %table.table
+            %tr
+              %th LFV
+              %td= disseminator.lfv
+            %tr
+              %th Position
+              %td= disseminator.position
+            %tr
+              %th E-Mail-Adresse
+              %td= disseminator.email_address
+            %tr
+              %th Telefonnummer
+              %td= disseminator.phone_number
 
-  - @disseminators.each do |disseminator|
-    .col-md-6.col-lg-4
-      = card_direct(disseminator.name) do
-        %table.table
-          %tr
-            %th LFV
-            %td= disseminator.lfv
-          %tr
-            %th Position
-            %td= disseminator.position
-          %tr
-            %th E-Mail-Adresse
-            %td= disseminator.email_address
-          %tr
-            %th Telefonnummer
-            %td= disseminator.phone_number
+  - else
+    .col-md-6
+      .card
+        .card-header.text-bg-danger
+          %h2 Bitte anmelden
+        .card-body
+          Um die Personen sehen zu können, musst du angemeldet sein.

@@ -3,10 +3,9 @@
 class HomeController < ApplicationController
   def home; end
   def info; end
+  def help; end
 
   def disseminators
-    authorize!(:visit, :disseminator)
-
     @disseminators = [
       Disseminator.new(
         'Max Mustermann', 'Mecklenburg-Vorpommern', 'Geschäftsführer des KFV Rostock', 'foo@bar.de', nil

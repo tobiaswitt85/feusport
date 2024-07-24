@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'home#home'
   get 'info', to: 'home#info', as: :info
   get 'disseminators', to: 'home#disseminators', as: :disseminators
+  get 'help', to: 'home#help', as: :help
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',

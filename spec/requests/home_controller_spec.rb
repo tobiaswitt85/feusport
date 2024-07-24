@@ -20,11 +20,17 @@ RSpec.describe 'Home' do
     end
   end
 
+  describe 'help' do
+    it 'shows help page' do
+      get '/help'
+      expect(response).to match_html_fixture
+    end
+  end
+
   describe 'disseminators' do
     it 'shows disseminators page' do
       get '/disseminators'
-      expect(response).to redirect_to '/users/sign_in'
-      follow_redirect!
+      expect(response).to match_html_fixture.with_affix('sign-in-hint')
 
       sign_in user
 
