@@ -2,9 +2,9 @@ Hallo,
 
 zu deinem Wettkampf *<%= @competition.name %>* am *<%= I18n.l(@competition.date) %>* wurde ein neuer Einzelstarter angemeldet:
 
-Name: <%= @person.full_name %>
-Wertungsgruppe: <%= @person.band.name %>
-Angemeldet durch: <%= @person.applicant.name %>
+Name: **<%= @person.full_name %>**
+Wertungsgruppe: **<%= @person.band.name %>**
+Angemeldet durch: **<%= @person.applicant.name %>**
 
 Anmeldungshinweise:
 <%= @person.registration_hint %>

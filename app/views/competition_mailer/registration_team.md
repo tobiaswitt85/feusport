@@ -2,10 +2,10 @@ Hallo,
 
 zu deinem Wettkampf *<%= @competition.name %>* am *<%= I18n.l(@competition.date) %>* wurde eine neue Mannschaft angemeldet:
 
-Name: <%= @team.full_name %>
-Abkürzung: <%= @team.shortcut %>
-Wertungsgruppe: <%= @team.band.name %>
-Angemeldet durch: <%= @team.applicant.name %>
+Name: **<%= @team.full_name %>**
+Abkürzung: **<%= @team.shortcut %>**
+Wertungsgruppe: **<%= @team.band.name %>**
+Angemeldet durch: **<%= @team.applicant.name %>**
 
 Anmeldungshinweise:
 <%= @team.registration_hint %>
