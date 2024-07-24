@@ -7,6 +7,7 @@ class Competitions::AccessRequestsController < CompetitionNestedController
   def create
     @access_request.assign_attributes(access_request_params)
     if @access_request.save
+      CompetitionMailer.with(access_request: @access_request).access_request.deliver_later
       redirect_to competition_accesses_path, notice: :saved
     else
       flash.now[:alert] = :check_errors

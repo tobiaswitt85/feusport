@@ -4,6 +4,8 @@ class UserAccessRequest < ApplicationRecord
   belongs_to :competition, touch: true
   belongs_to :sender, class_name: 'User'
 
+  auto_strip_attributes :email, :text
+
   schema_validations
   validates :email, 'valid_email_2/email': Rails.configuration.x.email_validation
 

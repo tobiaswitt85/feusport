@@ -92,4 +92,28 @@ RSpec.describe 'People' do
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{team.id}#people-table")
     end
   end
+
+  context 'when user is a applicant' do
+    let!(:other_user) { create(:user, :other, phone_number: '1234') }
+
+    it 'uses CRUD' do
+      competition.update!(registration_open_until: Date.current, registration_open: 'open', visible: true)
+
+      sign_in other_user
+
+      get "/#{competition.year}/#{competition.slug}/people/new?band_id=#{band.id}"
+      expect(response).to match_html_fixture.with_affix('new')
+
+      expect do
+        expect do
+          post "/#{competition.year}/#{competition.slug}/people",
+               params: { band_id: band.id,
+                         person: { first_name: 'first-name', last_name: 'last-name', team_id: '',
+                                   create_team_name: 'new team' } }
+          follow_redirect!
+          expect(response).to match_html_fixture.with_affix('show-with-hint')
+        end.to change(Person, :count).by(1)
+      end.to have_enqueued_job.with('CompetitionMailer', 'registration_person', 'deliver_now', any_args)
+    end
+  end
 end

@@ -16,6 +16,7 @@ de:
         name: Name
         number: Nummer
         people: Wettkämpfer
+        registration_hint: Anmeldungshinweise
         shortcut: Abkürzung
         tags: Kennzeichnungen
     models:

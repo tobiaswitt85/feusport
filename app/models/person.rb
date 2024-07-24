@@ -7,11 +7,13 @@ class Person < ApplicationRecord
   belongs_to :band
   belongs_to :team
   belongs_to :fire_sport_statistics_person, class_name: 'FireSportStatistics::Person', inverse_of: :person
+  belongs_to :applicant, class_name: 'User'
   has_many :requests, class_name: 'AssessmentRequest', as: :entity, dependent: :destroy, inverse_of: :entity
   has_many :list_entries, class_name: 'Score::ListEntry', as: :entity, dependent: :destroy, inverse_of: :entity
   has_many :requested_assessments, through: :requests, source: :assessment
 
-  before_validation :strip_names
+  auto_strip_attributes :first_name, :last_name, :bib_number, :registration_hint
+
   before_validation :create_team_from_name
   before_save :assign_registration_order
 

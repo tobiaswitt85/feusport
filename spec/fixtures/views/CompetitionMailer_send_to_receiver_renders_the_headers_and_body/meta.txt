@@ -1,4 +1,0 @@
-CompetitionMailer send_to_receiver renders the headers and body
-
-mailer
-html

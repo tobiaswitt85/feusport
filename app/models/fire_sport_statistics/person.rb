@@ -15,6 +15,8 @@ class FireSportStatistics::Person < ApplicationRecord
 
   schema_validations
 
+  auto_strip_attributes :first_name, :last_name
+
   scope :where_name_like, ->(name) do
     query = "%#{name.chars.join('%')}%"
     spelling_query = FireSportStatistics::PersonSpelling.where("(first_name || ' ' || last_name) ILIKE ?", query)

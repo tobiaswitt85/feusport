@@ -9,6 +9,7 @@ de:
         create_team_name: Neue Mannschaft
         first_name: Vorname
         last_name: Nachname
+        registration_hint: Anmeldungshinweise
         tags: Kennzeichnungen
         team: Mannschaft
     models:

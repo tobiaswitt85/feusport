@@ -9,6 +9,10 @@ class User < ApplicationRecord
                                   inverse_of: :sender
   has_many :user_accesses, class_name: 'UserAccess', dependent: :destroy
   has_many :competitions, through: :user_accesses
+  has_many :teams, class_name: 'Team', dependent: :nullify, foreign_key: :applicant_id, inverse_of: :applicant
+  has_many :people, class_name: 'Person', dependent: :nullify, foreign_key: :applicant_id, inverse_of: :applicant
+
+  auto_strip_attributes :name, :email, :phone_number
 
   schema_validations
 

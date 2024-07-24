@@ -64,10 +64,17 @@ Benutzer
 </div>
 </div>
 <div class='card-body'>
+<fieldset class='group'>
+<legend>Allgemein</legend>
 <div class="form-group string required user_name form-group-valid"><label class="control-label string required" for="user_name">Name <abbr title="required">*</abbr></label><input class="form-control string required" autofocus="autofocus" type="text" value="Alfred Meier" name="user[name]" id="user_name" /></div>
 <div class="form-group email required user_email form-group-valid"><label class="control-label email required" for="user_email">E-Mail-Adresse <abbr title="required">*</abbr></label><input class="form-control string email required" type="email" value="alfred@meier.de" name="user[email]" id="user_email" /></div>
+<div class="form-group tel optional user_phone_number"><label class="control-label tel optional" for="user_phone_number">Telefonnummer</label><input class="form-control string tel optional" type="tel" name="user[phone_number]" id="user_phone_number" /><small class="form-text text-muted">Die Telefonnummer dient für Rückfragen bei Mannschaftsanmeldungen. Sie kann bei jeder Anmeldung auch später noch geändert werden.</small></div>
+</fieldset>
+<fieldset class='group'>
+<legend>Passwortänderung</legend>
 <div class="form-group password optional user_password form-group-valid"><label class="control-label password optional" for="user_password">Passwort</label><input class="form-control password optional" autocomplete="new-password" type="password" name="user[password]" id="user_password" /><small class="form-text text-muted">Freilassen, wenn keine Änderung gewünscht ist</small></div>
 <div class="form-group password optional user_password_confirmation form-group-valid"><label class="control-label password optional" for="user_password_confirmation">Passwortbestätigung</label><input class="form-control password optional" autocomplete="new-password" type="password" name="user[password_confirmation]" id="user_password_confirmation" /></div>
+</fieldset>
 <div class="form-group password optional user_current_password"><label class="control-label password optional" for="user_current_password">Aktuelles Passwort</label><input class="form-control password optional" autocomplete="current-password" type="password" name="user[current_password]" id="user_current_password" /><small class="form-text text-muted">Aktuelles Passwort, um Änderungen zu bestätigen</small></div>
 
 </div>

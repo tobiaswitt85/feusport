@@ -118,4 +118,26 @@ RSpec.describe Team do
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end
+
+  context 'when user is a applicant' do
+    let!(:other_user) { create(:user, :other, phone_number: '1234') }
+
+    it 'uses CRUD' do
+      competition.update!(registration_open_until: Date.current, registration_open: 'open', visible: true)
+
+      sign_in other_user
+
+      get "/#{competition.year}/#{competition.slug}/teams/new?band_id=#{band.id}"
+      expect(response).to match_html_fixture.with_affix('new')
+
+      expect do
+        expect do
+          post "/#{competition.year}/#{competition.slug}/teams",
+               params: { band_id: band.id, team: { name: 'new-name', shortcut: 'new-n', number: '1' } }
+          follow_redirect!
+          expect(response).to match_html_fixture.with_affix('show-with-hint')
+        end.to change(described_class, :count).by(1)
+      end.to have_enqueued_job.with('CompetitionMailer', 'registration_team', 'deliver_now', any_args)
+    end
+  end
 end

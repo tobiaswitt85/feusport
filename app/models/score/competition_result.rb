@@ -13,6 +13,8 @@ class Score::CompetitionResult < ApplicationRecord
   has_many :result_references, class_name: 'Score::CompetitionResultReference', dependent: :destroy
   has_many :results, through: :result_references, class_name: 'Score::Result'
 
+  auto_strip_attributes :name
+
   schema_validations
   validates :results, same_competition: true
 

@@ -9,4 +9,26 @@ class CompetitionMailer < ApplicationMailer
       subject: "Zugangsanfrage für Wettkampf - #{@access_request.competition.name}",
     )
   end
+
+  def registration_team
+    @team = params[:team]
+    @competition = @team.competition
+
+    to = @competition.users.map { |user| email_address_with_name(user.email, user.name) }
+    mail(
+      to:,
+      subject: "Neue Wettkampfanmeldung - #{@team.competition.name}",
+    )
+  end
+
+  def registration_person
+    @person = params[:person]
+    @competition = @person.competition
+
+    to = @competition.users.map { |user| email_address_with_name(user.email, user.name) }
+    mail(
+      to:,
+      subject: "Neue Wettkampfanmeldung - #{@person.competition.name}",
+    )
+  end
 end

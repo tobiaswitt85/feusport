@@ -12,6 +12,7 @@ class Score::List < ApplicationRecord
                                                        inverse_of: :list
 
   default_scope { order(:name) }
+  auto_strip_attributes :name, :shortcut
 
   schema_validations
   validates :track_count, numericality: { greater_than: 0 }

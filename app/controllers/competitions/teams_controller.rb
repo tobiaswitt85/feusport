@@ -11,6 +11,8 @@ class Competitions::TeamsController < CompetitionNestedController
   def create
     @team.assign_attributes(team_params)
     if @team.save
+      CompetitionMailer.with(team: @team).registration_team.deliver_later if @team.applicant.present?
+
       redirect_to competition_team_path(id: @team.id), notice: :saved
     else
       flash.now[:alert] = :check_errors
@@ -41,7 +43,7 @@ class Competitions::TeamsController < CompetitionNestedController
 
   def team_params
     params.require(:team).permit(
-      :name, :shortcut, :number, :band_id, :fire_sport_statistics_team_id,
+      :name, :shortcut, :number, :band_id, :fire_sport_statistics_team_id, :registration_hint,
       tags: [],
       requests_attributes: %i[assessment_type relay_count _destroy assessment_id id]
     )
@@ -49,5 +51,12 @@ class Competitions::TeamsController < CompetitionNestedController
 
   def assign_new_resource
     self.resource_instance = resource_class.new(competition: @competition, band: Band.find(params[:band_id]))
+    return if can?(:manage, @competition)
+
+    resource_instance.applicant = current_user
+    resource_instance.registration_hint =
+      "Mannschaftsleiter: #{current_user.name}\n" \
+      "E-Mail-Adresse: #{current_user.email}\n" \
+      "Telefonnummer: #{current_user.phone_number}\n"
   end
 end

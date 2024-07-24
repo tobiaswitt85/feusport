@@ -20,6 +20,8 @@ class Certificates::Template < ApplicationRecord
     end
   end
 
+  auto_strip_attributes :name
+
   accepts_nested_attributes_for :text_fields, allow_destroy: true
 
   def self.create_example(competition)

@@ -30,6 +30,20 @@ class Ability
     can(:manage, UserAccess, competition: { user_accesses: { user_id: user.id } })
     can(:manage, UserAccessRequest, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Presets::Base) { |preset| can?(:manage, preset.competition) }
+
+    can(%i[create], Team) { |team| team.competition.registration_possible? }
+    can(%i[edit_assessment_requests update destroy], Team) do |team|
+      team.applicant == user && team.competition.registration_possible?
+    end
+
+    can(%i[create], Person) do |person|
+      (person.team.nil? || person.team.applicant == user) &&
+        person.competition.registration_possible?
+    end
+    can(%i[edit_assessment_requests update destroy], Person) do |person|
+      (person.applicant == user || person.team&.applicant == user) &&
+        person.competition.registration_possible?
+    end
   end
 
   def global_abilities

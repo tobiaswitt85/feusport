@@ -27,6 +27,7 @@ class Discipline < ApplicationRecord
   has_many :assessments, dependent: :restrict_with_error
 
   scope :single_disciplines, -> { where(single_discipline: true) }
+  auto_strip_attributes :name, :short_name
 
   schema_validations
   validates :key, inclusion: { in: DISCIPLINES }, allow_blank: true

@@ -17,6 +17,7 @@ class Band < ApplicationRecord
                                   source: :list_factory
 
   acts_as_list
+  auto_strip_attributes :name
 
   schema_validations
 

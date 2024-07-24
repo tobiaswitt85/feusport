@@ -6,6 +6,7 @@ class Team < ApplicationRecord
   belongs_to :competition, touch: true
   belongs_to :band
   belongs_to :fire_sport_statistics_team, class_name: 'FireSportStatistics::Team'
+  belongs_to :applicant, class_name: 'User'
   has_many :people, dependent: :nullify
   has_many :requests, class_name: 'AssessmentRequest', as: :entity, dependent: :destroy, inverse_of: :entity
   has_many :list_entries, class_name: 'Score::ListEntry', as: :entity, dependent: :destroy, inverse_of: :entity
@@ -16,7 +17,7 @@ class Team < ApplicationRecord
   validates :number, numericality: { greater_than: 0 }
   validates :shortcut, length: { maximum: 12 }
 
-  auto_strip_attributes :name, :shortcut, squish: true, convert_non_breaking_spaces: true
+  auto_strip_attributes :name, :shortcut, :registration_hint
   accepts_nested_attributes_for :requests, allow_destroy: true
 
   default_scope { order(:name, :number) }

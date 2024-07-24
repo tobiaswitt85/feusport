@@ -28,6 +28,8 @@ class Score::Result < ApplicationRecord
   scope :discipline, ->(discipline) { where(assessment: Assessment.discipline(discipline)) }
   scope :no_zweikampf, -> { where.not(type: 'Score::DoubleEventResult') }
 
+  auto_strip_attributes :forced_name
+
   schema_validations
   before_validation :clean_tags
   validate :useless_team_tags

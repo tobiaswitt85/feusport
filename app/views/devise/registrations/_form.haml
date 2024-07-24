@@ -1,9 +1,14 @@
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = card('Registrieren') do |c|
     - c.body do
-      = f.input :name, autofocus: true, input_html: { autocomplete: 'name' }
-      = f.input :email, input_html: { autocomplete: 'email' }
-      = f.input :password, required: true, input_html: { autocomplete: 'new-password' }
-      = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password' }
+      %fieldset.group
+        %legend Allgemein
+        = f.input :name, autofocus: true, input_html: { autocomplete: 'name' }
+        = f.input :email, input_html: { autocomplete: 'email' }
+        = f.input :phone_number, input_html: { autocomplete: 'tel' }
+      %fieldset.group
+        %legend Passwort
+        = f.input :password, required: true, input_html: { autocomplete: 'new-password' }
+        = f.input :password_confirmation, required: true, input_html: { autocomplete: 'new-password' }
     - c.footer do
       = f.primary_button :submit

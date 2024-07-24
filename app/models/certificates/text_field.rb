@@ -101,6 +101,8 @@ class Certificates::TextField < ApplicationRecord
   validates :align, inclusion: { in: %i[left center right] }
   validates :color, format: { with: /\A[0-9A-Fa-f]{6}\z/ }
 
+  auto_strip_attributes :text
+
   def key
     super.try(:to_sym)
   end

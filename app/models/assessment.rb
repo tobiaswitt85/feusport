@@ -17,6 +17,8 @@ class Assessment < ApplicationRecord
   scope :no_zweikampf, -> { joins(:discipline).where.not(disciplines: { key: 'zk' }) }
   scope :single_disciplines, -> { joins(:discipline).where(disciplines: { single_discipline: true }) }
 
+  auto_strip_attributes :forced_name
+
   schema_validations
   validates :discipline, :band, :results, :lists, same_competition: true
   delegate :like_fire_relay?, to: :discipline

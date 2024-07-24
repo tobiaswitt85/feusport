@@ -49,6 +49,9 @@ class Competition < ApplicationRecord
 
     self.registration_open_until = [date - 1.day, registration_open_until].compact_blank.min
   end
+
+  auto_strip_attributes :name, :place, :slug, :description, :flyer_headline, :flyer_content
+  before_validation { self.slug = slug.to_s.parameterize }
   schema_validations
   validates :registration_open_until, presence: true, if: -> { registration_open == 'open' }
   validates :registration_open_until, comparison: { less_than_or_equal_to: :date }, allow_nil: true
@@ -64,5 +67,13 @@ class Competition < ApplicationRecord
 
   def year_and_month
     @year_and_month ||= "#{date.year}-#{date.month}"
+  end
+
+  def registration_possible?
+    return false unless registration_open? && visible? && registration_open_until
+    return false unless visible?
+    return false if registration_open_until.nil?
+
+    registration_open_until.end_of_day > Time.current
   end
 end

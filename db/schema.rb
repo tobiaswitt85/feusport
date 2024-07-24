@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_10_095730) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_24_091041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -233,6 +233,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_10_095730) do
     t.integer "fire_sport_statistics_person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "applicant_id"
+    t.text "registration_hint"
     t.index ["band_id"], name: "index_people_on_band_id"
     t.index ["competition_id"], name: "index_people_on_competition_id"
     t.index ["fire_sport_statistics_person_id"], name: "index_people_on_fire_sport_statistics_person_id"
@@ -465,6 +467,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_10_095730) do
     t.integer "fire_sport_statistics_team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "applicant_id"
+    t.text "registration_hint"
     t.index ["band_id"], name: "index_teams_on_band_id"
     t.index ["competition_id", "band_id", "name", "number"], name: "index_teams_on_competition_id_and_band_id_and_name_and_number", unique: true
     t.index ["competition_id", "band_id", "shortcut", "number"], name: "index_teams_on_competition_band_shortcut_number", unique: true
@@ -516,6 +520,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_10_095730) do
     t.string "name", limit: 100, null: false
     t.boolean "user_manager", default: false, null: false
     t.boolean "competition_manager", default: false, null: false
+    t.string "phone_number"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -534,6 +539,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_10_095730) do
   add_foreign_key "people", "bands"
   add_foreign_key "people", "competitions"
   add_foreign_key "people", "teams"
+  add_foreign_key "people", "users", column: "applicant_id"
   add_foreign_key "score_competition_result_references", "score_competition_results", column: "competition_result_id"
   add_foreign_key "score_competition_result_references", "score_results", column: "result_id"
   add_foreign_key "score_competition_results", "competitions"
@@ -560,6 +566,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_10_095730) do
   add_foreign_key "team_relays", "teams"
   add_foreign_key "teams", "bands"
   add_foreign_key "teams", "competitions"
+  add_foreign_key "teams", "users", column: "applicant_id"
   add_foreign_key "user_access_requests", "competitions"
   add_foreign_key "user_access_requests", "users", column: "sender_id"
   add_foreign_key "user_accesses", "competitions"

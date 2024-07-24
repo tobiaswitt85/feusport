@@ -11,6 +11,8 @@ class FireSportStatistics::Team < ApplicationRecord
                  foreign_key: :fire_sport_statistics_team_id
   has_many :series_participations, class_name: 'Series::TeamParticipation', dependent: :destroy, inverse_of: :team
   belongs_to :federal_state
+
+  auto_strip_attributes :name, :short
   schema_validations
 
   scope :where_name_like, ->(name) do

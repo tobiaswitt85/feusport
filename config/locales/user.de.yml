@@ -7,6 +7,7 @@ de:
         email: E-Mail-Adresse
         password: Passwort
         password_confirmation: Passwortbestätigung
+        phone_number: Telefonnummer
         remember_me: Eingeloggt bleiben
         reset_password_token: Zurücksetz-Link
       user_access_request:
@@ -26,6 +27,8 @@ de:
         other: Zugangsanfragen
   simple_form:
     hints:
+      user:
+        phone_number: Die Telefonnummer dient für Rückfragen bei Mannschaftsanmeldungen. Sie kann bei jeder Anmeldung auch später noch geändert werden.
       user_access_request:
         drop_myself: Wenn du hier einen Haken setzt, wird dein Zugang zu diesem Wettkampf automatisch gelöscht, sobald die Anfrage bestätigt wurde.
         email: E-Mail-Adresse des zukünftigen Admins

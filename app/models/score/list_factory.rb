@@ -28,6 +28,8 @@ class Score::ListFactory < ApplicationRecord
 
   default_scope { where.not(status: :create) }
 
+  auto_strip_attributes :name, :shortcut
+
   schema_validations
   validates :discipline, presence: true
   validates :status, inclusion: { in: STEPS }, allow_nil: true

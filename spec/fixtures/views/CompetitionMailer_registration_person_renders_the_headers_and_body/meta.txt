@@ -1,0 +1,4 @@
+CompetitionMailer registration_person renders the headers and body
+
+mailer
+html
