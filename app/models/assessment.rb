@@ -33,7 +33,7 @@ class Assessment < ApplicationRecord
   alias to_label name
 
   def destroy_possible?
-    true || results.empty?
+    results.empty?
   end
 
   def self.requestable_for_person(band)

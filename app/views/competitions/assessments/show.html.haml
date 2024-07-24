@@ -26,3 +26,8 @@
           - else
             .alert.alert-warning
               Diese Wertung kann nicht gelöscht werden. Es sind Ergebnisse zugeordnet.
+
+  - if @assessment.results.exists?
+    .col-lg-8
+      = card_direct('Zugeordnete Ergebnisse', class: 'mb-3') do
+        = render('competitions/score/results/index_table', resource_class:, resource_collection: @assessment.results)
