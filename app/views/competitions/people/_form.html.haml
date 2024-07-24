@@ -1,6 +1,8 @@
 - c.body do
   - unless @person.persisted?
     = hidden_field_tag :band_id, @person.band_id
+    - if params[:team].present?
+      = hidden_field_tag :team, params[:team]
 
   - if params[:form] == 'registration_hint'
     = hidden_field_tag :form, 'registration_hint'
