@@ -50,7 +50,10 @@ class Competitions::TeamsController < CompetitionNestedController
   end
 
   def assign_new_resource
-    self.resource_instance = resource_class.new(competition: @competition, band: Band.find(params[:band_id]))
+    band = @competition.bands.find_by(id: params[:band_id])
+    return redirect_to({ action: :index }, notice: 'Bitte wähle eine Wertungsgruppe aus') if band.blank?
+
+    self.resource_instance = resource_class.new(competition: @competition, band:)
     return if can?(:manage, @competition)
 
     resource_instance.applicant = current_user

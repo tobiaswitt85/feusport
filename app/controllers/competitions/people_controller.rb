@@ -63,7 +63,11 @@ class Competitions::PeopleController < CompetitionNestedController
   def assign_new_resource
     self.resource_instance = resource_class.new(competition: @competition)
     resource_instance.assign_attributes(team: team_from_param, band: team_from_param.band) if team_from_param.present?
-    resource_instance.band ||= @competition.bands.find(params[:band_id])
+    resource_instance.band ||= @competition.bands.find_by(id: params[:band_id])
+
+    if resource_instance.band.blank?
+      return redirect_to({ action: :index }, notice: 'Bitte wähle eine Wertungsgruppe aus')
+    end
 
     return if can?(:manage, @competition)
     return if can?(:edit, resource_instance.team)
