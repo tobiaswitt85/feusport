@@ -1,21 +1,23 @@
 = render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
 
-- @competition.bands.sort.each do |band|
-  = card(band.name, class: 'mb-3') do |c|
-    - if resource_collection.exists?(band:)
-      - c.direct do
-        = render('index_table', resource_class:, resource_collection: resource_collection.where(band:).sort, band:, assessments: Assessment.requestable_for_team(band))
-    - else
-      - c.body do
-        .alert.alert-info= t('a.no_entries_found')
+.row
+  .col-lg-12
+    - @competition.bands.sort.each do |band|
+      = card(band.name, class: 'mb-3') do |c|
+        - if resource_collection.exists?(band:)
+          - c.direct do
+            = render('index_table', resource_class:, resource_collection: resource_collection.where(band:).sort, band:, assessments: Assessment.requestable_for_team(band))
+        - else
+          - c.body do
+            .alert.alert-info= t('a.no_entries_found')
 
-    - if can?(:manage, @competition)
-      - c.primary_actions do |actions|
-        - actions.link_to t('a.add'), { action: :new, band_id: band.id }, end_icon: :square_plus
+        - if can?(:manage, @competition)
+          - c.primary_actions do |actions|
+            - actions.link_to t('a.add'), { action: :new, band_id: band.id }, end_icon: :square_plus
 
-      - c.actions do |actions|
-        - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
-        - actions.link_to 'XLS', { format: :xlsx }, end_icon: :file_excel
-    - elsif @competition.registration_possible?
-      - c.primary_actions do |actions|
-        - actions.link_to t('a.add'), { action: :new, band_id: band.id }, end_icon: :square_plus
+          - c.actions do |actions|
+            - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
+            - actions.link_to 'XLS', { format: :xlsx }, end_icon: :file_excel
+        - elsif @competition.registration_possible?
+          - c.primary_actions do |actions|
+            - actions.link_to t('a.add'), { action: :new, band_id: band.id }, end_icon: :square_plus
