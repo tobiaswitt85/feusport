@@ -17,6 +17,10 @@ module Score::ListFactoryDefaults
     Score::List.where(id: assessments.joins(:lists).pluck('score_lists.id')).sort
   end
 
+  def possible_bands
+    Band.where(id: assessments.select(:band_id)).sort
+  end
+
   def default_shortcut
     shortcut.presence || begin
       if discipline.like_fire_relay?

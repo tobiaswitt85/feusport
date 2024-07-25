@@ -8,7 +8,7 @@
 - if :track.in? @list_factory.class.generator_params
   = f.input :track, collection: (1..@list_factory.track_count)
 - if :bands.in? @list_factory.class.generator_params
-  = f.association :bands, collection: Band.all, as: :check_boxes
+  = f.association :bands, collection: @list_factory.possible_bands, as: :check_boxes
 - if :single_competitors_first.in? @list_factory.class.generator_params
   = f.input :single_competitors_first, as: :radio_buttons, collection: [['Einzelstarter vor Mannschaftsstarter', true], ['Mannschaftsstarter vor Einzelstarter', false]]
 
