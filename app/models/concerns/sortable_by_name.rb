@@ -9,6 +9,6 @@ module SortableByName
     sort_by_name = name <=> other.name
     return sort_by_name unless sort_by_name == 0
 
-    super
+    to_key <=> other.to_key
   end
 end
