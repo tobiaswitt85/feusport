@@ -13,6 +13,7 @@ import './_edit_times';
 import './_easymde';
 import './_list_print_generator';
 import './_name_preview';
+import './_vertical_scroll';
 
 document.addEventListener('turbo:load', () => {
   window.SocialShareButton = {
