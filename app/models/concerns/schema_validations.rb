@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20240724091041
+# generated from version 20240725124253
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -202,6 +202,14 @@ module SchemaValidations
       validates_with_filter :key, {:length=>{:allow_nil=>true, :maximum=>10}}
       validates_with_filter :single_discipline, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :like_fire_relay, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_disseminators_validations(enums: [])
+      validates_with_filter :name, {:presence=>{}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

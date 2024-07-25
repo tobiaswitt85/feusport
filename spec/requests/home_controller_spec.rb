@@ -29,6 +29,8 @@ RSpec.describe 'Home' do
 
   describe 'disseminators' do
     it 'shows disseminators page' do
+      Disseminator.create(name: 'Alfred Meier', lfv: 'Mecklenburg-Vorpommern', position: 'Chef',
+                          email_address: 'foo@bar.de', phone_number: '0190 123456')
       get '/disseminators'
       expect(response).to match_html_fixture.with_affix('sign-in-hint')
 

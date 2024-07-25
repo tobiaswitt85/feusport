@@ -6,21 +6,6 @@ class HomeController < ApplicationController
   def help; end
 
   def disseminators
-    @disseminators = [
-      Disseminator.new(
-        'Max Mustermann', 'Mecklenburg-Vorpommern', 'Geschäftsführer des KFV Rostock', 'foo@bar.de', nil
-      ),
-      Disseminator.new(
-        'Maria Mustermann', 'Brandenburg', 'Fachausschuss Wettbewerbe', nil, '0190 123456'
-      ),
-      Disseminator.new(
-        'Fred Peters', 'Sachsen-Anhalt', 'Feuerwehrsportler', 'bar@foo.de', '0190 123123'
-      ),
-      Disseminator.new(
-        'Super Mann', 'Thüringen', 'Organisator aus Taura', 'blub@hans.de', nil
-      ),
-    ]
+    @disseminators = Disseminator.reorder(:name)
   end
-
-  Disseminator = Struct.new(:name, :lfv, :position, :email_address, :phone_number)
 end
