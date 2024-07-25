@@ -42,6 +42,8 @@ class Competitions::TeamsController < CompetitionNestedController
   protected
 
   def team_params
+    return {} unless params.key?(:team)
+
     params.require(:team).permit(
       :name, :shortcut, :number, :band_id, :fire_sport_statistics_team_id, :registration_hint,
       tags: [],
