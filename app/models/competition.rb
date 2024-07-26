@@ -2,7 +2,7 @@
 
 class Competition < ApplicationRecord
   REGISTRATION_OPEN = { unstated: 0, open: 1, close: 2 }.freeze
-  enum registration_open: REGISTRATION_OPEN
+  enum :registration_open, REGISTRATION_OPEN, scopes: false, prefix: true
 
   has_many :documents, dependent: :destroy
   has_many :disciplines, dependent: :destroy
@@ -68,7 +68,7 @@ class Competition < ApplicationRecord
   end
 
   def registration_possible?
-    return false unless registration_open? && visible? && registration_open_until
+    return false unless registration_open_open?
     return false unless visible?
     return false if registration_open_until.nil?
 
