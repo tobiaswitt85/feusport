@@ -25,6 +25,8 @@
       .alert-flash
         - flash.each do |name, msg|
           - msg = t("alerts.#{msg}", default: msg)
+          - next if name == 'timedout'
+
           - if name == 'alert'
             .alert.alert-danger= msg
           - else
