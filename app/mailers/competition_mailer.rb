@@ -10,6 +10,17 @@ class CompetitionMailer < ApplicationMailer
     )
   end
 
+  def access_request_connected
+    @sender = params[:sender]
+    @user = params[:user]
+    @competition = params[:competition]
+
+    mail(
+      to: email_address_with_name(@sender.email, @sender.name),
+      subject: "Zugangsanfrage für Wettkampf verbunden - #{@competition.name}",
+    )
+  end
+
   def registration_team
     @team = params[:team]
     @competition = @team.competition

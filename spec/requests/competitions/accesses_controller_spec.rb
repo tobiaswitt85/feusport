@@ -22,11 +22,13 @@ RSpec.describe Competitions::AccessesController do
       post "/#{competition.year}/#{competition.slug}/access_requests", params: { user_access_request: { email: 'foo' } }
       expect(response).to match_html_fixture.with_affix('new-error').for_status(422)
 
-      # POST create an access_request
-      post "/#{competition.year}/#{competition.slug}/access_requests",
-           params: { user_access_request: { email: 'foo@bar.de', text: 'Hallo', drop_myself: true } }
-      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/accesses")
-      follow_redirect!
+      expect do
+        # POST create an access_request
+        post "/#{competition.year}/#{competition.slug}/access_requests",
+             params: { user_access_request: { email: 'foo@bar.de', text: 'Hallo', drop_myself: true } }
+        expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/accesses")
+        follow_redirect!
+      end.to have_enqueued_job.with('CompetitionMailer', 'access_request', 'deliver_now', any_args)
 
       # GET index
       expect(response).to match_html_fixture.with_affix('index-two-entries')
@@ -43,11 +45,13 @@ RSpec.describe Competitions::AccessesController do
       sign_in other_user
 
       expect do
-        # GET connect
-        get "/#{competition.year}/#{competition.slug}/access_requests/#{req.id}/connect"
-        expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/accesses")
-        expect(flash[:notice]).to eq 'Du wurdest erfolgreich mit dem Wettkampf verbunden.'
-      end.not_to change(UserAccess, :count)
+        expect do
+          # GET connect
+          get "/#{competition.year}/#{competition.slug}/access_requests/#{req.id}/connect"
+          expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/accesses")
+          expect(flash[:notice]).to eq 'Du wurdest erfolgreich mit dem Wettkampf verbunden.'
+        end.not_to change(UserAccess, :count)
+      end.to have_enqueued_job.with('CompetitionMailer', 'access_request_connected', 'deliver_now', any_args)
 
       # POST create an other access_request
       post "/#{competition.year}/#{competition.slug}/access_requests",

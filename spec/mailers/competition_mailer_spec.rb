@@ -17,6 +17,22 @@ RSpec.describe CompetitionMailer do
     end
   end
 
+  describe 'access_request_connected' do
+    let(:user) { create(:user) }
+    let(:sender) { create(:user, :other) }
+    let(:competition) { create(:competition) }
+    let(:mail) { described_class.with(sender:, user:, competition:).access_request_connected }
+
+    it 'renders the headers and body' do
+      expect(mail.subject).to eq('Zugangsanfrage für Wettkampf verbunden - MV-Cup')
+      expect(mail.header[:to].to_s).to eq 'Other Meier <other@meier.de>'
+      expect(mail.header[:from].to_s).to eq 'Feuerwehrsport <no-reply@feusport.de>'
+      expect(mail.header[:cc].to_s).to eq ''
+      expect(mail.header[:reply_to].to_s).to eq ''
+      expect(mail).to match_html_fixture
+    end
+  end
+
   describe 'registration_team' do
     let(:competition) { create(:competition) }
     let(:band) { create(:band, competition:) }
