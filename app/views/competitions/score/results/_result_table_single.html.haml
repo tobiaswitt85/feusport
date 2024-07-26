@@ -6,7 +6,7 @@
       %th.hidden-xs Nr.
     %th Name
     %th Mannschaft
-    - if @result.is_a? Score::DoubleEventResult
+    - if @result.calculation_method_zweikampf?
       %th Summe
       - @result.results.each do |result|
         %th= discipline_image(result.assessment.discipline.key)

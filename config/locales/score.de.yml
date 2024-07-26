@@ -82,6 +82,9 @@ de:
         series_assessments: Wertungen
         team_tags_excluded: Mannschafts-Kennzeichnungen (ausschließend)
         team_tags_included: Mannschafts-Kennzeichnungen (einschließend)
+    errors:
+      messages:
+        discipline_changed: muss die gleiche Disziplin haben
     models:
       score/competition_result:
         one: Gesamtwertung
@@ -110,3 +113,4 @@ de:
   score_calculation_methods:
     default: Standard (Bester Lauf in der Wertung)
     sum_of_two: Summe der besten zwei Läufe
+    zweikampf: Zweikampf

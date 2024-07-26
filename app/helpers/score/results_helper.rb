@@ -6,4 +6,10 @@ module Score::ResultsHelper
   def row_invalid_class(row)
     row.valid? ? '' : 'danger'
   end
+
+  def calculation_method_options
+    Score::Result::CALCULATION_METHODS
+      .except(:zweikampf)
+      .map { |k, _v| [t("score_calculation_methods.#{k}"), k] }
+  end
 end

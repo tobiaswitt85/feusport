@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_25_124253) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_25_205232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -399,7 +399,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_25_124253) do
     t.boolean "group_assessment", default: false, null: false
     t.uuid "assessment_id", null: false
     t.uuid "double_event_result_id"
-    t.string "type", limit: 50, default: "Score::Result", null: false
     t.integer "group_score_count", default: 6, null: false
     t.integer "group_run_count", default: 8, null: false
     t.date "date"

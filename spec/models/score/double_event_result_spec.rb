@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Score::DoubleEventResult do
+RSpec.describe 'Score::DoubleEventResult' do
   let(:competition) { create(:competition) }
   let(:female) { create(:band, :female, competition:) }
   let(:male) { create(:band, :male, competition:) }
@@ -14,7 +14,7 @@ RSpec.describe Score::DoubleEventResult do
   let(:assessment_hl) { create(:assessment, competition:, discipline: hl, band:) }
   let(:assessment_hb) { create(:assessment, competition:, discipline: hb, band:) }
   let(:assessment_zk) { create(:assessment, competition:, discipline: zk, band:) }
-  let(:result_zk) { described_class.create!(competition:, assessment: assessment_zk) }
+  let(:result_zk) { Score::Result.create!(competition:, assessment: assessment_zk, calculation_method: :zweikampf) }
   let(:result_hl) { create(:score_result, competition:, assessment: assessment_hl, double_event_result: result_zk) }
   let(:result_hb) { create(:score_result, competition:, assessment: assessment_hb, double_event_result: result_zk) }
 

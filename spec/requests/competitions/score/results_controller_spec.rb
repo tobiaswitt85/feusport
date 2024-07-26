@@ -118,4 +118,59 @@ RSpec.describe 'competitions/score/results' do
       end.to change(Score::Result, :count).by(-1)
     end
   end
+
+  describe 'change assessment' do
+    let!(:result) { create(:score_result, competition:, assessment: assessment_hl_female) }
+
+    let!(:male) { create(:band, :male, competition:) }
+    let!(:assessment_hl_male) { create(:assessment, competition:, discipline: hl, band: male) }
+
+    let!(:la) { create(:discipline, :la, competition:) }
+    let!(:assessment_la_female) { create(:assessment, competition:, discipline: la, band: female) }
+
+    it 'blocks bad changes' do
+      sign_in user
+
+      patch "/#{competition.year}/#{competition.slug}/score/results/#{result.id}",
+            params: { score_result: { assessment_id: assessment_la_female.id } }
+      expect(response).to match_html_fixture.with_affix('edit-with-error').for_status(422)
+
+      patch "/#{competition.year}/#{competition.slug}/score/results/#{result.id}",
+            params: { score_result: { assessment_id: assessment_hl_male.id } }
+      expect(response).to redirect_to "/#{competition.year}/#{competition.slug}/score/results/#{result.id}"
+
+      expect(result.reload.assessment_id).to eq assessment_hl_male.id
+    end
+  end
+
+  describe 'zweikampf' do
+    let!(:hb) { create(:discipline, :hb, competition:) }
+    let!(:assessment_hb_female) { create(:assessment, competition:, discipline: hb, band: female) }
+    let!(:result_hb) { create(:score_result, competition:, assessment: assessment_hb_female) }
+    let!(:result_hl) { create(:score_result, competition:, assessment: assessment_hl_female) }
+
+    let!(:zk) { create(:discipline, :zk, competition:) }
+    let!(:assessment_zk_female) { create(:assessment, competition:, discipline: zk, band: female) }
+
+    it 'allows to create zweikampf results' do
+      sign_in user
+
+      expect do
+        post "/#{competition.year}/#{competition.slug}/score/results",
+             params: { score_result: { assessment_id: assessment_zk_female.id } }
+      end.to change(Score::Result, :count).by(1)
+
+      result = Score::Result.where.not(id: [result_hl.id, result_hb.id]).last
+      expect(result.calculation_method_zweikampf?).to be true
+
+      get "/#{competition.year}/#{competition.slug}/score/results/#{result.id}/edit"
+      expect(response).to match_html_fixture.with_affix('edit')
+
+      patch "/#{competition.year}/#{competition.slug}/score/results/#{result.id}",
+            params: { score_result: { result_ids: [result_hl.id, result_hb.id] } }
+      expect(response).to redirect_to "/#{competition.year}/#{competition.slug}/score/results/#{result.id}"
+
+      expect(result.reload.results).to contain_exactly(result_hl, result_hb)
+    end
+  end
 end

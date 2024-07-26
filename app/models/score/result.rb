@@ -4,13 +4,13 @@ class Score::Result < ApplicationRecord
   include Score::Resultable
   include SortableByName
 
-  CALCULATION_METHODS = { default: 0, sum_of_two: 1 }.freeze
+  CALCULATION_METHODS = { default: 0, sum_of_two: 1, zweikampf: 2 }.freeze
 
-  enum calculation_method: CALCULATION_METHODS
+  enum :calculation_method, CALCULATION_METHODS, scopes: false, prefix: true
 
   belongs_to :competition, touch: true
   belongs_to :assessment, inverse_of: :results
-  belongs_to :double_event_result, dependent: :destroy, class_name: 'Score::DoubleEventResult', inverse_of: :results
+  belongs_to :double_event_result, dependent: :destroy, class_name: 'Score::Result', inverse_of: :results
   has_many :result_lists, dependent: :destroy, inverse_of: :result
   has_many :lists, through: :result_lists
   has_many :result_series_assessments, class_name: 'Score::ResultSeriesAssessment', dependent: :destroy,
@@ -19,23 +19,25 @@ class Score::Result < ApplicationRecord
                                 class_name: 'Series::Assessment'
   has_many :competition_result_references, class_name: 'Score::CompetitionResultReference', dependent: :destroy
   has_many :competition_results, class_name: 'Score::CompetitionResult', through: :competition_result_references
+  has_many :results, class_name: 'Score::Result', dependent: :nullify, inverse_of: :double_event_result,
+                     foreign_key: :double_event_result_id
 
-  delegate :discipline, to: :assessment
+  delegate :discipline, to: :assessment, allow_nil: true
   delegate :band, to: :assessment, allow_nil: true
 
-  scope :gender, ->(gender) { joins(:assessment).merge(Assessment.gender(gender)) }
-  scope :group_assessment_for, ->(gender) { gender(gender).where(group_assessment: true) }
-  scope :discipline, ->(discipline) { where(assessment: Assessment.discipline(discipline)) }
-  scope :no_zweikampf, -> { where.not(type: 'Score::DoubleEventResult') }
+  scope :no_zweikampf, -> { where.not(calculation_method: :zweikampf) }
+  scope :single_disciplines, -> { joins(:assessment).merge(Assessment.single_disciplines) }
 
   auto_strip_attributes :forced_name
 
   schema_validations
   before_validation :clean_tags
+  before_validation :change_to_zweikampf
   validate :useless_team_tags
   validate :useless_person_tags
+  validate :discipline_changed, on: :update
   validates :group_run_count, :group_score_count, numericality: { greater_than: 0 }
-  validates :assessment, :double_event_result, :competition_results, same_competition: true
+  validates :assessment, :double_event_result, :competition_results, :results, same_competition: true
 
   def name
     @name ||= forced_name.presence || generated_name
@@ -53,6 +55,10 @@ class Score::Result < ApplicationRecord
     Series::Assessment.gender(assessment.band.gender)
                       .where(discipline: assessment.discipline.key)
                       .year(Date.current.year)
+  end
+
+  def possible_zweikampf_results
+    competition.score_results.single_disciplines.no_zweikampf.sort
   end
 
   def single_group_result?
@@ -81,6 +87,8 @@ class Score::Result < ApplicationRecord
   end
 
   def generate_rows(group_result: false)
+    return generate_rows_zweikampf if calculation_method_zweikampf?
+
     out_of_competition_rows = {}
     rows = {}
     lists.each do |list|
@@ -104,6 +112,20 @@ class Score::Result < ApplicationRecord
     end
     @out_of_competition_rows = out_of_competition_rows.values
     rows.values
+  end
+
+  def generate_rows_zweikampf
+    rows = {}
+    results.each do |result|
+      result.rows.select(&:valid?).each do |result_row|
+        if rows[result_row.entity.id].nil?
+          rows[result_row.entity.id] = Score::DoubleEventResultRow.new(result_row.entity, self)
+        end
+        rows[result_row.entity.id].add_result_row(result_row)
+      end
+    end
+    @out_of_competition_rows = []
+    rows.values.select { |row| row.result_rows.count == results.count }
   end
 
   def group_result
@@ -146,5 +168,20 @@ class Score::Result < ApplicationRecord
 
     errors.add(:person_tags_included, :invalid)
     errors.add(:person_tags_excluded, :invalid)
+  end
+
+  def discipline_changed
+    return unless assessment_changed?
+
+    before_discipline = Assessment.find_by(id: assessment_id_was)&.discipline
+    return if before_discipline == discipline
+
+    errors.add(:assessment, :discipline_changed)
+  end
+
+  def change_to_zweikampf
+    return if discipline&.key != 'zk'
+
+    self.calculation_method = :zweikampf
   end
 end

@@ -55,7 +55,7 @@ Benutzer
 <div class='container'>
 <h1>MV-Cup</h1>
 <p class='lead m-0 ms-1'>29.02.2024 - Rostock</p>
-<p class='lead m-0 ms-1'>Ergebnisse hinzufügen</p>
+<p class='lead m-0 ms-1'>Ergebnisse aktualisieren</p>
 
 </div>
 </header>
@@ -121,23 +121,26 @@ Erweitert
 </header>
 <div class='container mt-4'>
 <div class='alert-flash'>
+<div class='alert alert-info'>Die Änderungen wurden gespeichert.</div>
 </div>
 </div>
 <div class='pb-4 mt-4 container'>
 <div class='row g-4'>
 <div class='col-lg-8'>
-<form class="simple_form new_score_result" id="new_score_result" novalidate="novalidate" action="/2024/mv-cup/score/results" accept-charset="UTF-8" method="post"><div class='card'>
+<form class="simple_form edit_score_result" id="edit_score_result_UUID" novalidate="novalidate" action="/2024/mv-cup/score/results/UUID" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off" /><div class='card'>
 <div class='card-header p-0'>
 <div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Ergebnisse hinzufügen</h4>
+<h4 class='m-0 py-2 ps-3'>Ergebnisse aktualisieren</h4>
 </div>
 </div>
 <div class='card-body'>
-<div class="form-group select required score_result_assessment"><label class="control-label select required" for="score_result_assessment_id">Wertung <abbr title="required">*</abbr></label><select class="form-select select required" name="score_result[assessment_id]" id="score_result_assessment_id"><option value="" label=" "></option>
-<option value="UUID">Hakenleitersteigen - Frauen</option></select><small class="form-text text-muted">Es kann mehrere Ergebnisse für eine Wertung geben: Zum Beispiel Finalläufe.</small></div>
+<div class="form-group select required score_result_assessment form-group-valid"><label class="control-label select required" for="score_result_assessment_id">Wertung <abbr title="required">*</abbr></label><select class="form-select select required" name="score_result[assessment_id]" id="score_result_assessment_id"><option value="" label=" "></option>
+<option value="UUID">100m-Hindernisbahn - Frauen</option>
+<option value="UUID">Hakenleitersteigen - Frauen</option>
+<option selected="selected" value="UUID">Zweikampf - Frauen</option></select><small class="form-text text-muted">Es kann mehrere Ergebnisse für eine Wertung geben: Zum Beispiel Finalläufe.</small></div>
 <div class="form-group string optional score_result_forced_name"><label class="control-label string optional" for="score_result_forced_name">Name</label><input class="form-control string optional" data-name-preview="1" type="text" name="score_result[forced_name]" id="score_result_forced_name" /><small class="form-text text-muted">Der Name wird automatisch aus den Wertungen und Kennzeichnungen generiert. Hier kann man ihn überschreiben.</small></div>
-<fieldset class='group bg-accent2'>
-Weitere Einstellungen sind nach dem Anlegen möglich.
+<fieldset class='group'>
+<fieldset class="form-group check_boxes optional score_result_results"><div class="col-form-label pt-0">Ergebnislisten</div><input type="hidden" name="score_result[result_ids][]" value="" autocomplete="off" /><div class="form-check"><input class="form-check-input check_boxes optional" type="checkbox" value="UUID" name="score_result[result_ids][]" id="score_result_result_ids_UUID" /><label class="form-check-label collection_check_boxes" for="score_result_result_ids_UUID">100m-Hindernisbahn - Frauen</label></div><div class="form-check"><input class="form-check-input check_boxes optional" type="checkbox" value="UUID" name="score_result[result_ids][]" id="score_result_result_ids_UUID" /><label class="form-check-label collection_check_boxes" for="score_result_result_ids_UUID">Hakenleitersteigen - Frauen</label></div><small class="form-text text-muted">Hier sollten alle Ergebnislisten ausgewählt werden, die in der Zweikampfwertung beachtet werden sollen. Üblicherweise wird ein Finallauf nicht gewertet.</small></fieldset>
 </fieldset>
 <fieldset class='group'>
 <legend>Optional</legend>
@@ -151,7 +154,7 @@ Weitere Einstellungen sind nach dem Anlegen möglich.
 </div>
 <div class='card-footer'>
 <div class='d-flex justify-content-between align-items-start'>
-<div><button name="button" type="submit" class="btn btn-primary" data-disable-with="Bitte warten...">Ergebnisse erstellen</button>
+<div><button name="button" type="submit" class="btn btn-primary" data-disable-with="Bitte warten...">Ergebnisse aktualisieren</button>
 <a class="btn btn-secondary" href="/2024/mv-cup/score/results">Abbrechen</a>
 </div>
 </div>

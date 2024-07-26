@@ -23,18 +23,26 @@
   - else
     = f.association :assessment, collection: @competition.assessments.sort, hint: 'Es kann mehrere Ergebnisse für eine Wertung geben: Zum Beispiel Finalläufe.'
     = f.input :forced_name, hint: 'Der Name wird automatisch aus den Wertungen und Kennzeichnungen generiert. Hier kann man ihn überschreiben.', input_html: { data: { name_preview: 1 } }
-    %fieldset.group.row
-      .col-lg-6
-        = f.input :group_assessment, as: :boolean, hint: 'Eine Mannschaftswertung kann für eine Gesamtwertung wichtig sein.'
-      .col-lg-6
-        = f.input :group_run_count
-        = f.input :group_score_count
-        %small.text-muted Diese Werte sind nur bei Mannschaftswertungen der Einzeldisziplinen relevant.
+    - if !@result.persisted?
+      %fieldset.group.bg-accent2
+        Weitere Einstellungen sind nach dem Anlegen möglich.
 
-    %fieldset.group
-      %legend Berechnung der Ergebnisse
-      = f.input :calculation_method, as: :radio_buttons, collection: Score::Result::CALCULATION_METHODS.map { |k, _v| [t("score_calculation_methods.#{k}"), k] }
-      %small.text-muted Bei einigen Wettkämpfen gewinnt nicht der Schnellste, sondern der Kontinuierlichste.
+    - elsif @result.calculation_method_zweikampf?
+      %fieldset.group
+        = f.association :results, collection: @result.possible_zweikampf_results, as: :check_boxes, hint: 'Hier sollten alle Ergebnislisten ausgewählt werden, die in der Zweikampfwertung beachtet werden sollen. Üblicherweise wird ein Finallauf nicht gewertet.'
+    - else
+      %fieldset.group.row
+        .col-lg-6
+          = f.input :group_assessment, as: :boolean, hint: 'Eine Mannschaftswertung kann für eine Gesamtwertung wichtig sein.'
+        .col-lg-6
+          = f.input :group_run_count
+          = f.input :group_score_count
+          %small.text-muted Diese Werte sind nur bei Mannschaftswertungen der Einzeldisziplinen relevant.
+
+      %fieldset.group
+        %legend Berechnung der Ergebnisse
+        = f.input :calculation_method, as: :radio_buttons, collection: calculation_method_options
+        %small.text-muted Bei einigen Wettkämpfen gewinnt nicht der Schnellste, sondern der Kontinuierlichste.
     %fieldset.group
       %legend Optional
       .row

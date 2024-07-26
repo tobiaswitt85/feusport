@@ -44,7 +44,7 @@ module Exports::ScoreResults
     else
       header.push('Mannschaft')
     end
-    if result.is_a?(Score::DoubleEventResult)
+    if result.calculation_method_zweikampf?
       result.results.each do |sub_result|
         header.push(sub_result.assessment.discipline.decorate.to_short)
       end

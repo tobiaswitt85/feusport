@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20240725124253
+# generated from version 20240725205232
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -486,8 +486,6 @@ module SchemaValidations
       validates_with_filter :forced_name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :group_assessment, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :assessment_id, {:presence=>{}}
-      validates_with_filter :type, {:presence=>{}}
-      validates_with_filter :type, {:length=>{:allow_nil=>true, :maximum=>50}}
       validates_with_filter :group_score_count, {:presence=>{}}
       validates_with_filter :group_score_count, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:group_score_count)
       validates_with_filter :group_run_count, {:presence=>{}}

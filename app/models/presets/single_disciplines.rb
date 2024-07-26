@@ -56,7 +56,7 @@ class Presets::SingleDisciplines < Presets::Base
                                                      single_discipline: true)
       bands.each do |band|
         zk_assessment = competition.assessments.find_or_create_by!(discipline: zk, band:)
-        zk_result[band] = Score::DoubleEventResult.create!(competition:, assessment: zk_assessment)
+        zk_result[band] = Score::Result.create!(competition:, assessment: zk_assessment, calculation_method: :zweikampf)
       end
     end
 

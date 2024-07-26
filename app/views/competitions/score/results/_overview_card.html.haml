@@ -24,7 +24,7 @@
           %th= Score::Result.human_attribute_name :person_tags_excluded
           %td= result.person_tags_excluded.join(', ')
 
-      - if result.is_a? Score::DoubleEventResult
+      - if result.calculation_method_zweikampf?
         %tr
           %th= Score::Result.human_attribute_name :results
           %td
@@ -53,7 +53,7 @@
           - else
             %em Noch keine Einträge
 
-      - unless result.calculation_method == 'default'
+      - unless result.calculation_method_default?
         %tr
           %th= Score::Result.human_attribute_name :calculation_method
           %td= t("score_calculation_methods.#{result.calculation_method}")
