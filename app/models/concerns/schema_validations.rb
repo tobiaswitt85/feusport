@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20240725205232
+# generated from version 20240726100337
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -582,8 +582,8 @@ module SchemaValidations
 
     def dbv_teams_validations(enums: [])
       belongs_to_presence_validations_for([:competition_id, :band_id, :number])
-      belongs_to_uniqueness_validations_for([["competition_id", "band_id", "name", "number"], ["competition_id", "band_id", "shortcut", "number"]])
-      uniqueness_validations_for([["competition_id", "band_id", "name", "number"], ["competition_id", "band_id", "shortcut", "number"]])
+      belongs_to_uniqueness_validations_for([["competition_id", "band_id", "name", "number"]])
+      uniqueness_validations_for([["competition_id", "band_id", "name", "number"]])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :band_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_25_205232) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_26_100337) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -62,7 +62,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_25_205232) do
     t.string "forced_name", limit: 100
     t.uuid "discipline_id", null: false
     t.uuid "band_id", null: false
-    t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["band_id"], name: "index_assessments_on_band_id"
@@ -480,7 +479,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_25_205232) do
     t.text "registration_hint"
     t.index ["band_id"], name: "index_teams_on_band_id"
     t.index ["competition_id", "band_id", "name", "number"], name: "index_teams_on_competition_id_and_band_id_and_name_and_number", unique: true
-    t.index ["competition_id", "band_id", "shortcut", "number"], name: "index_teams_on_competition_band_shortcut_number", unique: true
     t.index ["competition_id"], name: "index_teams_on_competition_id"
     t.index ["fire_sport_statistics_team_id"], name: "index_teams_on_fire_sport_statistics_team_id"
   end

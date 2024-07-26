@@ -104,10 +104,10 @@ class Certificates::TextField < ApplicationRecord
   auto_strip_attributes :text
 
   def key
-    super.try(:to_sym)
+    super&.to_sym
   end
 
   def align
-    super.try(:to_sym)
+    super&.to_sym
   end
 end

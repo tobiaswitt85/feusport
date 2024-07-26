@@ -38,3 +38,4 @@
 
 /spec/fixtures/views/*/challenger.*
 /spec/fixtures/views/*/last_run.txt
+/private/storage/

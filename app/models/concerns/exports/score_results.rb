@@ -30,7 +30,7 @@ module Exports::ScoreResults
           line.push(entry&.target_times_as_data(pdf:)) if pdf && list.separate_target_times?
           line.push(entry.human_time)
         end
-        line.push(row.best_result_entry.to_s) unless result.lists.count == 1
+        line.push(row.best_result_entry&.human_time) unless result.lists.count == 1
       end
       data.push(line)
     end
