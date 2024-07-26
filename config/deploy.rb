@@ -23,11 +23,11 @@ namespace :feusport do
     on roles(:web) do |_host|
       within release_path do
         execute :curl,
-                '-sk', '-u', 'feusport:feusport', 'https://feusport.de/not_found', '-o', 'public/404.html'
+                '-sk', 'https://feusport.de/not_found', '-o', 'public/404.html'
         execute :curl,
-                '-sk', '-u', 'feusport:feusport', 'https://feusport.de/unprocessable_entity', '-o', 'public/422.html'
+                '-sk', 'https://feusport.de/unprocessable_entity', '-o', 'public/422.html'
         execute :curl,
-                '-sk', '-u', 'feusport:feusport', 'https://feusport.de/internal_server_error', '-o', 'public/500.html'
+                '-sk', 'https://feusport.de/internal_server_error', '-o', 'public/500.html'
       end
     end
   end

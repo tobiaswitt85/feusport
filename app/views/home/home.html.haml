@@ -4,9 +4,11 @@
   %h1 Willkommen auf feusport.de
   %p.lead.mb-0 Dein Portal für Feuerwehrsport-Wettkämpfe
 
+= render 'home/home_header'
+
 .row.g-4
   .col-lg-7.col-xl-8
-    = render('competitions_card', competitions: Competition.all)
+    = render('competitions_card', competitions: @competitions)
 
   .col-lg-5.col-xl-4
     = render('info_card')
