@@ -33,6 +33,17 @@ class Series::Round < ApplicationRecord
     self
   end
 
+  def showable_cups(today)
+    @showable_cups ||= begin
+      me = Series::Cup.find_or_create_today!(self, today)
+      me_online = cups.find { |cup| cup.dummy_for_competition.nil? && cup.competition_date == today.date }
+      sorted = cups.sort_by(&:competition_date)
+      sorted.reject { |cup| cup.competition_date > today.date }
+            .reject { |cup| cup.competition_date < today.date && cup.dummy_for_competition.present? }
+            .reject { |cup| me_online && cup == me }
+    end
+  end
+
   def team_count
     team_participations.pluck(:team_id, :team_number).uniq.count
   end
@@ -66,15 +77,18 @@ class Series::Round < ApplicationRecord
     assessments = self.assessments.where(type: 'Series::TeamAssessment')
     Series::TeamParticipation.where(assessment: assessments.gender(gender)).find_each do |participation|
       next if participation.cup.dummy_for_competition.present?
+      next unless participation.cup.in?(showable_cups(competition))
 
       teams[participation.entity_id] ||= aggregate_class.new(self, participation.team, participation.team_number)
       teams[participation.entity_id].add_participation(participation)
     end
     assessments.gender(gender).each do |assessment|
-      result = assessment.score_results.first
+      result = assessment.score_results.find_by(competition:)
       next if result.blank?
 
       cup  = Series::Cup.find_or_create_today!(self, competition)
+      next unless cup.in?(showable_cups(competition))
+
       rows = result.discipline.single_discipline? ? Score::GroupResult.new(result).rows : result.group_result_rows
 
       convert_result_rows(rows, gender) do |row, time, points, rank|

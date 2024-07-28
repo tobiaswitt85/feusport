@@ -30,8 +30,8 @@
           %thead
             %th.hide-xs Platz
             %th Team
-            - @round.cups.each do |cup|
-              %th= cup.competition_place
+            - @round.showable_cups(@competition).each do |cup|
+              %th.small= cup.competition_place
             %th.hide-xs Teil.
             %th.hide-xs Bestzeit
             %th Punkte
@@ -40,8 +40,8 @@
               %tr
                 %td.hide-xs= row.rank
                 %td= row.name_with_number
-                - @round.cups.each do |cup|
-                  %td= render('competitions/series/rounds/participations_table', participations: row.participations_for_cup(cup))
+                - @round.showable_cups(@competition).each do |cup|
+                  %td.small= render('competitions/series/rounds/participations_table', participations: row.participations_for_cup(cup))
                 %td.hide-xs= row.count
                 %td.hide-xs= row.best_result_entry
                 %td= row.points
