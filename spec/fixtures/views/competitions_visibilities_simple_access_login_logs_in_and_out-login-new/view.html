@@ -30,21 +30,8 @@
 <li class='nav-item'>
 <a class="nav-link" href="/info">Über feusport.de</a>
 </li>
-<li class='nav-item dropdown'>
-<a aria-expanded='false' class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' role='button'>
-Benutzer
-</a>
-<ul class='dropdown-menu'>
-<li>
-<a class="dropdown-item" href="/users/edit">Bearbeiten</a>
-</li>
-<li>
-<hr class='dropdown-divider'>
-</li>
-<li>
-<a data-turbo-method="delete" class="dropdown-item" href="/users/sign_out">Abmelden</a>
-</li>
-</ul>
+<li class='nav-item'>
+<a class="nav-link" href="/users/sign_in">Anmelden</a>
 </li>
 </ul>
 </div>
@@ -55,7 +42,7 @@ Benutzer
 <div class='container'>
 <h1>MV-Cup</h1>
 <p class='lead m-0 ms-1'>29.02.2024 - Rostock</p>
-<p class='lead m-0 ms-1'>Zugangsanfrage hinzufügen</p>
+<p class='lead m-0 ms-1'>Wettkampfrichter-Zugang</p>
 
 </div>
 </header>
@@ -66,38 +53,6 @@ Benutzer
 <a class="nav-link" href="/2024/mv-cup">Informationen
 </a>
 </div>
-<div class='dropdown nav-item'>
-<a aria-expanded='false' class='nav-link dropdown-toggle' data-bs-toggle='dropdown' href='#' id='navbar-dropdown-menu-link' role='button'>
-Erweitert
-</a>
-<ul aria-labelledby='navbar-dropdown-menu-link' class='dropdown-menu'>
-<div class=''>
-<a class="dropdown-item" href="/2024/mv-cup/disciplines">Disziplinen
-</a>
-</div>
-<div class=''>
-<a class="dropdown-item" href="/2024/mv-cup/bands">Wertungsgruppen
-</a>
-</div>
-<div class=''>
-<a class="dropdown-item" href="/2024/mv-cup/assessments">Wertungen
-</a>
-</div>
-<div class=''>
-<a class="dropdown-item" href="/2024/mv-cup/score/competition_results">Gesamtwertungen
-</a>
-</div>
-<div class=''>
-<a class="dropdown-item" href="/2024/mv-cup/certificates/templates">Urkundenvorlagen
-</a>
-</div>
-<div class=''>
-<a class="dropdown-item" href="/2024/mv-cup/accesses">Zugänge
-</a>
-</div>
-
-</ul>
-</div>
 
 </div>
 
@@ -105,43 +60,44 @@ Erweitert
 </header>
 <div class='container mt-4'>
 <div class='alert-flash'>
-<div class='alert alert-danger'>Bitte überprüfen Sie folgende Fehler:</div>
 </div>
 </div>
 <div class='pb-4 mt-4 container'>
 <div class='row g-4'>
 <div class='col-lg-8'>
-<form class="simple_form new_user_access_request" id="new_user_access_request" novalidate="novalidate" action="/2024/mv-cup/access_requests" accept-charset="UTF-8" method="post"><div class='card'>
+<form class="simple_form new_simple_access_login" id="new_simple_access_login" novalidate="novalidate" action="/2024/mv-cup/simple_access_login" accept-charset="UTF-8" method="post"><div class='card'>
 <div class='card-header p-0'>
 <div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Neuen Zugang anlegen</h4>
+<h4 class='m-0 py-2 ps-3'>Mit Gastzugang anmelden</h4>
 </div>
 </div>
 <div class='card-body'>
-<div class="form-group email required user_access_request_email form-group-invalid"><label class="control-label email required" for="user_access_request_email">E-Mail-Adresse <abbr title="required">*</abbr></label><input class="form-control is-invalid string email required" autofocus="autofocus" aria-invalid="true" type="email" value="foo" name="user_access_request[email]" id="user_access_request_email" /><div class="invalid-feedback">E-Mail-Adresse ist nicht gültig</div><small class="form-text text-muted">E-Mail-Adresse des zukünftigen Admins</small></div>
-<div class="form-group text required user_access_request_text form-group-valid"><label class="control-label text required" for="user_access_request_text">E-Mail-Text <abbr title="required">*</abbr></label><textarea class="form-control text required" rows="10" name="user_access_request[text]" id="user_access_request_text">
-Hallo,
-
-ich habe bei feusport.de einen neuen Wettkampf für dich angelegt. Wenn du auf den nachfolgenden Link klickst, kannst du die Kontrolle über den Wettkampf übernehmen.
-Viele Grüße
-
-Alfred Meier</textarea><small class="form-text text-muted">Dieser Text wird an den zukünftigen Admin gesendet</small></div>
-<fieldset class='group'>
-<fieldset class="form-group boolean optional user_access_request_drop_myself"><div class="form-check"><input name="user_access_request[drop_myself]" type="hidden" value="0" autocomplete="off" /><input class="form-check-input boolean optional" type="checkbox" value="1" name="user_access_request[drop_myself]" id="user_access_request_drop_myself" /><label class="form-check-label boolean optional" for="user_access_request_drop_myself">Eigenen Zugang löschen</label><small class="form-text text-muted">Wenn du hier einen Haken setzt, wird dein Zugang zu diesem Wettkampf automatisch gelöscht, sobald die Anfrage bestätigt wurde.</small></div></fieldset>
-</fieldset>
+<div class="form-group select required simple_access_login_name"><label class="control-label select required" for="simple_access_login_name">Name <abbr title="required">*</abbr></label><select class="form-select select required" autofocus="autofocus" name="simple_access_login[name]" id="simple_access_login_name"><option value="test">test</option></select></div>
+<div class="form-group password optional simple_access_login_password"><label class="control-label password optional" for="simple_access_login_password">Passwort</label><input class="form-control password optional" autocomplete="current-password" type="password" name="simple_access_login[password]" id="simple_access_login_password" /></div>
 
 </div>
 <div class='card-footer'>
 <div class='d-flex justify-content-between align-items-start'>
-<div><button name="button" type="submit" class="btn btn-primary" data-disable-with="Bitte warten...">Zugangsanfrage erstellen</button>
-<a class="btn btn-secondary" href="/2024/mv-cup/accesses">Abbrechen</a>
+<div><button name="button" type="submit" class="btn btn-primary" data-disable-with="Bitte warten...">Anmelden</button>
+<a class="btn btn-secondary" href="/2024/mv-cup">Abbrechen</a>
 </div>
 </div>
 </div>
 </div>
 </form></div>
 <div class='col-lg-4'>
+<div class='card'>
+<div class='card-header p-0'>
+<div class='d-flex justify-content-between'>
+<h4 class='m-0 py-2 ps-3'>Gastzugänge</h4>
+</div>
+</div>
+<div class='card-body'>
+<p>Ein Gastzugang ist für die Admins und Wettkampfrichter am Veranstaltungstag gedacht, die keinen Eigenen Zugang über feusport.de haben.</p>
+<p>Du musst dieses Passwort von einem Verwalter erhalten haben.</p>
 
+</div>
+</div>
 </div>
 </div>
 </div>

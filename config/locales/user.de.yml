@@ -2,6 +2,10 @@
 de:
   activerecord:
     attributes:
+      simple_access:
+        name: Name
+        password: Passwort
+        password_confirmation: Passwortbestätigung
       user:
         current_password: Aktuelles Passwort
         email: E-Mail-Adresse
@@ -16,6 +20,9 @@ de:
         email: E-Mail-Adresse
         text: E-Mail-Text
     models:
+      simple_access:
+        one: Gastzugang
+        other: Gastzugänge
       user:
         one: Benutzerkonto
         other: Benutzerkonten

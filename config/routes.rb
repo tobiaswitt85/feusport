@@ -82,6 +82,8 @@ Rails.application.routes.draw do
     resources :access_requests, only: %i[new create destroy] do
       member { get :connect }
     end
+    resources :simple_accesses, only: %i[new create destroy]
+    resource :simple_access_login, only: %i[new create destroy]
     resources :presets, only: %i[index edit update]
   end
 

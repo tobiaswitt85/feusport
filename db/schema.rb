@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_26_100337) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_26_201257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -455,6 +455,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_26_100337) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "simple_accesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id", null: false
+    t.string "name", null: false
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id", "name"], name: "index_simple_accesses_on_competition_id_and_name", unique: true
+    t.index ["competition_id"], name: "index_simple_accesses_on_competition_id"
+  end
+
   create_table "team_relays", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "team_id", null: false
     t.integer "number", default: 1, null: false
@@ -570,6 +580,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_26_100337) do
   add_foreign_key "score_results", "assessments"
   add_foreign_key "score_results", "competitions"
   add_foreign_key "score_results", "score_results", column: "double_event_result_id"
+  add_foreign_key "simple_accesses", "competitions"
   add_foreign_key "team_relays", "teams"
   add_foreign_key "teams", "bands"
   add_foreign_key "teams", "competitions"

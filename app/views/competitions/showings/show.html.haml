@@ -38,8 +38,15 @@
             = link_to 'Sichtbarkeit bearbeiten', edit_competition_visibility_path, class: 'btn btn-light btn-sm'
             = link_to 'Anmeldungen bearbeiten', edit_competition_registration_path, class: 'btn btn-light btn-sm'
             = link_to 'Dokument hinzufügen', new_competition_document_path, class: 'btn btn-light btn-sm'
+            - if simple_access.present?
+              = link_to 'Gastzugang beenden', competition_simple_access_login_path, class: 'btn btn-warning btn-sm', data: { turbo_confirm: 'Danach hast du keinen Verwaltungszugriff auf diesen Wettkampf mehr.', 'turbo-method': :delete }
+
+          - elsif @competition.simple_accesses.exists?
+            = link_to 'Gastzugang', new_competition_simple_access_login_path, class: 'btn btn-light btn-sm'
+
           - if can?(:destroy, @competition)
             = link_to 'Löschen', new_competition_deletion_path, class: 'btn btn-danger btn-sm'
+
           = social_share_button_tag
       .card-body.text-center.p-0.pt-3
         %pre.small= link_to(competition_show_url.gsub(%r{https?://}, ''), competition_show_url)

@@ -3,9 +3,10 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, simple_access: nil)
     global_abilities
 
+    simple_access_abilities(simple_access) if simple_access.present?
     return if user.nil?
 
     can(:visit, :disseminator)
@@ -27,6 +28,7 @@ class Ability
     can(:manage, Score::CompetitionResult, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Score::ListFactory, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Score::ListPrintGenerator, competition: { user_accesses: { user_id: user.id } })
+    can(:manage, SimpleAccess, competition: { user_accesses: { user_id: user.id } })
     can(:manage, UserAccess, competition: { user_accesses: { user_id: user.id } })
     can(:manage, UserAccessRequest, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Presets::Base) { |preset| can?(:manage, preset.competition) }
@@ -57,5 +59,24 @@ class Ability
     can(:read, Score::List, competition: { visible: true })
     can(:read, Score::Result, competition: { visible: true })
     can(:read, Score::CompetitionResult, competition: { visible: true })
+  end
+
+  def simple_access_abilities(simple_access)
+    can(:manage, Competition, id: simple_access.competition_id)
+    can(:manage, Document, competition: { id: simple_access.competition_id })
+    can(:manage, Discipline, competition: { id: simple_access.competition_id })
+    can(:manage, Band, competition: { id: simple_access.competition_id })
+    can(:manage, Assessment, competition: { id: simple_access.competition_id })
+    can(:manage, Team, competition: { id: simple_access.competition_id })
+    can(:manage, Person, competition: { id: simple_access.competition_id })
+    can(:manage, Certificates::Template, competition: { id: simple_access.competition_id })
+    can(:manage, Score::List, competition: { id: simple_access.competition_id })
+    can(:manage, Score::ListEntry, competition: { id: simple_access.competition_id })
+    can(:manage, Score::Run, competition: { id: simple_access.competition_id })
+    can(:manage, Score::Result, competition: { id: simple_access.competition_id })
+    can(:manage, Score::CompetitionResult, competition: { id: simple_access.competition_id })
+    can(:manage, Score::ListFactory, competition: { id: simple_access.competition_id })
+    can(:manage, Score::ListPrintGenerator, competition: { id: simple_access.competition_id })
+    can(:manage, Presets::Base) { |preset| can?(:manage, preset.competition) }
   end
 end

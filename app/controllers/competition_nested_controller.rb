@@ -41,4 +41,13 @@ class CompetitionNestedController < ApplicationController
   def assign_new_resource
     self.resource_instance = resource_class.new(competition: @competition)
   end
+
+  def current_ability
+    @current_ability ||= ::Ability.new(current_user, simple_access:)
+  end
+
+  def simple_access
+    SimpleAccess.find_by(id: session["simple_access_#{@competition.id}"]) if session["simple_access_#{@competition.id}"]
+  end
+  helper_method :simple_access
 end

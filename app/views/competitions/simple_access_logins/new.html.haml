@@ -1,0 +1,17 @@
+= render 'competitions/header', competition: @competition, sub: 'Wettkampfrichter-Zugang'
+
+.row.g-4
+  .col-lg-8
+    = simple_form_for(@simple_access, as: :simple_access_login, url: competition_simple_access_login_path) do |f|
+      = card('Mit Gastzugang anmelden') do |c|
+        - c.body do
+          = f.input :name, autofocus: true, as: :select, collection: @competition.simple_accesses.pluck(:name).sort, include_blank: false
+          = f.input :password, required: false, input_html: { autocomplete: 'current-password' }
+        - c.footer do
+          = f.primary_button :submit, 'Anmelden'
+          = f.cancel_button(competition_show_path)
+
+  .col-lg-4
+    = card_body('Gastzugänge') do
+      %p Ein Gastzugang ist für die Admins und Wettkampfrichter am Veranstaltungstag gedacht, die keinen Eigenen Zugang über feusport.de haben.
+      %p Du musst dieses Passwort von einem Verwalter erhalten haben.

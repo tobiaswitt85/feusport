@@ -1,0 +1,4 @@
+competitions/visibilities simple_access_login logs in and out-with-logout-link
+
+request
+html

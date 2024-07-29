@@ -20,6 +20,7 @@ class Competition < ApplicationRecord
   has_many :user_accesses, class_name: 'UserAccess', dependent: :destroy
   has_many :users, through: :user_accesses
   has_many :score_list_print_generators, class_name: 'Score::ListPrintGenerator', dependent: :destroy
+  has_many :simple_accesses, class_name: 'SimpleAccess', dependent: :destroy
 
   scope :current, -> { where(date: (1.month.ago..)) }
 

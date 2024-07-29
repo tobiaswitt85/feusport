@@ -3,7 +3,7 @@
 .row.g-4
   .col-lg-8
     = simple_form_for([:competition, resource_instance], url: competition_access_requests_path) do |f|
-      = card('Neuen Wettkampf anlegen') do |c|
+      = card('Neuen Zugang anlegen') do |c|
         - c.body do
           = f.input :email, autofocus: true
           = f.input :text, input_html: { rows: 10 }
@@ -11,6 +11,6 @@
             = f.input :drop_myself
         - c.footer do
           = f.primary_button :submit
-          = f.cancel_button(root_path)
+          = f.cancel_button(competition_accesses_path)
   .col-lg-4
     = render('new_right')
