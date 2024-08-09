@@ -28,7 +28,7 @@ module Exports::ScoreResults
         result.lists.each do |list|
           entry = row.result_entry_from(list)
           line.push(entry&.target_times_as_data(pdf:)) if pdf && list.separate_target_times?
-          line.push(entry.human_time)
+          line.push(entry&.human_time.to_s)
         end
         line.push(row.best_result_entry&.human_time) unless result.lists.count == 1
       end
