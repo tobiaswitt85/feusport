@@ -18,6 +18,10 @@ Score::DoubleEventResultRow = Struct.new(:entity, :result) do
 
   alias_method :best_result_entry, :sum_result_entry
 
+  def assessment_type
+    nil
+  end
+
   def result_entry
     sum_result_entry
   end
