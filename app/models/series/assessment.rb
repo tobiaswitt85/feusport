@@ -18,8 +18,8 @@ class Series::Assessment < ApplicationRecord
   validates :round, :discipline, :gender, presence: true
   schema_validations
 
-  def rows
-    @rows ||= calculate_rows
+  def rows(competition)
+    @rows ||= calculate_rows(competition)
   end
 
   def aggregate_class
@@ -40,18 +40,18 @@ class Series::Assessment < ApplicationRecord
 
   protected
 
-  def calculate_rows
-    @rows = entities.values.sort
+  def calculate_rows(competition)
+    @rows = entities(competition).values.sort
     @rows.each { |row| row.calculate_rank!(@rows) }
   end
 
-  def entities
+  def entities(competition)
     entities = {}
     participations.each do |participation|
       entities[participation.entity_id] ||= aggregate_class.new(round, participation.entity)
       entities[participation.entity_id].add_participation(participation)
     end
-    result = score_results.first
+    result = score_results.find_by(competition:)
     if result.present?
       cup = Series::Cup.find_or_create_today!(round, result.competition)
       convert_result_rows(result.rows, gender) do |row, time, points, rank|
