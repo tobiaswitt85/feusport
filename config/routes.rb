@@ -33,6 +33,9 @@ Rails.application.routes.draw do
       member do
         get :edit_assessment_requests
       end
+      collection do
+        get :without_statistics_connection
+      end
     end
     namespace :score do
       resource :list_factories, only: %i[new create edit update destroy] do

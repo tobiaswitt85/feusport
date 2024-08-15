@@ -21,9 +21,7 @@
         %td
           = person.full_name
           = personal_best_badge(person.fire_sport_statistics_person)
-        %td
-          - if person.team.present?
-            = person.team.name
+        %td= person.team&.full_name
         - band.person_tags.each do |tag|
           %td= person.tags.include?(tag) ? 'X' : ''
         - assessments.each do |assessment|

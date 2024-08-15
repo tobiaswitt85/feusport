@@ -55,6 +55,11 @@ class Competition < ApplicationRecord
   validates :registration_open_until, presence: true, if: -> { registration_open == 'open' }
   validates :registration_open_until, comparison: { less_than_or_equal_to: :date }, allow_nil: true
 
+  after_touch do
+    FireSportStatistics::Person.dummies.delete_all
+    FireSportStatistics::Team.dummies.delete_all
+  end
+
   def description_html
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     markdown.render(description)

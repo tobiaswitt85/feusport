@@ -4,8 +4,16 @@ class Competitions::PeopleController < CompetitionNestedController
   default_resource
 
   def index
+    @without_statistics_id = @people.where(fire_sport_statistics_person_id: nil)
+
     send_pdf(Exports::Pdf::People, args: [@competition])
     send_xlsx(Exports::Xlsx::People, args: [@competition])
+  end
+
+  def without_statistics_connection
+    @person_suggestions = @people.where(fire_sport_statistics_person_id: nil).sort.map do |person|
+      FireSportStatistics::PersonSuggestion.new(person)
+    end
   end
 
   def create
@@ -29,6 +37,8 @@ class Competitions::PeopleController < CompetitionNestedController
     if @person.save
       if params[:return_to] == 'team'
         redirect_to competition_team_path(id: @person.team_id, anchor: 'people-table'), notice: :saved
+      elsif params[:return_to] == 'without_statistics_connection'
+        redirect_to without_statistics_connection_competition_people_path, notice: :saved
       else
         redirect_to competition_person_path(id: @person.id), notice: :saved
       end

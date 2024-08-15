@@ -31,7 +31,7 @@ class FireSportStatistics::Person < ApplicationRecord
     order(order_condition)
   end
   scope :for_person, ->(person) do
-    where_name_like("#{person.first_name}#{person.last_name}")
+    where(dummy: false).where_name_like("#{person.first_name}#{person.last_name}")
   end
   scope :dummies, -> { where(dummy: true) }
 
