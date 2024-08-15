@@ -38,7 +38,7 @@ class Competitions::PeopleController < CompetitionNestedController
       if params[:return_to] == 'team'
         redirect_to competition_team_path(id: @person.team_id, anchor: 'people-table'), notice: :saved
       elsif params[:return_to] == 'without_statistics_connection'
-        redirect_to without_statistics_connection_competition_people_path, notice: :saved
+        redirect_to competition_people_without_statistics_connection_path, notice: :saved
       else
         redirect_to competition_person_path(id: @person.id), notice: :saved
       end
