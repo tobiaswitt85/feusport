@@ -8,6 +8,12 @@ class Competitions::TeamsController < CompetitionNestedController
     send_xlsx(Exports::Xlsx::Teams, args: [@competition])
   end
 
+  def without_statistics_connection
+    @team_suggestions = @teams.where(fire_sport_statistics_team_id: nil).map do |team|
+      FireSportStatistics::TeamSuggestion.new(team)
+    end
+  end
+
   def create
     @team.assign_attributes(team_params)
     if @team.save
