@@ -44,6 +44,8 @@ RSpec.describe 'competitions/certificates/templates' do
 
       expect(Certificates::Template.find(new_id).image).to be_present
 
+      create(:certificates_text_field, :team_name, template_id: new_id)
+
       expect do
         get "/#{competition.year}/#{competition.slug}/certificates/templates/#{new_id}/duplicate"
       end.to change(Certificates::Template, :count).by(1)

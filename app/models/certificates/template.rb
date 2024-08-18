@@ -84,11 +84,12 @@ class Certificates::Template < ApplicationRecord
     duplicate.font.attach(font.blob) if font.attached?
     duplicate.font2.attach(font2.blob) if font2.attached?
 
+    duplicate.save
+
     text_fields.each do |text_field|
-      duplicate.text_fields.build(text_field.attributes.except('id', 'created_at', 'updated_at'))
+      duplicate.text_fields.create(text_field.attributes.except('id', 'created_at', 'updated_at'))
     end
 
-    duplicate.save
     duplicate
   end
 end
