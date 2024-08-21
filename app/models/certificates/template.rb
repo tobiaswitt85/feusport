@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+
 class Certificates::Template < ApplicationRecord
   belongs_to :competition, touch: true
   has_many :text_fields, class_name: 'Certificates::TextField', inverse_of: :template, dependent: :destroy
@@ -13,7 +15,15 @@ class Certificates::Template < ApplicationRecord
     has_one_attached file
 
     define_method(:"#{file}_path") do
-      ActiveStorage::Blob.service.path_for(public_send(file).key) if public_send(file).attached?
+      return unless public_send(file).attached?
+
+      orig_src = ActiveStorage::Blob.service.path_for(public_send(file).key)
+      return unless File.file?(orig_src)
+
+      orig_dir = File.dirname(orig_src)
+      temp_src = File.join(orig_dir, public_send(file).filename.to_s)
+      FileUtils.cp(orig_src, temp_src)
+      temp_src
     end
     define_method(:"#{file}_hint") do
       "Zur Zeit: #{public_send(file).filename}" if public_send(file).attached?
