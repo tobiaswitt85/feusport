@@ -6,7 +6,7 @@ Exports::Xlsx::Teams = Struct.new(:competition) do
 
   def perform
     competition.bands.sort.each do |band|
-      workbook.add_worksheet(name: band.name.truncate_bytes(30)) do |sheet|
+      add_worksheet(band.name) do |sheet|
         index_export_data(band, full: true).each { |row| sheet.add_row(row) }
       end
     end

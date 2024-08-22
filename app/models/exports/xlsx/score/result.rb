@@ -20,13 +20,13 @@ Exports::Xlsx::Score::Result = Struct.new(:result) do
   end
 
   def single_table
-    workbook.add_worksheet(name: result.name.truncate_bytes(30)) do |sheet|
+    add_worksheet(result.name) do |sheet|
       build_data_rows(result, discipline, false).each { |row| sheet.add_row(row) }
     end
   end
 
   def group_table
-    workbook.add_worksheet(name: 'Mannschaftswertung') do |sheet|
+    add_worksheet('Mannschaftswertung') do |sheet|
       build_group_data_rows(result).each { |row| sheet.add_row(row) }
 
       sheet.add_row []

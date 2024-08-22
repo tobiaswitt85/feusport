@@ -7,7 +7,7 @@ Exports::Xlsx::Score::List = Struct.new(:list) do
   delegate :competition, to: :list
 
   def perform
-    workbook.add_worksheet(name: export_title.truncate_bytes(30)) do |sheet|
+    add_worksheet(export_title) do |sheet|
       show_export_data(list).each { |row| sheet.add_row(content_row(row)) }
     end
   end

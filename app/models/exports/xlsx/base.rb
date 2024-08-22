@@ -31,4 +31,9 @@ module Exports::Xlsx::Base
   def workbook
     @workbook ||= package.workbook
   end
+
+  def add_worksheet(name, &)
+    name = name.to_s.delete(Axlsx::WORKSHEET_NAME_FORBIDDEN_CHARS.join).truncate_bytes(30)
+    workbook.add_worksheet(name:, &)
+  end
 end
