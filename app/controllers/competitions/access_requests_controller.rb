@@ -2,7 +2,7 @@
 
 class Competitions::AccessRequestsController < CompetitionNestedController
   default_resource resource_class: UserAccessRequest, through_association: :user_access_requests
-  skip_authorization_check only: :connect
+  skip_authorize_resource :competition, only: :connect
 
   def create
     @access_request.assign_attributes(access_request_params)
