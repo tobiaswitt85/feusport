@@ -6,6 +6,7 @@ class TeamImport
   attr_accessor :import_rows, :band_id, :competition
 
   validates :band_id, :import_rows, presence: true
+  validates :band, same_competition: true
 
   def save
     return false unless valid?
@@ -20,11 +21,15 @@ class TeamImport
     @teams ||= build_teams
   end
 
+  def band
+    @band = competition.bands.find_by(id: band_id)
+  end
+
   protected
 
   def build_teams
     import_rows.to_s.lines.map(&:strip).compact_blank.map do |team_name|
-      Team.new(competition:, name: team_name, shortcut: clean_and_cut_shortcut(team_name), band_id:)
+      Team.new(competition:, name: team_name, shortcut: clean_and_cut_shortcut(team_name), band:)
     end.select(&:valid?)
   end
 

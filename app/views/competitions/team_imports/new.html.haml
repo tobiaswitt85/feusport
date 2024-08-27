@@ -5,7 +5,7 @@
     = simple_form_for(@team_import, url: competition_team_import_path, data: { turbo: false }) do |f|
       = card('Mannschaften importieren') do |c|
         - c.body do
-          = f.input :band_id, as: :radio_buttons, collection: Band.all, required: true
+          = f.input :band_id, as: :radio_buttons, collection: @competition.bands.sort, required: true
           = f.input :import_rows, as: :text, hint: 'Bitte die Namen Zeilenweise angeben', required: true
           = f.hint 'Mannschaften, die schon vorhanden sind, werden übersprungen und nicht erneut angelegt.'
 
