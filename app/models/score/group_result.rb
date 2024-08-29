@@ -5,7 +5,7 @@ Score::GroupResult = Struct.new(:result) do
 
   delegate :competition, :assessment, :name, to: :result
 
-  def rows
+  def rows(*)
     @rows ||= calculated_rows.sort
   end
 

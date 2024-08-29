@@ -3,6 +3,8 @@
 Firesport::Series::Team::Base = Struct.new(:round, :team, :team_number) do
   attr_reader :rank
 
+  include Certificates::StorageSupport
+
   def self.honor_rank
     3
   end
@@ -18,8 +20,16 @@ Firesport::Series::Team::Base = Struct.new(:round, :team, :team_number) do
 
   delegate :id, to: :team, prefix: true
 
-  def name_with_number
-    "#{team&.name} #{team_number}"
+  def full_name
+    if multi_team?
+      "#{team&.name} #{team_number}"
+    else
+      team&.name.to_s
+    end
+  end
+
+  def multi_team?
+    round.participations.where(team_id:).where.not(team_number:).exists?
   end
 
   def best_result_entry
@@ -69,6 +79,27 @@ Firesport::Series::Team::Base = Struct.new(:round, :team, :team_number) do
   def calculate_rank!(other_rows)
     other_rows.each_with_index do |rank_row, rank|
       return @rank = (rank + 1) if (self <=> rank_row).zero?
+    end
+  end
+
+  def storage_support_get(position)
+    case position.key
+    when :team_name
+      full_name
+    when :person_name, :person_bib_number, :assessment_with_gender, :gender, :date, :place, :competition_name
+      ''
+    when :rank
+      "#{rank}."
+    when :rank_with_rank
+      "#{rank}. Platz"
+    when :rank_with_rank2
+      "den #{rank}. Platz"
+    when :rank_without_dot
+      rank.to_s
+    when :assessment, :result_name
+      round.name
+    else
+      super
     end
   end
 end

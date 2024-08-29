@@ -65,7 +65,7 @@ class Score::Result < ApplicationRecord
     group_assessment? && discipline.single_discipline?
   end
 
-  def rows
+  def rows(*)
     @rows ||= generate_rows.sort
   end
 

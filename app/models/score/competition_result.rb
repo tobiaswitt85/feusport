@@ -18,7 +18,7 @@ class Score::CompetitionResult < ApplicationRecord
   schema_validations
   validates :results, same_competition: true
 
-  def rows
+  def rows(*)
     @rows ||= result_type.present? ? send(result_type) : []
   end
 

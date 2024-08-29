@@ -16,6 +16,29 @@ class Series::Round < ApplicationRecord
       .select(Series::Round.arel_table[:id]))
   end
 
+  class GenderWrapper
+    def self.find(merged_id)
+      id, gender = merged_id.to_s.split('-')
+      return nil unless gender&.to_sym.in?(Genderable::KEYS)
+
+      round = Series::Round.find_by(id:)
+      new(round, gender.to_sym)
+    end
+
+    def initialize(round, gender)
+      @round = round
+      @gender = gender
+    end
+
+    def rows(competition)
+      @round.team_assessment_rows(competition, @gender)
+    end
+
+    def name
+      "#{@round.name} #{I18n.t("gender.#{@gender}")}"
+    end
+  end
+
   def disciplines
     assessments.pluck(:discipline).uniq.sort
   end
@@ -64,7 +87,7 @@ class Series::Round < ApplicationRecord
 
   def calculate_rows(competition)
     rows = {}
-    %i[female male].each do |gender|
+    Genderable::KEYS.each do |gender|
       rows[gender] = teams(competition, gender).values.sort
       rows[gender].each { |row| row.calculate_rank!(rows[gender]) }
       rows[gender].each { |_row| aggregate_class.special_sort!(rows[gender]) }

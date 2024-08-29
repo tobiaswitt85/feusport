@@ -7,6 +7,8 @@ de:
         competition_result_id: Gesamtwertung
         group_score_result_id: Mannschaftwertung
         score_result_id: Ergebnisliste
+        series_person_assessment_id: Serienergebnisse - Einzel
+        series_team_round_id: Serienergebnisse - Mannschaft
         template_id: Urkundenvorlage
     models:
       certificates/list: Urkunden

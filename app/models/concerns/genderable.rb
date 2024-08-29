@@ -2,6 +2,8 @@
 
 module Genderable
   GENDERS = { female: 0, male: 1 }.freeze
+  KEYS = %i[female male].freeze
+
   extend ActiveSupport::Concern
   included do
     enum gender: GENDERS

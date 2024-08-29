@@ -9,16 +9,34 @@
           = f.input :background_image, as: :boolean
           .row
             .col-md-5= f.input :score_result_id, collection: @competition.score_results.sort
-          .row
-            .col-md-2
-            .col-md-3 oder
-          .row
-            .col-md-5= f.input :competition_result_id, collection: @competition.score_competition_results.sort
-          .row
-            .col-md-2
-            .col-md-3 oder
-          .row
-            .col-md-5= f.input :group_score_result_id, collection: @competition.score_results.sort.select(&:single_group_result?)
+
+          - if @competition.score_competition_results.present?
+            .row
+              .col-md-2
+              .col-md-3 oder
+            .row
+              .col-md-5= f.input :competition_result_id, collection: @competition.score_competition_results.sort
+
+          - if @competition.score_results.select(&:single_group_result?).present?
+            .row
+              .col-md-2
+              .col-md-3 oder
+            .row
+              .col-md-5= f.input :group_score_result_id, collection: @competition.score_results.select(&:single_group_result?).sort
+
+          - if @series_team_rounds.present?
+            .row
+              .col-md-2
+              .col-md-3 oder
+            .row
+              .col-md-5= f.input :series_team_round_id, collection: @series_team_rounds
+
+          - if @series_person_assessments.exists?
+            .row
+              .col-md-2
+              .col-md-3 oder
+            .row
+              .col-md-5= f.input :series_person_assessment_id, collection: @series_person_assessments.sort
         - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_score_results_path)
