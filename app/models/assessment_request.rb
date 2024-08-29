@@ -57,7 +57,7 @@ class AssessmentRequest < ApplicationRecord
 
   belongs_to :assessment, touch: true
   belongs_to :entity, polymorphic: true
-  enum assessment_type: { group_competitor: 0, single_competitor: 1, out_of_competition: 2, competitor: 3 }
+  enum :assessment_type, { group_competitor: 0, single_competitor: 1, out_of_competition: 2, competitor: 3 }
 
   schema_validations
   validates :group_competitor_order, :single_competitor_order, :relay_count,

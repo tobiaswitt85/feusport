@@ -315,6 +315,8 @@ Rails/DynamicFindBy:
   AutoCorrect: false
 Rails/EagerEvaluationLogMessage:
   Enabled: true
+Rails/EnumSyntax:
+  Enabled: true
 Rails/EnvLocal:
   Enabled: true
 Rails/ExpandedDateRange:

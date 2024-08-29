@@ -13,7 +13,7 @@ class Score::ListEntry < ApplicationRecord
   belongs_to :entity, polymorphic: true
   belongs_to :assessment
 
-  enum assessment_type: { group_competitor: 0, single_competitor: 1, out_of_competition: 2 }
+  enum :assessment_type, { group_competitor: 0, single_competitor: 1, out_of_competition: 2 }
 
   validates :track, :run, numericality: { greater_than: 0 }
   validates :track, numericality: { less_than_or_equal_to: :track_count }
