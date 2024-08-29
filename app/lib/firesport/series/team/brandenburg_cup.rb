@@ -72,6 +72,6 @@ class Firesport::Series::Team::BrandenburgCup < Firesport::Series::Team::LaCup
   end
 
   def calc_participation_count
-    4
+    round.full_cup_count - 1
   end
 end
