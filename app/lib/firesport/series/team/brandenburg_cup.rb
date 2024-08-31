@@ -44,7 +44,8 @@ class Firesport::Series::Team::BrandenburgCup < Firesport::Series::Team::LaCup
     compare = other.points <=> points
     return compare unless compare.zero?
 
-    compare = other.participation_count <=> participation_count
+    compare = [other.participation_count,
+               calc_participation_count].min <=> [participation_count, calc_participation_count].min
     return compare unless compare.zero?
 
     compare = best_rank <=> other.best_rank
