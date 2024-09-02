@@ -5,7 +5,7 @@ de:
       discipline:
         assessments: Wertungen
         key: Symbol
-        like_fire_relay: Wie Feuerwehrstafette (pro Mannschaft 2 Staffeln A/B)
+        like_fire_relay: Wie Hindernisstaffel (pro Mannschaft 2 Staffeln A/B)
         name: Name
         short_name: Kurzname
         single_discipline: Einzeldisziplin
@@ -16,7 +16,7 @@ de:
   simple_form:
     hints:
       discipline:
-        like_fire_relay: Dies sollte bei 4x100m-Feuerwehrstafette ausgewählt werden
+        like_fire_relay: Dies sollte bei 4x100m-Hindernisstaffel ausgewählt werden
         name: 'z.B.: Löschangriff Nass'
         short_name: 'z.B.: LA'
         single_discipline: Dies sollte bei 100m-Hindernisbahn, Hakenleitersteigen und Zweikampf ausgewählt werden

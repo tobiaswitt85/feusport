@@ -10,7 +10,7 @@ class Discipline < ApplicationRecord
     hb: '100m-Hindernisbahn',
     zk: 'Zweikampf',
     gs: 'Gruppenstafette',
-    fs: '4x100m-Feuerwehrstafette',
+    fs: '4x100m-Hindernisstaffel',
     other: 'Andere',
   }.with_indifferent_access.freeze
   DEFAULT_SINGLE_DISCIPLINES = {
