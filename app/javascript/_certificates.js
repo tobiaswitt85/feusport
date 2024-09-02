@@ -193,7 +193,6 @@ class TextElement {
       textSize = parseInt(this.formElement.get('size'), 10);
     }
     this.textLine.style.fontSize = `${textSize}px`;
-    this.textLine.style.lineHeight = `${textSize}px`;
     this.formElement.set('size', textSize);
   }
 
@@ -438,6 +437,7 @@ class TextElement {
 
     this.textLine.style.width = `${this.width}px`;
     this.textLine.style.height = `${this.height}px`;
+    this.textLine.style.lineHeight = `${this.height}px`;
   }
 
   setAlign() {
