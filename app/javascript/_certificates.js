@@ -217,6 +217,7 @@ class TextElement {
     this.draggable = new Draggable(this.element, {
       handle: this.moveButton,
       limit: this.boundary,
+      setPosition: false,
       onDrag: (element, x, y, event) => {
         this.movedTo(x, y);
       },
@@ -246,6 +247,16 @@ class TextElement {
       }
       this.resizeTo(width, height);
       this.setSize();
+      this.draggable.destroy();
+
+      this.draggable = new Draggable(this.element, {
+        handle: this.moveButton,
+        limit: this.boundary,
+        setPosition: false,
+        onDrag: (element, x, y, event) => {
+          this.movedTo(x, y);
+        },
+      });
     }
 
     if (key === 'left' || key === 'top') {
