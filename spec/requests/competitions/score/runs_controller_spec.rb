@@ -57,7 +57,7 @@ RSpec.describe 'competitions/score/runs' do
             } } }
 
       expect(response).to redirect_to(
-        "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}#jump-run-1",
+        "/#{competition.year}/#{competition.slug}/score/lists/#{person_list.id}?jump_to=jump-run-1",
       )
     end
   end

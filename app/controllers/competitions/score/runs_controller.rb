@@ -8,7 +8,7 @@ class Competitions::Score::RunsController < CompetitionNestedController
   def update
     if @run.update(run_params)
       flash[:notice] = :saved
-      redirect_to competition_score_list_path(id: params[:list_id], anchor: "jump-run-#{params[:run]}")
+      redirect_to competition_score_list_path(id: params[:list_id], jump_to: "jump-run-#{params[:run]}")
     else
       flash.now[:alert] = :check_errors
       render action: :edit, status: :unprocessable_entity

@@ -15,6 +15,17 @@ import './_list_print_generator';
 import './_name_preview';
 import './_vertical_scroll';
 
+onVisit(() => {
+  setTimeout(() => {
+    const url = new URL(window.location);
+    const jumpTo = url.searchParams.get('jump_to');
+    if (!jumpTo) return;
+    const target = document.getElementById(jumpTo);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+});
+
 document.addEventListener('turbo:load', () => {
   window.SocialShareButton = {
     openUrl: function (url, width = 640, height = 480) {

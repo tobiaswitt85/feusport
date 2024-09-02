@@ -3,7 +3,7 @@
 %tr{ list_entry_options(list, track, entry, best_of_run) }
   %td.run
     - if track == 1
-      %a{ name: "jump-run-#{run + 1}" }
+      %a{ id: "jump-run-#{run + 1}" }
       = run
   %th.track= track
   - if list.single_discipline?
