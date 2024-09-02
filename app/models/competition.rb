@@ -33,14 +33,13 @@ class Competition < ApplicationRecord
       self.slug = "#{name.to_s.parameterize}-#{i}"
     end
 
-    next if date.blank?
-
-    self.description ||= "Der Wettkampf *#{name}* findet am **#{I18n.l date}** in **#{place}** statt.\n\n" \
-                         'Weitere Informationen folgen.'
-
     self.flyer_headline ||= 'Webseite mit Ergebnissen im Internet'
     self.flyer_content ||= "- Ergebnisse\n- Startlisten"
 
+    next if date.blank?
+
+    self.description ||= "Der Wettkampf *#{name.strip}* findet am **#{I18n.l date}** in **#{place.strip}** statt.\n\n" \
+                         'Weitere Informationen folgen.'
     self.registration_open_until = date - 1.day
   end
   before_validation(on: :update) do
