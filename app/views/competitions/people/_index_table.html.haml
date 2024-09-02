@@ -31,6 +31,7 @@
           - else
             %td
         %td.text-end
-          = short_edit_link edit_assessment_requests_competition_person_path(id: person.id), remote: true, class: 'btn-xs', title: 'Wertungen bearbeiten'
+          - if can?(:edit, person)
+            = short_edit_link edit_assessment_requests_competition_person_path(id: person.id), remote: true, class: 'btn-xs', title: 'Wertungen bearbeiten'
         %td.text-end
           = btn_link_to(t('a.show'), { action: :show, id: person })

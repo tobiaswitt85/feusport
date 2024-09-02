@@ -79,5 +79,5 @@
       - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
 
     - actions.link_to 'XLS', { format: :xlsx }, end_icon: :file_excel
-    - if @competition.certificates_templates.exists?
+    - if can?(:edit, @result) && @competition.certificates_templates.exists?
       - actions.link_to 'Urkunden', new_competition_certificates_list_path(score_result_id: @result.id), end_icon: :file_certificate
