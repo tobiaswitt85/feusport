@@ -9,4 +9,4 @@
         = result.name
 
       %td.text-end
-        = btn_link_to(t('a.show'), { action: :show, id: result.id })
+        = btn_link_to(t('a.show'), competition_score_result_path(id: result.id))
