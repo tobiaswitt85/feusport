@@ -34,7 +34,7 @@ class Competitions::AccessRequestsController < CompetitionNestedController
       CompetitionMailer.with(sender: @access_request.sender, user: current_user,
                              competition: @access_request.competition)
                        .access_request_connected.deliver_later
-      redirect_to competition_accesses_path, notice: 'Du wurdest erfolgreich mit dem Wettkampf verbunden.'
+      redirect_to competition_show_path, notice: 'Du wurdest erfolgreich mit dem Wettkampf verbunden.'
     end
   end
 

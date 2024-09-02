@@ -48,7 +48,7 @@ RSpec.describe Competitions::AccessesController do
         expect do
           # GET connect
           get "/#{competition.year}/#{competition.slug}/access_requests/#{req.id}/connect"
-          expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/accesses")
+          expect(response).to redirect_to("/#{competition.year}/#{competition.slug}")
           expect(flash[:notice]).to eq 'Du wurdest erfolgreich mit dem Wettkampf verbunden.'
         end.not_to change(UserAccess, :count)
       end.to have_enqueued_job.with('CompetitionMailer', 'access_request_connected', 'deliver_now', any_args)
@@ -67,7 +67,7 @@ RSpec.describe Competitions::AccessesController do
       expect do
         # GET connect
         get "/#{competition.year}/#{competition.slug}/access_requests/#{req.id}/connect"
-        expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/accesses")
+        expect(response).to redirect_to("/#{competition.year}/#{competition.slug}")
         expect(flash[:notice]).to eq 'Du wurdest erfolgreich mit dem Wettkampf verbunden.'
       end.to change(UserAccess, :count).by(1)
 
