@@ -21,6 +21,7 @@ class Ability
     can(:manage, Team, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Person, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Certificates::Template, competition: { user_accesses: { user_id: user.id } })
+    can(:manage, Certificates::List, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Score::List, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Score::ListEntry, competition: { user_accesses: { user_id: user.id } })
     can(:manage, Score::Run, competition: { user_accesses: { user_id: user.id } })

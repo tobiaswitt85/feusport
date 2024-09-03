@@ -54,6 +54,7 @@ class Competitions::Certificates::ListsController < CompetitionNestedController
     @certificates_list.competition_result_id        = params[:competition_result_id]
     @certificates_list.series_team_round_id         = params[:series_team_round_id]
     @certificates_list.series_person_assessment_id  = params[:series_person_assessment_id]
+    authorize!(:show, @certificates_list)
 
     rounds = Series::Round.exists_for(@competition).order(:year, :name)
     @series_team_rounds = []
