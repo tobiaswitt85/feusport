@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include SortableByName
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
@@ -15,6 +17,10 @@ class User < ApplicationRecord
   auto_strip_attributes :name, :email, :phone_number
 
   schema_validations
+
+  def friends
+    User.where(id: UserAccess.where(competition_id: competition_ids).select(:user_id)).where.not(id:).order(:name)
+  end
 
   def send_devise_notification(notification, *)
     devise_mailer.send(notification, self, *).deliver_later

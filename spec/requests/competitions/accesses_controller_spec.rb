@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Competitions::AccessesController do
-  let(:competition) { create(:competition) }
-  let(:user) { competition.users.first }
-  let(:other_user) { create(:user, :other) }
+  let!(:competition) { create(:competition) }
+  let!(:user) { competition.users.first }
+  let!(:other_user) { create(:user, :other) }
 
   describe 'accesses managements' do
     it 'uses CRUD' do
@@ -93,6 +93,21 @@ RSpec.describe Competitions::AccessesController do
         expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/accesses")
         expect(flash[:notice]).to eq :deleted
       end.to change(UserAccessRequest, :count).by(-1)
+    end
+  end
+
+  context 'when user has friends' do
+    let!(:other_competition) { create(:competition) }
+    let!(:other_access) { UserAccess.create(user: other_user, competition: other_competition) }
+
+    it 'is hinted on new access requests page' do
+      sign_in user
+
+      get "/#{competition.year}/#{competition.slug}/access_requests/new"
+      expect(response).to match_html_fixture.with_affix('new-with-friends')
+
+      get "/#{competition.year}/#{competition.slug}/access_requests/new?friend_id=#{other_user.id}"
+      expect(response).to match_html_fixture.with_affix('new-with-selected-friend')
     end
   end
 end

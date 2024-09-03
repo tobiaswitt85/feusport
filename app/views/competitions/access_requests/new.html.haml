@@ -12,5 +12,12 @@
         - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_accesses_path)
-  .col-lg-4
-    = render('new_right')
+
+  - if @possible_friends.present?
+    .col-lg-4
+      = card_direct('Bekannte Kontakte') do
+        %table.table
+          - @possible_friends.each do |friend|
+            %tr
+              %td= friend.name
+              %td.text-end= link_to('Auswählen', new_competition_access_request_path(friend_id: friend.id), class: 'btn btn-light btn-sm')

@@ -1,0 +1,4 @@
+Competitions::AccessesController when user has friends is hinted on new access requests page-new-with-friends
+
+request
+html

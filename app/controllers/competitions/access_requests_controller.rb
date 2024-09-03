@@ -42,8 +42,20 @@ class Competitions::AccessRequestsController < CompetitionNestedController
 
   def assign_new_resource
     super
+
     resource_instance.sender = current_user
-    resource_instance.text = I18n.t('user_access_requests.example_text') + "\n#{current_user.name}"
+    name = ''
+
+    @possible_friends = current_user.friends - @competition.users
+
+    selected_friend = @possible_friends.find { |f| f.id == params[:friend_id] }
+    if selected_friend
+      resource_instance.email = selected_friend.email
+
+      name = " #{selected_friend.name}"
+    end
+
+    resource_instance.text = I18n.t('user_access_requests.example_text', name:, current: current_user.name)
   end
 
   def access_request_params

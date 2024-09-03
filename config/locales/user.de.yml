@@ -42,7 +42,9 @@ de:
         text: Dieser Text wird an den zukünftigen Admin gesendet
   user_access_requests:
     example_text: |
-      Hallo,
+      Hallo%{name},
 
       ich habe bei feusport.de einen neuen Wettkampf für dich angelegt. Wenn du auf den nachfolgenden Link klickst, kannst du die Kontrolle über den Wettkampf übernehmen.
       Viele Grüße
+
+      %{current}
