@@ -115,6 +115,8 @@ Lint/UnmodifiedReduceAccumulator:
   Enabled: true
 Lint/UselessAssignment:
   AutoCorrect: false
+Lint/UselessNumericOperation:
+  Enabled: true
 Lint/UselessRescue:
   Enabled: true
 Lint/UselessRuby2Keywords:
@@ -540,6 +542,8 @@ Style/RedundantFilterChain:
 Style/RedundantHeredocDelimiterQuotes:
   Enabled: true
 Style/RedundantInitialize:
+  Enabled: true
+Style/RedundantInterpolationUnfreeze:
   Enabled: true
 Style/RedundantLineContinuation:
   Enabled: true
