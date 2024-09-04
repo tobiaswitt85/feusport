@@ -9,7 +9,7 @@ set :deploy_to, '/srv/feusport'
 
 set :branch, 'main'
 
-set :rvm_ruby_version, '3.2.4'
+set :rvm_ruby_version, '3.2.5'
 set :migration_servers, -> { release_roles(fetch(:migration_role)) }
 
 # set :enable_delayed_job, true # default is true
