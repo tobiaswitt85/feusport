@@ -140,4 +140,28 @@ RSpec.describe Team do
       end.to have_enqueued_job.with('CompetitionMailer', 'registration_team', 'deliver_now', any_args)
     end
   end
+
+  context 'when firesport_statistics is not connected' do
+    let!(:team) { create(:team, competition:, band:) }
+    let!(:team_mv) { create(:team, competition:, band:, name: 'Mecklenburg-Vorpommern') }
+    let!(:fss_team) { create(:fire_sport_statistics_team, id: 42) }
+
+    it 'shows dialog' do
+      sign_in user
+
+      get "/#{competition.year}/#{competition.slug}/teams/without_statistics_connection"
+      expect(response).to match_html_fixture.with_affix('list')
+
+      patch "/#{competition.year}/#{competition.slug}/teams/#{team_mv.id}?return_to=without_statistics_connection",
+            params: { team: { fire_sport_statistics_team_id: fss_team.id } }
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/without_statistics_connection")
+
+      expect(team_mv.reload.fire_sport_statistics_team_id).to eq fss_team.id
+
+      team.destroy
+
+      get "/#{competition.year}/#{competition.slug}/teams/without_statistics_connection"
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams")
+    end
+  end
 end

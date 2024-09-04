@@ -14,6 +14,8 @@ class Competitions::PeopleController < CompetitionNestedController
     @person_suggestions = @people.where(fire_sport_statistics_person_id: nil).sort.map do |person|
       FireSportStatistics::PersonSuggestion.new(person)
     end
+
+    redirect_to(action: :index) if @person_suggestions.blank?
   end
 
   def create

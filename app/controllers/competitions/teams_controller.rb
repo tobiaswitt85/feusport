@@ -12,6 +12,8 @@ class Competitions::TeamsController < CompetitionNestedController
     @team_suggestions = @teams.where(fire_sport_statistics_team_id: nil).map do |team|
       FireSportStatistics::TeamSuggestion.new(team)
     end
+
+    redirect_to(action: :index) if @team_suggestions.blank?
   end
 
   def create
@@ -29,7 +31,11 @@ class Competitions::TeamsController < CompetitionNestedController
   def update
     @team.assign_attributes(team_params)
     if @team.save
-      redirect_to competition_team_path(id: @team.id), notice: :saved
+      if params[:return_to] == 'without_statistics_connection'
+        redirect_to without_statistics_connection_competition_teams_path, notice: :saved
+      else
+        redirect_to competition_team_path(id: @team.id), notice: :saved
+      end
     else
       flash.now[:alert] = :check_errors
       if params[:form] == 'edit_assessment_requests'

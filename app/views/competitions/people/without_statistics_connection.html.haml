@@ -1,58 +1,56 @@
 = render 'competitions/header', competition: @competition, sub: 'Wettkämpfer ohne Verknüpfung'
 
-= card('Wettkämpfer ohne Verknüpfung', class: 'mb-3') do |c|
+= card('Wettkämpfer ohne Verknüpfung', class: 'mb-3 text-bg-accent2') do |c|
   - c.body do
-    %p Bei folgenden Einträgen konnten keine alten Serien-Ergebnisse zugeordnet werden. Dies kann zwei Ursachen haben:
+    %p Bei folgenden Wettkämpfern konnte keine Verknüpfung mit einem vorhandenen Wettkämpfer bei Feuerwehrsport-Statistik gefunden werden.
+    %p Dies kann verschiedene Ursachen haben:
     %ul
       %li Name wurde falsch geschrieben
-      %li Erste Teilnahme bei Serie
+      %li Der Name wurde beim Anlegen nicht angeklickt
+      %li Erste Teilnahme bei einem Wettkampf
 
+= card_direct do
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Wettkampf-Name
+        %th Verknüpfung-Name
+        %th Aktionen
+      %tr
+        %td.small
+          %em So heißt der Wettkämpfer bei diesem Wettkampf
+        %td.small
+          %em Vorschläge von der Feuerwehrsport-Statistik
+        %td
+    %tbody
+      - @competition.bands.sort.each do |band|
+        - next unless @person_suggestions.any? { |sug| sug.person.band == band }
 
-    %table.table.table-bordered.table-hover
-      %thead
         %tr
-          %th Wettkampf-Name
-          %th Verknüpfung-Name
-          %th Aktionen
-      %tbody
-        - @competition.bands.sort.each do |band|
-          - next unless @person_suggestions.any? { |sug| sug.person.band == band }
-
-          %tr
-            %th{ colspan: 3 }= band.name
-          - @person_suggestions.select { |sug| sug.person.band == band }.each do |suggestion|
-            - if suggestion.count > 0
-              - suggestion.suggestions.each_with_index do |fss, i|
-                - if i == 0
-                  %tr
-                    %td{ rowspan: suggestion.count }
-                      = suggestion.person.full_name
-                      %br
-                      .small= suggestion.person.team&.full_name
-                    %td
-                      = fss.full_name
-                      %br
-                      .small= fss.team_list
-                    %td
-                      = simple_form_for(suggestion.person, url: url_for(id: suggestion.person.id, controller: controller_path, action: :update, return_to: 'without_statistics_connection')) do |f|
-                        = f.hidden_field :fire_sport_statistics_person_id, value: fss.id
-                        = f.primary_button :submit, 'Übernehmen', class: 'btn-sm'
-
-                - else
-                  %tr
-                    %td
-                      = fss.full_name
-                      %br
-                      .small= fss.team_list
-                    %td
-                      = simple_form_for(suggestion.person, url: url_for(id: suggestion.person.id, controller: controller_path, action: :update, return_to: 'without_statistics_connection')) do |f|
-                        = f.hidden_field :fire_sport_statistics_person_id, value: fss.id
-                        = f.primary_button :submit, 'Übernehmen', class: 'btn-sm'
-            - else
+          %th.px-5{ colspan: 3 }= band.name
+        - @person_suggestions.select { |sug| sug.person.band == band }.each do |suggestion|
+          - if suggestion.count > 0
+            - suggestion.suggestions.each_with_index do |fss, i|
               %tr
-                %td.bg-warning
-                  = suggestion.person.full_name
+                - if i == 0
+                  %td{ rowspan: suggestion.count }
+                    = suggestion.person.full_name
+                    %br
+                    .small= suggestion.person.team&.full_name
+                %td.px-2
+                  = fss.full_name
                   %br
-                  .small= suggestion.person.team&.full_name
-                %td.bg-warning
-                %td.bg-warning
+                  .small= fss.team_list
+                %td
+                  = simple_form_for(suggestion.person, url: url_for(id: suggestion.person.id, controller: controller_path, action: :update, return_to: 'without_statistics_connection')) do |f|
+                    = f.hidden_field :fire_sport_statistics_person_id, value: fss.id
+                    = f.primary_button :submit, 'Verknüpfen', class: 'btn-sm'
+
+          - else
+            %tr
+              %td.bg-warning
+                = suggestion.person.full_name
+                %br
+                .small= suggestion.person.team&.full_name
+              %td.bg-warning
+              %td.bg-warning

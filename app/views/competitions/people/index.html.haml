@@ -1,5 +1,13 @@
 = render 'competitions/header', competition: @competition, sub: resource_class.model_name.human(count: :many)
 
+- if can?(:manage, @competition) && resource_collection.exists?(fire_sport_statistics_person_id: nil)
+  .row
+    .col-lg-12
+      .alert.alert-warning
+        %p Zu einigen Wettkämpfern konnte keine Verknüpfung mit einem vorhandenen Wettkämpfer gefunden werden.
+
+        = btn_link_to('Wettkämpfer ansehen', without_statistics_connection_competition_people_path)
+
 - @competition.bands.sort.each do |band|
   = card(band.name, class: 'mb-3') do |c|
     - c.body do

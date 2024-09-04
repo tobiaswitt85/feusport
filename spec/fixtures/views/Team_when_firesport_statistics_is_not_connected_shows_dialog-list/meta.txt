@@ -1,0 +1,4 @@
+Team when firesport_statistics is not connected shows dialog-list
+
+request
+html

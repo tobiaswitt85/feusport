@@ -116,4 +116,28 @@ RSpec.describe 'People' do
       end.to have_enqueued_job.with('CompetitionMailer', 'registration_person', 'deliver_now', any_args)
     end
   end
+
+  context 'when firesport_statistics is not connected' do
+    let!(:person) { create(:person, competition:, band:) }
+    let!(:person_peter) { create(:person, competition:, band:, first_name: 'Peter') }
+    let!(:fss_person) { create(:fire_sport_statistics_person, id: 42) }
+
+    it 'shows dialog' do
+      sign_in user
+
+      get "/#{competition.year}/#{competition.slug}/people/without_statistics_connection"
+      expect(response).to match_html_fixture.with_affix('list')
+
+      patch "/#{competition.year}/#{competition.slug}/people/#{person.id}?return_to=without_statistics_connection",
+            params: { person: { fire_sport_statistics_person_id: fss_person.id } }
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/people/without_statistics_connection")
+
+      expect(person.reload.fire_sport_statistics_person_id).to eq fss_person.id
+
+      person_peter.destroy
+
+      get "/#{competition.year}/#{competition.slug}/people/without_statistics_connection"
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/people")
+    end
+  end
 end

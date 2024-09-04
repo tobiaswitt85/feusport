@@ -55,7 +55,7 @@ Benutzer
 <div class='container'>
 <h1>MV-Cup</h1>
 <p class='lead m-0 ms-1'>29.02.2024 - Rostock</p>
-<p class='lead m-0 ms-1'>Wettkämpfer</p>
+<p class='lead m-0 ms-1'>Wettkämpfer ohne Verknüpfung</p>
 
 </div>
 </header>
@@ -124,69 +124,73 @@ Erweitert
 </div>
 </div>
 <div class='pb-4 mt-4 container'>
-<div class='row'>
-<div class='col-lg-12'>
-<div class='alert alert-warning'>
-<p>Zu einigen Wettkämpfern konnte keine Verknüpfung mit einem vorhandenen Wettkämpfer gefunden werden.</p>
-<a class=" btn btn-light btn-sm" href="/2024/mv-cup/people/without_statistics_connection">Wettkämpfer ansehen</a>
-</div>
-</div>
-</div>
-<div class='card mb-3'>
+<div class='card mb-3 text-bg-accent2'>
 <div class='card-header p-0'>
 <div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Frauen</h4>
-<a class="card-primary-action" href="/2024/mv-cup/people/new?band_id=UUID">Hinzufügen
-<i class='far fa-square-plus'></i>
-</a>
+<h4 class='m-0 py-2 ps-3'>Wettkämpfer ohne Verknüpfung</h4>
 </div>
 </div>
 <div class='card-body'>
-<table class='table table-bordered table-hover'>
+<p>Bei folgenden Wettkämpfern konnte keine Verknüpfung mit einem vorhandenen Wettkämpfer bei Feuerwehrsport-Statistik gefunden werden.</p>
+<p>Dies kann verschiedene Ursachen haben:</p>
+<ul>
+<li>Name wurde falsch geschrieben</li>
+<li>Der Name wurde beim Anlegen nicht angeklickt</li>
+<li>Erste Teilnahme bei einem Wettkampf</li>
+</ul>
+
+</div>
+</div>
+<div class='card'>
+<table class='table table-bordered'>
 <thead>
 <tr>
-<th>Name</th>
-<th>Mannschaft</th>
-<th class='small' style='width: 60px' title='Hakenleitersteigen - Frauen'><img src="/assets/disciplines/hl.svg" width="20" height="20" /></th>
-<th style='width: 60px'></th>
-<th style='width: 100px'></th>
+<th>Wettkampf-Name</th>
+<th>Verknüpfung-Name</th>
+<th>Aktionen</th>
+</tr>
+<tr>
+<td class='small'>
+<em>So heißt der Wettkämpfer bei diesem Wettkampf</em>
+</td>
+<td class='small'>
+<em>Vorschläge von der Feuerwehrsport-Statistik</em>
+</td>
+<td></td>
 </tr>
 </thead>
 <tbody>
 <tr>
+<th class='px-5' colspan='3'>Frauen</th>
+</tr>
+<tr>
+<td rowspan='1'>
+Alfred Meier
+<br>
+<div class='small'></div>
+</td>
+<td class='px-2'>
+Alfred Meier
+<br>
+<div class='small'></div>
+</td>
 <td>
-first-name last-name
-
+<form class="simple_form edit_person" id="edit_person_UUID" novalidate="novalidate" action="/2024/mv-cup/people/UUID?return_to=without_statistics_connection" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off" /><input value="42" autocomplete="off" type="hidden" name="person[fire_sport_statistics_person_id]" id="person_fire_sport_statistics_person_id" />
+<button name="button" type="submit" class="btn btn-primary btn-sm" data-disable-with="Bitte warten...">Verknüpfen</button>
+</form></td>
+</tr>
+<tr>
+<td class='bg-warning'>
+Peter Meier
+<br>
+<div class='small'></div>
 </td>
-<td>new team</td>
-<td></td>
-<td class='text-end'>
-<a class="btn-xs btn btn-light btn-sm" title="Wertungen bearbeiten" data-remote="true" href="/2024/mv-cup/people/UUID/edit_assessment_requests"><i class="far fa-edit"></i></a>
-</td>
-<td class='text-end'>
-<a class=" btn btn-light btn-sm" href="/2024/mv-cup/people/UUID">Ansehen</a>
-</td>
+<td class='bg-warning'></td>
+<td class='bg-warning'></td>
 </tr>
 </tbody>
 </table>
 
-
-</div>
-<div class='card-footer'>
-<div class='d-flex justify-content-between align-items-start'>
-<div></div>
-<div>
-<div class='btn-group'>
-<a target="_blank" rel="noopener" class="btn btn-outline-secondary btn-sm" href="/2024/mv-cup/people.pdf">PDF
-<i class='far fa-file-pdf'></i>
-</a>
-<a class="btn btn-outline-secondary btn-sm" href="/2024/mv-cup/people.xlsx">XLS
-<i class='far fa-file-excel'></i>
-</a>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 </body>
