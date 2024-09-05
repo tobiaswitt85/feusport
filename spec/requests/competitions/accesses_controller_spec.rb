@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Competitions::AccessesController do
   let!(:competition) { create(:competition) }
   let!(:user) { competition.users.first }
-  let!(:other_user) { create(:user, :other) }
+  let(:other_user) { create(:user, :other) }
 
   describe 'accesses managements' do
     it 'uses CRUD' do
