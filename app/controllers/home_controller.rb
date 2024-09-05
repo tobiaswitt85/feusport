@@ -3,8 +3,8 @@
 class HomeController < ApplicationController
   def home
     @years = Competition.accessible_by(current_ability)
-                        .group(Arel.sql("DATE_PART('year', date)")).pluck(Arel.sql("DATE_PART('year', date)"))
-                        .map(&:to_i).sort.reverse
+                        .group(:year).pluck(:year)
+                        .sort.reverse
 
     @competitions = Competition.accessible_by(current_ability)
     @competitions = if params[:year].blank?
