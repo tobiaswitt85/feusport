@@ -59,4 +59,10 @@ module ApplicationHelper
     classes = %w[balloon team-badge]
     tag.span('i', class: classes, data: { balloon_content: render('competitions/teams/badge', team:, gender:) })
   end
+
+  def home_competition_classes(competition)
+    classes = %w[list-group-item list-group-item-action]
+    classes.push('current-competition') if competition.date.in?(@current_dates)
+    classes
+  end
 end

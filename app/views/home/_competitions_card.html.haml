@@ -9,7 +9,7 @@
 
       .list-group.list-group-flush
         - competitions.each do |competition|
-          = link_to(competition_path(competition), class: 'list-group-item list-group-item-action') do
+          = link_to(competition_path(competition), class: home_competition_classes(competition)) do
             - if can?(:edit, competition)
               .float-end
                 .far.fa-edit
