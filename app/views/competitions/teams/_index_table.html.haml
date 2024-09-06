@@ -18,11 +18,15 @@
       - band.team_tags.each do |tag|
         %td= team.tags.include?(tag) ? 'X' : ''
       - assessments.each do |assessment|
-        %td
-          - if team.request_for(assessment).present?
+        - request = team.request_for(assessment)
+        - if request.present?
+          %td{ title: t("assessment_types.#{request.assessment_type}") }
             - if assessment.like_fire_relay?
               #{team.request_for(assessment).relay_count} x
-            = t("assessment_types.#{team.request_for(assessment).assessment_type}_short")
+            = t("assessment_types.#{request.assessment_type}_short")
+        - else
+          %td
+
 
       %td.text-end
         = btn_link_to(t('a.show'), { action: :show, id: team })
