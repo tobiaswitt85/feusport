@@ -1,6 +1,6 @@
 # Feusport
 
-Diese Projekt dient der Kommunikation innerhalb der [Feuerwehrsport](https://de.wikipedia.org/wiki/Feuerwehrsport)-Szene in Deutschland. Es soll die Übersicht über Wettkämpfe, Termine und Ergebnisse verbessern.
+Dieses Projekt dient der Kommunikation innerhalb der [Feuerwehrsport](https://de.wikipedia.org/wiki/Feuerwehrsport)-Szene in Deutschland. Es soll die Übersicht über Wettkämpfe, Termine und Ergebnisse verbessern.
 
 Die Wettkampf-Planung und -Auswertung ist dabei auf den internationalen Feuerwehrsport zugeschnitten. Es können zwar auch andere Wettkämpfe (z.B. Jugend, Traditionell), aber die Unterstützung ist nicht gegeben.
 
