@@ -84,12 +84,12 @@ RSpec.describe 'People' do
 
       patch "/#{competition.year}/#{competition.slug}/people/#{person.id}?return_to=team",
             params: { person: { first_name: 'new-name' } }
-      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{team.id}#people-table")
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{team.id}?jump_to=people-table")
 
       post "/#{competition.year}/#{competition.slug}/people?return_to=team",
            params: { band_id: band.id,
                      person: { first_name: 'first-name', last_name: 'last-name', team_id: team.id } }
-      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{team.id}#people-table")
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{team.id}?jump_to=people-table")
     end
   end
 
@@ -138,6 +138,29 @@ RSpec.describe 'People' do
 
       get "/#{competition.year}/#{competition.slug}/people/without_statistics_connection"
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/people")
+    end
+  end
+
+  context 'when xhr to edit_assessment_requests' do
+    let!(:person) { create(:person, competition:, band:) }
+
+    it 'shows dialog' do
+      sign_in user
+
+      get "/#{competition.year}/#{competition.slug}/people/#{person.id}/edit_assessment_requests",
+          headers: { 'X-Requested-With' => 'XMLHttpRequest' }
+      expect(response).to have_http_status(:success)
+
+      json = response.parsed_body
+      expect(json['content'].length).to be > 3500
+      expect(json['content'].length).to be < 4000
+
+      get "/#{competition.year}/#{competition.slug}/people/#{person.id}/edit_assessment_requests?assessment_id=foo",
+          headers: { 'X-Requested-With' => 'XMLHttpRequest' }
+      expect(response).to have_http_status(:success)
+
+      json = response.parsed_body
+      expect(json['content'].length).to be < 1000
     end
   end
 end

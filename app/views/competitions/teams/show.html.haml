@@ -100,6 +100,6 @@
               - next if entry.list.hidden?
 
               %tr
-                %td= link_to(entry.list.name, competition_score_list_path(id: entry.list.id, anchor: "jump-run-#{entry.run}"))
+                %td= link_to(entry.list.name, competition_score_list_path(id: entry.list.id, jump_to: "jump-run-#{entry.run}"))
                 %td= entry.run
                 %td= entry.track

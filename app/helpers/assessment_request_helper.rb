@@ -29,4 +29,17 @@ module AssessmentRequestHelper
       0
     end
   end
+
+  def quick_assessment_change_link(person, assessment)
+    tag.div(
+      tag.div(
+        class: 'quick-assessment-change-link far fa-edit',
+        data: { url:
+          edit_assessment_requests_competition_person_path(id: person.id,
+                                                           assessment_id: assessment.id,
+                                                           return_to: 'team') },
+      ),
+      class: 'float-end',
+    )
+  end
 end

@@ -18,13 +18,19 @@ class Competitions::PeopleController < CompetitionNestedController
     redirect_to(action: :index) if @person_suggestions.blank?
   end
 
+  def edit_assessment_requests
+    return unless request.xhr?
+
+    render json: { content: render_to_string(partial: 'edit_assessment_requests_form') }
+  end
+
   def create
     @person.assign_attributes(person_params)
     if @person.save
       CompetitionMailer.with(person: @person).registration_person.deliver_later if @person.applicant.present?
 
       if params[:return_to] == 'team'
-        redirect_to competition_team_path(id: @person.team_id, anchor: 'people-table'), notice: :saved
+        redirect_to competition_team_path(id: @person.team_id, jump_to: 'people-table'), notice: :saved
       else
         redirect_to competition_person_path(id: @person.id), notice: :saved
       end
@@ -38,7 +44,7 @@ class Competitions::PeopleController < CompetitionNestedController
     @person.assign_attributes(person_params)
     if @person.save
       if params[:return_to] == 'team'
-        redirect_to competition_team_path(id: @person.team_id, anchor: 'people-table'), notice: :saved
+        redirect_to competition_team_path(id: @person.team_id, jump_to: 'people-table'), notice: :saved
       elsif params[:return_to] == 'without_statistics_connection'
         redirect_to without_statistics_connection_competition_people_path, notice: :saved
       else
@@ -46,7 +52,11 @@ class Competitions::PeopleController < CompetitionNestedController
       end
     else
       flash.now[:alert] = :check_errors
-      render action: :edit, status: :unprocessable_entity
+      if params[:form] == 'edit_assessment_requests'
+        render action: :edit_assessment_requests, status: :unprocessable_entity
+      else
+        render action: :edit, status: :unprocessable_entity
+      end
     end
   end
 

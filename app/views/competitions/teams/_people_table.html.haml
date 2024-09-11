@@ -19,9 +19,14 @@
         - assessments.each do |assessment|
           - request = person.request_for(assessment)
           - if request.present?
-            %td{ title: "#{assessment.name}: #{request.type}" }= person_short_type(request)
+            %td{ title: "#{assessment.name}: #{request.type}" }
+              - if can?(:edit, @team)
+                = quick_assessment_change_link(person, assessment)
+              = person_short_type(request)
           - else
             %td
+              - if can?(:edit, @team)
+                = quick_assessment_change_link(person, assessment)
         - if can?(:edit, @team)
           %td
             = short_edit_link edit_assessment_requests_competition_person_path(id: person.id, return_to: 'team'), title: 'Wertungen bearbeiten'
