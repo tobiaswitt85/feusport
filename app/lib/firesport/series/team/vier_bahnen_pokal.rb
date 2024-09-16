@@ -46,7 +46,7 @@ class Firesport::Series::Team::VierBahnenPokal < Firesport::Series::Team::LaCup
   protected
 
   def calc_participation_count
-    4
+    round.full_cup_count - 1
   end
 
   def sum_time
