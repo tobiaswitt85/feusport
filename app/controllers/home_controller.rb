@@ -3,8 +3,7 @@
 class HomeController < ApplicationController
   def home
     @years = Competition.accessible_by(current_ability)
-                        .group(:year).pluck(:year)
-                        .sort.reverse
+                        .group(:year).order(year: :desc).pluck(:year)
 
     @competitions = Competition.accessible_by(current_ability)
     @competitions = if params[:year].blank?
