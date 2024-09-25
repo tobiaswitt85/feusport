@@ -10,7 +10,7 @@ Exports::Json::Score::Result = Struct.new(:result) do
       gender: result.assessment.band.gender,
       band: result.assessment.band.name,
       discipline: result.assessment.discipline.key,
-      name: result.to_s,
+      name: result.name,
     }
     hash[:group_rows] = build_group_data_rows(result) if result.single_group_result?
     hash
