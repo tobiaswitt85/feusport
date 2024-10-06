@@ -16,6 +16,7 @@ Firesport::Series::Team::Base = Struct.new(:round, :team, :team_number) do
   def initialize(*args)
     super
     @rank = 0
+    @cups ||= {}
   end
 
   delegate :id, to: :team, prefix: true
