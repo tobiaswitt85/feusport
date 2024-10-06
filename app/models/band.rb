@@ -5,7 +5,7 @@ class Band < ApplicationRecord
 
   GENDERS = { female: 0, male: 1, indifferent: 2 }.freeze
 
-  enum gender: GENDERS
+  enum :gender, GENDERS
   default_scope { order(:position) }
 
   belongs_to :competition, touch: true
