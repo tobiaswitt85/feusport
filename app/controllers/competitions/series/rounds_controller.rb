@@ -8,6 +8,9 @@ class Competitions::Series::RoundsController < CompetitionNestedController
 
   def show
     round = Series::Round.find(params[:id])
+
+    send_pdf(Exports::Pdf::Series::Round, args: [round, @competition]) && return
+
     @person_assessments = Series::PersonAssessment.where(round:)
     @team_assessments_exists = Series::TeamAssessment.where(round:).present?
     @round = round

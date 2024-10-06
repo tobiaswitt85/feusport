@@ -53,20 +53,20 @@ module Exports::Pdf::Base
 
   protected
 
-  def pdf_header(name, discipline: nil, date: nil)
+  def pdf_header(name, discipline: nil, date: nil, force_name: false)
     date ||= competition.date
     headline_y = pdf.cursor
     pdf.text(name, align: :center, size: 17)
-    pdf.text([competition.name, l(date)].join(' - '), align: :center, size: 15)
+    pdf.text([competition.name, l(date)].join(' - '), align: :center, size: 15) unless force_name
     return if discipline.blank?
 
     pdf_discipline_image(discipline, width: 30, at: [10, headline_y])
     pdf.move_down 10
   end
 
-  def pdf_footer(name: nil, no_page_count: nil, date: nil)
+  def pdf_footer(name: nil, no_page_count: nil, date: nil, force_name: false)
     date ||= competition.date
-    base_footer_line = [competition.name, l(date)]
+    base_footer_line = force_name ? [] : [competition.name, l(date)]
     base_footer_line.push(name) if name.present?
 
     pdf.page_count.times do |page|

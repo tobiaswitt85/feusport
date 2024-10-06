@@ -27,6 +27,11 @@ RSpec.describe 'competitions/series/rounds' do
   let(:person2) { create(:person, :generated, competition:) }
 
   describe 'display round calculation' do
+    before do
+      view_sanitizer.gsub(%r{/series/rounds/\d+.pdf}, 'PDF_URL')
+      view_sanitizer.gsub(%r{/series/assessments/\d+.pdf}, 'PDF_URL')
+    end
+
     it 'displays' do
       sign_in user
 
@@ -42,8 +47,24 @@ RSpec.describe 'competitions/series/rounds' do
       get "/#{competition.year}/#{competition.slug}/series/rounds/#{round.id}"
       expect(response).to match_html_fixture.with_affix('show-round')
 
+      get "/#{competition.year}/#{competition.slug}/series/rounds/#{round.id}.pdf"
+      expect(response).to match_pdf_fixture.with_affix('show-round-as-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        "inline; filename=\"d-cup.pdf\"; filename*=UTF-8''d-cup.pdf",
+      )
+      expect(response).to have_http_status(:success)
+
       get "/#{competition.year}/#{competition.slug}/series/assessments/#{series_person_assessment.id}"
       expect(response).to match_html_fixture.with_affix('show-assessment')
+
+      get "/#{competition.year}/#{competition.slug}/series/assessments/#{series_person_assessment.id}.pdf"
+      expect(response).to match_pdf_fixture.with_affix('show-assessment-as-pdf')
+      expect(response.content_type).to eq(Mime[:pdf])
+      expect(response.header['Content-Disposition']).to eq(
+        "inline; filename=\"hakenleitersteigen-mannlich.pdf\"; filename*=UTF-8''hakenleitersteigen-mannlich.pdf",
+      )
+      expect(response).to have_http_status(:success)
     end
   end
 end

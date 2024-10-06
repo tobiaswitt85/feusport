@@ -1,0 +1,4 @@
+competitions/series/rounds display round calculation displays-show-round-as-pdf
+
+request
+pdf
