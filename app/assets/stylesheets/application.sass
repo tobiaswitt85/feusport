@@ -197,8 +197,19 @@
 .current-competition *
   font-weight: bold
 
-
-
+.competition-descripton
+  table
+    width: 90%
+    margin: 1rem auto
+    @include media-breakpoint-only(xs)
+      width: 98%
+    td, th
+      padding: 0.2rem
+      border: 0.01rem solid darken($fs-gray, 5%)
+      @include media-breakpoint-only(xs)
+        font-size: 0.9rem
+    th
+      text-align: center
 
 .assessment-request
   border: 1px solid $light

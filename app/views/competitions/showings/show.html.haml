@@ -6,7 +6,7 @@
       .card-header
         = page_title(@competition.name)
         %p.lead.mb-0 #{l @competition.date} - #{@competition.place}
-      .card-body
+      .card-body.competition-descripton
         != @competition.description_html
   .col-lg-6.col-xl-4
     .card.text-bg-light
