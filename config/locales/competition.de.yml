@@ -4,6 +4,8 @@ de:
     attributes:
       competitions/deletion:
         confirm: Bestätigung
+      competitions/publishing:
+        confirm: Bestätigung
   activerecord:
     attributes:
       competition:

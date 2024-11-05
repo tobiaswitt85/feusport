@@ -13,25 +13,59 @@ class Ability
 
     can(:connect, UserAccessRequest)
 
-    can(:manage, Competition, user_accesses: { user_id: user.id })
-    can(:manage, Document, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Discipline, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Band, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Assessment, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Team, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Person, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Certificates::Template, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Certificates::List, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Score::List, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Score::ListEntry, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Score::Run, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Score::Result, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Score::CompetitionResult, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Score::ListFactory, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, Score::ListPrintGenerator, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, SimpleAccess, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, UserAccess, competition: { user_accesses: { user_id: user.id } })
-    can(:manage, UserAccessRequest, competition: { user_accesses: { user_id: user.id } })
+    read_ua = { user_accesses: { user_id: user.id } }
+    manage_ua = { user_accesses: { user_id: user.id }, locked_at: nil }
+
+    can(%i[read extend_read], Competition, read_ua)
+    can(:manage, Competition, manage_ua)
+
+    can(:read, Document, competition: read_ua)
+    can(:manage, Document, competition: manage_ua)
+
+    can(:read, Discipline, competition: read_ua)
+    can(:manage, Discipline, competition: manage_ua)
+
+    can(:read, Band, competition: read_ua)
+    can(:manage, Band, competition: manage_ua)
+
+    can(:read, Assessment, competition: read_ua)
+    can(:manage, Assessment, competition: manage_ua)
+
+    can(:read, Team, competition: read_ua)
+    can(:manage, Team, competition: manage_ua)
+
+    can(:read, Person, competition: read_ua)
+    can(:manage, Person, competition: manage_ua)
+
+    can(:read, Certificates::Template, competition: read_ua)
+    can(:manage, Certificates::Template, competition: manage_ua)
+
+    can(:manage, Certificates::List, competition: read_ua)
+
+    can(:read, Score::List, competition: read_ua)
+    can(:manage, Score::List, competition: manage_ua)
+
+    can(:manage, Score::ListEntry, competition: manage_ua)
+    can(:manage, Score::Run, competition: manage_ua)
+
+    can(:read, Score::Result, competition: read_ua)
+    can(:manage, Score::Result, competition: manage_ua)
+
+    can(:read, Score::CompetitionResult, competition: read_ua)
+    can(:manage, Score::CompetitionResult, competition: manage_ua)
+
+    can(:manage, Score::ListFactory, competition: manage_ua)
+    can(:manage, Score::ListPrintGenerator, competition: manage_ua)
+    can(:manage, SimpleAccess, competition: manage_ua)
+
+    can(:read, UserAccess, competition: read_ua)
+    can(:manage, UserAccess, competition: manage_ua)
+
+    can(:read, UserAccessRequest, competition: read_ua)
+    can(:manage, UserAccessRequest, competition: manage_ua)
+
+    can(:read, FireSportStatistics::Publishing, competition: read_ua)
+    can(:manage, Competitions::Publishing, competition: manage_ua)
     can(:manage, Presets::Base) { |preset| can?(:manage, preset.competition) }
 
     can(%i[create], Team) { |team| team.competition.registration_possible? }
@@ -63,6 +97,8 @@ class Ability
   end
 
   def simple_access_abilities(simple_access)
+    return if simple_access.competition.locked?
+
     can(:manage, Competition, id: simple_access.competition_id)
     can(:manage, Document, competition: { id: simple_access.competition_id })
     can(:manage, Discipline, competition: { id: simple_access.competition_id })
@@ -78,6 +114,5 @@ class Ability
     can(:manage, Score::CompetitionResult, competition: { id: simple_access.competition_id })
     can(:manage, Score::ListFactory, competition: { id: simple_access.competition_id })
     can(:manage, Score::ListPrintGenerator, competition: { id: simple_access.competition_id })
-    can(:manage, Presets::Base) { |preset| can?(:manage, preset.competition) }
   end
 end

@@ -10,6 +10,22 @@
         != @competition.description_html
   .col-lg-6.col-xl-4
     .card.text-bg-light
+      - if @competition.locked?
+        .card-header.text-bg-warning
+          .d-grid.gap-2.col-10.mx-auto
+            .text-center
+              .far.fa-lock
+              Bearbeitung beendet
+        %table.table.m-0
+          - FireSportStatistics::Publishing.where(competition: @competition).find_each do |publishing|
+            %tr
+              %td Veröffentlichung
+              %td
+                - if publishing.published_at.nil?
+                  In der Warteschlange
+                - else
+                  = l(publishing.published_at)
+
       - unless @competition.visible?
         .card-header.text-bg-warning
           .d-grid.gap-2.col-10.mx-auto
@@ -34,6 +50,9 @@
       .card-header
         .d-grid.gap-2.col-10.mx-auto
           - if can?(:edit, @competition)
+            - if @competition.date < Date.current && can?(:publish, @competition)
+              = link_to 'Veröffentlichen', new_competition_publishing_path, class: 'btn btn-dark btn-sm'
+
             = link_to 'Bearbeiten', edit_competition_editing_path, class: 'btn btn-light btn-sm'
             = link_to 'Sichtbarkeit bearbeiten', edit_competition_visibility_path, class: 'btn btn-light btn-sm'
             = link_to 'Anmeldungen bearbeiten', edit_competition_registration_path, class: 'btn btn-light btn-sm'
@@ -41,7 +60,7 @@
             - if simple_access.present?
               = link_to 'Gastzugang beenden', competition_simple_access_login_path, class: 'btn btn-warning btn-sm', data: { turbo_confirm: 'Danach hast du keinen Verwaltungszugriff auf diesen Wettkampf mehr.', 'turbo-method': :delete }
 
-          - elsif @competition.simple_accesses.exists?
+          - elsif @competition.simple_accesses.exists? && !@competition.locked?
             = link_to 'Gastzugang', new_competition_simple_access_login_path, class: 'btn btn-light btn-sm'
 
           - if can?(:destroy, @competition)

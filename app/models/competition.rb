@@ -73,10 +73,15 @@ class Competition < ApplicationRecord
   end
 
   def registration_possible?
+    return false if locked?
     return false unless registration_open_open?
     return false unless visible?
     return false if registration_open_until.nil?
 
     registration_open_until.end_of_day > Time.current
+  end
+
+  def locked?
+    !locked_at.nil?
   end
 end

@@ -1,0 +1,18 @@
+= render 'competitions/header', competition: @competition, resource_class: nil
+
+.row.g-4
+  .col-md-8
+    = simple_form_for(@publishing, url: competition_publishing_path) do |f|
+      = card('Wettkampf veröffentlichen') do |c|
+        - c.direct do
+          .card-body.text-bg-warning
+            Du willst diesen Wettkampf veröffentlichen. Das heißt, dass Startlisten und Ergebnisse auf Feuerwehrsport-Statistik veröffentlicht werden. Du kannst danach keine Änderungen mehr am Wettkampf vornehmen. Bist du dir sicher?
+            = f.input :confirm, autofocus: true, as: :boolean, label: 'Ich will alle Daten veröffentlichen und die Auswertung dieses Wettkampfes beenden.'
+        - c.footer do
+          = f.button :submit, 'Veröffentlichen', class: 'btn-primary'
+          = link_to 'Abbrechen', competition_show_path, class: 'btn btn-light'
+
+  .col-md-4
+    = card_body('Feuerwehrsport-Statistik') do
+      %p.text-center= image_tag('statistiken-logo.png', class: 'statistiken-logo')
+      %p Auf der Seite #{link_to('Feuerwehrsport-Statistik', 'https://feuerwehrsport-statistik.de')} werden Ergebnisse von allen Wettkämpfen im Bereich des Feuerwehrsports gesammelt und aufgebereitet. Eine Veröffentlichung ist wünschenswert, sollte aber erst nach Abschluss des Wettkampfes gemacht werden.

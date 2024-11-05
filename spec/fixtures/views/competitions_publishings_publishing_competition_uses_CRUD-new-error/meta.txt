@@ -1,0 +1,4 @@
+competitions/publishings publishing competition uses CRUD-new-error
+
+request
+html

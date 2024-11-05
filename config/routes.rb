@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resource :registration, only: %i[edit update]
     resource :deletion, only: %i[new create]
     resources :documents, only: %i[new create edit update destroy]
+    resource :publishing, only: %i[new create]
 
     # top menu
     resources :teams do

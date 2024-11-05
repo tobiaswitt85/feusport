@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_26_201257) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_05_120448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_26_201257) do
     t.text "flyer_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "locked_at"
     t.index ["date"], name: "index_competitions_on_date"
     t.index ["year", "slug"], name: "index_competitions_on_year_and_slug", unique: true
   end
@@ -201,6 +202,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_26_201257) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["person_id"], name: "index_fire_sport_statistics_person_spellings_on_person_id"
+  end
+
+  create_table "fire_sport_statistics_publishings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_fire_sport_statistics_publishings_on_competition_id"
+    t.index ["user_id"], name: "index_fire_sport_statistics_publishings_on_user_id"
   end
 
   create_table "fire_sport_statistics_team_associations", force: :cascade do |t|
@@ -553,6 +564,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_26_201257) do
   add_foreign_key "certificates_text_fields", "certificates_templates", column: "template_id"
   add_foreign_key "disciplines", "competitions"
   add_foreign_key "documents", "competitions"
+  add_foreign_key "fire_sport_statistics_publishings", "competitions"
+  add_foreign_key "fire_sport_statistics_publishings", "users"
   add_foreign_key "people", "bands"
   add_foreign_key "people", "competitions"
   add_foreign_key "people", "teams"

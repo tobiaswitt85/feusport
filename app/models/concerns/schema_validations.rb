@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20240726201257
+# generated from version 20241105120448
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -175,6 +175,7 @@ module SchemaValidations
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :locked_at, {:date_time_in_db_range=>{}}
     end
 
     def dbv_delayed_jobs_validations(enums: [])
@@ -256,6 +257,17 @@ module SchemaValidations
       validates_with_filter :gender, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:gender)
       validates_with_filter :person_id, {:presence=>{}}
       validates_with_filter :person_id, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:person_id)
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_fire_sport_statistics_publishings_validations(enums: [])
+      belongs_to_presence_validations_for([:competition_id, :user_id])
+      validates_with_filter :competition_id, {:presence=>{}}
+      validates_with_filter :user_id, {:presence=>{}}
+      validates_with_filter :published_at, {:date_time_in_db_range=>{}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

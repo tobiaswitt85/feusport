@@ -1,21 +1,33 @@
 # frozen_string_literal: true
 
-class FireSportStatistics::Publishing
-  include ActiveModel::Model
-  attr_accessor :competition
+class FireSportStatistics::Publishing < ApplicationRecord
+  belongs_to :competition, class_name: '::Competition'
+  belongs_to :user
 
-  validates :competition, presence: true
+  schema_validations
 
-  def save
+  after_create { FireSportStatistics::Publishing::Worker.perform_later }
+
+  class Worker < ApplicationJob
+    retry_on Errno::ECONNRESET, EOFError, OpenSSL::SSL::SSLError, Errno::ECONNREFUSED, SocketError, Net::ReadTimeout,
+             wait: :exponentially_longer, attempts: 8
+
+    def perform
+      FireSportStatistics::Publishing.where(published_at: nil).find_each(&:publish!)
+    end
+  end
+
+  def publish!
     return false unless valid?
 
     cookies = login
 
-    conn.post('/api/import_requests', { 'import_request[compressed_data]': export_data }.to_query,
-              'Cookie' => cookies)
-  rescue OpenSSL::SSL::SSLError, Errno::ECONNREFUSED, SocketError, Net::ReadTimeout => e
-    errors.add(:base, e.message)
-    false
+    response = conn.post('/api/import_requests', { 'import_request[compressed_data]': export_data }.to_query,
+                         'Cookie' => cookies)
+
+    raise SocketError, 'Publishing failed' unless response.code == '200'
+
+    update!(published_at: Time.current)
   end
 
   def export_data
@@ -24,7 +36,7 @@ class FireSportStatistics::Publishing
 
   def login
     response = conn.post('/api/api_users', { 'api_user[name]': competition.name }.to_query)
-    raise 'Login failed' unless response.code == '200'
+    raise SocketError, 'Login failed' unless response.code == '200'
 
     response.get_fields('set-cookie').map { |cookie| cookie.split('; ')[0] }.join('; ')
   end
