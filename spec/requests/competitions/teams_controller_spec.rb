@@ -70,6 +70,51 @@ RSpec.describe Team do
     end
   end
 
+  describe 'with fss team' do
+    let!(:team) { create(:team, competition:, band:) }
+
+    it 'shows team badge' do
+      sign_in user
+      get "/#{competition.year}/#{competition.slug}/teams"
+      expect(response).to match_html_fixture.with_affix('with-warning')
+
+      team.update!(fire_sport_statistics_team: create(:fire_sport_statistics_team, id: 1234))
+
+      get "/#{competition.year}/#{competition.slug}/teams"
+      expect(response).to match_html_fixture.with_affix('without-warning')
+    end
+  end
+
+  describe 'people assessment requests' do
+    let!(:team) { create(:team, competition:, band:) }
+    let!(:hl) { create(:discipline, :hl, competition:) }
+    let!(:hb) { create(:discipline, :hb, competition:) }
+    let!(:fs) { create(:discipline, :fs, competition:) }
+    let!(:assessment_hl) { create(:assessment, competition:, discipline: hl, band:) }
+    let!(:assessment_hb) { create(:assessment, competition:, discipline: hb, band:) }
+    let!(:assessment_fs) { create(:assessment, competition:, discipline: fs, band:) }
+
+    it 'shows people table' do
+      sign_in user
+      get "/#{competition.year}/#{competition.slug}/teams/#{team.id}"
+      expect(response).to match_html_fixture.with_affix('with-empty-people-table')
+
+      person = create(:person, competition:, band:, team:)
+      create(:assessment_request, entity: person, assessment_type: :single_competitor, single_competitor_order: 2,
+                                  assessment: assessment_hl)
+      create(:assessment_request, entity: person, assessment_type: :group_competitor, group_competitor_order: 2,
+                                  assessment: assessment_hb)
+      create(:assessment_request, entity: person, assessment_type: :competitor, assessment:)
+
+      person = create(:person, first_name: 'other', competition:, band:, team:)
+      create(:assessment_request, entity: person, assessment_type: :out_of_competition, assessment: assessment_hl)
+      create(:assessment_request, entity: person, assessment_type: :competitor, assessment: assessment_fs)
+
+      get "/#{competition.year}/#{competition.slug}/teams/#{team.id}"
+      expect(response).to match_html_fixture.with_affix('with-people-table')
+    end
+  end
+
   describe 'assessment requests' do
     let!(:team) { create(:team, competition:, band:) }
 

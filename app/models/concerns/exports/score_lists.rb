@@ -130,14 +130,6 @@ module Exports::ScoreLists
     team_name
   end
 
-  def size7(content, inline_format)
-    if inline_format
-      { content: "<font size='7'>#{content}</font>", inline_format: true }
-    else
-      content
-    end
-  end
-
   def export_title
     list.name
   end

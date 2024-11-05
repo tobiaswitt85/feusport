@@ -19,16 +19,4 @@ class Firesport::Series::Handler
   def self.team_class_for(name)
     class_for(name, :team)
   end
-
-  def self.team_class_names
-    Firesport::Series::Team::Base.descendants.map { |k| k.name.demodulize }
-  end
-
-  def self.person_class_names
-    Firesport::Series::Person::Base.descendants.map { |k| k.name.demodulize }
-  end
-
-  def self.class_names
-    (team_class_names + person_class_names).uniq.sort
-  end
 end

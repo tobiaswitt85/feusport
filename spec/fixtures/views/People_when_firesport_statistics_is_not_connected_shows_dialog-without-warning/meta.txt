@@ -1,0 +1,4 @@
+People when firesport_statistics is not connected shows dialog-without-warning
+
+request
+html

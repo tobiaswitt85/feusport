@@ -10,8 +10,4 @@ module Score::ListsHelper
     options[:class].push('best-time-of-rund') if best_of_run
     options
   end
-
-  def preset_value_for(field, value)
-    @score_list.send(field).blank? ? { value: } : {}
-  end
 end

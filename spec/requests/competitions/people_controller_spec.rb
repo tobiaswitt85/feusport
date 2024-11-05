@@ -138,6 +138,8 @@ RSpec.describe 'People' do
 
       get "/#{competition.year}/#{competition.slug}/people/without_statistics_connection"
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/people")
+      follow_redirect!
+      expect(response).to match_html_fixture.with_affix('without-warning')
     end
   end
 

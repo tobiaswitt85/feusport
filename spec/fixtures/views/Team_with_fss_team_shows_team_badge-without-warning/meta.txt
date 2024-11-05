@@ -1,0 +1,4 @@
+Team with fss team shows team badge-without-warning
+
+request
+html
