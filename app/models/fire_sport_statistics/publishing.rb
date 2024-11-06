@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'net/http'
+
 class FireSportStatistics::Publishing < ApplicationRecord
   belongs_to :competition, class_name: '::Competition'
   belongs_to :user
