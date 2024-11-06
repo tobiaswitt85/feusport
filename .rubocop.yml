@@ -69,6 +69,8 @@ Lint/DuplicateMatchPattern:
   Enabled: true
 Lint/DuplicateRegexpCharacterClassElement:
   Enabled: true
+Lint/DuplicateSetElement:
+  Enabled: true
 Lint/EmptyBlock:
   Enabled: true
 Lint/EmptyClass:
@@ -108,6 +110,8 @@ Lint/SymbolConversion:
 Lint/ToEnumArguments:
   Enabled: true
 Lint/TripleQuotes:
+  Enabled: true
+Lint/UnescapedBracketInRegexp:
   Enabled: true
 Lint/UnexpectedBlockArity:
   Enabled: true
@@ -431,12 +435,16 @@ Security/CompoundHash:
   Enabled: true
 Security/IoMethods:
   Enabled: true
+Style/AmbiguousEndlessMethodDefinition:
+  Enabled: true
 Style/ArgumentsForwarding:
   Enabled: true
 Style/ArrayIntersect:
   Enabled: true
 Style/AsciiComments:
   Enabled: false
+Style/BitwisePredicate:
+  Enabled: true
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
   Exclude:
@@ -444,6 +452,8 @@ Style/ClassAndModuleChildren:
   - config/boot.rb
   - lib/**/*.rb
 Style/CollectionCompact:
+  Enabled: true
+Style/CombinableDefined:
   Enabled: true
 Style/CombinableLoops:
   Enabled: false
@@ -487,6 +497,8 @@ Style/HashExcept:
 Style/IfWithBooleanLiteralBranches:
   Enabled: true
 Style/InPatternThen:
+  Enabled: true
+Style/KeywordArgumentsMerging:
   Enabled: true
 Style/Lambda:
   EnforcedStyle: literal
@@ -561,6 +573,8 @@ Style/ReturnNilInPredicateMethodDefinition:
   Enabled: true
 Style/SafeNavigation:
   Enabled: false
+Style/SafeNavigationChainLength:
+  Enabled: true
 Style/SelectByRegexp:
   Enabled: true
 Style/SendWithLiteralMethodName:
