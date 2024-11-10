@@ -4,7 +4,7 @@ class Competitions::Publishing
   include ActiveModel::Model
   include ActiveModel::Attributes
 
-  attr_accessor :competition, :user
+  attr_accessor :competition, :user, :hint
 
   attribute :confirm, :boolean, default: false
   validates :confirm, acceptance: true
@@ -15,7 +15,7 @@ class Competitions::Publishing
 
     Competition.transaction do
       competition.update!(locked_at: Time.current)
-      FireSportStatistics::Publishing.create!(competition:, user:)
+      FireSportStatistics::Publishing.create!(competition:, user:, hint:)
     end
   end
 end

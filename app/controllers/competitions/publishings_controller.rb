@@ -22,6 +22,6 @@ class Competitions::PublishingsController < CompetitionNestedController
   end
 
   def publishing_params
-    params.require(:competitions_publishing).permit(:confirm)
+    params.require(:competitions_publishing).permit(:confirm, :hint)
   end
 end

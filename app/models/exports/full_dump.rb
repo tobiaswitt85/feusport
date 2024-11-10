@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Exports::FullDump
-  attr_reader :competition
+  attr_reader :competition, :user, :hint
 
-  def initialize(competition)
+  def initialize(competition, user, hint)
     @competition = competition
+    @user = user
+    @hint = hint
     competition.score_results.each do |result|
       add_file('Score::Result', [result], prefix: 'ergebnis')
     end
@@ -20,6 +22,10 @@ class Exports::FullDump
       name: competition.name,
       date: competition.date.to_s,
       place: competition.place,
+      user: user.name,
+      user_email_address: user.email,
+      hint:,
+      url: competition.self_url,
     }
   end
 

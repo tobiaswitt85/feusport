@@ -33,7 +33,7 @@ class FireSportStatistics::Publishing < ApplicationRecord
   end
 
   def export_data
-    Exports::FullDump.new(competition).to_export_data
+    Exports::FullDump.new(competition, user, hint).to_export_data
   end
 
   def login

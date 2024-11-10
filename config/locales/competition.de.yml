@@ -6,6 +6,7 @@ de:
         confirm: Bestätigung
       competitions/publishing:
         confirm: Bestätigung
+        hint: Zusätzlichen Hinweise
   activerecord:
     attributes:
       competition:

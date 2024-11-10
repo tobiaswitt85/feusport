@@ -68,6 +68,13 @@ class Competition < ApplicationRecord
     super if new_date.present?
   end
 
+  def self_url
+    Rails.application.routes.url_helpers.competition_show_url(Rails.application.config.default_url_options.merge(
+                                                                year: year,
+                                                                slug: slug,
+                                                              ))
+  end
+
   def year_and_month
     @year_and_month ||= "#{date.year}-#{date.month}"
   end

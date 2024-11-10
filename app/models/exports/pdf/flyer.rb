@@ -13,22 +13,14 @@ Exports::Pdf::Flyer = Struct.new(:competition) do
 
     pdf.text_box(competition.flyer_content, at: [90, 600], align: :left, width: 500, size: 16)
 
-    pdf.text_box(competition_url, at: [26, 345], align: :center,
-                                  width: 500, size: 20)
-    pdf.print_qr_code(competition_url, extent: 300, pos: [126, 320], level: :h)
+    pdf.text_box(competition.self_url, at: [26, 345], align: :center,
+                                       width: 500, size: 20)
+    pdf.print_qr_code(competition.self_url, extent: 300, pos: [126, 320], level: :h)
 
     pdf_footer(no_page_count: true)
   end
 
   def export_title
     "#{competition.date} - #{competition.name}"
-  end
-
-  def competition_url
-    Rails.application.routes.url_helpers
-         .competition_show_url(Rails.application.config.default_url_options.merge(
-                                 year: competition.year,
-                                 slug: competition.slug,
-                               ))
   end
 end
