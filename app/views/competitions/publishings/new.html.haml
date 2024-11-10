@@ -9,7 +9,7 @@
             Du willst diesen Wettkampf veröffentlichen. Das heißt, dass Startlisten und Ergebnisse auf Feuerwehrsport-Statistik veröffentlicht werden. Du kannst danach keine Änderungen mehr am Wettkampf vornehmen. Bist du dir sicher?
             = f.input :confirm, autofocus: true, as: :boolean, label: 'Ich will alle Daten veröffentlichen und die Auswertung dieses Wettkampfes beenden.'
           .card-body
-            = f.input :hint, as: :text, hint: "Du solltest den Administratoren von Feuerwehrsport-Statistik Hinweise auf besondere Umstände geben. Zum Beispiel, welche Ausschreibung genutzt wurde oder ob die Ziele eine Dosen waren. Es reicht ein kurzer Hinweis: WKO2023 - DIN - Zielgeräte"
+            = f.input :hint, as: :text, hint: 'Du solltest den Administratoren von Feuerwehrsport-Statistik Hinweise auf besondere Umstände geben. Zum Beispiel, welche Ausschreibung genutzt wurde oder ob die Ziele eine Dosen waren. Es reicht ein kurzer Hinweis: WKO2023 - DIN - Zielgeräte'
         - c.footer do
           = f.button :submit, 'Veröffentlichen', class: 'btn-primary'
           = link_to 'Abbrechen', competition_show_path, class: 'btn btn-light'
