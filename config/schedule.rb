@@ -15,4 +15,7 @@ if environment == 'production'
   every :day, at: '5:21 am' do
     rails_command 'runner ImportSuggestionsJob.perform_later'
   end
+  every :tuesday, at: '10:00 am' do
+    rails_command 'runner Competitions::Publishing::ReminderJob.perform_later'
+  end
 end

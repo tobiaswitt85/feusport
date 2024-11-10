@@ -42,4 +42,14 @@ class CompetitionMailer < ApplicationMailer
       subject: "Neue Wettkampfanmeldung - #{@person.competition.name}",
     )
   end
+
+  def publishing_reminder
+    @competition = @params[:competition]
+
+    to = @competition.users.map { |user| email_address_with_name(user.email, user.name) }
+    mail(
+      to:,
+      subject: "Veröffentliche deinen Wettkampf - #{@competition.name}",
+    )
+  end
 end
