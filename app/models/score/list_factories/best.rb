@@ -18,6 +18,7 @@ class Score::ListFactories::Best < Score::ListFactory
   def create_list_entry(result_row, run, track)
     any_list = result_row.list_entries.first
     list.entries.create!(
+      competition:,
       entity: result_row.entity,
       run:,
       track:,
