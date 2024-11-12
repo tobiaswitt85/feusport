@@ -114,7 +114,7 @@ Erweitert
 </div>
 <div class='pb-4 mt-4 container'>
 <div class='row'>
-<div class='col-lg-8'>
+<div class='col-lg-8 mb-3'>
 <form class="simple_form edit_competition" id="edit_competition_UUID" novalidate="novalidate" action="/2024/mv-cup/editing" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="patch" autocomplete="off" /><div class='card'>
 <div class='card-header p-0'>
 <div class='d-flex justify-content-between'>
@@ -125,8 +125,8 @@ Erweitert
 <div class="form-group string required competition_name form-group-valid"><label class="control-label string required" for="competition_name">Name <abbr title="required">*</abbr></label><input class="form-control string required" autofocus="autofocus" type="text" value="Foo" name="competition[name]" id="competition_name" /><small class="form-text text-muted">Gib einen kurzen Namen an. Das Datum erscheint extra und braucht nicht im Namen auftauchen.</small></div>
 <div class="form-group date required competition_date form-group-valid"><label class="date required" for="competition_date">Datum <abbr title="required">*</abbr></label><div class="d-flex flex-row justify-content-between align-items-center"><input class="form-control mx-1 date required" value="2024-02-29" type="date" name="competition[date]" id="competition_date" /></div><small class="form-text text-muted">Sollte sich der Wettkampf über mehrere Tage erstrecken, gib den Haupttag an. Weiteres musst du in der Beschreibung ergänzen.</small></div>
 <div class="form-group string required competition_place form-group-invalid"><label class="control-label string required" for="competition_place">Ort <abbr title="required">*</abbr></label><input class="form-control is-invalid string required" aria-invalid="true" type="text" name="competition[place]" id="competition_place" /><div class="invalid-feedback">Ort muss ausgefüllt werden</div><small class="form-text text-muted">Es sieht besser aus, wenn du hier nur den Namen des Ortes schreibst. Die vollständige Adresse solltest du in der Beschreibung angeben.</small></div>
-<div class="form-group text optional competition_description form-group-valid"><label class="control-label text optional" for="competition_description">Description</label><textarea class="form-control text optional easymde-required" name="competition[description]" id="competition_description">
-new-description</textarea></div>
+<div class="form-group text optional competition_description form-group-valid"><label class="control-label text optional" for="competition_description">Beschreibung</label><textarea class="form-control text optional easymde-required" name="competition[description]" id="competition_description">
+new-description</textarea><small class="form-text text-muted">Du kannst den Text mittels <em>Markdown</em> formatieren.</small></div>
 <fieldset class='group'>
 <legend>Kennzeichnungen</legend>
 <div class='row'>
@@ -163,6 +163,68 @@ new-description</textarea></div>
 </div>
 </div>
 </form></div>
+<div class='col-lg-4'>
+<div class='card'>
+<div class='card-header p-0'>
+<div class='d-flex justify-content-between'>
+<h4 class='m-0 py-2 ps-3'>Markdown - Erklärung</h4>
+</div>
+</div>
+<div class='card-body'>
+<p>In der Beschreibung kannst du die <a href="https://de.wikipedia.org/wiki/Markdown">Markdown-Sprache</a> verwenden. Damit kannst du einfache Formatierungen und verlinken direkt im Text vornehmen.</p>
+<table class='table'>
+<tr>
+<td>Fettgedruckt</td>
+<td>
+<code>**Fett**</code>
+</td>
+</tr>
+<tr>
+<td>Kursivgedruckt</td>
+<td>
+<code>*Kursiv*</code>
+</td>
+</tr>
+<tr>
+<td>Überschriften</td>
+<td>
+<code># Ebene 1</code>
+<br>
+<code>## Ebene 2</code>
+<br>
+<code>### Ebene 3</code>
+</td>
+</tr>
+<tr>
+<td>Stichpunkte</td>
+<td>
+<code>- Punkt 1</code>
+<br>
+<code>- Punkt 2</code>
+</td>
+</tr>
+<tr>
+<td>Nummeriert</td>
+<td>
+<code>1. Punkt 1</code>
+<br>
+<code>2. Punkt 2</code>
+</td>
+</tr>
+<tr>
+<td>Links</td>
+<td>
+<code>https://beispiel.de</code>
+<br>
+<code>[Beispiel](https://beispiel.de)</code>
+</td>
+</tr>
+</table>
+<p>Am besten kontrollierst du nach dem Verändern immer nochmal den Text in der Leseansicht. Leerzeichen und Leerzeilen machen einen großen Unterschied. Wenn es nicht klappt, mache mehr oder weniger davon.</p>
+
+</div>
+</div>
+</div>
 </div>
 </div>
 </body>

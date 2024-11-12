@@ -11,6 +11,7 @@ de:
     attributes:
       competition:
         date: Datum
+        description: Beschreibung
         flyer_content: Flyer-Inhalt
         flyer_headline: Flyer-Überschrift
         lottery_numbers: Losnummern

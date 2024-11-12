@@ -1,14 +1,14 @@
 = render 'competitions/header', competition: @competition, resource_class: nil, sub: 'Wettkampf aktualisieren'
 
 .row
-  .col-lg-8
+  .col-lg-8.mb-3
     = simple_form_for(@competition, url: competition_editing_path) do |f|
       = card('Wettkampf aktualisieren') do |c|
         - c.body do
           = f.input :name, autofocus: true
           = f.input :date, html5: true
           = f.input :place
-          = f.input :description, input_html: { class: 'easymde-required' }
+          = f.input :description, input_html: { class: 'easymde-required' }, hint: 'Du kannst den Text mittels <em>Markdown</em> formatieren.'.html_safe
 
           %fieldset.group
             %legend Kennzeichnungen
@@ -32,3 +32,44 @@
         - c.footer do
           = f.primary_button :submit
           = f.cancel_button(competition_show_path)
+  .col-lg-4
+    = card_body('Markdown - Erklärung') do
+      %p In der Beschreibung kannst du die #{link_to('Markdown-Sprache', 'https://de.wikipedia.org/wiki/Markdown')} verwenden. Damit kannst du einfache Formatierungen und verlinken direkt im Text vornehmen.
+
+      %table.table
+        %tr
+          %td Fettgedruckt
+          %td
+            %code **Fett**
+        %tr
+          %td Kursivgedruckt
+          %td
+            %code *Kursiv*
+        %tr
+          %td Überschriften
+          %td
+            %code # Ebene 1
+            %br
+            %code ## Ebene 2
+            %br
+            %code ### Ebene 3
+        %tr
+          %td Stichpunkte
+          %td
+            %code - Punkt 1
+            %br
+            %code - Punkt 2
+        %tr
+          %td Nummeriert
+          %td
+            %code 1. Punkt 1
+            %br
+            %code 2. Punkt 2
+        %tr
+          %td Links
+          %td
+            %code https://beispiel.de
+            %br
+            %code [Beispiel](https://beispiel.de)
+
+      %p Am besten kontrollierst du nach dem Verändern immer nochmal den Text in der Leseansicht. Leerzeichen und Leerzeilen machen einen großen Unterschied. Wenn es nicht klappt, mache mehr oder weniger davon.
