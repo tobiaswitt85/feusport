@@ -37,6 +37,6 @@
         - team_markers.each do |team_marker|
           - value = team.team_marker_values.find_by(team_marker:)
           %td{ title: value&.value, style: 'width: 60px; text-align: center' }
-            = icon_link_btn("far #{value&.value_present? ? 'fa-square-check' : 'fa-square'}", edit_competition_team_marker_path(team_id: team.id, id: team_marker.id), class: "quick-team-marker-change-link", data: { url: edit_competition_team_marker_path(team_id: team.id, id: team_marker.id, output: :modal) })
+            = icon_link_btn("far #{value&.value_present? ? 'fa-square-check' : 'fa-square'}", edit_competition_team_marker_path(team_id: team.id, id: team_marker.id), class: 'quick-team-marker-change-link', data: { url: edit_competition_team_marker_path(team_id: team.id, id: team_marker.id, output: :modal) })
       %td.text-end
         = btn_link_to(t('a.show'), { action: :show, id: team })
