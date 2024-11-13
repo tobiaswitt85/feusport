@@ -8,4 +8,8 @@ class TeamMarker < ApplicationRecord
   belongs_to :competition
 
   schema_validations
+
+  def self.create_example(competition)
+    create(competition:, name: 'Angereist?', value_type: :boolean)
+  end
 end
