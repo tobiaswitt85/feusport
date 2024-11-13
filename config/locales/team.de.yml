@@ -19,7 +19,25 @@ de:
         registration_hint: Anmeldungshinweise
         shortcut: Abkürzung
         tags: Kennzeichnungen
+      team_marker:
+        name: Name
+        value_type: Art des Wertes
+      team_marker_value:
+        boolean_value: Ja/Nein
+        date_value: Datum
+        string_value: Text
     models:
       team:
         one: Mannschaft
         other: Mannschaften
+      team_marker:
+        one: Mannschaftsspalte
+        other: Mannschaftsspalten
+      team_marker_value:
+        one: Wert
+        other: Werte
+  team_markers:
+    value_types:
+      boolean: Ja/Nein-Wert
+      date: Datum
+      string: Freitext

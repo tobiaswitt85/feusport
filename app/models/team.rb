@@ -12,6 +12,7 @@ class Team < ApplicationRecord
   has_many :list_entries, class_name: 'Score::ListEntry', as: :entity, dependent: :destroy, inverse_of: :entity
   has_many :requested_assessments, through: :requests, source: :assessment
   has_many :team_relays, dependent: :destroy
+  has_many :team_marker_values, dependent: :destroy
 
   schema_validations
   validates :number, numericality: { greater_than: 0 }

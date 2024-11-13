@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_10_201642) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_13_124930) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -477,6 +477,28 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_10_201642) do
     t.index ["competition_id"], name: "index_simple_accesses_on_competition_id"
   end
 
+  create_table "team_marker_values", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "team_marker_id", null: false
+    t.uuid "team_id", null: false
+    t.boolean "boolean_value", default: false, null: false
+    t.date "date_value"
+    t.text "string_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_team_marker_values_on_team_id"
+    t.index ["team_marker_id", "team_id"], name: "index_team_marker_values_on_team_marker_id_and_team_id", unique: true
+    t.index ["team_marker_id"], name: "index_team_marker_values_on_team_marker_id"
+  end
+
+  create_table "team_markers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id"
+    t.string "name", limit: 20, null: false
+    t.integer "value_type", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_team_markers_on_competition_id"
+  end
+
   create_table "team_relays", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "team_id", null: false
     t.integer "number", default: 1, null: false
@@ -595,6 +617,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_10_201642) do
   add_foreign_key "score_results", "competitions"
   add_foreign_key "score_results", "score_results", column: "double_event_result_id"
   add_foreign_key "simple_accesses", "competitions"
+  add_foreign_key "team_marker_values", "team_markers"
+  add_foreign_key "team_marker_values", "teams"
+  add_foreign_key "team_markers", "competitions"
   add_foreign_key "team_relays", "teams"
   add_foreign_key "teams", "bands"
   add_foreign_key "teams", "competitions"

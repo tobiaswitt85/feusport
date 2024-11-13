@@ -5,6 +5,7 @@ import '@hotwired/turbo-rails';
 import './_global';
 import './_certificates';
 import './_edit_assessment_requests';
+import './_edit_team_markers';
 import './_move_score_list_entries';
 import './_team_suggestions';
 import './_person_suggestions';

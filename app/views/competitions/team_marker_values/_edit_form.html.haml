@@ -1,0 +1,12 @@
+= simple_form_for(@team_marker_value, url: url_for(controller: controller_path, action: :update, return_to: params[:return_to]), method: :patch) do |f|
+  = card("»#{@team_marker_value.name}« für »#{@team_marker_value.team.name}«") do |c|
+    - c.body do
+      - if @team_marker_value.value_type_boolean?
+        = f.input :boolean_value
+      - if @team_marker_value.value_type_date?
+        = f.input :date_value, html5: true
+      - if @team_marker_value.value_type_string?
+        = f.input :string_value
+    - c.footer do
+      = f.primary_button :submit
+      = f.cancel_button(competition_teams_path)

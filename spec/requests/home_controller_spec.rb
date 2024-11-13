@@ -10,6 +10,9 @@ RSpec.describe 'Home' do
     it 'shows home page' do
       get '/'
       expect(response).to match_html_fixture
+
+      get "/?year=#{competition.year}"
+      expect(response).to match_html_fixture.with_affix('only-year')
     end
   end
 

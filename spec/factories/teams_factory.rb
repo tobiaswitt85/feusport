@@ -9,4 +9,10 @@ FactoryBot.define do
     sequence(:number) { |n| n }
     shortcut { "#{band.name}-T" }
   end
+
+  factory :team_marker do
+    competition
+    name { 'Angereist?' }
+    value_type { 'boolean' }
+  end
 end

@@ -1,0 +1,6 @@
+- c.body do
+  = f.input :name
+  = f.input :value_type, as: :radio_buttons, collection: TeamMarker::VALUE_TYPES.keys, label_method: ->(type) { t("team_markers.value_types.#{type}") }
+- c.footer do
+  = f.primary_button :submit
+  = f.cancel_button(competition_team_markers_path)

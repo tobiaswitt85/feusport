@@ -1,0 +1,11 @@
+%table.table
+  %tr
+    %th= TeamMarker.human_attribute_name(:name)
+    %th= TeamMarker.human_attribute_name(:value_type)
+  - resource_collection.sort.each do |team_marker|
+    %tr
+      %td= team_marker.name
+      %td= t("team_markers.value_types.#{team_marker.value_type}")
+      %td.text-end
+        = btn_link_to(t('a.edit'), { action: :edit, id: team_marker })
+        = btn_link_to(t('a.delete'), { action: :destroy, id: team_marker }, data: { turbo_method: 'delete', turbo_confirm: 'Spalte wirklich löschen? Alle Werte zu den Mannschaften werden gelöscht!' })

@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20241110201642
+# generated from version 20241113124930
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -587,6 +587,32 @@ module SchemaValidations
       uniqueness_validations_for([["competition_id", "name"]])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_team_marker_values_validations(enums: [])
+      belongs_to_presence_validations_for([:team_marker_id, :team_id])
+      belongs_to_uniqueness_validations_for([["team_marker_id", "team_id"]])
+      uniqueness_validations_for([["team_marker_id", "team_id"]])
+      validates_with_filter :team_marker_id, {:presence=>{}}
+      validates_with_filter :team_id, {:presence=>{}}
+      validates_with_filter :boolean_value, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :date_value, {:date_in_db_range=>{}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_team_markers_validations(enums: [])
+      belongs_to_presence_validations_for([:value_type])
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>20}}
+      validates_with_filter :value_type, {:presence=>{}}
+      validates_with_filter :value_type, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:value_type)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

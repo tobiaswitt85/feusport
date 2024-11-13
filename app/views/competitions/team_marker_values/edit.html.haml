@@ -1,0 +1,5 @@
+= render 'competitions/header', competition: @competition, sub: "#{TeamMarkerValue.model_name.human} aktualisieren", resource_class: TeamMarkerValue
+
+.row.g-4
+  .col-lg-8
+    = render('edit_form')

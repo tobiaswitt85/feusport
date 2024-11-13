@@ -8,6 +8,7 @@ RSpec.describe Team do
   let!(:la) { create(:discipline, :la, competition:) }
   let!(:assessment) { create(:assessment, competition:, discipline: la, band:) }
   let!(:user) { competition.users.first }
+  let!(:team_marker) { create(:team_marker, competition:) }
 
   describe 'teams managements' do
     it 'uses CRUD' do

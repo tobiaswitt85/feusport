@@ -31,7 +31,9 @@ Rails.application.routes.draw do
       collection do
         get :without_statistics_connection
       end
+      resources :markers, only: %i[edit update], controller: :team_marker_values
     end
+    resources :team_markers, only: %i[new create index edit update destroy]
     resource :team_import, only: %i[new create]
     resources :people do
       member do

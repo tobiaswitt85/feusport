@@ -10,6 +10,7 @@ class Competition < ApplicationRecord
   has_many :assessments, dependent: :destroy
   has_many :teams, dependent: :destroy
   has_many :team_relays, through: :teams
+  has_many :team_markers, dependent: :destroy
   has_many :people, dependent: :destroy
   has_many :score_results, dependent: :destroy, class_name: 'Score::Result'
   has_many :score_competition_results, dependent: :destroy, class_name: 'Score::CompetitionResult'

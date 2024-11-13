@@ -5,8 +5,10 @@ de:
     add: Hinzufügen
     delete: Löschen
     edit: Bearbeiten
+    'no': Nein
     no_entries_found: Keine Einträge gefunden
     show: Ansehen
+    'yes': Ja
   activerecord:
     errors:
       messages:

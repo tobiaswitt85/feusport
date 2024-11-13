@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Exports::Pdf::Teams = Struct.new(:competition) do
+Exports::Pdf::Teams = Struct.new(:competition, :all_columns) do
   include Exports::Pdf::Base
   include Exports::Teams
 
@@ -10,7 +10,7 @@ Exports::Pdf::Teams = Struct.new(:competition) do
 
       pdf_header("#{Team.model_name.human(count: :many)} - #{band.name}")
       pdf.font_size = 10
-      pdf.table(index_export_data(band),
+      pdf.table(index_export_data(band, all_columns:),
                 header: true,
                 row_colors: pdf_default_row_colors,
                 cell_style: { align: :center },

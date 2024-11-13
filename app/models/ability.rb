@@ -34,6 +34,11 @@ class Ability
     can(:read, Team, competition: read_ua)
     can(:manage, Team, competition: manage_ua)
 
+    can(:read, TeamMarker, competition: read_ua)
+    can(:manage, TeamMarker, competition: manage_ua)
+
+    can(:manage, TeamMarkerValue, competition: manage_ua)
+
     can(:read, Person, competition: read_ua)
     can(:manage, Person, competition: manage_ua)
 

@@ -3,7 +3,7 @@
 module Exports::Teams
   protected
 
-  def index_export_data(band, full: false)
+  def index_export_data(band, full: false, all_columns: false)
     collection = band.teams.sort
 
     headline = [
@@ -23,6 +23,12 @@ module Exports::Teams
       full_name = full_name.gsub(/\s*-\s*-\s*/, ' - ').strip
       full_name = full_name.gsub(/-\Z/, '').strip
       headline.push(full_name)
+    end
+
+    if all_columns
+      team_markers.each do |team_marker|
+        headline.push(full ? team_marker.name : team_marker.name.truncate(10))
+      end
     end
 
     data = [headline]
@@ -47,9 +53,21 @@ module Exports::Teams
           line.push(t("assessment_types.#{team.request_for(assessment).assessment_type}_short"))
         end
       end
+
+      if all_columns
+        team_markers.each do |team_marker|
+          value = team.team_marker_values.find_by(team_marker:)
+          line.push(full ? value&.value : value&.value.to_s.gsub(/\s/, ' ').truncate(10))
+        end
+      end
+
       data.push(line)
     end
     data
+  end
+
+  def team_markers
+    @team_markers ||= competition.team_markers.reorder(:name)
   end
 
   def export_title

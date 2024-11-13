@@ -41,6 +41,14 @@
                   Diese Hinweise werden nur dir<br/> und dem Verwaltern<br/> des Wettkampfes angezeigt.
               %td= simple_format(@team.registration_hint)
 
+          - @competition.team_markers.each do |team_marker|
+            %tr
+              %th= team_marker.name
+              %td
+                .fa-pull-right
+                  = icon_link_btn('far fa-edit', edit_competition_team_marker_path(team_id: @team.id, id: team_marker.id, return_to: 'team'))
+                = @team.team_marker_values.find_by(team_marker:)&.value
+
     = card("Gewünschte #{Assessment.model_name.human(count: :many)}") do |c|
       - if can?(:edit, @team)
         - c.primary_actions do |actions|
