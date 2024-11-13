@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     @competitions = if params[:year].blank?
                       @competitions.current
                     else
-                      @competitions.where("DATE_PART('year', date) = ?", params[:year].to_i)
+                      @competitions.where(year: params[:year].to_i)
                     end
 
     @current_dates = (Date.current - 3.days..Date.current + 3.days)
