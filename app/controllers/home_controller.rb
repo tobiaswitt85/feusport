@@ -18,6 +18,10 @@ class HomeController < ApplicationController
   def info; end
   def help; end
 
+  def changelogs
+    @changelogs = Changelog.reorder(date: :desc)
+  end
+
   def disseminators
     @disseminators = Disseminator.reorder(:name)
   end

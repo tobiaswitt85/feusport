@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20241113124930
+# generated from version 20241114060642
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -144,6 +144,18 @@ module SchemaValidations
       validates_with_filter :font, {:length=>{:allow_nil=>true, :maximum=>20}}
       validates_with_filter :color, {:presence=>{}}
       validates_with_filter :color, {:length=>{:allow_nil=>true, :maximum=>20}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_changelogs_validations(enums: [])
+      validates_with_filter :date, {:presence=>{}}
+      validates_with_filter :date, {:date_in_db_range=>{}}
+      validates_with_filter :title, {:presence=>{}}
+      validates_with_filter :title, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :md, {:presence=>{}}
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

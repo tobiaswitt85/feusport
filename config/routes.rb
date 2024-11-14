@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'info', to: 'home#info', as: :info
   get 'disseminators', to: 'home#disseminators', as: :disseminators
   get 'help', to: 'home#help', as: :help
+  get 'changelogs', to: 'home#changelogs', as: :changelogs
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',

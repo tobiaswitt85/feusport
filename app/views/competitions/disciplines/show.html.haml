@@ -9,7 +9,7 @@
             - @discipline.assessments.each do |assessment|
               %tr
                 %td= assessment.name
-                %td.text-right
+                %td.text-end
                   = btn_link_to 'Ansehen', competition_assessment_path(id: assessment.id)
       - else
         - c.body do

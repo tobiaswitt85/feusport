@@ -17,6 +17,8 @@ RSpec.describe 'Home' do
   end
 
   describe 'info' do
+    let!(:changelog) { Changelog.create!(date: Date.parse('2024-02-29'), title: 'Überschrift', md: "#hans\n\n- wurst") }
+
     it 'shows info page' do
       get '/info'
       expect(response).to match_html_fixture
@@ -26,6 +28,15 @@ RSpec.describe 'Home' do
   describe 'help' do
     it 'shows help page' do
       get '/help'
+      expect(response).to match_html_fixture
+    end
+  end
+
+  describe 'changelogs' do
+    let!(:changelog) { Changelog.create!(date: Date.parse('2024-02-29'), title: 'Überschrift', md: "#hans\n\n- wurst") }
+
+    it 'shows changelogs page' do
+      get '/changelogs'
       expect(response).to match_html_fixture
     end
   end

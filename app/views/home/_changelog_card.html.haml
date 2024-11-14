@@ -1,0 +1,12 @@
+.card
+  .card-header
+    %h4.mb-0 Changelog
+  .card-body
+    %p Die Seite wird ständig weiterentwickelt. Nachfolgend sind die letzten größeren Änderungen aufgeführt. Alle Änderungen stehen auf #{link_to('Github', 'https://github.com/Feuerwehrsport/feusport/commits/main')} zur Verfügung.
+    %p Gerne kann ein #{link_to('Issue über Github', 'https://github.com/Feuerwehrsport/feusport/issues')} angelegt werden, wenn du auch Ideen zur Weiterentwicklung hast.
+
+  %table.table
+    - Changelog.reorder(date: :desc).first(5).each do |log|
+      %tr
+        %td= l(log.date)
+        %td= link_to(log.title, changelogs_path)
