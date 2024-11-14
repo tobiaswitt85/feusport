@@ -1,0 +1,11 @@
+= render 'competitions/header', competition: @competition, sub: 'Vorlage wählen', resource_class: Certificates::Import
+
+.row.g-4
+  .col-md-8
+    = simple_form_for([:competition, @certificates_import]) do |f|
+      = card('Vorhandene Vorlage wählen') do |c|
+        - c.body do
+          = f.input :template_id, collection: @selectable_templates, include_blank: false, label_method: :long_name
+        - c.footer do
+          = f.primary_button :submit, 'Vorlage kopieren'
+          = f.cancel_button(competition_score_results_path)

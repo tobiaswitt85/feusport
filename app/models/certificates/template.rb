@@ -35,7 +35,7 @@ class Certificates::Template < ApplicationRecord
   accepts_nested_attributes_for :text_fields, allow_destroy: true
 
   def self.create_example(competition)
-    template = create(competition:, name: 'Beispiel-Urkunde (Vorlage)')
+    template = create(competition:, name: 'Beispiel-Urkunde (Vorlage)', importable_for_me: false)
     template.update(
       text_fields_attributes: [
         {
@@ -101,5 +101,9 @@ class Certificates::Template < ApplicationRecord
     end
 
     duplicate
+  end
+
+  def long_name
+    "(#{I18n.l(competition.date)} - #{competition.name}) #{name}"
   end
 end

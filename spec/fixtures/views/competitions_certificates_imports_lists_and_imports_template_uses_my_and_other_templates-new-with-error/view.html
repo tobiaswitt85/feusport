@@ -55,7 +55,7 @@ Benutzer
 <div class='container'>
 <h1>MV-Cup</h1>
 <p class='lead m-0 ms-1'>29.02.2024 - Rostock</p>
-<p class='lead m-0 ms-1'>Urkundenvorlage hinzufügen</p>
+<p class='lead m-0 ms-1'>Vorlage wählen</p>
 
 </div>
 </header>
@@ -87,8 +87,8 @@ Erweitert
 <a class="dropdown-item" href="/2024/mv-cup/score/competition_results">Gesamtwertungen
 </a>
 </div>
-<div class='active'>
-<a class="dropdown-item active" aria-current="page" href="/2024/mv-cup/certificates/templates">Urkundenvorlagen
+<div class=''>
+<a class="dropdown-item" href="/2024/mv-cup/certificates/templates">Urkundenvorlagen
 </a>
 </div>
 <div class=''>
@@ -113,41 +113,31 @@ Erweitert
 </header>
 <div class='container mt-4'>
 <div class='alert-flash'>
+<div class='alert alert-danger'>Bitte überprüfen Sie folgende Fehler:</div>
 </div>
 </div>
 <div class='pb-4 mt-4 container'>
 <div class='row g-4'>
-<div class='col-lg-8'>
-<form class="simple_form new_certificates_template" id="new_certificates_template" novalidate="novalidate" enctype="multipart/form-data" action="/2024/mv-cup/certificates/templates" accept-charset="UTF-8" method="post"><div class='card'>
+<div class='col-md-8'>
+<form class="simple_form new_certificates_import" id="new_certificates_import" novalidate="novalidate" action="/2024/mv-cup/certificates/imports" accept-charset="UTF-8" method="post"><div class='card'>
 <div class='card-header p-0'>
 <div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Urkundenvorlage hinzufügen</h4>
+<h4 class='m-0 py-2 ps-3'>Vorhandene Vorlage wählen</h4>
 </div>
 </div>
 <div class='card-body'>
-<div class="form-group string required certificates_template_name"><label class="control-label string required" for="certificates_template_name">Name <abbr title="required">*</abbr></label><input class="form-control string required" type="text" name="certificates_template[name]" id="certificates_template_name" /><small class="form-text text-muted">Interner Name</small></div>
-<div class="form-group file optional certificates_template_image"><label class="file optional" for="certificates_template_image">Hintergrundbild</label><input class="form-control file optional" type="file" name="certificates_template[image]" id="certificates_template_image" /><small class="form-text text-muted">Hintergrundbild zur Orientierung</small></div>
-<div class="form-group file optional certificates_template_font"><label class="file optional" for="certificates_template_font">Schriftart</label><input class="form-control file optional" type="file" name="certificates_template[font]" id="certificates_template_font" /><small class="form-text text-muted">Schriftart für variable Texte</small></div>
-<div class="form-group file optional certificates_template_font2"><label class="file optional" for="certificates_template_font2">Zweite Schriftart</label><input class="form-control file optional" type="file" name="certificates_template[font2]" id="certificates_template_font2" /><small class="form-text text-muted">Zweite Schriftart für variable Texte</small></div>
-<fieldset class='group'>
-<legend>Importierbarkeit der Vorlage</legend>
-<fieldset class="form-group boolean optional certificates_template_importable_for_me form-group-valid"><div class="form-check"><input name="certificates_template[importable_for_me]" type="hidden" value="0" autocomplete="off" /><input class="form-check-input boolean optional" type="checkbox" value="1" checked="checked" name="certificates_template[importable_for_me]" id="certificates_template_importable_for_me" /><label class="form-check-label boolean optional" for="certificates_template_importable_for_me">Diese Vorlage in meinen anderen Wettkämpfen zum Import anbieten.</label><small class="form-text text-muted">Manchmal möchte man im nächsten Jahr die fast gleiche Urkunde nochmal verwenden.</small></div></fieldset>
-<fieldset class="form-group boolean optional certificates_template_importable_for_others"><div class="form-check"><input name="certificates_template[importable_for_others]" type="hidden" value="0" autocomplete="off" /><input class="form-check-input boolean optional" type="checkbox" value="1" name="certificates_template[importable_for_others]" id="certificates_template_importable_for_others" /><label class="form-check-label boolean optional" for="certificates_template_importable_for_others">Diese Vorlage allen Feusport-Nutzern zum Import anbieten.</label><small class="form-text text-muted">Wenn dir die Urkunde sehr gut gelungen ist, kannst du sie allen zur Verfügung stellen.</small></div></fieldset>
-</fieldset>
+<div class="form-group select optional certificates_import_template_id form-group-valid"><label class="control-label select optional" for="certificates_import_template_id">Vorlage</label><select class="form-select select optional" name="certificates_import[template_id]" id="certificates_import_template_id"><option value="UUID">(29.02.2024 - MV-Cup) Einfache Vorlage</option></select></div>
 
 </div>
 <div class='card-footer'>
 <div class='d-flex justify-content-between align-items-start'>
-<div><button name="button" type="submit" class="btn btn-primary" data-disable-with="Bitte warten...">Urkundenvorlage erstellen</button>
-<a class="btn btn-secondary" href="/2024/mv-cup/certificates/templates">Abbrechen</a>
+<div><button name="button" type="submit" class="btn btn-primary" data-disable-with="Bitte warten...">Vorlage kopieren</button>
+<a class="btn btn-secondary" href="/2024/mv-cup/score/results">Abbrechen</a>
 </div>
 </div>
 </div>
 </div>
 </form></div>
-<div class='col-lg-4'>
-
-</div>
 </div>
 </div>
 </body>

@@ -49,7 +49,7 @@ class Competitions::Certificates::TemplatesController < CompetitionNestedControl
 
   def template_params
     params.require(:certificates_template).permit(
-      :name, :image, :font, :font2,
+      :name, :image, :font, :font2, :importable_for_me, :importable_for_others,
       text_fields_attributes: %i[left top width height size key font align text id color _destroy]
     )
   end

@@ -3,6 +3,11 @@
   = f.input :image, as: :file, hint: ['Hintergrundbild zur Orientierung', @template.image_hint].compact_blank.join('; ')
   = f.input :font, as: :file, hint: ['Schriftart für variable Texte', @template.font_hint].compact_blank.join('; ')
   = f.input :font2, as: :file, hint: ['Zweite Schriftart für variable Texte', @template.font2_hint].compact_blank.join('; ')
+
+  %fieldset.group
+    %legend Importierbarkeit der Vorlage
+    = f.input :importable_for_me, hint: 'Manchmal möchte man im nächsten Jahr die fast gleiche Urkunde nochmal verwenden.'
+    = f.input :importable_for_others, hint: 'Wenn dir die Urkunde sehr gut gelungen ist, kannst du sie allen zur Verfügung stellen.'
 - c.footer do
   = f.primary_button :submit
   - if @template.id.present?

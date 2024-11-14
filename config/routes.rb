@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     resources :assessments
 
     namespace :certificates do
+      resources :imports, only: %i[new create]
       resources :templates do
         member do
           get :edit_text_fields

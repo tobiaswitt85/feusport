@@ -2,6 +2,8 @@
 de:
   activemodel:
     attributes:
+      certificates/import:
+        template_id: Vorlage
       certificates/list:
         background_image: Hintergrundbild einbetten
         competition_result_id: Gesamtwertung
@@ -11,6 +13,7 @@ de:
         series_team_round_id: Serienergebnisse - Mannschaft
         template_id: Urkundenvorlage
     models:
+      certificates/import: Import
       certificates/list: Urkunden
   activerecord:
     attributes:
@@ -18,6 +21,8 @@ de:
         font: Schriftart
         font2: Zweite Schriftart
         image: Hintergrundbild
+        importable_for_me: Diese Vorlage in meinen anderen Wettkämpfen zum Import anbieten.
+        importable_for_others: Diese Vorlage allen Feusport-Nutzern zum Import anbieten.
         name: Name
         remove_font: Schriftart entfernen
         remove_font2: Zweite Schriftart entfernen

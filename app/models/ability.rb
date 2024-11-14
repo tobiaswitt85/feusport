@@ -46,6 +46,7 @@ class Ability
     can(:manage, Certificates::Template, competition: manage_ua)
 
     can(:manage, Certificates::List, competition: read_ua)
+    can(:manage, Certificates::Import, competition: read_ua)
 
     can(:read, Score::List, competition: read_ua)
     can(:manage, Score::List, competition: manage_ua)
