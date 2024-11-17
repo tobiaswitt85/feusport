@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
-<title>Mannschaften - MV-Cup - Feuerwehrsport</title>
+<title>MV-Cup - Feuerwehrsport</title>
 <meta content='width=device-width,initial-scale=1' name='viewport'>
 
 
@@ -55,7 +55,7 @@ Benutzer
 <div class='container'>
 <h1>MV-Cup</h1>
 <p class='lead m-0 ms-1'>29.02.2024 - Rostock</p>
-<p class='lead m-0 ms-1'>Mannschaft: Frauen-Team</p>
+<p class='lead m-0 ms-1'>Bedingung für Startliste hinzufügen</p>
 
 </div>
 </header>
@@ -66,12 +66,8 @@ Benutzer
 <a class="nav-link" href="/2024/mv-cup">Informationen
 </a>
 </div>
-<div class='nav-item active'>
-<a class="nav-link active" aria-current="page" href="/2024/mv-cup/teams">Mannschaften
-</a>
-</div>
 <div class='nav-item'>
-<a class="nav-link" href="/2024/mv-cup/people">Wettkämpfer
+<a class="nav-link" href="/2024/mv-cup/teams">Mannschaften
 </a>
 </div>
 <div class='nav-item'>
@@ -134,125 +130,43 @@ Erweitert
 <div class='pb-4 mt-4 container'>
 <div class='row g-4'>
 <div class='col-lg-8'>
-<div class='card mb-3'>
+<form class="simple_form new_team_list_restriction" id="new_team_list_restriction" novalidate="novalidate" action="/2024/mv-cup/team_list_restrictions" accept-charset="UTF-8" method="post"><div class='card'>
 <div class='card-header p-0'>
 <div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Mannschaft: Frauen-Team</h4>
+<h4 class='m-0 py-2 ps-3'>Bedingung für Startliste hinzufügen</h4>
 </div>
 </div>
-<table class='table table-condensed'>
-<tr>
-<th>Name</th>
-<td>Frauen-Team</td>
-</tr>
-<tr>
-<th>Abkürzung</th>
-<td>Frauen-T</td>
-</tr>
-<tr>
-<th>Nummer</th>
-<td>1</td>
-</tr>
-<tr>
-<th>Wertungsgruppe</th>
-<td>Frauen</td>
-</tr>
-<tr>
-<td colspan='2'>
-<div class='alert alert-success mb-0 d-none' id='fire-sport-connected'>
-<i class='far fa-check me-2'></i>
-Verknüpft mit <strong></strong>
-<a target="_blank" rel="noopener" title="Informationen über diese Mannschaft auf Feuerwehrsport-Statistik.de aufrufen" class="btn btn-sm btn-light ms-2" href="https://feuerwehrsport-statistik.de/teams/"><i class='far fa-arrow-up-right-from-square'></i>
-</a></div>
-<div class='alert alert-warning mb-0' id='fire-sport-not-connected'>
-<i class='far fa-warning me-2'></i>
-Keine Verknüpfung mit einer vorhandenen Mannschaft
-</div>
-
-</td>
-</tr>
-<tr>
-<th>Angereist?</th>
-<td>
-<div class='fa-pull-right'>
-<a class=" btn btn-light btn-sm" href="/2024/mv-cup/teams/UUID/markers/UUID/edit?return_to=team"><i class="far fa-edit"></i></a>
-</div>
-
-</td>
-</tr>
-</table>
+<div class='card-body'>
+<fieldset class="form-group radio_buttons required team_list_restriction_discipline form-group-valid"><div class="col-form-label pt-0">Disziplin <abbr title="required">*</abbr></div><input type="hidden" name="team_list_restriction[discipline_id]" value="" autocomplete="off" /><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="UUID" checked="checked" name="team_list_restriction[discipline_id]" id="team_list_restriction_discipline_id_UUID" /><label class="form-check-label collection_radio_buttons" for="team_list_restriction_discipline_id_UUID"><img src="/assets/disciplines/la.svg" width="20" height="20" /> Löschangriff Nass</label></div></fieldset>
+<div class="form-group select required team_list_restriction_team1 form-group-valid"><label class="control-label select required" for="team_list_restriction_team1_id">Mannschaft 1 <abbr title="required">*</abbr></label><select class="form-select select required" name="team_list_restriction[team1_id]" id="team_list_restriction_team1_id"><option value="" label=" "></option>
+<option selected="selected" value="UUID">Frauen-Team 1 Frauen</option>
+<option value="UUID">Frauen-Team 2 Frauen</option></select></div>
+<fieldset class="form-group radio_buttons required team_list_restriction_restriction form-group-valid"><div class="col-form-label pt-0">Bedingung <abbr title="required">*</abbr></div><input type="hidden" name="team_list_restriction[restriction]" value="" autocomplete="off" /><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="not_same_run" checked="checked" name="team_list_restriction[restriction]" id="team_list_restriction_restriction_not_same_run" /><label class="form-check-label collection_radio_buttons" for="team_list_restriction_restriction_not_same_run">nicht im gleichen Lauf</label></div><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="same_run" name="team_list_restriction[restriction]" id="team_list_restriction_restriction_same_run" /><label class="form-check-label collection_radio_buttons" for="team_list_restriction_restriction_same_run">im gleichen Lauf</label></div><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="before" name="team_list_restriction[restriction]" id="team_list_restriction_restriction_before" /><label class="form-check-label collection_radio_buttons" for="team_list_restriction_restriction_before">Lauf vor</label></div><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="after" name="team_list_restriction[restriction]" id="team_list_restriction_restriction_after" /><label class="form-check-label collection_radio_buttons" for="team_list_restriction_restriction_after">Lauf nach</label></div><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="distance1" name="team_list_restriction[restriction]" id="team_list_restriction_restriction_distance1" /><label class="form-check-label collection_radio_buttons" for="team_list_restriction_restriction_distance1">mindestens ein Lauf Abstand</label></div><div class="form-check"><input class="form-check-input radio_buttons required" type="radio" value="distance2" name="team_list_restriction[restriction]" id="team_list_restriction_restriction_distance2" /><label class="form-check-label collection_radio_buttons" for="team_list_restriction_restriction_distance2">mindestens zwei Läufe Abstand</label></div></fieldset>
+<div class="form-group select required team_list_restriction_team2"><label class="control-label select required" for="team_list_restriction_team2_id">Mannschaft 2 <abbr title="required">*</abbr></label><select class="form-select select required" name="team_list_restriction[team2_id]" id="team_list_restriction_team2_id"><option value="" label=" "></option>
+<option value="UUID">Frauen-Team 1 Frauen</option>
+<option value="UUID">Frauen-Team 2 Frauen</option></select></div>
 
 </div>
-<div class='card mb-3'>
-<div class='card-header p-0'>
-<div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Gewünschte Wertungen</h4>
-<a class="card-primary-action" href="/2024/mv-cup/teams/UUID/edit_assessment_requests">Wertungen bearbeiten
-<i class='far fa-edit'></i>
-</a>
+<div class='card-footer'>
+<div class='d-flex justify-content-between align-items-start'>
+<div><button name="button" type="submit" class="btn btn-primary" data-disable-with="Bitte warten...">Bedingung für Startliste erstellen</button>
+<a class="btn btn-secondary" href="/2024/mv-cup/team_list_restrictions">Abbrechen</a>
 </div>
 </div>
-<table class='table table-condensed'>
-<tr>
-<th>
-<img src="/assets/disciplines/fs.svg" width="20" height="20" />
-4x100m-Hindernisstaffel - Frauen
-</th>
-<td>
-<i class='far fa-xmark'></i>
-</td>
-</tr>
-<tr>
-<th>
-<img src="/assets/disciplines/la.svg" width="20" height="20" />
-Löschangriff Nass - Frauen
-</th>
-<td>
-<i class='far fa-check'></i>
-Mannschaftswertung
-</td>
-</tr>
-</table>
-
 </div>
 </div>
+</form></div>
 <div class='col-lg-4'>
 <div class='card'>
-<div class='card-header p-0'>
-<div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Aktionen</h4>
-<a class="card-primary-action" href="/2024/mv-cup/teams">Übersicht
-<i class='far fa-list'></i>
-</a>
-</div>
-</div>
 <div class='card-body'>
-<div class='d-grid gap-2'>
-<a class=" btn btn-light btn-sm" href="/2024/mv-cup/people/new?return_to=team&amp;team=UUID">Wettkämpfer hinzufügen</a>
-<a class=" btn btn-light btn-sm" href="/2024/mv-cup/teams/UUID/edit">Name bearbeiten</a>
-<a class=" btn btn-light btn-sm" href="/2024/mv-cup/teams/UUID/edit?form=registration_hint">Anmeldungshinweise bearbeiten</a>
-<a class=" btn btn-light btn-sm" href="/2024/mv-cup/team_list_restrictions/new?team1_id=UUID">Bedingung für Startliste hinzufügen</a>
-<a data-turbo-method="delete" data-turbo-confirm="Mannschaft wirklich löschen? Alle Zeiten usw. werden auch gelöscht!" class=" btn btn-light btn-sm" href="/2024/mv-cup/teams/UUID">Löschen</a>
-</div>
+<p>Diese Bedingungen gelten für das automatische Erstellen der Startliste. Außerdem wird beim Verschieben angezeigt, wenn sie nicht mehr eingehalten werden. Man ließt es so:</p>
+<p><em>Mannschaft 1 nicht im gleichen Lauf wie Mannschaft 2</em></p>
+<p>Wenn beim automatischen Erstellen keine gültige Reihenfolge gefunden wird, werden die Bedingungen immer weiter aufgeweicht, bis eine Startliste erzeugt werden kann.</p>
 
 </div>
 </div>
-</div>
-<div class='col-lg-12' id='people-table'>
-<div class='card'>
-<div class='card-header p-0'>
-<div class='d-flex justify-content-between'>
-<h4 class='m-0 py-2 ps-3'>Wettkämpfer</h4>
-<a class="card-primary-action" href="/2024/mv-cup/people/new?return_to=team&amp;team=UUID">Wettkämpfer hinzufügen
-<i class='far fa-square-plus'></i>
-</a>
-</div>
-</div>
-<div class='card-body'>
-<div class='alert alert-info'>Keine Einträge gefunden</div>
 
-</div>
-</div>
+
 </div>
 </div>
 </div>

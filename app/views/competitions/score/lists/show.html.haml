@@ -58,12 +58,13 @@
           - actions.link_to 'PDF', { format: :pdf }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
           - actions.link_to 'PDF für Kampfrichter', { format: :pdf, more_columns: true }, end_icon: :file_pdf, target: '_blank', rel: 'noopener'
 
-      - if can?(:edit, @list)
-        = card_body('Allgemein', class: 'mb-3') do
-          .d-grid.gap-2
-            = btn_link_to 'Bearbeiten', { action: :edit }
-            - if can?(:destroy, @list)
-              = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Startliste wirklich löschen? Alle bisher eingetragenen Zeiten dieser Liste gehen verloren!' }
+      = render 'restriction_check', list: @list
+
+      = card_body('Allgemein', class: 'mb-3') do
+        .d-grid.gap-2
+          = btn_link_to 'Bearbeiten', { action: :edit }
+          - if can?(:destroy, @list)
+            = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Startliste wirklich löschen? Alle bisher eingetragenen Zeiten dieser Liste gehen verloren!' }
 
     - if @list.results.present?
       = card_body('Ergebnisse') do

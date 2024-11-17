@@ -10,7 +10,7 @@
             = render 'list_entry', entry:, run:, track:, list: @list, best_of_run: false, move: true
 
   .col-lg-4
-    = card_body('Hinweise') do
+    = card_body('Hinweise', class: 'mb-3') do
       %p Einfach die Zeilen in die neue Position ziehen.
       .alert.alert-warning.d-none#pending-changes
         %p Die Veränderungen wurden noch nicht gespeichert.
@@ -19,3 +19,5 @@
           = block_link_to 'Abbrechen', { action: :show }
       .d-grid.gap-2#back-link
         = block_link_to 'Zurück', { action: :show }
+
+    .restriction-check= render 'restriction_check', list: @list

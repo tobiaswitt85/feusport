@@ -1,0 +1,8 @@
+- c.body do
+  = f.association :discipline, collection: @competition.disciplines.sort, as: :radio_buttons, label_method: ->(d) { safe_join([discipline_image(d.key, size: 20), d.name], ' ') }
+  = f.association :team1, collection: @competition.teams.sort, as: :select, label_method: :full_name_with_band
+  = f.input :restriction, as: :radio_buttons, collection: TeamListRestriction::RESTRICTIONS.keys, label_method: ->(res) { t("team_list_restriction.restrictions.#{res}") }
+  = f.association :team2, collection: @competition.teams.sort, as: :select, label_method: :full_name_with_band
+- c.footer do
+  = f.primary_button :submit
+  = f.cancel_button(competition_team_list_restrictions_path)

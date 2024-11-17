@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_14_071610) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_14_194749) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -487,6 +487,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_14_071610) do
     t.index ["competition_id"], name: "index_simple_accesses_on_competition_id"
   end
 
+  create_table "team_list_restrictions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "competition_id", null: false
+    t.uuid "team1_id", null: false
+    t.uuid "team2_id", null: false
+    t.uuid "discipline_id", null: false
+    t.integer "restriction", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["competition_id"], name: "index_team_list_restrictions_on_competition_id"
+    t.index ["discipline_id"], name: "index_team_list_restrictions_on_discipline_id"
+    t.index ["team1_id", "team2_id", "discipline_id"], name: "index_team_list_restrictions_unique", unique: true
+    t.index ["team1_id"], name: "index_team_list_restrictions_on_team1_id"
+    t.index ["team2_id"], name: "index_team_list_restrictions_on_team2_id"
+  end
+
   create_table "team_marker_values", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "team_marker_id", null: false
     t.uuid "team_id", null: false
@@ -627,6 +642,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_14_071610) do
   add_foreign_key "score_results", "competitions"
   add_foreign_key "score_results", "score_results", column: "double_event_result_id"
   add_foreign_key "simple_accesses", "competitions"
+  add_foreign_key "team_list_restrictions", "competitions"
+  add_foreign_key "team_list_restrictions", "disciplines"
+  add_foreign_key "team_list_restrictions", "teams", column: "team1_id"
+  add_foreign_key "team_list_restrictions", "teams", column: "team2_id"
   add_foreign_key "team_marker_values", "team_markers"
   add_foreign_key "team_marker_values", "teams"
   add_foreign_key "team_markers", "competitions"

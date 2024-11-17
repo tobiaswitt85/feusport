@@ -13,6 +13,10 @@ class Team < ApplicationRecord
   has_many :requested_assessments, through: :requests, source: :assessment
   has_many :team_relays, dependent: :destroy
   has_many :team_marker_values, dependent: :destroy
+  has_many :team1_list_restrictions, class_name: 'TeamListRestriction', dependent: :destroy, inverse_of: :team1,
+                                     foreign_key: :team1_id
+  has_many :team2_list_restrictions, class_name: 'TeamListRestriction', dependent: :destroy, inverse_of: :team2,
+                                     foreign_key: :team2_id
 
   schema_validations
   validates :number, numericality: { greater_than: 0 }
@@ -59,6 +63,10 @@ class Team < ApplicationRecord
 
   def team
     self
+  end
+
+  def team_list_restrictions
+    TeamListRestriction.team(id).order(:id)
   end
 
   private

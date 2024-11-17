@@ -1,0 +1,17 @@
+%table.table.table-condensed
+  - resource_collection.sort.each do |restriction|
+    %tr
+      %td= discipline_image(restriction.discipline.key)
+      %td
+        = link_to(competition_team_path(id: restriction.team1.id)) do
+          = restriction.team1.full_name
+          %br
+          %small= restriction.team1.band.name
+      %td{ title: restriction.restriction_name }= restriction.short_restriction_name
+      %td
+        = link_to(competition_team_path(id: restriction.team2.id)) do
+          = restriction.team2.full_name
+          %br
+          %small= restriction.team2.band.name
+      %td.text-end
+        = btn_link_to(t('a.edit'), edit_competition_team_list_restriction_path(id: restriction.id))

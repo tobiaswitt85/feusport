@@ -1,0 +1,17 @@
+- restriction_check = TeamListRestriction::Check.new(list)
+- unless restriction_check.valid_from_list?(list.entries)
+  = card_direct('Ungültige Bedingungen', class: 'mb-3 text-bg-warning') do
+    %table.table.table-condensed.small.table-warning
+      - restriction_check.errors.each do |restriction|
+        %tr
+          %td
+            = link_to(competition_team_path(id: restriction.team1.id)) do
+              = restriction.team1.full_name
+              %br
+              %small= restriction.team1.band.name
+          %td{ title: restriction.restriction_name }= restriction.short_restriction_name
+          %td
+            = link_to(competition_team_path(id: restriction.team2.id)) do
+              = restriction.team2.full_name
+              %br
+              %small= restriction.team2.band.name

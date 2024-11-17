@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20241114060642
+# generated from version 20241114194749
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -124,6 +124,8 @@ module SchemaValidations
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}
       validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :importable_for_me, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+      validates_with_filter :importable_for_others, {:inclusion=>{:in=>[true, false], :message=>:blank}}
     end
 
     def dbv_certificates_text_fields_validations(enums: [])
@@ -599,6 +601,22 @@ module SchemaValidations
       uniqueness_validations_for([["competition_id", "name"]])
       validates_with_filter :competition_id, {:presence=>{}}
       validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
+    end
+
+    def dbv_team_list_restrictions_validations(enums: [])
+      belongs_to_presence_validations_for([:competition_id, :team1_id, :team2_id, :discipline_id, :restriction])
+      belongs_to_uniqueness_validations_for([["team1_id", "team2_id", "discipline_id"]])
+      uniqueness_validations_for([["team1_id", "team2_id", "discipline_id"]])
+      validates_with_filter :competition_id, {:presence=>{}}
+      validates_with_filter :team1_id, {:presence=>{}}
+      validates_with_filter :team2_id, {:presence=>{}}
+      validates_with_filter :discipline_id, {:presence=>{}}
+      validates_with_filter :restriction, {:presence=>{}}
+      validates_with_filter :restriction, {:numericality=>{:allow_nil=>true, :only_integer=>true, :greater_than_or_equal_to=>-2147483648, :less_than=>2147483648}} unless enums.include?(:restriction)
       validates_with_filter :created_at, {:presence=>{}}
       validates_with_filter :created_at, {:date_time_in_db_range=>{}}
       validates_with_filter :updated_at, {:presence=>{}}

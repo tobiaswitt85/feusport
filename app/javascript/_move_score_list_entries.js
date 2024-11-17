@@ -51,6 +51,9 @@ const bindSortedTable = function () {
         table.classList.remove('animate-fade-out');
         table.classList.add('animate-fade-in');
         table.addEventListener('animationend', animationEndCallback);
+
+        var newRestrictionCheck = doc.querySelector('.restriction-check');
+        document.querySelector('.restriction-check').replaceWith(newRestrictionCheck);
       });
   };
 

@@ -49,7 +49,7 @@
                   = icon_link_btn('far fa-edit', edit_competition_team_marker_path(team_id: @team.id, id: team_marker.id, return_to: 'team'))
                 = @team.team_marker_values.find_by(team_marker:)&.value
 
-    = card("Gewünschte #{Assessment.model_name.human(count: :many)}") do |c|
+    = card("Gewünschte #{Assessment.model_name.human(count: :many)}", class: 'mb-3') do |c|
       - if can?(:edit, @team)
         - c.primary_actions do |actions|
           - actions.link_to 'Wertungen bearbeiten', { action: :edit_assessment_requests }, end_icon: :edit
@@ -69,6 +69,13 @@
                 - else
                   %i.far.fa-xmark
 
+    - if can?(:edit, @team) && @team.team_list_restrictions.present?
+      = card(TeamListRestriction.model_name.human(count: :many), class: 'mb-3') do |c|
+        - c.primary_actions do |actions|
+          - actions.link_to 'Bedingung hinzufügen', new_competition_team_list_restriction_path(team1_id: @team.id), end_icon: :square_plus
+        - c.direct do
+          = render('competitions/team_list_restrictions/index_table', resource_collection: @team.team_list_restrictions)
+
   - if can?(:edit, @team)
     .col-lg-4
       = card(t('a.actions')) do |c|
@@ -79,6 +86,7 @@
             = btn_link_to 'Wettkämpfer hinzufügen', new_competition_person_path(team: @team, return_to: 'team')
             = btn_link_to 'Name bearbeiten', { action: :edit }
             = btn_link_to 'Anmeldungshinweise bearbeiten', { action: :edit, form: 'registration_hint' }
+            = btn_link_to 'Bedingung für Startliste hinzufügen', new_competition_team_list_restriction_path(team1_id: @team.id)
             = btn_link_to 'Löschen', { action: :destroy }, data: { turbo_method: 'delete', turbo_confirm: 'Mannschaft wirklich löschen? Alle Zeiten usw. werden auch gelöscht!' }
 
   - if can?(:edit, @team) || @team.people.exists?

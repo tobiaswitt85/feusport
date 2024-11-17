@@ -2,7 +2,7 @@
 
 .row.g-4
   .col-lg-8
-    = card(resource_class.model_name.human(count: :many)) do |c|
+    = card(resource_class.model_name.human(count: :many), class: 'mb-3') do |c|
       - if resource_collection.exists?
         - c.direct do
           = render('index_table', resource_class:, resource_collection:)
@@ -16,3 +16,8 @@
 
         - c.actions do |actions|
           - actions.link_to 'Mehrere zusammen drucken', competition_score_list_print_generators_path
+  - if can?(:manage, @competition)
+    .col-lg-4
+      = card_body(t('a.actions'), class: 'mb-3') do |_c|
+        .d-grid.gap-2.col-10.mx-auto
+          = link_to 'Mannschaftsbedingungen', competition_team_list_restrictions_path, class: 'btn btn-light btn-sm'

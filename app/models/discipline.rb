@@ -25,6 +25,7 @@ class Discipline < ApplicationRecord
 
   belongs_to :competition, touch: true
   has_many :assessments, dependent: :restrict_with_error
+  has_many :team_list_restrictions, dependent: :destroy
 
   scope :single_disciplines, -> { where(single_discipline: true) }
   auto_strip_attributes :name, :short_name

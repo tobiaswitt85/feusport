@@ -19,6 +19,11 @@ de:
         registration_hint: Anmeldungshinweise
         shortcut: Abkürzung
         tags: Kennzeichnungen
+      team_list_restriction:
+        discipline: Disziplin
+        restriction: Bedingung
+        team1: Mannschaft 1
+        team2: Mannschaft 2
       team_marker:
         name: Name
         value_type: Art des Wertes
@@ -30,12 +35,30 @@ de:
       team:
         one: Mannschaft
         other: Mannschaften
+      team_list_restriction:
+        one: Bedingung für Startliste
+        other: Bedingungen für Startliste
       team_marker:
         one: Mannschaftsspalte
         other: Mannschaftsspalten
       team_marker_value:
         one: Wert
         other: Werte
+  team_list_restriction:
+    restrictions:
+      after: Lauf nach
+      before: Lauf vor
+      distance1: mindestens ein Lauf Abstand
+      distance2: mindestens zwei Läufe Abstand
+      not_same_run: nicht im gleichen Lauf
+      same_run: im gleichen Lauf
+    restrictions_short:
+      after: "<"
+      before: ">"
+      distance1: "+1"
+      distance2: "+2"
+      not_same_run: "≠"
+      same_run: "="
   team_markers:
     value_types:
       boolean: Ja/Nein-Wert
