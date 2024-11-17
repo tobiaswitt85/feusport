@@ -18,7 +18,7 @@ class TeamMarkerValue < ApplicationRecord
   end
 
   def value_present?
-    return true if value_type_boolean?
+    return true if value_type_boolean? && boolean_value?
     return true if value_type_date? && date_value.present?
     return true if value_type_string? && string_value.present?
 
