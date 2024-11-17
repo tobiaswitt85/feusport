@@ -9,10 +9,10 @@ RSpec.describe TeamMarkerValue do
     value = described_class.new(team_marker:)
 
     expect(value.value).to eq 'Nein'
-    expect(value.value_present?).to be true
+    expect(value.value_present?).to be false
     value.boolean_value = false
     expect(value.value).to eq 'Nein'
-    expect(value.value_present?).to be true
+    expect(value.value_present?).to be false
     value.boolean_value = true
     expect(value.value).to eq 'Ja'
     expect(value.value_present?).to be true
