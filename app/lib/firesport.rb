@@ -2,6 +2,7 @@
 
 module Firesport
   INVALID_TIME = 99_999_999
+  INVALID_STRING = 'o.W.'
 
   module TimeInvalid
     extend ActiveSupport::Concern
@@ -22,9 +23,9 @@ module Firesport
 
   class Time
     def self.second_time(time)
-      return 'D' if (time.is_a?(Float) || time.is_a?(BigDecimal)) && time.nan?
-      return 'D' if time.blank?
-      return 'D' if time >= INVALID_TIME
+      return Firesport::INVALID_STRING if (time.is_a?(Float) || time.is_a?(BigDecimal)) && time.nan?
+      return Firesport::INVALID_STRING if time.blank?
+      return Firesport::INVALID_STRING if time >= INVALID_TIME
 
       minus = time.to_i.negative? ? '-' : ''
       deci = time.to_i.abs % 100

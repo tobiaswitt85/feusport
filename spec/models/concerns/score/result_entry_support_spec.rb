@@ -40,7 +40,7 @@ RSpec.describe Score::ResultEntrySupport do
       expect(result_entry.long_human_time).to eq 'Ungültig'
 
       result_entry.result_type = :invalid
-      expect(result_entry.human_time).to eq 'D'
+      expect(result_entry.human_time).to eq 'o.W.'
       expect(result_entry.long_human_time).to eq 'Ungültig'
 
       result_entry.result_type = :valid

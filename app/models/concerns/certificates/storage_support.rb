@@ -16,9 +16,11 @@ module Certificates::StorageSupport
     when :time_other_long
       storage_support_time_very_long('belegte ')
     when :time_short
-      result_entry.long_human_time(seconds: 's', invalid: 'D') if respond_to?(:result_entry)
+      result_entry.long_human_time(seconds: 's', invalid: Firesport::INVALID_STRING) if respond_to?(:result_entry)
     when :time_without_seconds
-      result_entry.human_time.gsub(/[DN]/, '-').delete('s').strip if respond_to?(:result_entry)
+      if respond_to?(:result_entry)
+        result_entry.human_time.tr('N', '-').gsub(Firesport::INVALID_STRING, '-').delete('s').strip
+      end
     when :rank
       "#{result.place_for_row(self)}."
     when :rank_with_rank

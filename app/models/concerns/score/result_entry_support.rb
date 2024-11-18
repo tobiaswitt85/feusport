@@ -43,7 +43,7 @@ module Score::ResultEntrySupport
     if result_valid?
       second_time.to_s
     elsif result_invalid?
-      'D'
+      Firesport::INVALID_STRING
     elsif result_no_run?
       'N'
     else

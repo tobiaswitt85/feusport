@@ -188,7 +188,7 @@ RSpec.describe Score::Result do
               person_name: person4.full_name,
               person_bib_number: '',
               time_long: 'Ungültig',
-              time_short: 'D',
+              time_short: 'o.W.',
               time_without_seconds: '-',
               time_very_long: 'mit einer ungültigen Zeit',
               time_other_long: 'belegte mit einer ungültigen Zeit',
