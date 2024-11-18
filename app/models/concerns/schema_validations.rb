@@ -4,7 +4,7 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 
-# generated from version 20241114194749
+# generated from version 20241118214336
 
 module SchemaValidations
   extend ActiveSupport::Concern
@@ -738,6 +738,21 @@ module SchemaValidations
       validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
       validates_with_filter :user_manager, {:inclusion=>{:in=>[true, false], :message=>:blank}}
       validates_with_filter :competition_manager, {:inclusion=>{:in=>[true, false], :message=>:blank}}
+    end
+
+    def dbv_wkos_validations(enums: [])
+      belongs_to_uniqueness_validations_for([["slug"]])
+      uniqueness_validations_for([["slug"]])
+      validates_with_filter :name, {:presence=>{}}
+      validates_with_filter :name, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :slug, {:presence=>{}}
+      validates_with_filter :slug, {:length=>{:allow_nil=>true, :maximum=>100}}
+      validates_with_filter :subtitle, {:presence=>{}}
+      validates_with_filter :description_md, {:presence=>{}}
+      validates_with_filter :created_at, {:presence=>{}}
+      validates_with_filter :created_at, {:date_time_in_db_range=>{}}
+      validates_with_filter :updated_at, {:presence=>{}}
+      validates_with_filter :updated_at, {:date_time_in_db_range=>{}}
     end
 
 

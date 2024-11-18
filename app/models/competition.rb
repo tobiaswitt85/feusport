@@ -4,6 +4,7 @@ class Competition < ApplicationRecord
   REGISTRATION_OPEN = { unstated: 0, open: 1, close: 2 }.freeze
   enum :registration_open, REGISTRATION_OPEN, scopes: false, prefix: true
 
+  belongs_to :wko
   has_many :documents, dependent: :destroy
   has_many :disciplines, dependent: :destroy
   has_many :bands, dependent: :destroy

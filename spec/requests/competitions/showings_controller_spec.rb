@@ -28,7 +28,8 @@ RSpec.describe 'competitions/visibilities' do
   end
 
   describe 'simple_access_login' do
-    let!(:competition) { create(:competition, visible: true) }
+    let(:wko) { create(:wko) }
+    let!(:competition) { create(:competition, visible: true, wko:) }
 
     it 'logs in and out' do
       access = SimpleAccess.create!(competition:, name: 'test', password: 'secret')

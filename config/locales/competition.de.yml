@@ -22,6 +22,7 @@ de:
         show_bib_numbers: Startnummern
         slug: URL-Bestandteil
         visible: Sichtbar
+        wko: WKO
     models:
       competition:
         one: Wettkampf

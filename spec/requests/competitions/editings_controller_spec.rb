@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'competitions/editings' do
   let!(:competition) { create(:competition) }
   let!(:user) { competition.users.first }
+  let!(:wko) { create(:wko) }
 
   describe 'edit competition' do
     it 'uses CRUD' do
@@ -19,9 +20,10 @@ RSpec.describe 'competitions/editings' do
 
       patch "/#{competition.year}/#{competition.slug}/editing",
             params: { competition: { name: 'Foo', date: '2024-02-29', place: 'Berlin',
-                                     description: 'new-description' } }
+                                     description: 'new-description', wko_id: wko.id } }
 
       expect(competition.reload.description).to eq 'new-description'
+      expect(competition.wko).to eq wko
     end
   end
 end

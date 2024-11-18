@@ -1,0 +1,22 @@
+- page_title(@wko.name)
+
+- content_for :page_header do
+  %h1= @wko.name
+  %p.lead.mb-0= @wko.subtitle
+
+.row.g-4
+  .col-lg-6
+    = card_body('Beschreibung') do
+      != @wko.description_html
+  .col-lg-6
+    = card_body('PDF-Download') do
+      = link_to rails_blob_path(@wko.file, disposition: 'attachment') do
+        .row
+          .col-4
+            .btn.btn-dark Herunterladen
+          .col-4
+            - if @wko.file.representable?
+              = image_tag @wko.file.representation(resize_to_limit: [100, 100])
+          .col-4
+            .sm= number_to_human_size @wko.file.byte_size
+            .sm= @wko.file.filename

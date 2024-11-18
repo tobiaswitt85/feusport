@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
   }
 
+  resources :wko, only: %i[show]
+
   namespace :competitions do
     resource :creations, only: %i[new create]
   end

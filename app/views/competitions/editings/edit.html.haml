@@ -11,6 +11,15 @@
           = f.input :description, input_html: { class: 'easymde-required' }, hint: 'Du kannst den Text mittels <em>Markdown</em> formatieren.'.html_safe
 
           %fieldset.group
+            %legend Wettkampfordnung
+
+            .row
+              .col-md-6
+                = f.association :wko, collection: Wko.reorder(:name)
+              .col-md-6
+                %small.text-muted Die ausgewählte Wettkampfordnung wird verlinkt und kann somit schnell von den Wettkämpfern gefunden werden.
+
+          %fieldset.group
             %legend Kennzeichnungen
 
             .row

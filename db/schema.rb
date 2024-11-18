@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_14_194749) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_18_214336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -134,7 +134,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_14_194749) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "locked_at"
+    t.uuid "wko_id"
     t.index ["date"], name: "index_competitions_on_date"
+    t.index ["wko_id"], name: "index_competitions_on_wko_id"
     t.index ["year", "slug"], name: "index_competitions_on_year_and_slug", unique: true
   end
 
@@ -603,6 +605,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_14_194749) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "wkos", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", limit: 100, null: false
+    t.string "slug", limit: 100, null: false
+    t.string "subtitle", null: false
+    t.text "description_md", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_wkos_on_slug", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assessment_requests", "assessments"
@@ -610,6 +622,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_14_194749) do
   add_foreign_key "bands", "competitions"
   add_foreign_key "certificates_templates", "competitions"
   add_foreign_key "certificates_text_fields", "certificates_templates", column: "template_id"
+  add_foreign_key "competitions", "wkos"
   add_foreign_key "disciplines", "competitions"
   add_foreign_key "documents", "competitions"
   add_foreign_key "fire_sport_statistics_publishings", "competitions"
