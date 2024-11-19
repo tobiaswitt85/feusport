@@ -8,6 +8,10 @@ class Wko < ApplicationRecord
   schema_validations
   validates :file, presence: true, blob: { content_type: ['application/pdf'] }
 
+  def self.current
+    find_by(slug: '2023')
+  end
+
   def description_html
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     markdown.render(description_md)

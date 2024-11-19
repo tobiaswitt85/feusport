@@ -3,7 +3,7 @@
 class Competitions::CreationsController < ApplicationController
   def new
     authorize!(:create, Competition)
-    @competition = Competition.new
+    @competition = Competition.new(wko: Wko.current)
     @competition.users.push(current_user)
     authorize!(:create, @competition)
   end
@@ -28,7 +28,7 @@ class Competitions::CreationsController < ApplicationController
 
   def competition_params
     params.require(:competition).permit(
-      :name, :date, :place
+      :name, :date, :place, :wko_id
     )
   end
 end

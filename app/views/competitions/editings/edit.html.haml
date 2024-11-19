@@ -15,7 +15,7 @@
 
             .row
               .col-md-6
-                = f.association :wko, collection: Wko.reorder(:name)
+                = f.association :wko, collection: Wko.reorder(name: :desc), label: false
               .col-md-6
                 %small.text-muted Die ausgewählte Wettkampfordnung wird verlinkt und kann somit schnell von den Wettkämpfern gefunden werden.
 

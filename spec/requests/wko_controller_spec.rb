@@ -8,7 +8,7 @@ RSpec.describe Wko do
   describe 'GET /wko/2023' do
     before do
       view_sanitizer.gsub(%r{active_storage/blobs/redirect/[^/]+/}, 'BLOBID')
-      view_sanitizer.gsub(%r{active_storage/representations/redirect/[^/]+/}, 'BLOBID')
+      view_sanitizer.gsub(%r{active_storage/representations/redirect/[^/]+/[^/]+/}, 'BLOBID')
     end
 
     it_renders 'wko description' do

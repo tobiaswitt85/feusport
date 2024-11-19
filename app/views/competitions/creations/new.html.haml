@@ -8,6 +8,15 @@
           = f.input :name, autofocus: true
           = f.input :date, html5: true
           = f.input :place, html5: true
+
+          %fieldset.group
+            %legend Wettkampfordnung
+            .row
+              .col-md-6
+                = f.association :wko, collection: Wko.reorder(name: :desc), label: false
+              .col-md-6
+                %small.text-muted Die ausgewählte Wettkampfordnung wird verlinkt und kann somit schnell von den Wettkämpfern gefunden werden.
+
         - c.footer do
           = f.primary_button :submit, 'Erstellen und weiter zum nächsten Schritt'
           = f.cancel_button(root_path)

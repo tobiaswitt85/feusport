@@ -6,9 +6,6 @@
 
 .row.g-4
   .col-lg-6
-    = card_body('Beschreibung') do
-      != @wko.description_html
-  .col-lg-6
     = card_body('PDF-Download') do
       = link_to rails_blob_path(@wko.file, disposition: 'attachment') do
         .row
@@ -20,3 +17,6 @@
           .col-4
             .sm= number_to_human_size @wko.file.byte_size
             .sm= @wko.file.filename
+  .col-lg-6
+    = card_body('Beschreibung') do
+      != @wko.description_html
