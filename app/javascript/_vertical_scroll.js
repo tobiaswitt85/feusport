@@ -7,6 +7,7 @@ onVisit(function () {
   arrowRight.innerText = '→';
 
   const container = document.querySelector('.page-tabs .nav-pills');
+  if (!container) return;
 
   container.addEventListener('scroll', function () {
     if (container.scrollLeft > 0) {
