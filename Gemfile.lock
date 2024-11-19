@@ -15,17 +15,6 @@ GIT
     capistrano-rsync-plugin (0.2.0)
       capistrano (>= 3.0.0.pre)
 
-GIT
-  remote: https://github.com/Lichtbit/spec_views
-  revision: 4481b340c7ce45d11c9120b54a150e87b9aa4df2
-  branch: debug-output
-  specs:
-    spec_views (3.5.0)
-      diff-lcs (~> 1.5)
-      rails (>= 5.0, < 8.0)
-      rspec-rails (>= 5.0, < 7.0)
-      timecop (~> 0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -436,6 +425,11 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.13.1)
     simplecov_json_formatter (0.1.4)
+    spec_views (3.5.0)
+      diff-lcs (~> 1.5)
+      rails (>= 5.0, < 8.0)
+      rspec-rails (>= 5.0, < 7.0)
+      timecop (~> 0.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -547,7 +541,7 @@ DEPENDENCIES
   sassc-rails
   simple_form
   simplecov
-  spec_views!
+  spec_views
   sprockets-rails
   sqlite3
   turbo-rails

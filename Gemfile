@@ -54,9 +54,7 @@ group :development, :test do
   gem 'debug' # debugger
 
   gem 'rspec-rails' # test framework
-  gem 'spec_views', git: 'https://github.com/Lichtbit/spec_views/', branch: 'debug-output'
-
-  # gem 'spec_views' # compare html output
+  gem 'spec_views' # compare html output
   gem 'factory_bot' # create db fixtures
   gem 'vcr' # record http requests
   gem 'webmock' # mock http requests

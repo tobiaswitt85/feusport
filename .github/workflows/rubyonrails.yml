@@ -26,7 +26,6 @@ jobs:
       RAILS_ENV: test
       BUNDLE_WITHOUT: production development
       DATABASE_URL: "postgres://feusport:feusport@localhost:5432/feusport-test"
-      SPEC_VIEWS_DEBUG_OUTPUT: 1
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
