@@ -37,8 +37,8 @@ jobs:
           bundler-cache: true
       - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: libvips
-          version: 1.0
+          packages: libvips mupdf-tools
+          version: 1.1
 
       - name: Set up database schema
         run: bin/rails db:schema:load
