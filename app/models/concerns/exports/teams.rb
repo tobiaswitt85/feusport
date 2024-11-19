@@ -12,6 +12,7 @@ module Exports::Teams
     ]
     headline.push('Los') if competition.lottery_numbers?
     headline.push(Team.human_attribute_name(:shortcut)) if full
+    headline.push(Team.human_attribute_name(:certificate_name)) if full && all_columns
     band.team_tags.each { |tag| headline.push(tag) }
 
     assessments = Assessment.requestable_for_team(band)
@@ -41,6 +42,7 @@ module Exports::Teams
       ]
       line.push(team.lottery_number) if competition.lottery_numbers?
       line.push(team.shortcut) if full
+      line.push(team.real_certificate_name) if full && all_columns
       band.team_tags.each { |tag| line.push(team.tags.include?(tag) ? 'X' : '') }
 
       assessments.each do |assessment|

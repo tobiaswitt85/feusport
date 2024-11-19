@@ -210,4 +210,23 @@ RSpec.describe Team do
       expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams")
     end
   end
+
+  context 'when certificate_name form is selected' do
+    let!(:team) { create(:team, competition:, band:) }
+
+    it 'shows other form' do
+      sign_in user
+
+      expect(team.reload.real_certificate_name).to eq 'Frauen-Team'
+
+      get "/#{competition.year}/#{competition.slug}/teams/#{team.id}/edit?part=certificate_name"
+      expect(response).to match_html_fixture.with_affix('form')
+
+      patch "/#{competition.year}/#{competition.slug}/teams/#{team.id}",
+            params: { team: { certificate_name: 'other' } }
+      expect(response).to redirect_to("/#{competition.year}/#{competition.slug}/teams/#{team.id}")
+
+      expect(team.reload.real_certificate_name).to eq 'other'
+    end
+  end
 end

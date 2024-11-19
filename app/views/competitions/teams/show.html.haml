@@ -7,6 +7,13 @@
         %tr
           %th= Team.human_attribute_name(:name)
           %td= @team.name
+        - if can?(:manage, @competition)
+          %tr
+            %th= Team.human_attribute_name(:certificate_name)
+            %td
+              .fa-pull-right
+                = icon_link_btn('far fa-edit', edit_competition_team_path(id: @team.id, part: 'certificate_name'))
+              = @team.real_certificate_name
         %tr
           %th= Team.human_attribute_name(:shortcut)
           %td= @team.shortcut

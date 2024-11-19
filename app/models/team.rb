@@ -69,6 +69,10 @@ class Team < ApplicationRecord
     TeamListRestriction.team(id).order(:id)
   end
 
+  def real_certificate_name
+    certificate_name.presence || full_name
+  end
+
   private
 
   def create_assessment_requests

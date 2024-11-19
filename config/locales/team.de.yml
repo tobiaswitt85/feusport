@@ -11,6 +11,7 @@ de:
     attributes:
       team:
         band: Wertungsgruppe
+        certificate_name: Name auf der Urkunde
         federal_state: Bundesland
         lottery_number: Losnummer
         name: Name

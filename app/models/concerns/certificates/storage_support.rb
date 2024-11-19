@@ -4,7 +4,7 @@ module Certificates::StorageSupport
   def storage_support_get(position)
     case position.key
     when :team_name
-      entity.is_a?(TeamRelay) ? entity&.full_name : entity&.team&.full_name
+      entity.is_a?(TeamRelay) ? entity&.full_name : entity&.team&.real_certificate_name
     when :person_name
       entity&.full_name
     when :person_bib_number

@@ -1,30 +1,35 @@
 - c.body do
-  - unless @team.persisted?
-    = hidden_field_tag :band_id, @team.band_id
-  - if params[:form] == 'registration_hint'
-    = hidden_field_tag :form, 'registration_hint'
-    = f.input :registration_hint, input_html: { rows: 4 }
+  - if params[:part] == 'certificate_name'
+    = hidden_field_tag :part, 'certificate_name'
+    = f.input :certificate_name, hint: "Wird bei Nichtangabe automatisch mit »#{@team.full_name}« gefüllt, kann man hier überschreiben."
+
   - else
-    = f.association :band, disabled: true
-    = f.input :name, input_html: { autocomplete: :off }, hint: 'Keine Nummern im Namen angeben!'
-    .suggestions-entries.for-teams
-      %table.table.table-hover.table-condensed
-    = f.input :shortcut, input_html: { maxlength: 12 }, hint: 'Keine Nummern im Namen angeben!'
-    = f.input :number, hint: 'Die Nummer wird erst angezeigt, wenn es mehrere Mannschaften mit gleichen Namen gibt.'
-    - if @team.band.team_tags.present?
-      = f.input :tags, as: :check_boxes, collection: @team.band.team_tags
-    = f.hidden_field :fire_sport_statistics_team_id, data: { name: @team.fire_sport_statistics_team&.name }
+    - unless @team.persisted?
+      = hidden_field_tag :band_id, @team.band_id
+    - if params[:form] == 'registration_hint'
+      = hidden_field_tag :form, 'registration_hint'
+      = f.input :registration_hint, input_html: { rows: 4 }
+    - else
+      = f.association :band, disabled: true
+      = f.input :name, input_html: { autocomplete: :off }, hint: 'Keine Nummern im Namen angeben!'
+      .suggestions-entries.for-teams
+        %table.table.table-hover.table-condensed
+      = f.input :shortcut, input_html: { maxlength: 12 }, hint: 'Keine Nummern im Namen angeben!'
+      = f.input :number, hint: 'Die Nummer wird erst angezeigt, wenn es mehrere Mannschaften mit gleichen Namen gibt.'
+      - if @team.band.team_tags.present?
+        = f.input :tags, as: :check_boxes, collection: @team.band.team_tags
+      = f.hidden_field :fire_sport_statistics_team_id, data: { name: @team.fire_sport_statistics_team&.name }
 
-    .mb-0.mt-3 Verknüpfung
-    = render('connected', team: @team, remove: true)
-    %small.form-text.text-muted Eine Verknüpfung ist bei Wettkampfserien wichtig, um vorhanden Ergebnisse zu nutzen.
+      .mb-0.mt-3 Verknüpfung
+      = render('connected', team: @team, remove: true)
+      %small.form-text.text-muted Eine Verknüpfung ist bei Wettkampfserien wichtig, um vorhanden Ergebnisse zu nutzen.
 
-    - if @team.applicant.present?
-      %fieldset.group
-        .col-md-6
-          %strong Angemeldet durch:
-          = @team.applicant.name
-        = f.input :registration_hint, input_html: { rows: 4 }
+      - if @team.applicant.present?
+        %fieldset.group
+          .col-md-6
+            %strong Angemeldet durch:
+            = @team.applicant.name
+          = f.input :registration_hint, input_html: { rows: 4 }
 
 - c.footer do
   = f.primary_button :submit
