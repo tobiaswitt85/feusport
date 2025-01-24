@@ -67,6 +67,8 @@ class Competitions::Score::ListsController < CompetitionNestedController
   protected
 
   def list_params
+    return {} unless params.key?(:score_list)
+
     editable_attributes = %i[
       id run track entity_id entity_type _destroy assessment_type assessment_id
     ]

@@ -72,6 +72,8 @@ class Competitions::PeopleController < CompetitionNestedController
   end
 
   def person_params
+    return {} unless params.key?(:person)
+
     params.require(:person).permit(
       :first_name, :last_name, :team_id, :band_id, :fire_sport_statistics_person_id, :registration_hint,
       :registration_order, :bib_number, :create_team_name,
