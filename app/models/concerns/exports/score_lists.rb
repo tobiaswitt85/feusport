@@ -4,7 +4,6 @@ module Exports::ScoreLists
   def show_export_data(list, more_columns: false, pdf: false, hint_size: 6,
                        show_bib_numbers: competition.show_bib_numbers?,
                        separate_target_times_as_columns: false)
-
     data = [show_export_header(list, more_columns:,
                                      show_bib_numbers:,
                                      separate_target_times_as_columns:)]
