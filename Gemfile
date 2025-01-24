@@ -46,6 +46,8 @@ gem 'matrix'
 
 gem 'sqlite3' # to import old wettkampf-manager databases
 
+gem 'concurrent-ruby', '1.3.4' # to hold an this gem in the old version, wait for fix
+
 group :production do
   gem 'unicorn' # compiled webserver
 end

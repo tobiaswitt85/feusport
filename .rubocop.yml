@@ -57,7 +57,11 @@ Lint/AmbiguousOperatorPrecedence:
   Enabled: true
 Lint/AmbiguousRange:
   Enabled: true
+Lint/ArrayLiteralInRegexp:
+  Enabled: true
 Lint/ConstantOverwrittenInRescue:
+  Enabled: true
+Lint/ConstantReassignment:
   Enabled: true
 Lint/DeprecatedConstants:
   Enabled: true
@@ -77,6 +81,8 @@ Lint/EmptyClass:
   Enabled: true
 Lint/EmptyInPattern:
   Enabled: true
+Lint/HashNewWithKeywordArgumentsAsDefault:
+  Enabled: true
 Lint/IncompatibleIoSelectWithFiberScheduler:
   Enabled: true
 Lint/ItWithoutArgumentsInBlock:
@@ -93,6 +99,8 @@ Lint/NonAtomicFileOperation:
   Enabled: true
 Lint/NumberedParameterAssignment:
   Enabled: true
+Lint/NumericOperationWithConstantResult:
+  Enabled: true
 Lint/OrAssignmentToConstant:
   Enabled: true
 Lint/RedundantDirGlobSort:
@@ -104,6 +112,8 @@ Lint/RefinementImportMethods:
 Lint/RequireRangeParentheses:
   Enabled: true
 Lint/RequireRelativeSelfPath:
+  Enabled: true
+Lint/SharedMutableDefault:
   Enabled: true
 Lint/SymbolConversion:
   Enabled: true
@@ -119,6 +129,8 @@ Lint/UnmodifiedReduceAccumulator:
   Enabled: true
 Lint/UselessAssignment:
   AutoCorrect: false
+Lint/UselessDefined:
+  Enabled: true
 Lint/UselessNumericOperation:
   Enabled: true
 Lint/UselessRescue:
@@ -182,6 +194,8 @@ Performance/ReverseFirst:
 Performance/SortReverse:
   Enabled: true
 Performance/Squeeze:
+  Enabled: true
+Performance/StringBytesize:
   Enabled: true
 Performance/StringIdentifierArgument:
   Enabled: true
@@ -262,8 +276,6 @@ RSpec/SortMetadata:
 RSpec/SpecFilePathFormat:
   Enabled: true
 RSpec/SpecFilePathSuffix:
-  Enabled: true
-RSpec/StringAsInstanceDoubleConstant:
   Enabled: true
 RSpec/StubbedMock:
   Enabled: false
@@ -353,6 +365,8 @@ Rails/MatchRoute:
   Enabled: true
 Rails/MigrationClassName:
   Enabled: true
+Rails/MultipleRoutePaths:
+  Enabled: true
 Rails/NegateInclude:
   Enabled: true
 Rails/Output:
@@ -397,6 +411,8 @@ Rails/SkipsModelValidations:
 Rails/SquishedSQLHeredocs:
   Enabled: true
 Rails/StripHeredoc:
+  Enabled: true
+Rails/StrongParametersExpect:
   Enabled: true
 Rails/ThreeStateBooleanColumn:
   Enabled: true
@@ -463,6 +479,8 @@ Style/ConcatArrayLiterals:
   Enabled: true
 Style/DataInheritance:
   Enabled: true
+Style/DigChain:
+  Enabled: true
 Style/DirEmpty:
   Enabled: true
 Style/DocumentDynamicEvalDefinition:
@@ -481,7 +499,11 @@ Style/FetchEnvVar:
   Enabled: true
 Style/FileEmpty:
   Enabled: true
+Style/FileNull:
+  Enabled: true
 Style/FileRead:
+  Enabled: true
+Style/FileTouch:
   Enabled: true
 Style/FileWrite:
   Enabled: true
@@ -494,9 +516,13 @@ Style/HashConversion:
   Enabled: true
 Style/HashExcept:
   Enabled: true
+Style/HashSlice:
+  Enabled: true
 Style/IfWithBooleanLiteralBranches:
   Enabled: true
 Style/InPatternThen:
+  Enabled: true
+Style/ItAssignment:
   Enabled: true
 Style/KeywordArgumentsMerging:
   Enabled: true
